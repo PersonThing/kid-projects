@@ -155,6 +155,7 @@
 		data = savedDrawing.data
 		gridSize = savedDrawing.gridSize
 		loaded = savedDrawing.name
+		resetGridSize()
 	}
 
 	function deleteSave(name) {
@@ -170,7 +171,6 @@
 		return d.length > row && d[row].length > column ? d[row][column] : 'white'
 	}
 
-	// let gridSizeTimeout = null
 	function resetGridSize() {
 		height = Math.floor((window.innerHeight - 200) / gridSize)
 		width = Math.floor((window.innerWidth - 50) / gridSize)

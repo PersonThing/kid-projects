@@ -4702,6 +4702,7 @@ var app = (function () {
     		$$invalidate(5, data = savedDrawing.data);
     		$$invalidate(2, gridSize = savedDrawing.gridSize);
     		$$invalidate(0, loaded = savedDrawing.name);
+    		resetGridSize();
     	}
 
     	function deleteSave(name) {
@@ -4713,7 +4714,6 @@ var app = (function () {
     		}
     	}
 
-    	// let gridSizeTimeout = null
     	function resetGridSize() {
     		height = Math.floor((window.innerHeight - 200) / gridSize);
     		width = Math.floor((window.innerWidth - 50) / gridSize);
