@@ -30,18 +30,20 @@
 
 <svelte:window on:mousedown={() => (mouseDown = true)} on:mouseup={() => (mouseDown = false)} on:resize={resetGridSize} />
 
-<table cellspacing="0">
+<svg width={width * gridSize} height={height * gridSize}>
 	{#each rows as row}
-		<tr>
-			{#each columns as column}
-				<td
-					style="background-color: {getCellColor(data, row, column)}; width: {gridSize}px; height: {gridSize}px;"
-					on:mousemove={() => onGridMousemove(row, column)}
-					on:click={e => onGridClick(e, row, column)} />
-			{/each}
-		</tr>
+		{#each columns as column}
+			<rect
+				y={row * gridSize}
+				x={column * gridSize}
+				fill={getCellColor(data, row, column)}
+				width={gridSize}
+				height={gridSize}
+				on:mousemove={() => onGridMousemove(row, column)}
+				on:click={e => onGridClick(e, row, column)} />
+		{/each}
 	{/each}
-</table>
+</svg>
 
 <script>
 	import LocalStorageStore from '../../stores/local-storage-store'
@@ -66,6 +68,7 @@
 		'#773b0b',
 		'#2828B8',
 		'#2850E0',
+		'#5050F8',
 		'#787CF8',
 		'#A00010',
 		'#F80020',
@@ -190,14 +193,13 @@
 		top: 5px;
 	}
 
-	table {
+	svg {
 		border-top: 1px solid #eee;
 		border-right: 1px solid #eee;
+		fill: #fff;
 	}
 
-	table td {
-		border-bottom: 1px solid #eee;
-		border-left: 1px solid #eee;
-		cursor: pointer;
+	svg rect {
+		stroke: #eee;
 	}
 </style>

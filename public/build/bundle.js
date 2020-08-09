@@ -4029,7 +4029,7 @@ var app = (function () {
     // (1:0) {#if savedNames.length}
     function create_if_block$3(ctx) {
     	let div;
-    	let each_value_3 = /*savedNames*/ ctx[7];
+    	let each_value_3 = /*savedNames*/ ctx[9];
     	validate_each_argument(each_value_3);
     	let each_blocks = [];
 
@@ -4055,8 +4055,8 @@ var app = (function () {
     			}
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*deleteSave, savedNames, loaded, load*/ 98433) {
-    				each_value_3 = /*savedNames*/ ctx[7];
+    			if (dirty[0] & /*deleteSave, savedNames, loaded, load*/ 393729) {
+    				each_value_3 = /*savedNames*/ ctx[9];
     				validate_each_argument(each_value_3);
     				let i;
 
@@ -4110,11 +4110,11 @@ var app = (function () {
     	let dispose;
 
     	function click_handler(...args) {
-    		return /*click_handler*/ ctx[20](/*savedDrawingName*/ ctx[41], ...args);
+    		return /*click_handler*/ ctx[22](/*savedDrawingName*/ ctx[41], ...args);
     	}
 
     	function click_handler_1(...args) {
-    		return /*click_handler_1*/ ctx[21](/*savedDrawingName*/ ctx[41], ...args);
+    		return /*click_handler_1*/ ctx[23](/*savedDrawingName*/ ctx[41], ...args);
     	}
 
     	const block = {
@@ -4156,9 +4156,9 @@ var app = (function () {
     		},
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
-    			if (dirty[0] & /*savedNames*/ 128 && t0_value !== (t0_value = /*savedDrawingName*/ ctx[41] + "")) set_data_dev(t0, t0_value);
+    			if (dirty[0] & /*savedNames*/ 512 && t0_value !== (t0_value = /*savedDrawingName*/ ctx[41] + "")) set_data_dev(t0, t0_value);
 
-    			if (dirty[0] & /*savedNames, loaded*/ 129 && button0_class_value !== (button0_class_value = "btn btn-sm btn-" + (/*savedDrawingName*/ ctx[41] == /*loaded*/ ctx[0]
+    			if (dirty[0] & /*savedNames, loaded*/ 513 && button0_class_value !== (button0_class_value = "btn btn-sm btn-" + (/*savedDrawingName*/ ctx[41] == /*loaded*/ ctx[0]
     			? "primary active"
     			: "secondary"))) {
     				attr_dev(button0, "class", button0_class_value);
@@ -4189,14 +4189,14 @@ var app = (function () {
     	let dispose;
 
     	function click_handler_3(...args) {
-    		return /*click_handler_3*/ ctx[24](/*color*/ ctx[38], ...args);
+    		return /*click_handler_3*/ ctx[26](/*color*/ ctx[38], ...args);
     	}
 
     	const block = {
     		c: function create() {
     			button = element("button");
     			set_style(button, "background-color", /*color*/ ctx[38]);
-    			attr_dev(button, "class", "svelte-1lpomlx");
+    			attr_dev(button, "class", "svelte-mumm61");
     			toggle_class(button, "active", /*color*/ ctx[38] == /*selectedColor*/ ctx[1]);
     			add_location(button, file$9, 25, 3, 814);
     		},
@@ -4211,7 +4211,7 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
 
-    			if (dirty[0] & /*colors, selectedColor*/ 514) {
+    			if (dirty[0] & /*colors, selectedColor*/ 2050) {
     				toggle_class(button, "active", /*color*/ ctx[38] == /*selectedColor*/ ctx[1]);
     			}
     		},
@@ -4233,36 +4233,41 @@ var app = (function () {
     	return block;
     }
 
-    // (36:3) {#each columns as column}
+    // (35:2) {#each columns as column}
     function create_each_block_1$1(ctx) {
-    	let td;
+    	let rect;
+    	let rect_y_value;
+    	let rect_x_value;
+    	let rect_fill_value;
     	let mounted;
     	let dispose;
 
     	function mousemove_handler(...args) {
-    		return /*mousemove_handler*/ ctx[25](/*row*/ ctx[32], /*column*/ ctx[35], ...args);
+    		return /*mousemove_handler*/ ctx[27](/*row*/ ctx[32], /*column*/ ctx[35], ...args);
     	}
 
     	function click_handler_4(...args) {
-    		return /*click_handler_4*/ ctx[26](/*row*/ ctx[32], /*column*/ ctx[35], ...args);
+    		return /*click_handler_4*/ ctx[28](/*row*/ ctx[32], /*column*/ ctx[35], ...args);
     	}
 
     	const block = {
     		c: function create() {
-    			td = element("td");
-    			set_style(td, "background-color", getCellColor(/*data*/ ctx[5], /*row*/ ctx[32], /*column*/ ctx[35]));
-    			set_style(td, "width", /*gridSize*/ ctx[2] + "px");
-    			set_style(td, "height", /*gridSize*/ ctx[2] + "px");
-    			attr_dev(td, "class", "svelte-1lpomlx");
-    			add_location(td, file$9, 36, 4, 1168);
+    			rect = svg_element("rect");
+    			attr_dev(rect, "y", rect_y_value = /*row*/ ctx[32] * /*gridSize*/ ctx[2]);
+    			attr_dev(rect, "x", rect_x_value = /*column*/ ctx[35] * /*gridSize*/ ctx[2]);
+    			attr_dev(rect, "fill", rect_fill_value = getCellColor(/*data*/ ctx[7], /*row*/ ctx[32], /*column*/ ctx[35]));
+    			attr_dev(rect, "width", /*gridSize*/ ctx[2]);
+    			attr_dev(rect, "height", /*gridSize*/ ctx[2]);
+    			attr_dev(rect, "class", "svelte-mumm61");
+    			add_location(rect, file$9, 35, 3, 1193);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, td, anchor);
+    			insert_dev(target, rect, anchor);
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(td, "mousemove", mousemove_handler, false, false, false),
-    					listen_dev(td, "click", click_handler_4, false, false, false)
+    					listen_dev(rect, "mousemove", mousemove_handler, false, false, false),
+    					listen_dev(rect, "click", click_handler_4, false, false, false)
     				];
 
     				mounted = true;
@@ -4271,20 +4276,28 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
 
-    			if (dirty[0] & /*data, rows, columns*/ 56) {
-    				set_style(td, "background-color", getCellColor(/*data*/ ctx[5], /*row*/ ctx[32], /*column*/ ctx[35]));
+    			if (dirty[0] & /*rows, gridSize*/ 36 && rect_y_value !== (rect_y_value = /*row*/ ctx[32] * /*gridSize*/ ctx[2])) {
+    				attr_dev(rect, "y", rect_y_value);
+    			}
+
+    			if (dirty[0] & /*columns, gridSize*/ 68 && rect_x_value !== (rect_x_value = /*column*/ ctx[35] * /*gridSize*/ ctx[2])) {
+    				attr_dev(rect, "x", rect_x_value);
+    			}
+
+    			if (dirty[0] & /*data, rows, columns*/ 224 && rect_fill_value !== (rect_fill_value = getCellColor(/*data*/ ctx[7], /*row*/ ctx[32], /*column*/ ctx[35]))) {
+    				attr_dev(rect, "fill", rect_fill_value);
     			}
 
     			if (dirty[0] & /*gridSize*/ 4) {
-    				set_style(td, "width", /*gridSize*/ ctx[2] + "px");
+    				attr_dev(rect, "width", /*gridSize*/ ctx[2]);
     			}
 
     			if (dirty[0] & /*gridSize*/ 4) {
-    				set_style(td, "height", /*gridSize*/ ctx[2] + "px");
+    				attr_dev(rect, "height", /*gridSize*/ ctx[2]);
     			}
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(td);
+    			if (detaching) detach_dev(rect);
     			mounted = false;
     			run_all(dispose);
     		}
@@ -4294,7 +4307,7 @@ var app = (function () {
     		block,
     		id: create_each_block_1$1.name,
     		type: "each",
-    		source: "(36:3) {#each columns as column}",
+    		source: "(35:2) {#each columns as column}",
     		ctx
     	});
 
@@ -4303,9 +4316,8 @@ var app = (function () {
 
     // (34:1) {#each rows as row}
     function create_each_block$2(ctx) {
-    	let tr;
-    	let t;
-    	let each_value_1 = /*columns*/ ctx[4];
+    	let each_1_anchor;
+    	let each_value_1 = /*columns*/ ctx[6];
     	validate_each_argument(each_value_1);
     	let each_blocks = [];
 
@@ -4315,27 +4327,22 @@ var app = (function () {
 
     	const block = {
     		c: function create() {
-    			tr = element("tr");
-
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
 
-    			t = space();
-    			add_location(tr, file$9, 34, 2, 1130);
+    			each_1_anchor = empty();
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, tr, anchor);
-
     			for (let i = 0; i < each_blocks.length; i += 1) {
-    				each_blocks[i].m(tr, null);
+    				each_blocks[i].m(target, anchor);
     			}
 
-    			append_dev(tr, t);
+    			insert_dev(target, each_1_anchor, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*data, rows, columns, gridSize, onGridMousemove, onGridClick*/ 6204) {
-    				each_value_1 = /*columns*/ ctx[4];
+    			if (dirty[0] & /*rows, gridSize, columns, data, onGridMousemove, onGridClick*/ 24804) {
+    				each_value_1 = /*columns*/ ctx[6];
     				validate_each_argument(each_value_1);
     				let i;
 
@@ -4347,7 +4354,7 @@ var app = (function () {
     					} else {
     						each_blocks[i] = create_each_block_1$1(child_ctx);
     						each_blocks[i].c();
-    						each_blocks[i].m(tr, t);
+    						each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
     					}
     				}
 
@@ -4359,8 +4366,8 @@ var app = (function () {
     			}
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(tr);
     			destroy_each(each_blocks, detaching);
+    			if (detaching) detach_dev(each_1_anchor);
     		}
     	};
 
@@ -4388,11 +4395,13 @@ var app = (function () {
     	let t5;
     	let div2;
     	let t6;
-    	let table;
+    	let svg;
+    	let svg_width_value;
+    	let svg_height_value;
     	let mounted;
     	let dispose;
-    	let if_block = /*savedNames*/ ctx[7].length && create_if_block$3(ctx);
-    	let each_value_2 = /*colors*/ ctx[9];
+    	let if_block = /*savedNames*/ ctx[9].length && create_if_block$3(ctx);
+    	let each_value_2 = /*colors*/ ctx[11];
     	validate_each_argument(each_value_2);
     	let each_blocks_1 = [];
 
@@ -4400,7 +4409,7 @@ var app = (function () {
     		each_blocks_1[i] = create_each_block_2(get_each_context_2(ctx, each_value_2, i));
     	}
 
-    	let each_value = /*rows*/ ctx[3];
+    	let each_value = /*rows*/ ctx[5];
     	validate_each_argument(each_value);
     	let each_blocks = [];
 
@@ -4430,7 +4439,7 @@ var app = (function () {
     			}
 
     			t6 = space();
-    			table = element("table");
+    			svg = svg_element("svg");
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
@@ -4448,13 +4457,14 @@ var app = (function () {
     			add_location(button1, file$9, 20, 2, 656);
     			attr_dev(div1, "class", "btn-group");
     			add_location(div1, file$9, 18, 1, 558);
-    			attr_dev(div2, "class", "btn-group color-picker svelte-1lpomlx");
+    			attr_dev(div2, "class", "btn-group color-picker svelte-mumm61");
     			add_location(div2, file$9, 23, 1, 748);
     			attr_dev(div3, "class", "btn-toolbar");
     			add_location(div3, file$9, 17, 0, 531);
-    			attr_dev(table, "cellspacing", "0");
-    			attr_dev(table, "class", "svelte-1lpomlx");
-    			add_location(table, file$9, 32, 0, 1083);
+    			attr_dev(svg, "width", svg_width_value = /*width*/ ctx[4] * /*gridSize*/ ctx[2]);
+    			attr_dev(svg, "height", svg_height_value = /*height*/ ctx[3] * /*gridSize*/ ctx[2]);
+    			attr_dev(svg, "class", "svelte-mumm61");
+    			add_location(svg, file$9, 32, 0, 1083);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -4479,28 +4489,28 @@ var app = (function () {
     			}
 
     			insert_dev(target, t6, anchor);
-    			insert_dev(target, table, anchor);
+    			insert_dev(target, svg, anchor);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
-    				each_blocks[i].m(table, null);
+    				each_blocks[i].m(svg, null);
     			}
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(window_1$1, "mousedown", /*mousedown_handler*/ ctx[18], false, false, false),
-    					listen_dev(window_1$1, "mouseup", /*mouseup_handler*/ ctx[19], false, false, false),
-    					listen_dev(window_1$1, "resize", /*resetGridSize*/ ctx[17], false, false, false),
-    					listen_dev(input, "input", /*input_input_handler*/ ctx[22]),
-    					listen_dev(input, "change", /*resetGridSize*/ ctx[17], false, false, false),
-    					listen_dev(button0, "click", /*reset*/ ctx[10], false, false, false),
-    					listen_dev(button1, "click", /*click_handler_2*/ ctx[23], false, false, false)
+    					listen_dev(window_1$1, "mousedown", /*mousedown_handler*/ ctx[20], false, false, false),
+    					listen_dev(window_1$1, "mouseup", /*mouseup_handler*/ ctx[21], false, false, false),
+    					listen_dev(window_1$1, "resize", /*resetGridSize*/ ctx[19], false, false, false),
+    					listen_dev(input, "input", /*input_input_handler*/ ctx[24]),
+    					listen_dev(input, "change", /*resetGridSize*/ ctx[19], false, false, false),
+    					listen_dev(button0, "click", /*reset*/ ctx[12], false, false, false),
+    					listen_dev(button1, "click", /*click_handler_2*/ ctx[25], false, false, false)
     				];
 
     				mounted = true;
     			}
     		},
     		p: function update(ctx, dirty) {
-    			if (/*savedNames*/ ctx[7].length) {
+    			if (/*savedNames*/ ctx[9].length) {
     				if (if_block) {
     					if_block.p(ctx, dirty);
     				} else {
@@ -4517,8 +4527,8 @@ var app = (function () {
     				set_input_value(input, /*gridSize*/ ctx[2]);
     			}
 
-    			if (dirty[0] & /*colors, selectedColor, selectColor*/ 8706) {
-    				each_value_2 = /*colors*/ ctx[9];
+    			if (dirty[0] & /*colors, selectedColor, selectColor*/ 34818) {
+    				each_value_2 = /*colors*/ ctx[11];
     				validate_each_argument(each_value_2);
     				let i;
 
@@ -4541,8 +4551,8 @@ var app = (function () {
     				each_blocks_1.length = each_value_2.length;
     			}
 
-    			if (dirty[0] & /*columns, data, rows, gridSize, onGridMousemove, onGridClick*/ 6204) {
-    				each_value = /*rows*/ ctx[3];
+    			if (dirty[0] & /*columns, rows, gridSize, data, onGridMousemove, onGridClick*/ 24804) {
+    				each_value = /*rows*/ ctx[5];
     				validate_each_argument(each_value);
     				let i;
 
@@ -4554,7 +4564,7 @@ var app = (function () {
     					} else {
     						each_blocks[i] = create_each_block$2(child_ctx);
     						each_blocks[i].c();
-    						each_blocks[i].m(table, null);
+    						each_blocks[i].m(svg, null);
     					}
     				}
 
@@ -4563,6 +4573,14 @@ var app = (function () {
     				}
 
     				each_blocks.length = each_value.length;
+    			}
+
+    			if (dirty[0] & /*width, gridSize*/ 20 && svg_width_value !== (svg_width_value = /*width*/ ctx[4] * /*gridSize*/ ctx[2])) {
+    				attr_dev(svg, "width", svg_width_value);
+    			}
+
+    			if (dirty[0] & /*height, gridSize*/ 12 && svg_height_value !== (svg_height_value = /*height*/ ctx[3] * /*gridSize*/ ctx[2])) {
+    				attr_dev(svg, "height", svg_height_value);
     			}
     		},
     		i: noop,
@@ -4575,7 +4593,7 @@ var app = (function () {
     			if (detaching) detach_dev(div3);
     			destroy_each(each_blocks_1, detaching);
     			if (detaching) detach_dev(t6);
-    			if (detaching) detach_dev(table);
+    			if (detaching) detach_dev(svg);
     			destroy_each(each_blocks, detaching);
     			mounted = false;
     			run_all(dispose);
@@ -4626,6 +4644,7 @@ var app = (function () {
     		"#773b0b",
     		"#2828B8",
     		"#2850E0",
+    		"#5050F8",
     		"#787CF8",
     		"#A00010",
     		"#F80020",
@@ -4645,7 +4664,7 @@ var app = (function () {
 
     	function reset() {
     		resetGridSize();
-    		$$invalidate(5, data = buildRows(height));
+    		$$invalidate(7, data = buildRows(height));
     		$$invalidate(0, loaded = null);
     	}
 
@@ -4670,11 +4689,11 @@ var app = (function () {
     		if (row > data.length) {
     			const rowsNeeded = height - data.length;
     			console.log("trying to set row ", row, " but only have ", data.length, " adding " + rowsNeeded);
-    			$$invalidate(5, data = data.concat(buildRows(rowsNeeded)));
+    			$$invalidate(7, data = data.concat(buildRows(rowsNeeded)));
     		}
 
     		// don't need to worry about columns.. they get auto-filled with null
-    		$$invalidate(5, data[row][column] = color, data);
+    		$$invalidate(7, data[row][column] = color, data);
     	}
 
     	function selectColor(color) {
@@ -4699,7 +4718,7 @@ var app = (function () {
     			set_store_value(savedDrawings, $savedDrawings[name] = savedDrawing, $savedDrawings);
     		}
 
-    		$$invalidate(5, data = savedDrawing.data);
+    		$$invalidate(7, data = savedDrawing.data);
     		$$invalidate(2, gridSize = savedDrawing.gridSize);
     		$$invalidate(0, loaded = savedDrawing.name);
     		resetGridSize();
@@ -4715,10 +4734,10 @@ var app = (function () {
     	}
 
     	function resetGridSize() {
-    		height = Math.floor((window.innerHeight - 200) / gridSize);
-    		width = Math.floor((window.innerWidth - 50) / gridSize);
-    		$$invalidate(3, rows = [...Array(height)].map((_, i) => i));
-    		$$invalidate(4, columns = [...Array(width)].map((_, i) => i));
+    		$$invalidate(3, height = Math.floor((window.innerHeight - 200) / gridSize));
+    		$$invalidate(4, width = Math.floor((window.innerWidth - 50) / gridSize));
+    		$$invalidate(5, rows = [...Array(height)].map((_, i) => i));
+    		$$invalidate(6, columns = [...Array(width)].map((_, i) => i));
     	}
 
     	const writable_props = [];
@@ -4729,8 +4748,8 @@ var app = (function () {
 
     	let { $$slots = {}, $$scope } = $$props;
     	validate_slots("Index", $$slots, []);
-    	const mousedown_handler = () => $$invalidate(6, mouseDown = true);
-    	const mouseup_handler = () => $$invalidate(6, mouseDown = false);
+    	const mousedown_handler = () => $$invalidate(8, mouseDown = true);
+    	const mouseup_handler = () => $$invalidate(8, mouseDown = false);
     	const click_handler = savedDrawingName => load(savedDrawingName);
     	const click_handler_1 = savedDrawingName => deleteSave(savedDrawingName);
 
@@ -4777,13 +4796,13 @@ var app = (function () {
     		if ("loaded" in $$props) $$invalidate(0, loaded = $$props.loaded);
     		if ("selectedColor" in $$props) $$invalidate(1, selectedColor = $$props.selectedColor);
     		if ("gridSize" in $$props) $$invalidate(2, gridSize = $$props.gridSize);
-    		if ("height" in $$props) height = $$props.height;
-    		if ("width" in $$props) width = $$props.width;
-    		if ("rows" in $$props) $$invalidate(3, rows = $$props.rows);
-    		if ("columns" in $$props) $$invalidate(4, columns = $$props.columns);
-    		if ("data" in $$props) $$invalidate(5, data = $$props.data);
-    		if ("mouseDown" in $$props) $$invalidate(6, mouseDown = $$props.mouseDown);
-    		if ("savedNames" in $$props) $$invalidate(7, savedNames = $$props.savedNames);
+    		if ("height" in $$props) $$invalidate(3, height = $$props.height);
+    		if ("width" in $$props) $$invalidate(4, width = $$props.width);
+    		if ("rows" in $$props) $$invalidate(5, rows = $$props.rows);
+    		if ("columns" in $$props) $$invalidate(6, columns = $$props.columns);
+    		if ("data" in $$props) $$invalidate(7, data = $$props.data);
+    		if ("mouseDown" in $$props) $$invalidate(8, mouseDown = $$props.mouseDown);
+    		if ("savedNames" in $$props) $$invalidate(9, savedNames = $$props.savedNames);
     	};
 
     	let savedNames;
@@ -4794,7 +4813,7 @@ var app = (function () {
 
     	$$self.$$.update = () => {
     		if ($$self.$$.dirty[0] & /*$savedDrawings*/ 536870912) {
-    			 $$invalidate(7, savedNames = Object.keys($savedDrawings));
+    			 $$invalidate(9, savedNames = Object.keys($savedDrawings));
     		}
     	};
 
@@ -4802,6 +4821,8 @@ var app = (function () {
     		loaded,
     		selectedColor,
     		gridSize,
+    		height,
+    		width,
     		rows,
     		columns,
     		data,
