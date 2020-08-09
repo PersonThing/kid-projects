@@ -46,7 +46,7 @@
 			<rect
 				y={row * gridSize}
 				x={column * gridSize}
-				fill={getCellColor(data, row, column)}
+				style="fill: {getCellColor(data, row, column)}"
 				width={gridSize}
 				height={gridSize}
 				data-row={row}
@@ -108,9 +108,13 @@
 	}
 
 	function onSvgMouseDown(e) {
-		addUndoState()
-		mouseDown = true
-		onSvgMouseMove(e.target)
+		if (e.altKey) {
+			selectedColor = e.target.style.fill
+		} else {
+			addUndoState()
+			mouseDown = true
+			onSvgMouseMove(e.target)
+		}
 	}
 
 	function onSvgMouseUp(e) {
@@ -238,9 +242,10 @@
 	svg {
 		fill: #fff;
 		padding: 5px;
+		border: 1px solid #eee;
 	}
 
 	svg rect {
-		stroke: #eee;
+		/* stroke: #eee; */
 	}
 </style>

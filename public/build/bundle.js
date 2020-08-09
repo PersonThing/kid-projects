@@ -4200,7 +4200,7 @@ var app = (function () {
     		c: function create() {
     			button = element("button");
     			set_style(button, "background-color", /*color*/ ctx[42]);
-    			attr_dev(button, "class", "svelte-145ma5l");
+    			attr_dev(button, "class", "svelte-1b96pm8");
     			toggle_class(button, "active", /*color*/ ctx[42] == /*selectedColor*/ ctx[1]);
     			add_location(button, file$9, 32, 3, 1182);
     		},
@@ -4242,7 +4242,6 @@ var app = (function () {
     	let rect;
     	let rect_y_value;
     	let rect_x_value;
-    	let rect_fill_value;
     	let rect_data_row_value;
     	let rect_data_column_value;
 
@@ -4251,12 +4250,12 @@ var app = (function () {
     			rect = svg_element("rect");
     			attr_dev(rect, "y", rect_y_value = /*row*/ ctx[36] * /*gridSize*/ ctx[2]);
     			attr_dev(rect, "x", rect_x_value = /*column*/ ctx[39] * /*gridSize*/ ctx[2]);
-    			attr_dev(rect, "fill", rect_fill_value = getCellColor(/*data*/ ctx[7], /*row*/ ctx[36], /*column*/ ctx[39]));
+    			set_style(rect, "fill", getCellColor(/*data*/ ctx[7], /*row*/ ctx[36], /*column*/ ctx[39]));
     			attr_dev(rect, "width", /*gridSize*/ ctx[2]);
     			attr_dev(rect, "height", /*gridSize*/ ctx[2]);
     			attr_dev(rect, "data-row", rect_data_row_value = /*row*/ ctx[36]);
     			attr_dev(rect, "data-column", rect_data_column_value = /*column*/ ctx[39]);
-    			attr_dev(rect, "class", "svelte-145ma5l");
+    			attr_dev(rect, "class", "svelte-1b96pm8");
     			add_location(rect, file$9, 45, 3, 1555);
     		},
     		m: function mount(target, anchor) {
@@ -4271,8 +4270,8 @@ var app = (function () {
     				attr_dev(rect, "x", rect_x_value);
     			}
 
-    			if (dirty[0] & /*data, rows, columns*/ 1664 && rect_fill_value !== (rect_fill_value = getCellColor(/*data*/ ctx[7], /*row*/ ctx[36], /*column*/ ctx[39]))) {
-    				attr_dev(rect, "fill", rect_fill_value);
+    			if (dirty[0] & /*data, rows, columns*/ 1664) {
+    				set_style(rect, "fill", getCellColor(/*data*/ ctx[7], /*row*/ ctx[36], /*column*/ ctx[39]));
     			}
 
     			if (dirty[0] & /*gridSize*/ 4) {
@@ -4494,13 +4493,13 @@ var app = (function () {
     			add_location(button3, file$9, 27, 2, 993);
     			attr_dev(div2, "class", "btn-group");
     			add_location(div2, file$9, 25, 1, 852);
-    			attr_dev(div3, "class", "btn-group color-picker svelte-145ma5l");
+    			attr_dev(div3, "class", "btn-group color-picker svelte-1b96pm8");
     			add_location(div3, file$9, 30, 1, 1116);
     			attr_dev(div4, "class", "btn-toolbar");
     			add_location(div4, file$9, 19, 0, 635);
     			attr_dev(svg, "width", svg_width_value = /*width*/ ctx[4] * (/*gridSize*/ ctx[2] + 2));
     			attr_dev(svg, "height", svg_height_value = /*height*/ ctx[3] * (/*gridSize*/ ctx[2] + 2));
-    			attr_dev(svg, "class", "svelte-145ma5l");
+    			attr_dev(svg, "class", "svelte-1b96pm8");
     			add_location(svg, file$9, 37, 0, 1327);
     		},
     		l: function claim(nodes) {
@@ -4745,9 +4744,13 @@ var app = (function () {
     	}
 
     	function onSvgMouseDown(e) {
-    		addUndoState();
-    		mouseDown = true;
-    		onSvgMouseMove(e.target);
+    		if (e.altKey) {
+    			$$invalidate(1, selectedColor = e.target.style.fill);
+    		} else {
+    			addUndoState();
+    			mouseDown = true;
+    			onSvgMouseMove(e.target);
+    		}
     	}
 
     	function onSvgMouseUp(e) {
