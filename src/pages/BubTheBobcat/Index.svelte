@@ -293,7 +293,7 @@
 <style>
 	.game-window {
 		width: 100%;
-		height: 100%;
+		height: 80vh;
 		min-height: 600px;
 		display: flex;
 		flex-direction: column;

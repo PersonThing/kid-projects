@@ -8,17 +8,11 @@
 </ul>
 
 <main>
-	<!-- <Router>
-		<Route path="pixel-art-maker" component={PixelArtMaker} />
-		<Route path="bub-the-bobcat" component={BubTheBobcat} />
-  </Router> -->
-
 	<Router {routes} />
 </main>
 
 <script>
-	// import { Router, Route, links } from 'svelte-routing'
-
+	// svelte-spa-router for hash routing since this is just going to be hosted on github pages
 	import Router from 'svelte-spa-router'
 	import BubTheBobcat from './pages/BubTheBobcat/Index.svelte'
 	import PixelArtMaker from './pages/PixelArtMaker/Index.svelte'
