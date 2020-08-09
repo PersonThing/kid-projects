@@ -78,8 +78,8 @@
 	let loaded = null
 	const colors = [
 		'white',
-		'#A0A4A0',
 		'#ccc',
+		'#A0A4A0',
 		'#666',
 		'#333',
 		'black',
