@@ -2,7 +2,7 @@
 	<HealthBar {health} {maxHealth} />
 	<svg
 		class="graphic"
-		style="left: 15px; width: {size}px; height: {size * 0.75}px; transform: scaleX({-1 * direction}) rotate({-4 + (momentum.y > 0 ? momentum.y * 3 : momentum.y * 1.5)}deg);
+		style="left: 15px; width: {size}px; height: {size}px; transform: scaleX({-1 * direction}) rotate({-4 + (momentum.y > 0 ? momentum.y * 3 : momentum.y * 1.5)}deg);
 		opacity: {health <= 0 ? 0.2 : 1.0}"
 		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 10 1024 749"

@@ -53,6 +53,7 @@
 			height={height * (gridSize + 2)}
 			on:mousedown={onSvgMouseDown}
 			on:mouseup={onSvgMouseUp}
+			on:contextmenu|preventDefault
 			on:mousemove={e => onSvgMouseMove(e.target)}>
 			{#each rows as row}
 				{#each columns as column}
@@ -150,13 +151,8 @@
 	}
 
 	function onSvgMouseDown(e) {
-		if (e.altKey) {
+		if (e.altKey || e.button !== 0) {
 			selectedColor = e.target.style.fill
-
-			const nodes = document.querySelectorAll('svg > rect')
-			for (let i = 0; i < nodes.length; i++) {
-				console.log(nodes[i].style.fill)
-			}
 		} else {
 			addUndoState()
 			mouseDown = true
@@ -294,8 +290,7 @@
 	}
 
 	.color-picker button.active {
-		height: 50px;
-		width: 45px;
+		width: 50px;
 	}
 
 	svg {
