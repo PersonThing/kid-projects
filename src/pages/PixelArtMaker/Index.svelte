@@ -11,10 +11,19 @@
 	</div>
 {/if}
 
-<div>
-	<input type="number" bind:value={gridSize} min="15" max="50" step="5" />
-	<input type="number" bind:value={width} placeholder="Width" />
-	<input type="number" bind:value={height} placeholder="Height" />
+<div class="flex">
+	<div>
+		Grid size
+		<input type="number" bind:value={gridSize} min="15" max="50" step="5" />
+	</div>
+	<div>
+		Height
+		<input type="number" bind:value={height} placeholder="Height" />
+	</div>
+	<div>
+		Width
+		<input type="number" bind:value={width} placeholder="Width" />
+	</div>
 	<label>
 		<input type="checkbox" bind:checked={showGrid} />
 		Show grid
@@ -191,6 +200,7 @@
 			width,
 			height,
 			data,
+			showGrid,
 		}
 		loaded = name
 	}
@@ -207,6 +217,7 @@
 				width: 50,
 				height: 40,
 				data: savedDrawing,
+				showGrid,
 			}
 			$savedDrawings[name] = savedDrawing
 		}
@@ -215,9 +226,10 @@
 		gridSize = savedDrawing.gridSize
 		width = savedDrawing.width || savedDrawing.data[0].length
 		height = savedDrawing.height || savedDrawing.data.length
+		showGrid = savedDrawing.showGrid || showGrid
 		undos = []
 		redos = []
-		loaded = savedDrawing.name
+		loaded = name
 	}
 
 	function deleteSave(name) {
@@ -248,5 +260,17 @@
 	svg {
 		fill: #fff;
 		padding: 5px;
+	}
+
+	.flex {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
+	.flex > * {
+		margin-right: 5px;
+	}
+	.flex input[type='number'] {
+		width: 50px;
 	}
 </style>
