@@ -4049,7 +4049,7 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			attr_dev(div, "class", "svelte-eg72la");
+    			attr_dev(div, "class", "svelte-1b0we7k");
     			add_location(div, file$9, 1, 1, 25);
     		},
     		m: function mount(target, anchor) {
@@ -4187,7 +4187,7 @@ var app = (function () {
     	return block;
     }
 
-    // (45:2) {#each colors as color}
+    // (45:3) {#each colors as color}
     function create_each_block_2(ctx) {
     	let button;
     	let mounted;
@@ -4201,9 +4201,9 @@ var app = (function () {
     		c: function create() {
     			button = element("button");
     			set_style(button, "background-color", /*color*/ ctx[44]);
-    			attr_dev(button, "class", "svelte-eg72la");
+    			attr_dev(button, "class", "svelte-1b0we7k");
     			toggle_class(button, "active", /*color*/ ctx[44] == /*selectedColor*/ ctx[1]);
-    			add_location(button, file$9, 45, 3, 1355);
+    			add_location(button, file$9, 45, 4, 1344);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
@@ -4231,14 +4231,14 @@ var app = (function () {
     		block,
     		id: create_each_block_2.name,
     		type: "each",
-    		source: "(45:2) {#each colors as color}",
+    		source: "(45:3) {#each colors as color}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (58:2) {#each columns as column}
+    // (58:4) {#each columns as column}
     function create_each_block_1$1(ctx) {
     	let rect;
     	let rect_y_value;
@@ -4258,7 +4258,7 @@ var app = (function () {
     			attr_dev(rect, "data-row", rect_data_row_value = /*row*/ ctx[38]);
     			attr_dev(rect, "data-column", rect_data_column_value = /*column*/ ctx[41]);
     			attr_dev(rect, "stroke", rect_stroke_value = /*showGrid*/ ctx[7] ? "#eee" : null);
-    			add_location(rect, file$9, 58, 3, 1728);
+    			add_location(rect, file$9, 58, 5, 1762);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, rect, anchor);
@@ -4305,14 +4305,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1$1.name,
     		type: "each",
-    		source: "(58:2) {#each columns as column}",
+    		source: "(58:4) {#each columns as column}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (57:1) {#each rows as row}
+    // (57:3) {#each rows as row}
     function create_each_block$2(ctx) {
     	let each_1_anchor;
     	let each_value_1 = /*columns*/ ctx[11];
@@ -4373,7 +4373,7 @@ var app = (function () {
     		block,
     		id: create_each_block$2.name,
     		type: "each",
-    		source: "(57:1) {#each rows as row}",
+    		source: "(57:3) {#each rows as row}",
     		ctx
     	});
 
@@ -4382,44 +4382,45 @@ var app = (function () {
 
     function create_fragment$a(ctx) {
     	let t0;
-    	let div3;
-    	let div0;
-    	let t1;
-    	let input0;
-    	let t2;
-    	let div1;
-    	let t3;
-    	let input1;
-    	let t4;
-    	let div2;
-    	let t5;
-    	let input2;
-    	let t6;
-    	let label;
-    	let input3;
-    	let t7;
-    	let t8;
-    	let div7;
     	let div4;
     	let button0;
-    	let t10;
+    	let t2;
     	let button1;
-    	let t12;
-    	let div5;
+    	let t4;
+    	let div0;
     	let button2;
-    	let t13;
-    	let t14_value = /*undos*/ ctx[5].length + "";
-    	let t14;
+    	let t5;
+    	let t6_value = /*undos*/ ctx[5].length + "";
+    	let t6;
     	let button2_disabled_value;
-    	let t15;
+    	let t7;
     	let button3;
-    	let t16;
-    	let t17_value = /*redos*/ ctx[6].length + "";
-    	let t17;
+    	let t8;
+    	let t9_value = /*redos*/ ctx[6].length + "";
+    	let t9;
     	let button3_disabled_value;
+    	let t10;
+    	let div1;
+    	let t11;
+    	let input0;
+    	let t12;
+    	let div2;
+    	let t13;
+    	let input1;
+    	let t14;
+    	let div3;
+    	let t15;
+    	let input2;
+    	let t16;
+    	let label;
+    	let input3;
+    	let t17;
     	let t18;
+    	let div8;
     	let div6;
+    	let div5;
     	let t19;
+    	let div7;
     	let svg;
     	let svg_width_value;
     	let svg_height_value;
@@ -4446,101 +4447,104 @@ var app = (function () {
     		c: function create() {
     			if (if_block) if_block.c();
     			t0 = space();
-    			div3 = element("div");
-    			div0 = element("div");
-    			t1 = text("Grid size\n\t\t");
-    			input0 = element("input");
-    			t2 = space();
-    			div1 = element("div");
-    			t3 = text("Height\n\t\t");
-    			input1 = element("input");
-    			t4 = space();
-    			div2 = element("div");
-    			t5 = text("Width\n\t\t");
-    			input2 = element("input");
-    			t6 = space();
-    			label = element("label");
-    			input3 = element("input");
-    			t7 = text("\n\t\tShow grid");
-    			t8 = space();
-    			div7 = element("div");
     			div4 = element("div");
     			button0 = element("button");
-    			button0.textContent = "Reset";
-    			t10 = space();
+    			button0.textContent = "Save";
+    			t2 = space();
     			button1 = element("button");
-    			button1.textContent = "Save";
-    			t12 = space();
-    			div5 = element("div");
+    			button1.textContent = "Reset";
+    			t4 = space();
+    			div0 = element("div");
     			button2 = element("button");
-    			t13 = text("Undo ");
-    			t14 = text(t14_value);
-    			t15 = space();
+    			t5 = text("Undo ");
+    			t6 = text(t6_value);
+    			t7 = space();
     			button3 = element("button");
-    			t16 = text("Redo ");
-    			t17 = text(t17_value);
+    			t8 = text("Redo ");
+    			t9 = text(t9_value);
+    			t10 = space();
+    			div1 = element("div");
+    			t11 = text("Grid size\n\t\t");
+    			input0 = element("input");
+    			t12 = space();
+    			div2 = element("div");
+    			t13 = text("Height\n\t\t");
+    			input1 = element("input");
+    			t14 = space();
+    			div3 = element("div");
+    			t15 = text("Width\n\t\t");
+    			input2 = element("input");
+    			t16 = space();
+    			label = element("label");
+    			input3 = element("input");
+    			t17 = text("\n\t\tShow grid");
     			t18 = space();
+    			div8 = element("div");
     			div6 = element("div");
+    			div5 = element("div");
 
     			for (let i = 0; i < each_blocks_1.length; i += 1) {
     				each_blocks_1[i].c();
     			}
 
     			t19 = space();
+    			div7 = element("div");
     			svg = svg_element("svg");
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
 
+    			attr_dev(button0, "class", "btn btn-success btn-sm mr-2 svelte-1b0we7k");
+    			add_location(button0, file$9, 14, 1, 437);
+    			attr_dev(button1, "class", "btn btn-secondary btn-sm svelte-1b0we7k");
+    			add_location(button1, file$9, 15, 1, 520);
+    			button2.disabled = button2_disabled_value = /*undos*/ ctx[5].length == 0;
+    			attr_dev(button2, "class", "btn btn-default btn-sm");
+    			add_location(button2, file$9, 18, 2, 621);
+    			button3.disabled = button3_disabled_value = /*redos*/ ctx[6].length == 0;
+    			attr_dev(button3, "class", "btn btn-default btn-sm");
+    			add_location(button3, file$9, 19, 2, 736);
+    			attr_dev(div0, "class", "btn-group svelte-1b0we7k");
+    			add_location(div0, file$9, 17, 1, 595);
     			attr_dev(input0, "type", "number");
     			attr_dev(input0, "min", "15");
     			attr_dev(input0, "max", "50");
     			attr_dev(input0, "step", "5");
-    			attr_dev(input0, "class", "svelte-eg72la");
-    			add_location(input0, file$9, 16, 2, 457);
-    			attr_dev(div0, "class", "svelte-eg72la");
-    			add_location(div0, file$9, 14, 1, 437);
+    			attr_dev(input0, "class", "svelte-1b0we7k");
+    			add_location(input0, file$9, 24, 2, 879);
+    			attr_dev(div1, "class", "svelte-1b0we7k");
+    			add_location(div1, file$9, 22, 1, 859);
     			attr_dev(input1, "type", "number");
     			attr_dev(input1, "placeholder", "Height");
-    			attr_dev(input1, "class", "svelte-eg72la");
-    			add_location(input1, file$9, 20, 2, 556);
-    			attr_dev(div1, "class", "svelte-eg72la");
-    			add_location(div1, file$9, 18, 1, 539);
+    			attr_dev(input1, "class", "svelte-1b0we7k");
+    			add_location(input1, file$9, 28, 2, 978);
+    			attr_dev(div2, "class", "svelte-1b0we7k");
+    			add_location(div2, file$9, 26, 1, 961);
     			attr_dev(input2, "type", "number");
     			attr_dev(input2, "placeholder", "Width");
-    			attr_dev(input2, "class", "svelte-eg72la");
-    			add_location(input2, file$9, 24, 2, 646);
-    			attr_dev(div2, "class", "svelte-eg72la");
-    			add_location(div2, file$9, 22, 1, 630);
+    			attr_dev(input2, "class", "svelte-1b0we7k");
+    			add_location(input2, file$9, 32, 2, 1068);
+    			attr_dev(div3, "class", "svelte-1b0we7k");
+    			add_location(div3, file$9, 30, 1, 1052);
     			attr_dev(input3, "type", "checkbox");
-    			add_location(input3, file$9, 27, 2, 728);
-    			attr_dev(label, "class", "svelte-eg72la");
-    			add_location(label, file$9, 26, 1, 718);
-    			attr_dev(div3, "class", "flex svelte-eg72la");
-    			add_location(div3, file$9, 13, 0, 417);
-    			attr_dev(button0, "class", "btn btn-danger btn-sm");
-    			add_location(button0, file$9, 34, 2, 861);
-    			attr_dev(button1, "class", "btn btn-primary btn-sm mr-2");
-    			add_location(button1, file$9, 35, 2, 933);
-    			attr_dev(div4, "class", "btn-group");
-    			add_location(div4, file$9, 33, 1, 835);
-    			button2.disabled = button2_disabled_value = /*undos*/ ctx[5].length == 0;
-    			attr_dev(button2, "class", "btn btn-default btn-sm");
-    			add_location(button2, file$9, 39, 2, 1051);
-    			button3.disabled = button3_disabled_value = /*redos*/ ctx[6].length == 0;
-    			attr_dev(button3, "class", "btn btn-default btn-sm");
-    			add_location(button3, file$9, 40, 2, 1166);
-    			attr_dev(div5, "class", "btn-group");
-    			add_location(div5, file$9, 38, 1, 1025);
-    			attr_dev(div6, "class", "btn-group color-picker svelte-eg72la");
-    			add_location(div6, file$9, 43, 1, 1289);
-    			attr_dev(div7, "class", "btn-toolbar svelte-eg72la");
-    			add_location(div7, file$9, 32, 0, 808);
+    			add_location(input3, file$9, 35, 2, 1150);
+    			attr_dev(label, "class", "svelte-1b0we7k");
+    			add_location(label, file$9, 34, 1, 1140);
+    			attr_dev(div4, "class", "flex svelte-1b0we7k");
+    			add_location(div4, file$9, 13, 0, 417);
+    			attr_dev(div5, "class", "color-picker svelte-1b0we7k");
+    			add_location(div5, file$9, 43, 2, 1286);
+    			attr_dev(div6, "class", "controls svelte-1b0we7k");
+    			add_location(div6, file$9, 41, 1, 1260);
     			attr_dev(svg, "width", svg_width_value = /*width*/ ctx[4] * (/*gridSize*/ ctx[2] + 2));
     			attr_dev(svg, "height", svg_height_value = /*height*/ ctx[3] * (/*gridSize*/ ctx[2] + 2));
-    			attr_dev(svg, "class", "svelte-eg72la");
-    			add_location(svg, file$9, 50, 0, 1500);
+    			attr_dev(svg, "class", "svelte-1b0we7k");
+    			add_location(svg, file$9, 50, 2, 1518);
+    			attr_dev(div7, "class", "flex-grow svelte-1b0we7k");
+    			add_location(div7, file$9, 49, 1, 1492);
+    			attr_dev(div8, "class", "flex align-top svelte-1b0we7k");
+    			add_location(div8, file$9, 40, 0, 1230);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -4548,50 +4552,51 @@ var app = (function () {
     		m: function mount(target, anchor) {
     			if (if_block) if_block.m(target, anchor);
     			insert_dev(target, t0, anchor);
-    			insert_dev(target, div3, anchor);
-    			append_dev(div3, div0);
-    			append_dev(div0, t1);
-    			append_dev(div0, input0);
+    			insert_dev(target, div4, anchor);
+    			append_dev(div4, button0);
+    			append_dev(div4, t2);
+    			append_dev(div4, button1);
+    			append_dev(div4, t4);
+    			append_dev(div4, div0);
+    			append_dev(div0, button2);
+    			append_dev(button2, t5);
+    			append_dev(button2, t6);
+    			append_dev(div0, t7);
+    			append_dev(div0, button3);
+    			append_dev(button3, t8);
+    			append_dev(button3, t9);
+    			append_dev(div4, t10);
+    			append_dev(div4, div1);
+    			append_dev(div1, t11);
+    			append_dev(div1, input0);
     			set_input_value(input0, /*gridSize*/ ctx[2]);
-    			append_dev(div3, t2);
-    			append_dev(div3, div1);
-    			append_dev(div1, t3);
-    			append_dev(div1, input1);
+    			append_dev(div4, t12);
+    			append_dev(div4, div2);
+    			append_dev(div2, t13);
+    			append_dev(div2, input1);
     			set_input_value(input1, /*height*/ ctx[3]);
-    			append_dev(div3, t4);
-    			append_dev(div3, div2);
-    			append_dev(div2, t5);
-    			append_dev(div2, input2);
+    			append_dev(div4, t14);
+    			append_dev(div4, div3);
+    			append_dev(div3, t15);
+    			append_dev(div3, input2);
     			set_input_value(input2, /*width*/ ctx[4]);
-    			append_dev(div3, t6);
-    			append_dev(div3, label);
+    			append_dev(div4, t16);
+    			append_dev(div4, label);
     			append_dev(label, input3);
     			input3.checked = /*showGrid*/ ctx[7];
-    			append_dev(label, t7);
-    			insert_dev(target, t8, anchor);
-    			insert_dev(target, div7, anchor);
-    			append_dev(div7, div4);
-    			append_dev(div4, button0);
-    			append_dev(div4, t10);
-    			append_dev(div4, button1);
-    			append_dev(div7, t12);
-    			append_dev(div7, div5);
-    			append_dev(div5, button2);
-    			append_dev(button2, t13);
-    			append_dev(button2, t14);
-    			append_dev(div5, t15);
-    			append_dev(div5, button3);
-    			append_dev(button3, t16);
-    			append_dev(button3, t17);
-    			append_dev(div7, t18);
-    			append_dev(div7, div6);
+    			append_dev(label, t17);
+    			insert_dev(target, t18, anchor);
+    			insert_dev(target, div8, anchor);
+    			append_dev(div8, div6);
+    			append_dev(div6, div5);
 
     			for (let i = 0; i < each_blocks_1.length; i += 1) {
-    				each_blocks_1[i].m(div6, null);
+    				each_blocks_1[i].m(div5, null);
     			}
 
-    			insert_dev(target, t19, anchor);
-    			insert_dev(target, svg, anchor);
+    			append_dev(div8, t19);
+    			append_dev(div8, div7);
+    			append_dev(div7, svg);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].m(svg, null);
@@ -4599,14 +4604,14 @@ var app = (function () {
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(input0, "input", /*input0_input_handler*/ ctx[26]),
-    					listen_dev(input1, "input", /*input1_input_handler*/ ctx[27]),
-    					listen_dev(input2, "input", /*input2_input_handler*/ ctx[28]),
-    					listen_dev(input3, "change", /*input3_change_handler*/ ctx[29]),
-    					listen_dev(button0, "click", /*reset*/ ctx[14], false, false, false),
-    					listen_dev(button1, "click", /*click_handler_2*/ ctx[30], false, false, false),
+    					listen_dev(button0, "click", /*click_handler_2*/ ctx[26], false, false, false),
+    					listen_dev(button1, "click", /*reset*/ ctx[14], false, false, false),
     					listen_dev(button2, "click", /*undo*/ ctx[18], false, false, false),
     					listen_dev(button3, "click", /*redo*/ ctx[19], false, false, false),
+    					listen_dev(input0, "input", /*input0_input_handler*/ ctx[27]),
+    					listen_dev(input1, "input", /*input1_input_handler*/ ctx[28]),
+    					listen_dev(input2, "input", /*input2_input_handler*/ ctx[29]),
+    					listen_dev(input3, "change", /*input3_change_handler*/ ctx[30]),
     					listen_dev(svg, "mousedown", /*onSvgMouseDown*/ ctx[15], false, false, false),
     					listen_dev(svg, "mouseup", /*onSvgMouseUp*/ ctx[16], false, false, false),
     					listen_dev(svg, "mousemove", /*mousemove_handler*/ ctx[32], false, false, false)
@@ -4629,6 +4634,18 @@ var app = (function () {
     				if_block = null;
     			}
 
+    			if (dirty[0] & /*undos*/ 32 && t6_value !== (t6_value = /*undos*/ ctx[5].length + "")) set_data_dev(t6, t6_value);
+
+    			if (dirty[0] & /*undos*/ 32 && button2_disabled_value !== (button2_disabled_value = /*undos*/ ctx[5].length == 0)) {
+    				prop_dev(button2, "disabled", button2_disabled_value);
+    			}
+
+    			if (dirty[0] & /*redos*/ 64 && t9_value !== (t9_value = /*redos*/ ctx[6].length + "")) set_data_dev(t9, t9_value);
+
+    			if (dirty[0] & /*redos*/ 64 && button3_disabled_value !== (button3_disabled_value = /*redos*/ ctx[6].length == 0)) {
+    				prop_dev(button3, "disabled", button3_disabled_value);
+    			}
+
     			if (dirty[0] & /*gridSize*/ 4 && to_number(input0.value) !== /*gridSize*/ ctx[2]) {
     				set_input_value(input0, /*gridSize*/ ctx[2]);
     			}
@@ -4645,18 +4662,6 @@ var app = (function () {
     				input3.checked = /*showGrid*/ ctx[7];
     			}
 
-    			if (dirty[0] & /*undos*/ 32 && t14_value !== (t14_value = /*undos*/ ctx[5].length + "")) set_data_dev(t14, t14_value);
-
-    			if (dirty[0] & /*undos*/ 32 && button2_disabled_value !== (button2_disabled_value = /*undos*/ ctx[5].length == 0)) {
-    				prop_dev(button2, "disabled", button2_disabled_value);
-    			}
-
-    			if (dirty[0] & /*redos*/ 64 && t17_value !== (t17_value = /*redos*/ ctx[6].length + "")) set_data_dev(t17, t17_value);
-
-    			if (dirty[0] & /*redos*/ 64 && button3_disabled_value !== (button3_disabled_value = /*redos*/ ctx[6].length == 0)) {
-    				prop_dev(button3, "disabled", button3_disabled_value);
-    			}
-
     			if (dirty[0] & /*colors, selectedColor, selectColor*/ 1056770) {
     				each_value_2 = /*colors*/ ctx[13];
     				validate_each_argument(each_value_2);
@@ -4670,7 +4675,7 @@ var app = (function () {
     					} else {
     						each_blocks_1[i] = create_each_block_2(child_ctx);
     						each_blocks_1[i].c();
-    						each_blocks_1[i].m(div6, null);
+    						each_blocks_1[i].m(div5, null);
     					}
     				}
 
@@ -4718,12 +4723,10 @@ var app = (function () {
     		d: function destroy(detaching) {
     			if (if_block) if_block.d(detaching);
     			if (detaching) detach_dev(t0);
-    			if (detaching) detach_dev(div3);
-    			if (detaching) detach_dev(t8);
-    			if (detaching) detach_dev(div7);
+    			if (detaching) detach_dev(div4);
+    			if (detaching) detach_dev(t18);
+    			if (detaching) detach_dev(div8);
     			destroy_each(each_blocks_1, detaching);
-    			if (detaching) detach_dev(t19);
-    			if (detaching) detach_dev(svg);
     			destroy_each(each_blocks, detaching);
     			mounted = false;
     			run_all(dispose);
@@ -4760,12 +4763,12 @@ var app = (function () {
 
     	const colors = [
     		"white",
-    		"#ccc",
-    		"#A0A4A0",
-    		"#666",
-    		"#333",
+    		"rgb(204, 204, 204)",
+    		"rgb(160, 164, 160)",
+    		"rgb(102, 102, 102)",
+    		"rgb(51, 51, 51)",
     		"black",
-    		"#773b0b",
+    		"rgb(119, 59, 11)",
     		"blue",
     		"pink",
     		"yellow",
@@ -4774,17 +4777,40 @@ var app = (function () {
     		"purple",
     		"teal",
     		"green",
-    		"#2828B8",
-    		"#2850E0",
-    		"#5050F8",
-    		"#787CF8",
-    		"#A00010",
-    		"#F80020",
-    		"#D07C60",
-    		"#F8D0B0"
-    	];
+    		"rgb(40, 40, 184)",
+    		"rgb(40, 80, 224)",
+    		"rgb(80, 80, 248)",
+    		"rgb(120, 124, 248)",
+    		"rgb(160, 0, 16)",
+    		"rgb(248, 0, 32)",
+    		"rgb(208, 124, 96)",
+    		"rgb(248, 208, 176)"
+    	]; // 'white',
+    	// '#ccc',
+    	// '#A0A4A0',
 
+    	// '#666',
+    	// '#333',
+    	// 'black',
+    	// '#773b0b',
+    	// 'blue',
+    	// 'pink',
+    	// 'yellow',
+    	// 'orange',
+    	// 'red',
+    	// 'purple',
+    	// 'teal',
+    	// 'green',
+    	// '#2828B8',
+    	// '#2850E0',
+    	// '#5050F8',
+    	// '#787CF8',
+    	// '#A00010',
+    	// '#F80020',
+    	// '#D07C60',
+    	// '#F8D0B0',
     	let selectedColor = "black";
+
     	let gridSize = 30;
     	let height = 30;
     	let width = 30;
@@ -4804,7 +4830,11 @@ var app = (function () {
     	function onSvgMouseDown(e) {
     		if (e.altKey) {
     			$$invalidate(1, selectedColor = e.target.style.fill);
-    			console.log(selectedColor);
+    			const nodes = document.querySelectorAll("svg > rect");
+
+    			for (let i = 0; i < nodes.length; i++) {
+    				console.log(nodes[i].style.fill);
+    			}
     		} else {
     			addUndoState();
     			mouseDown = true;
@@ -4934,6 +4964,7 @@ var app = (function () {
     	validate_slots("Index", $$slots, []);
     	const click_handler = savedDrawingName => load(savedDrawingName);
     	const click_handler_1 = savedDrawingName => deleteSave(savedDrawingName);
+    	const click_handler_2 = () => save();
 
     	function input0_input_handler() {
     		gridSize = to_number(this.value);
@@ -4955,7 +4986,6 @@ var app = (function () {
     		$$invalidate(7, showGrid);
     	}
 
-    	const click_handler_2 = () => save();
     	const click_handler_3 = color => selectColor(color);
     	const mousemove_handler = e => onSvgMouseMove(e.target);
 
@@ -5059,11 +5089,11 @@ var app = (function () {
     		deleteSave,
     		click_handler,
     		click_handler_1,
+    		click_handler_2,
     		input0_input_handler,
     		input1_input_handler,
     		input2_input_handler,
     		input3_change_handler,
-    		click_handler_2,
     		click_handler_3,
     		mousemove_handler
     	];

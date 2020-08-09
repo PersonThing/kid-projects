@@ -12,6 +12,14 @@
 {/if}
 
 <div class="flex">
+	<button class="btn btn-success btn-sm mr-2" on:click={() => save()}>Save</button>
+	<button class="btn btn-secondary btn-sm" on:click={reset}>Reset</button>
+
+	<div class="btn-group">
+		<button disabled={undos.length == 0} class="btn btn-default btn-sm" on:click={undo}>Undo {undos.length}</button>
+		<button disabled={redos.length == 0} class="btn btn-default btn-sm" on:click={redo}>Redo {redos.length}</button>
+	</div>
+
 	<div>
 		Grid size
 		<input type="number" bind:value={gridSize} min="15" max="50" step="5" />
@@ -30,44 +38,38 @@
 	</label>
 </div>
 
-<div class="btn-toolbar">
-	<div class="btn-group">
-		<button class="btn btn-danger btn-sm" on:click={reset}>Reset</button>
-		<button class="btn btn-primary btn-sm mr-2" on:click={() => save()}>Save</button>
-	</div>
+<div class="flex align-top">
+	<div class="controls">
 
-	<div class="btn-group">
-		<button disabled={undos.length == 0} class="btn btn-default btn-sm" on:click={undo}>Undo {undos.length}</button>
-		<button disabled={redos.length == 0} class="btn btn-default btn-sm" on:click={redo}>Redo {redos.length}</button>
+		<div class="color-picker">
+			{#each colors as color}
+				<button style="background-color: {color}" class:active={color == selectedColor} on:click={() => selectColor(color)} />
+			{/each}
+		</div>
 	</div>
-
-	<div class="btn-group color-picker">
-		{#each colors as color}
-			<button style="background-color: {color}" class:active={color == selectedColor} on:click={() => selectColor(color)} />
-		{/each}
+	<div class="flex-grow">
+		<svg
+			width={width * (gridSize + 2)}
+			height={height * (gridSize + 2)}
+			on:mousedown={onSvgMouseDown}
+			on:mouseup={onSvgMouseUp}
+			on:mousemove={e => onSvgMouseMove(e.target)}>
+			{#each rows as row}
+				{#each columns as column}
+					<rect
+						y={row * gridSize}
+						x={column * gridSize}
+						style="fill: {getCellColor(data, row, column)}"
+						width={gridSize}
+						height={gridSize}
+						data-row={row}
+						data-column={column}
+						stroke={showGrid ? '#eee' : null} />
+				{/each}
+			{/each}
+		</svg>
 	</div>
 </div>
-
-<svg
-	width={width * (gridSize + 2)}
-	height={height * (gridSize + 2)}
-	on:mousedown={onSvgMouseDown}
-	on:mouseup={onSvgMouseUp}
-	on:mousemove={e => onSvgMouseMove(e.target)}>
-	{#each rows as row}
-		{#each columns as column}
-			<rect
-				y={row * gridSize}
-				x={column * gridSize}
-				style="fill: {getCellColor(data, row, column)}"
-				width={gridSize}
-				height={gridSize}
-				data-row={row}
-				data-column={column}
-				stroke={showGrid ? '#eee' : null} />
-		{/each}
-	{/each}
-</svg>
 
 <script>
 	import LocalStorageStore from '../../stores/local-storage-store'
@@ -78,12 +80,12 @@
 	let loaded = null
 	const colors = [
 		'white',
-		'#ccc',
-		'#A0A4A0',
-		'#666',
-		'#333',
+		'rgb(204, 204, 204)',
+		'rgb(160, 164, 160)',
+		'rgb(102, 102, 102)',
+		'rgb(51, 51, 51)',
 		'black',
-		'#773b0b',
+		'rgb(119, 59, 11)',
 		'blue',
 		'pink',
 		'yellow',
@@ -92,14 +94,38 @@
 		'purple',
 		'teal',
 		'green',
-		'#2828B8',
-		'#2850E0',
-		'#5050F8',
-		'#787CF8',
-		'#A00010',
-		'#F80020',
-		'#D07C60',
-		'#F8D0B0',
+		'rgb(40, 40, 184)',
+		'rgb(40, 80, 224)',
+		'rgb(80, 80, 248)',
+		'rgb(120, 124, 248)',
+		'rgb(160, 0, 16)',
+		'rgb(248, 0, 32)',
+		'rgb(208, 124, 96)',
+		'rgb(248, 208, 176)',
+
+		// 'white',
+		// '#ccc',
+		// '#A0A4A0',
+		// '#666',
+		// '#333',
+		// 'black',
+		// '#773b0b',
+		// 'blue',
+		// 'pink',
+		// 'yellow',
+		// 'orange',
+		// 'red',
+		// 'purple',
+		// 'teal',
+		// 'green',
+		// '#2828B8',
+		// '#2850E0',
+		// '#5050F8',
+		// '#787CF8',
+		// '#A00010',
+		// '#F80020',
+		// '#D07C60',
+		// '#F8D0B0',
 	]
 	let selectedColor = 'black'
 	let gridSize = 30
@@ -126,7 +152,11 @@
 	function onSvgMouseDown(e) {
 		if (e.altKey) {
 			selectedColor = e.target.style.fill
-			console.log(selectedColor)
+
+			const nodes = document.querySelectorAll('svg > rect')
+			for (let i = 0; i < nodes.length; i++) {
+				console.log(nodes[i].style.fill)
+			}
 		} else {
 			addUndoState()
 			mouseDown = true
@@ -251,13 +281,21 @@
 
 <style>
 	.color-picker button {
-		width: 30px;
+		display: block;
+		width: 40px;
+		height: 25px;
+		margin-bottom: 0;
+		border: none;
+		border: 1px solid #eee;
+	}
+	.color-picker button:focus {
+		outline: none;
+		border: 1px solid #eee;
 	}
 
 	.color-picker button.active {
-		border-color: white;
-		position: relative;
-		top: 5px;
+		height: 50px;
+		width: 45px;
 	}
 
 	svg {
@@ -270,10 +308,20 @@
 		flex-direction: row;
 		align-items: center;
 	}
-	.flex > * {
-		margin-right: 5px;
+
+	.align-top {
+		align-items: flex-start;
 	}
+
+	.flex > * {
+		margin-right: 8px;
+	}
+
 	.flex input[type='number'] {
 		width: 50px;
+	}
+
+	.flex-grow {
+		flex-grow: 1;
 	}
 </style>
