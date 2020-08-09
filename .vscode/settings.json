@@ -1,0 +1,28 @@
+{
+	"editor.cursorStyle": "line-thin",
+	"editor.formatOnPaste": true,
+	"editor.formatOnSave": true,
+	"editor.formatOnType": true,
+	"editor.insertSpaces": false,
+	"editor.renderWhitespace": "selection",
+	"editor.tabSize": 2,
+	"explorer.autoReveal": false,
+	"explorer.incrementalNaming": "smart",
+	"files.trimFinalNewlines": true,
+	"files.trimTrailingWhitespace": true,
+	"formatContextMenu.closeAfterSave": true,
+	"formatContextMenu.saveAfterFormat": true,
+	"omnisharp.enableEditorConfigSupport": true,
+	"omnisharp.enableRoslynAnalyzers": true,
+	"zenMode.centerLayout": false,
+	"[html]": {
+		"editor.formatOnType": false,
+		"editor.formatOnSave": false,
+		"editor.formatOnPaste": false
+	},
+	"[markdown]": {
+		"editor.formatOnType": false,
+		"editor.formatOnSave": false,
+		"editor.formatOnPaste": false
+	}
+}
