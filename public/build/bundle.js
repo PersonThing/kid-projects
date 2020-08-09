@@ -4761,6 +4761,7 @@ var app = (function () {
     	const colors = [
     		"white",
     		"#A0A4A0",
+    		"#ccc",
     		"#666",
     		"#333",
     		"black",
@@ -4803,6 +4804,7 @@ var app = (function () {
     	function onSvgMouseDown(e) {
     		if (e.altKey) {
     			$$invalidate(1, selectedColor = e.target.style.fill);
+    			console.log(selectedColor);
     		} else {
     			addUndoState();
     			mouseDown = true;
