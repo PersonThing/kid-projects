@@ -12,13 +12,20 @@
 {/if}
 
 <div>
-	<input type="number" bind:value={gridSize} min="15" max="50" step="5" on:change={resetGridSize} />
+	<input type="number" bind:value={gridSize} min="15" max="50" step="5" />
+	<input type="number" bind:value={width} placeholder="Width" />
+	<input type="number" bind:value={height} placeholder="Height" />
 </div>
 
 <div class="btn-toolbar">
 	<div class="btn-group">
 		<button class="btn btn-danger btn-sm" on:click={reset}>Reset</button>
 		<button class="btn btn-primary btn-sm mr-2" on:click={() => save()}>Save</button>
+	</div>
+
+	<div class="btn-group">
+		<button disabled={undos.length == 0} class="btn btn-default btn-sm" on:click={undo}>Undo {undos.length}</button>
+		<button disabled={redos.length == 0} class="btn btn-default btn-sm" on:click={redo}>Redo {redos.length}</button>
 	</div>
 
 	<div class="btn-group color-picker">
@@ -28,9 +35,7 @@
 	</div>
 </div>
 
-<svelte:window on:mousedown={() => (mouseDown = true)} on:mouseup={() => (mouseDown = false)} on:resize={resetGridSize} />
-
-<svg width={width * gridSize} height={height * gridSize}>
+<svg width={width * (gridSize + 2)} height={height * (gridSize + 2)} on:mousedown={onSvgMouseDown} on:mouseup={onSvgMouseUp}>
 	{#each rows as row}
 		{#each columns as column}
 			<rect
@@ -39,8 +44,8 @@
 				fill={getCellColor(data, row, column)}
 				width={gridSize}
 				height={gridSize}
-				on:mousemove={() => onGridMousemove(row, column)}
-				on:click={e => onGridClick(e, row, column)} />
+				on:mousemove={() => onPixelMouseMove(row, column)}
+				on:mouseup={e => onPixelClick(e, row, column)} />
 		{/each}
 	{/each}
 </svg>
@@ -77,10 +82,13 @@
 	]
 	let selectedColor = 'black'
 	let gridSize = 30
-	let height = 0
-	let width = 0
-	let rows = []
-	let columns = []
+	let height = 30
+	let width = 30
+	let undos = []
+	let redos = []
+
+	$: rows = [...Array(height)].map((_, i) => i)
+	$: columns = [...Array(width)].map((_, i) => i)
 
 	let data = []
 	let mouseDown = false
@@ -88,21 +96,36 @@
 	reset()
 
 	function reset() {
-		resetGridSize()
 		data = buildRows(height)
 		loaded = null
 	}
 
-	function onGridMousemove(row, column) {
-		if (mouseDown) setColor(row, column)
+	function onSvgMouseDown() {
+		addUndoState()
+		mouseDown = true
 	}
 
-	function onGridClick(e, row, column) {
+	function onSvgMouseUp() {
+		mouseDown = false
+	}
+
+	function onPixelMouseMove(row, column) {
+		if (mouseDown) {
+			setColor(row, column)
+		}
+	}
+
+	function onPixelClick(e, row, column) {
+		addUndoState()
 		if (e.altKey) {
 			selectColor(data[row][column])
 		} else {
 			setColor(row, column)
 		}
+	}
+
+	function addUndoState() {
+		undos = [...undos, JSON.stringify(data)]
 	}
 
 	function buildRows(num) {
@@ -111,6 +134,20 @@
 
 	function buildColumns(num) {
 		return [...Array(num)].map(c => null)
+	}
+
+	function undo() {
+		redos = [...redos, JSON.stringify(data)]
+		data = JSON.parse(undos.pop())
+		undos = undos
+	}
+
+	function redo() {
+		if (redos.length == 0) return
+
+		undos = [...undos, JSON.stringify(data)]
+		data = JSON.parse(redos.pop())
+		redos = redos
 	}
 
 	function setColor(row, column, color = selectedColor) {
@@ -136,6 +173,8 @@
 		$savedDrawings[name] = {
 			name,
 			gridSize,
+			width,
+			height,
 			data,
 		}
 		loaded = name
@@ -150,6 +189,8 @@
 			savedDrawing = {
 				name,
 				gridSize: 30,
+				width: 50,
+				height: 40,
 				data: savedDrawing,
 			}
 			$savedDrawings[name] = savedDrawing
@@ -157,8 +198,11 @@
 
 		data = savedDrawing.data
 		gridSize = savedDrawing.gridSize
+		width = savedDrawing.width || savedDrawing.data[0].length
+		height = savedDrawing.height || savedDrawing.data.length
+		undos = []
+		redos = []
 		loaded = savedDrawing.name
-		resetGridSize()
 	}
 
 	function deleteSave(name) {
@@ -172,13 +216,6 @@
 
 	function getCellColor(d, row, column) {
 		return d.length > row && d[row].length > column ? d[row][column] : 'white'
-	}
-
-	function resetGridSize() {
-		height = Math.floor((window.innerHeight - 200) / gridSize)
-		width = Math.floor((window.innerWidth - 50) / gridSize)
-		rows = [...Array(height)].map((_, i) => i)
-		columns = [...Array(width)].map((_, i) => i)
 	}
 </script>
 
@@ -194,9 +231,8 @@
 	}
 
 	svg {
-		border-top: 1px solid #eee;
-		border-right: 1px solid #eee;
 		fill: #fff;
+		padding: 5px;
 	}
 
 	svg rect {

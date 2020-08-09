@@ -285,6 +285,7 @@
 		start()
 		gameLoop()
 	})
+
 	onDestroy(() => {
 		gameAlive = false
 	})
