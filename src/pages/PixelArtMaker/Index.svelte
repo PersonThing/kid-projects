@@ -1,21 +1,27 @@
-<button class="btn btn-danger" on:click={reset}>Reset</button>
-<button class="btn btn-info mr-2" on:click={() => save()}>Save</button>
-
 {#if savedNames.length}
-	{#each savedNames as savedDrawingName}
-		<div class="btn-group mr-2">
-			<button class="btn btn-{savedDrawingName == loaded ? 'primary' : 'secondary'}" on:click={() => load(savedDrawingName)}>
-				{savedDrawingName}
-			</button>
-			<button class="btn btn-danger" on:click={() => deleteSave(savedDrawingName)}>X</button>
-		</div>
-	{/each}
+	<div>
+		{#each savedNames as savedDrawingName}
+			<div class="btn-group mr-2">
+				<button class="btn btn-sm btn-{savedDrawingName == loaded ? 'primary active' : 'secondary'}" on:click={() => load(savedDrawingName)}>
+					{savedDrawingName}
+				</button>
+				<button class="btn btn-sm btn-secondary" on:click={() => deleteSave(savedDrawingName)}>x</button>
+			</div>
+		{/each}
+	</div>
 {/if}
 
-<div class="color-picker">
-	{#each colors as color}
-		<button style="background-color: {color}" class:active={color == selectedColor} on:click={() => selectColor(color)} />
-	{/each}
+<div class="btn-toolbar">
+	<div class="btn-group">
+		<button class="btn btn-danger btn-sm" on:click={reset}>Reset</button>
+		<button class="btn btn-primary btn-sm mr-2" on:click={() => save()}>Save</button>
+	</div>
+
+	<div class="btn-group color-picker">
+		{#each colors as color}
+			<button style="background-color: {color}" class:active={color == selectedColor} on:click={() => selectColor(color)} />
+		{/each}
+	</div>
 </div>
 
 <svelte:window on:mousedown={() => (mouseDown = true)} on:mouseup={() => (mouseDown = false)} />
@@ -109,14 +115,13 @@
 
 <style>
 	.color-picker button {
-		display: inline-block;
 		width: 30px;
-		height: 30px;
 	}
 
 	.color-picker button.active {
-		width: 50px;
-		height: 50px;
+		border-color: white;
+		position: relative;
+		top: 5px;
 	}
 
 	table {
