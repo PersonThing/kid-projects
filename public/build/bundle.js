@@ -4008,25 +4008,25 @@ var app = (function () {
 
     function get_each_context_1$1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[41] = list[i];
+    	child_ctx[39] = list[i];
     	return child_ctx;
     }
 
     function get_each_context$2(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[38] = list[i];
+    	child_ctx[36] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_2(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[44] = list[i];
+    	child_ctx[42] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_3(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[47] = list[i];
+    	child_ctx[45] = list[i];
     	return child_ctx;
     }
 
@@ -4059,7 +4059,7 @@ var app = (function () {
     			}
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*deleteSave, savedNames, loaded, load*/ 12583169) {
+    			if (dirty[0] & /*deleteSave, savedNames, loaded, load*/ 6291713) {
     				each_value_3 = /*savedNames*/ ctx[8];
     				validate_each_argument(each_value_3);
     				let i;
@@ -4104,7 +4104,7 @@ var app = (function () {
     function create_each_block_3(ctx) {
     	let div;
     	let button0;
-    	let t0_value = /*savedDrawingName*/ ctx[47] + "";
+    	let t0_value = /*savedDrawingName*/ ctx[45] + "";
     	let t0;
     	let button0_class_value;
     	let t1;
@@ -4114,11 +4114,11 @@ var app = (function () {
     	let dispose;
 
     	function click_handler(...args) {
-    		return /*click_handler*/ ctx[24](/*savedDrawingName*/ ctx[47], ...args);
+    		return /*click_handler*/ ctx[23](/*savedDrawingName*/ ctx[45], ...args);
     	}
 
     	function click_handler_1(...args) {
-    		return /*click_handler_1*/ ctx[25](/*savedDrawingName*/ ctx[47], ...args);
+    		return /*click_handler_1*/ ctx[24](/*savedDrawingName*/ ctx[45], ...args);
     	}
 
     	const block = {
@@ -4131,7 +4131,7 @@ var app = (function () {
     			button1.textContent = "x";
     			t3 = space();
 
-    			attr_dev(button0, "class", button0_class_value = "btn btn-sm btn-" + (/*savedDrawingName*/ ctx[47] == /*loaded*/ ctx[0]
+    			attr_dev(button0, "class", button0_class_value = "btn btn-sm btn-" + (/*savedDrawingName*/ ctx[45] == /*loaded*/ ctx[0]
     			? "primary active"
     			: "secondary"));
 
@@ -4160,9 +4160,9 @@ var app = (function () {
     		},
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
-    			if (dirty[0] & /*savedNames*/ 256 && t0_value !== (t0_value = /*savedDrawingName*/ ctx[47] + "")) set_data_dev(t0, t0_value);
+    			if (dirty[0] & /*savedNames*/ 256 && t0_value !== (t0_value = /*savedDrawingName*/ ctx[45] + "")) set_data_dev(t0, t0_value);
 
-    			if (dirty[0] & /*savedNames, loaded*/ 257 && button0_class_value !== (button0_class_value = "btn btn-sm btn-" + (/*savedDrawingName*/ ctx[47] == /*loaded*/ ctx[0]
+    			if (dirty[0] & /*savedNames, loaded*/ 257 && button0_class_value !== (button0_class_value = "btn btn-sm btn-" + (/*savedDrawingName*/ ctx[45] == /*loaded*/ ctx[0]
     			? "primary active"
     			: "secondary"))) {
     				attr_dev(button0, "class", button0_class_value);
@@ -4193,15 +4193,15 @@ var app = (function () {
     	let dispose;
 
     	function click_handler_3(...args) {
-    		return /*click_handler_3*/ ctx[30](/*color*/ ctx[44], ...args);
+    		return /*click_handler_3*/ ctx[29](/*color*/ ctx[42], ...args);
     	}
 
     	const block = {
     		c: function create() {
     			button = element("button");
-    			set_style(button, "background-color", /*color*/ ctx[44]);
+    			set_style(button, "background-color", /*color*/ ctx[42]);
     			attr_dev(button, "class", "svelte-145ma5l");
-    			toggle_class(button, "active", /*color*/ ctx[44] == /*selectedColor*/ ctx[1]);
+    			toggle_class(button, "active", /*color*/ ctx[42] == /*selectedColor*/ ctx[1]);
     			add_location(button, file$9, 32, 3, 1182);
     		},
     		m: function mount(target, anchor) {
@@ -4216,7 +4216,7 @@ var app = (function () {
     			ctx = new_ctx;
 
     			if (dirty[0] & /*colors, selectedColor*/ 4098) {
-    				toggle_class(button, "active", /*color*/ ctx[44] == /*selectedColor*/ ctx[1]);
+    				toggle_class(button, "active", /*color*/ ctx[42] == /*selectedColor*/ ctx[1]);
     			}
     		},
     		d: function destroy(detaching) {
@@ -4237,58 +4237,41 @@ var app = (function () {
     	return block;
     }
 
-    // (40:2) {#each columns as column}
+    // (45:2) {#each columns as column}
     function create_each_block_1$1(ctx) {
     	let rect;
     	let rect_y_value;
     	let rect_x_value;
     	let rect_fill_value;
-    	let mounted;
-    	let dispose;
-
-    	function mousemove_handler(...args) {
-    		return /*mousemove_handler*/ ctx[31](/*row*/ ctx[38], /*column*/ ctx[41], ...args);
-    	}
-
-    	function mouseup_handler(...args) {
-    		return /*mouseup_handler*/ ctx[32](/*row*/ ctx[38], /*column*/ ctx[41], ...args);
-    	}
+    	let rect_data_row_value;
+    	let rect_data_column_value;
 
     	const block = {
     		c: function create() {
     			rect = svg_element("rect");
-    			attr_dev(rect, "y", rect_y_value = /*row*/ ctx[38] * /*gridSize*/ ctx[2]);
-    			attr_dev(rect, "x", rect_x_value = /*column*/ ctx[41] * /*gridSize*/ ctx[2]);
-    			attr_dev(rect, "fill", rect_fill_value = getCellColor(/*data*/ ctx[7], /*row*/ ctx[38], /*column*/ ctx[41]));
+    			attr_dev(rect, "y", rect_y_value = /*row*/ ctx[36] * /*gridSize*/ ctx[2]);
+    			attr_dev(rect, "x", rect_x_value = /*column*/ ctx[39] * /*gridSize*/ ctx[2]);
+    			attr_dev(rect, "fill", rect_fill_value = getCellColor(/*data*/ ctx[7], /*row*/ ctx[36], /*column*/ ctx[39]));
     			attr_dev(rect, "width", /*gridSize*/ ctx[2]);
     			attr_dev(rect, "height", /*gridSize*/ ctx[2]);
+    			attr_dev(rect, "data-row", rect_data_row_value = /*row*/ ctx[36]);
+    			attr_dev(rect, "data-column", rect_data_column_value = /*column*/ ctx[39]);
     			attr_dev(rect, "class", "svelte-145ma5l");
-    			add_location(rect, file$9, 40, 3, 1505);
+    			add_location(rect, file$9, 45, 3, 1555);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, rect, anchor);
-
-    			if (!mounted) {
-    				dispose = [
-    					listen_dev(rect, "mousemove", mousemove_handler, false, false, false),
-    					listen_dev(rect, "mouseup", mouseup_handler, false, false, false)
-    				];
-
-    				mounted = true;
-    			}
     		},
-    		p: function update(new_ctx, dirty) {
-    			ctx = new_ctx;
-
-    			if (dirty[0] & /*rows, gridSize*/ 516 && rect_y_value !== (rect_y_value = /*row*/ ctx[38] * /*gridSize*/ ctx[2])) {
+    		p: function update(ctx, dirty) {
+    			if (dirty[0] & /*rows, gridSize*/ 516 && rect_y_value !== (rect_y_value = /*row*/ ctx[36] * /*gridSize*/ ctx[2])) {
     				attr_dev(rect, "y", rect_y_value);
     			}
 
-    			if (dirty[0] & /*columns, gridSize*/ 1028 && rect_x_value !== (rect_x_value = /*column*/ ctx[41] * /*gridSize*/ ctx[2])) {
+    			if (dirty[0] & /*columns, gridSize*/ 1028 && rect_x_value !== (rect_x_value = /*column*/ ctx[39] * /*gridSize*/ ctx[2])) {
     				attr_dev(rect, "x", rect_x_value);
     			}
 
-    			if (dirty[0] & /*data, rows, columns*/ 1664 && rect_fill_value !== (rect_fill_value = getCellColor(/*data*/ ctx[7], /*row*/ ctx[38], /*column*/ ctx[41]))) {
+    			if (dirty[0] & /*data, rows, columns*/ 1664 && rect_fill_value !== (rect_fill_value = getCellColor(/*data*/ ctx[7], /*row*/ ctx[36], /*column*/ ctx[39]))) {
     				attr_dev(rect, "fill", rect_fill_value);
     			}
 
@@ -4299,11 +4282,17 @@ var app = (function () {
     			if (dirty[0] & /*gridSize*/ 4) {
     				attr_dev(rect, "height", /*gridSize*/ ctx[2]);
     			}
+
+    			if (dirty[0] & /*rows*/ 512 && rect_data_row_value !== (rect_data_row_value = /*row*/ ctx[36])) {
+    				attr_dev(rect, "data-row", rect_data_row_value);
+    			}
+
+    			if (dirty[0] & /*columns*/ 1024 && rect_data_column_value !== (rect_data_column_value = /*column*/ ctx[39])) {
+    				attr_dev(rect, "data-column", rect_data_column_value);
+    			}
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(rect);
-    			mounted = false;
-    			run_all(dispose);
     		}
     	};
 
@@ -4311,14 +4300,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1$1.name,
     		type: "each",
-    		source: "(40:2) {#each columns as column}",
+    		source: "(45:2) {#each columns as column}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (39:1) {#each rows as row}
+    // (44:1) {#each rows as row}
     function create_each_block$2(ctx) {
     	let each_1_anchor;
     	let each_value_1 = /*columns*/ ctx[10];
@@ -4345,7 +4334,7 @@ var app = (function () {
     			insert_dev(target, each_1_anchor, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*rows, gridSize, columns, data, onPixelMouseMove, onPixelClick*/ 198276) {
+    			if (dirty[0] & /*rows, gridSize, columns, data*/ 1668) {
     				each_value_1 = /*columns*/ ctx[10];
     				validate_each_argument(each_value_1);
     				let i;
@@ -4379,7 +4368,7 @@ var app = (function () {
     		block,
     		id: create_each_block$2.name,
     		type: "each",
-    		source: "(39:1) {#each rows as row}",
+    		source: "(44:1) {#each rows as row}",
     		ctx
     	});
 
@@ -4560,15 +4549,16 @@ var app = (function () {
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(input0, "input", /*input0_input_handler*/ ctx[26]),
-    					listen_dev(input1, "input", /*input1_input_handler*/ ctx[27]),
-    					listen_dev(input2, "input", /*input2_input_handler*/ ctx[28]),
+    					listen_dev(input0, "input", /*input0_input_handler*/ ctx[25]),
+    					listen_dev(input1, "input", /*input1_input_handler*/ ctx[26]),
+    					listen_dev(input2, "input", /*input2_input_handler*/ ctx[27]),
     					listen_dev(button0, "click", /*reset*/ ctx[13], false, false, false),
-    					listen_dev(button1, "click", /*click_handler_2*/ ctx[29], false, false, false),
-    					listen_dev(button2, "click", /*undo*/ ctx[18], false, false, false),
-    					listen_dev(button3, "click", /*redo*/ ctx[19], false, false, false),
+    					listen_dev(button1, "click", /*click_handler_2*/ ctx[28], false, false, false),
+    					listen_dev(button2, "click", /*undo*/ ctx[17], false, false, false),
+    					listen_dev(button3, "click", /*redo*/ ctx[18], false, false, false),
     					listen_dev(svg, "mousedown", /*onSvgMouseDown*/ ctx[14], false, false, false),
-    					listen_dev(svg, "mouseup", /*onSvgMouseUp*/ ctx[15], false, false, false)
+    					listen_dev(svg, "mouseup", /*onSvgMouseUp*/ ctx[15], false, false, false),
+    					listen_dev(svg, "mousemove", /*mousemove_handler*/ ctx[30], false, false, false)
     				];
 
     				mounted = true;
@@ -4612,7 +4602,7 @@ var app = (function () {
     				prop_dev(button3, "disabled", button3_disabled_value);
     			}
 
-    			if (dirty[0] & /*colors, selectedColor, selectColor*/ 1052674) {
+    			if (dirty[0] & /*colors, selectedColor, selectColor*/ 528386) {
     				each_value_2 = /*colors*/ ctx[12];
     				validate_each_argument(each_value_2);
     				let i;
@@ -4636,7 +4626,7 @@ var app = (function () {
     				each_blocks_1.length = each_value_2.length;
     			}
 
-    			if (dirty[0] & /*columns, rows, gridSize, data, onPixelMouseMove, onPixelClick*/ 198276) {
+    			if (dirty[0] & /*columns, rows, gridSize, data*/ 1668) {
     				each_value = /*rows*/ ctx[9];
     				validate_each_argument(each_value);
     				let i;
@@ -4710,7 +4700,7 @@ var app = (function () {
     	let $savedDrawings;
     	const savedDrawings = LocalStorageStore("pixel-drawings", {});
     	validate_store(savedDrawings, "savedDrawings");
-    	component_subscribe($$self, savedDrawings, value => $$invalidate(34, $savedDrawings = value));
+    	component_subscribe($$self, savedDrawings, value => $$invalidate(32, $savedDrawings = value));
     	let loaded = null;
 
     	const colors = [
@@ -4749,37 +4739,36 @@ var app = (function () {
     	reset();
 
     	function reset() {
+    		addUndoState();
     		$$invalidate(7, data = buildRows(height));
     		$$invalidate(0, loaded = null);
     	}
 
-    	function onSvgMouseDown() {
+    	function onSvgMouseDown(e) {
     		addUndoState();
     		mouseDown = true;
+    		onSvgMouseMove(e.target);
     	}
 
-    	function onSvgMouseUp() {
+    	function onSvgMouseUp(e) {
     		mouseDown = false;
     	}
 
-    	function onPixelMouseMove(row, column) {
-    		if (mouseDown) {
-    			setColor(row, column);
-    		}
-    	}
+    	function onSvgMouseMove(target) {
+    		if (!mouseDown) return;
+    		const row = target.dataset.row;
+    		const column = target.dataset.column;
 
-    	function onPixelClick(e, row, column) {
-    		addUndoState();
-
-    		if (e.altKey) {
-    			selectColor(data[row][column]);
-    		} else {
+    		if (row != null && column != null) {
     			setColor(row, column);
     		}
     	}
 
     	function addUndoState() {
     		$$invalidate(5, undos = [...undos, JSON.stringify(data)]);
+
+    		// if we're adding a new undo state, empty redos
+    		$$invalidate(6, redos = []);
     	}
 
     	function buildRows(num) {
@@ -4886,8 +4875,7 @@ var app = (function () {
 
     	const click_handler_2 = () => save();
     	const click_handler_3 = color => selectColor(color);
-    	const mousemove_handler = (row, column) => onPixelMouseMove(row, column);
-    	const mouseup_handler = (row, column, e) => onPixelClick(e, row, column);
+    	const mousemove_handler = e => onSvgMouseMove(e.target);
 
     	$$self.$capture_state = () => ({
     		LocalStorageStore,
@@ -4905,8 +4893,7 @@ var app = (function () {
     		reset,
     		onSvgMouseDown,
     		onSvgMouseUp,
-    		onPixelMouseMove,
-    		onPixelClick,
+    		onSvgMouseMove,
     		addUndoState,
     		buildRows,
     		buildColumns,
@@ -4948,7 +4935,7 @@ var app = (function () {
     	}
 
     	$$self.$$.update = () => {
-    		if ($$self.$$.dirty[1] & /*$savedDrawings*/ 8) {
+    		if ($$self.$$.dirty[1] & /*$savedDrawings*/ 2) {
     			 $$invalidate(8, savedNames = Object.keys($savedDrawings));
     		}
 
@@ -4978,8 +4965,7 @@ var app = (function () {
     		reset,
     		onSvgMouseDown,
     		onSvgMouseUp,
-    		onPixelMouseMove,
-    		onPixelClick,
+    		onSvgMouseMove,
     		undo,
     		redo,
     		selectColor,
@@ -4993,8 +4979,7 @@ var app = (function () {
     		input2_input_handler,
     		click_handler_2,
     		click_handler_3,
-    		mousemove_handler,
-    		mouseup_handler
+    		mousemove_handler
     	];
     }
 

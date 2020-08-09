@@ -35,7 +35,12 @@
 	</div>
 </div>
 
-<svg width={width * (gridSize + 2)} height={height * (gridSize + 2)} on:mousedown={onSvgMouseDown} on:mouseup={onSvgMouseUp}>
+<svg
+	width={width * (gridSize + 2)}
+	height={height * (gridSize + 2)}
+	on:mousedown={onSvgMouseDown}
+	on:mouseup={onSvgMouseUp}
+	on:mousemove={e => onSvgMouseMove(e.target)}>
 	{#each rows as row}
 		{#each columns as column}
 			<rect
@@ -44,8 +49,8 @@
 				fill={getCellColor(data, row, column)}
 				width={gridSize}
 				height={gridSize}
-				on:mousemove={() => onPixelMouseMove(row, column)}
-				on:mouseup={e => onPixelClick(e, row, column)} />
+				data-row={row}
+				data-column={column} />
 		{/each}
 	{/each}
 </svg>
@@ -97,36 +102,35 @@
 	reset()
 
 	function reset() {
+		addUndoState()
 		data = buildRows(height)
 		loaded = null
 	}
 
-	function onSvgMouseDown() {
+	function onSvgMouseDown(e) {
 		addUndoState()
 		mouseDown = true
+		onSvgMouseMove(e.target)
 	}
 
-	function onSvgMouseUp() {
+	function onSvgMouseUp(e) {
 		mouseDown = false
 	}
 
-	function onPixelMouseMove(row, column) {
-		if (mouseDown) {
-			setColor(row, column)
-		}
-	}
+	function onSvgMouseMove(target) {
+		if (!mouseDown) return
 
-	function onPixelClick(e, row, column) {
-		addUndoState()
-		if (e.altKey) {
-			selectColor(data[row][column])
-		} else {
+		const row = target.dataset.row
+		const column = target.dataset.column
+		if (row != null && column != null) {
 			setColor(row, column)
 		}
 	}
 
 	function addUndoState() {
 		undos = [...undos, JSON.stringify(data)]
+		// if we're adding a new undo state, empty redos
+		redos = []
 	}
 
 	function buildRows(num) {
