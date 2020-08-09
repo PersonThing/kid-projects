@@ -147,7 +147,8 @@
 	}
 
 	function addUndoState() {
-		undos = [...undos, JSON.stringify(data)]
+		undos = [...undos.slice(Math.max(undos.length - 20, 0)), JSON.stringify(data)]
+
 		// if we're adding a new undo state, empty redos
 		redos = []
 	}

@@ -4825,7 +4825,7 @@ var app = (function () {
     	}
 
     	function addUndoState() {
-    		$$invalidate(5, undos = [...undos, JSON.stringify(data)]);
+    		$$invalidate(5, undos = [...undos.slice(Math.max(undos.length - 20, 0)), JSON.stringify(data)]);
 
     		// if we're adding a new undo state, empty redos
     		$$invalidate(6, redos = []);
