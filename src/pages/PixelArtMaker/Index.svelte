@@ -15,6 +15,10 @@
 	<input type="number" bind:value={gridSize} min="15" max="50" step="5" />
 	<input type="number" bind:value={width} placeholder="Width" />
 	<input type="number" bind:value={height} placeholder="Height" />
+	<label>
+		<input type="checkbox" bind:checked={showGrid} />
+		Show grid
+	</label>
 </div>
 
 <div class="btn-toolbar">
@@ -50,7 +54,8 @@
 				width={gridSize}
 				height={gridSize}
 				data-row={row}
-				data-column={column} />
+				data-column={column}
+				stroke={showGrid ? '#eee' : null} />
 		{/each}
 	{/each}
 </svg>
@@ -92,6 +97,7 @@
 	let width = 30
 	let undos = []
 	let redos = []
+	let showGrid = true
 
 	$: rows = [...Array(height)].map((_, i) => i)
 	$: columns = [...Array(width)].map((_, i) => i)
@@ -242,10 +248,5 @@
 	svg {
 		fill: #fff;
 		padding: 5px;
-		border: 1px solid #eee;
-	}
-
-	svg rect {
-		/* stroke: #eee; */
 	}
 </style>
