@@ -1,15 +1,15 @@
 <button class="btn btn-danger" on:click={reset}>Reset</button>
-<button class="btn btn-info" on:click={() => save()}>Save</button>
+<button class="btn btn-info mr-2" on:click={() => save()}>Save</button>
 
 {#if savedNames.length}
-	<div class="btn-group">
-		Saved drawings:
-		{#each savedNames as savedDrawingName}
+	{#each savedNames as savedDrawingName}
+		<div class="btn-group mr-2">
 			<button class="btn btn-{savedDrawingName == loaded ? 'primary' : 'secondary'}" on:click={() => load(savedDrawingName)}>
 				{savedDrawingName}
 			</button>
-		{/each}
-	</div>
+			<button class="btn btn-danger" on:click={() => deleteSave(savedDrawingName)}>X</button>
+		</div>
+	{/each}
 {/if}
 
 <div class="color-picker">
@@ -85,18 +85,21 @@
 	}
 
 	function save() {
-		const name = prompt('Give us a name', '')
+		const name = prompt('Give us a name', loaded || '')
 		if (name == null || name.trim().length == 0) return
 
 		$savedDrawings[name] = data
+		loaded = name
 	}
 
 	function load(name) {
-		data = $savedDrawings[name]
+		data = JSON.parse(JSON.stringify($savedDrawings[name]))
 		loaded = name
 	}
 
 	function deleteSave(name) {
+		if (!confirm(`Are you sure you want to delete ${name}?`)) return
+
 		if ($savedDrawings.hasOwnProperty(name)) {
 			delete $savedDrawings[name]
 			$savedDrawings = $savedDrawings
