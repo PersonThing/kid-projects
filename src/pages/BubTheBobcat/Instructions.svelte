@@ -36,8 +36,6 @@
 
 <style>
 	.instructions {
-		background: #666;
-		color: #fff;
 		padding: 10px;
 	}
 

@@ -12,6 +12,7 @@
 	let levels = [
 		{
 			name: 'Sample 1',
+			backgroundColor: 'rgb(135, 206, 235)',
 			data: [
 				[
 					'rgb(102, 102, 102)',

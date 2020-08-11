@@ -2,7 +2,7 @@
 	<HealthBar {health} {maxHealth} />
 	<svg
 		class="graphic"
-		style="left: 15px; width: {width}px; height: {height}px; transform: scaleX({-1 * direction}) rotate({-4 + (momentum.y > 0 ? momentum.y * 3 : momentum.y * 1.5)}deg);
+		style="left: 15px; width: {width}px; height: {height}px; transform: scaleX({-1 * direction}) rotate({-4 + (vy > 0 ? vy * 3 : vy * 1.5)}deg);
 		opacity: {health <= 0 ? 0.2 : 1.0}"
 		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 10 1024 749"
@@ -15,10 +15,8 @@
 
 <script>
 	import HealthBar from './HealthBar.svelte'
-	export let momentum = {
-		x: 0,
-		y: 0,
-	}
+	export let vx = 0
+	export let vy = 0
 	export let x = 0
 	export let y = 0
 	export let width = 75

@@ -9,10 +9,8 @@
 
 <script>
 	import HealthBar from './HealthBar.svelte'
-	export let momentum = {
-		x: 0,
-		y: 0,
-	}
+	export let vx = 0
+	export let vy = 0
 	export let y = 0
 	export let x = 0
 	export let width = 150
@@ -24,7 +22,7 @@
 	export let spinning = false
 
 	$: scaleX = direction
-	$: rotate = spinning ? spinningRotation : -1 * (5 + (momentum.y > 0 ? momentum.y * 3 : momentum.y * 1.5))
+	$: rotate = spinning ? spinningRotation : -1 * (5 + (vy > 0 ? vy * 3 : vy * 1.5))
 
 	let spinningRotation = 0
 	let spinTimeout = null

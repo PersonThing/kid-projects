@@ -4,16 +4,18 @@
 	{#if gameOver}
 		<GameOver {wave} {score} />
 	{/if}
-	<Viewport {...viewport}>
-		{#if player != null}
-			<Level blocks={visibleBlocks} x={viewport.x} y={viewport.y} {height} {width}>
-				{#each enemies as enemy}
-					<Enemy {...enemy} />
-				{/each}
-				<Player {...player} />
-			</Level>
-		{/if}
-	</Viewport>
+	{#if level != null}
+		<Viewport {...viewport} backgroundColor={level.backgroundColor}>
+			{#if player != null}
+				<Level {blocks} x={viewport.x} y={viewport.y} {height} {width}>
+					{#each enemies as enemy}
+						<Enemy {...enemy} />
+					{/each}
+					<Player {...player} />
+				</Level>
+			{/if}
+		</Viewport>
+	{/if}
 	<Status {wave} {score} />
 	<Instructions />
 </div>
@@ -44,7 +46,7 @@
 	let mainEl
 	let maxSpeed = 5
 	let maxEnemySpeed = 2
-	let jumpMomentum = 20
+	let jumpVelocity = 20
 	let player
 	let enemies
 	let leftDown = false
@@ -83,10 +85,8 @@
 			x: blocks[0].x,
 			y: blocks[0].y + blocks[0].height + 100,
 			direction: 1,
-			momentum: {
-				x: 0,
-				y: 0,
-			},
+			vx: 0,
+			vy: 0,
 			spinning: false,
 			health: 100,
 			maxHealth: 100,
@@ -100,6 +100,7 @@
 
 	function gameLoop() {
 		if (!gameOver) {
+			// visibleBlocks = blocks.filter(b => doObjectsIntersect(viewport, b))
 			player = updateSprite(player, true)
 
 			rightBound = blockSize * level.length
@@ -126,8 +127,6 @@
 					: // player above half viewport height, center on player
 					  player.y - halfViewportHeight
 
-			visibleBlocks = blocks.filter(b => doObjectsIntersect(viewport, b))
-
 			// if no enemies are alive, spawn some more
 			// todo: levels should add mobs, not auto spawn
 
@@ -144,10 +143,8 @@
 			// 				x: player.x + 100 + x * 100,
 			// 				y: 600,
 			// 				direction: -1,
-			// 				momentum: {
-			// 					x: 0,
-			// 					y: 0,
-			// 				},
+			// 				vx: 0,
+			// 				vy: 0,
 			// 				health: 100 * wave,
 			// 				maxHealth: 100 * wave,
 			// 			}))
@@ -163,10 +160,8 @@
 			// 				x: player.x + 200,
 			// 				y: 600,
 			// 				direction: -1,
-			// 				momentum: {
-			// 					x: 0,
-			// 					y: 0,
-			// 				},
+			// 				vx: 0,
+			// 				vy: 0,
 			// 				health: 400 * wave,
 			// 				maxHealth: 400 * wave,
 			// 			},
@@ -198,44 +193,44 @@
 		const surfacesBelowSprite = blocks.filter(b => b.interactive && isAAboveB(sprite, b)).map(b => b.y + b.height)
 		const surfaceY = surfacesBelowSprite.length > 0 ? Math.max(...surfacesBelowSprite) : 0
 
-		if (sprite.momentum.y != 0) {
-			sprite.y += sprite.momentum.y
+		if (sprite.vy != 0) {
+			sprite.y += sprite.vy
 
 			// if we just hit the ground, take some life away
 			if (sprite.y <= surfaceY) {
 				sprite.y = surfaceY
-				sprite.health += sprite.momentum.y / (isPlayerControlled ? 2 : 10)
+				sprite.health += sprite.vy / (isPlayerControlled ? 2 : 10)
 			}
 		}
 
-		// x momentum
-		if (sprite.momentum.x != 0) {
-			if (sprite.momentum.x > 0) {
-				const targetX = sprite.x + sprite.momentum.x
+		// x velocity
+		if (sprite.vx != 0) {
+			if (sprite.vx > 0) {
+				const targetX = sprite.x + sprite.vx
 				sprite.x = targetX > rightBound ? rightBound : targetX
 			} else {
 				const leftBound = 0
-				const targetX = sprite.x + sprite.momentum.x
+				const targetX = sprite.x + sprite.vx
 				sprite.x = targetX < leftBound ? leftBound : targetX
 			}
 		}
 
 		if (sprite.y > surfaceY) {
-			sprite.momentum.y--
+			sprite.vy--
 		} else {
-			sprite.momentum.y = 0
+			sprite.vy = 0
 
 			if (isPlayerControlled) {
 				// player can jump if they're on the ground
 				if (spaceDown) {
-					sprite.momentum.y = jumpMomentum
+					sprite.vy = jumpVelocity
 					sprite.y += 1
-				} else if (!leftDown && !rightDown) sprite.momentum.x = 0
+				} else if (!leftDown && !rightDown) sprite.vx = 0
 			} else {
 				// enemy, just move toward player
 				// if player is above enemy, jump
 				if (player.y > sprite.y + sprite.height) {
-					sprite.momentum.y = jumpMomentum
+					sprite.vy = jumpVelocity
 					sprite.y += 1
 				}
 			}
@@ -243,12 +238,12 @@
 
 		if (isPlayerControlled) {
 			// player can move left and right
-			if (leftDown) sprite.momentum.x = -maxSpeed
-			else if (rightDown) sprite.momentum.x = maxSpeed
+			if (leftDown) sprite.vx = -maxSpeed
+			else if (rightDown) sprite.vx = maxSpeed
 		} else {
 			// enemy, just move toward player
-			if (player.x < sprite.x) sprite.momentum.x = -maxEnemySpeed
-			else sprite.momentum.x = maxEnemySpeed
+			if (player.x < sprite.x) sprite.vx = -maxEnemySpeed
+			else sprite.vx = maxEnemySpeed
 		}
 
 		return sprite
@@ -298,8 +293,11 @@
 				player.spinning = false
 				break
 			case 'Enter':
+			case 'NumpadEnter':
 				start()
 				break
+			default:
+				console.log(e.code)
 		}
 	}
 </script>

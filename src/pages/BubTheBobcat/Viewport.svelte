@@ -1,15 +1,16 @@
-<div class="viewport" style="width: {width}px; height: {height}px;">
+<div class="viewport" style="width: {width}px; height: {height}px; background-color: {backgroundColor}">
 	<slot />
 </div>
 
 <script>
 	export let width = 0
 	export let height = 0
+	export let backgroundColor = null
 </script>
 
 <style>
 	.viewport {
-		background: rgb(135, 206, 235);
 		position: relative;
+		overflow: hidden;
 	}
 </style>
