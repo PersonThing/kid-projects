@@ -32,7 +32,7 @@
 	import GameOver from './GameOver.svelte'
 	import Block from './Block.svelte'
 	import { levelToBlocks } from './blocks'
-	import { doObjectsIntersect, doObjectsIntersectX, doObjectsIntersectY, isAAboveB } from './spatial-functions'
+	import { doObjectsIntersect, isAAboveB } from './spatial-functions'
 
 	export let level = null
 	const blockSize = 25
@@ -191,7 +191,12 @@
 
 	function updateSprite(sprite, isPlayerControlled = false) {
 		const surfacesBelowSprite = blocks.filter(b => b.interactive && isAAboveB(sprite, b)).map(b => b.y + b.height)
-		const surfaceY = surfacesBelowSprite.length > 0 ? Math.max(...surfacesBelowSprite) : 0
+		const surfaceY = surfacesBelowSprite.length > 0 ? Math.max(...surfacesBelowSprite) : -500 // some number off screen
+
+		// if they go below 0, take damage
+		if (sprite.y < -100) {
+			sprite.health = 0
+		}
 
 		if (sprite.vy != 0) {
 			sprite.y += sprite.vy
