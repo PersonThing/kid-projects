@@ -1,4 +1,5 @@
-<div class="block" class:interactive style="height: {height}px; width: {width}px; bottom: {y - height}px; left: {x}px; background-color: {color}" />
+<div class="block" class:interactive style="height: {height}px; width: {width}px; bottom: {y}px; left: {x}px; background-color: {color};" />
+<!-- opacity: {100 / y} -->
 
 <script>
 	export let y = 0
@@ -15,6 +16,6 @@
 	}
 
 	.interactive {
-		border-top: 4px solid black;
+		border-top: 1px solid black;
 	}
 </style>

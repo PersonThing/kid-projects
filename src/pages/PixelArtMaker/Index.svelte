@@ -72,6 +72,8 @@
 	</div>
 </div>
 
+<textarea value={JSON.stringify(levelData)} on:focus={e => e.target.select()} />
+
 <script>
 	import LocalStorageStore from '../../stores/local-storage-store'
 
@@ -158,6 +160,16 @@
 
 	$: rows = [...Array(height)].map((_, i) => i)
 	$: columns = [...Array(width)].map((_, i) => i)
+
+	let levelData = []
+	$: if (columns.length > 0) {
+		const newLevelData = []
+		const reverseData = JSON.parse(JSON.stringify(data)).reverse()
+		for (let c = 0; c < columns.length; c++) {
+			newLevelData.push(reverseData.map(r => (r.length > c ? r[c] : null)))
+		}
+		levelData = newLevelData
+	}
 
 	let data = []
 	let mouseDown = false

@@ -1,8 +1,8 @@
-<div class="enemy" style="left: {position.x - size / 2}px; bottom: {position.y - 15}px;">
+<div class="enemy" style="left: {x}px; bottom: {y}px;">
 	<HealthBar {health} {maxHealth} />
 	<svg
 		class="graphic"
-		style="left: 15px; width: {size}px; height: {size}px; transform: scaleX({-1 * direction}) rotate({-4 + (momentum.y > 0 ? momentum.y * 3 : momentum.y * 1.5)}deg);
+		style="left: 15px; width: {width}px; height: {height}px; transform: scaleX({-1 * direction}) rotate({-4 + (momentum.y > 0 ? momentum.y * 3 : momentum.y * 1.5)}deg);
 		opacity: {health <= 0 ? 0.2 : 1.0}"
 		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 10 1024 749"
@@ -19,12 +19,11 @@
 		x: 0,
 		y: 0,
 	}
-	export let position = {
-		x: 0,
-		y: 0,
-	}
+	export let x = 0
+	export let y = 0
+	export let width = 75
+	export let height = 50
 	export let isBoss = false
-	export let size = 75
 	export let direction = 1
 	export let health = 100
 	export let maxHealth = 100

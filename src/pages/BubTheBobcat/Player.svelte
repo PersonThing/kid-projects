@@ -1,10 +1,10 @@
-<div class="player" style="left: {-size / 2 + xOffset}px; bottom: {position.y - 5}px;">
+<div class="player" style="left: {x}px; bottom: {y - 5}px;">
 	<HealthBar {health} {maxHealth} />
 	<img
 		class="graphic"
 		src="https://i.imgur.com/g1jV9bN.png"
 		alt="Bub"
-		style="width: {size}px; height: {size * 0.75}px; transform: scaleX({scaleX}) rotate({rotate}deg)" />
+		style="width: {width}px; height: {height}px; transform: scaleX({scaleX}) rotate({rotate}deg);" />
 </div>
 
 <script>
@@ -13,12 +13,10 @@
 		x: 0,
 		y: 0,
 	}
-	export let position = {
-		x: 0,
-		y: 0,
-	}
-	export let xOffset = 0
-	export let size = 150
+	export let y = 0
+	export let x = 0
+	export let width = 150
+	export let height = 100
 	export let direction = 1
 	export let health = 100
 	export let maxHealth = 100
