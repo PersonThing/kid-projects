@@ -1,4 +1,4 @@
-<div style="position: absolute; left: {-x}px; bottom: {-y};">
+<div style="position: absolute; left: {-x}px; bottom: {-y}px;">
 	{#each blocks as b}
 		<Block {...b} />
 	{/each}

@@ -4,20 +4,16 @@
 	{#if gameOver}
 		<GameOver {wave} {score} />
 	{/if}
-	<!-- viewport moves with player -->
 	<Viewport {...viewport}>
 		{#if player != null}
-			<!-- todo only render visible blocks -->
-			<Level blocks={visibleBlocks} x={player.x - viewport.width / 2}>
+			<Level blocks={visibleBlocks} x={viewport.x} y={viewport.y}>
 				{#each enemies as enemy}
 					<Enemy {...enemy} />
 				{/each}
+				<Player {...player} />
 			</Level>
 		{/if}
-		<Player {...player} x={viewport.width / 2} />
 	</Viewport>
-	<!-- <div class="relative">
-	</div> -->
 	<Status {wave} {score} />
 	<Instructions />
 </div>
@@ -59,8 +55,6 @@
 
 	let visibleBlocks
 	let viewport = {
-		x: 0,
-		y: 0,
 		width: window.innerWidth,
 		height: 900,
 	}
@@ -75,6 +69,7 @@
 		window.cancelAnimationFrame(lastRequestedFrame)
 	})
 
+	let rightBound
 	function start() {
 		wave = 0
 		score = 0
@@ -103,8 +98,31 @@
 		if (!gameOver) {
 			player = updateSprite(player, true)
 
-			viewport.x = player.x - viewport.width / 2
-			visibleBlocks = blocks.filter(b => doObjectsIntersectX(viewport, b))
+			rightBound = blockSize * level.length
+			const halfViewportWidth = viewport.width / 2
+			const halfViewportHeight = viewport.height / 2
+
+			viewport.x =
+				// player is at beginning of level
+				player.x < halfViewportWidth
+					? // viewport all the way to the left
+					  0
+					: // player is at end of level
+					player.x > rightBound - halfViewportWidth
+					? // viewport all the way to the right
+					  rightBound - viewport.width
+					: // player is in middle of level, viewport centered on player
+					  player.x - halfViewportWidth
+
+			viewport.y =
+				// player is near bottom of screen
+				player.y < halfViewportHeight
+					? // viewport all the way to bottom
+					  0
+					: // player above half viewport height, center on player
+					  player.y - halfViewportHeight
+
+			visibleBlocks = blocks.filter(b => doObjectsIntersect(viewport, b))
 
 			// if no enemies are alive, spawn some more
 			// todo: levels should add mobs, not auto spawn
@@ -189,7 +207,6 @@
 		// x momentum
 		if (sprite.momentum.x != 0) {
 			if (sprite.momentum.x > 0) {
-				const rightBound = blockSize * level.length
 				const targetX = sprite.x + sprite.momentum.x
 				sprite.x = targetX > rightBound ? rightBound : targetX
 			} else {

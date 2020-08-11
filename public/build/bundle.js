@@ -1831,7 +1831,7 @@ var app = (function () {
     			if (default_slot) default_slot.c();
     			set_style(div, "position", "absolute");
     			set_style(div, "left", -/*x*/ ctx[1] + "px");
-    			set_style(div, "bottom", -/*y*/ ctx[2]);
+    			set_style(div, "bottom", -/*y*/ ctx[2] + "px");
     			add_location(div, file$2, 0, 0, 0);
     		},
     		l: function claim(nodes) {
@@ -1892,7 +1892,7 @@ var app = (function () {
     			}
 
     			if (!current || dirty & /*y*/ 4) {
-    				set_style(div, "bottom", -/*y*/ ctx[2]);
+    				set_style(div, "bottom", -/*y*/ ctx[2] + "px");
     			}
     		},
     		i: function intro(local) {
@@ -3338,7 +3338,7 @@ var app = (function () {
     			// todo should be objects allowing different block types and config, not just 0 or 1
     			if (level.data[x][y])
     				b.push(
-    					floater(x * blockSize + 600, y * blockSize, blockSize, blockSize, level.data[x][y], true)
+    					floater(x * blockSize, y * blockSize, blockSize, blockSize, level.data[x][y], true)
     					// floater(x + 20, y, blockSize, true, BlockColors.Green)
     				);
     		}
@@ -3379,7 +3379,7 @@ var app = (function () {
 
     function get_each_context$2(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[24] = list[i];
+    	child_ctx[25] = list[i];
     	return child_ctx;
     }
 
@@ -3435,7 +3435,7 @@ var app = (function () {
     	return block;
     }
 
-    // (9:2) {#if player != null}
+    // (8:2) {#if player != null}
     function create_if_block$1(ctx) {
     	let level_1;
     	let current;
@@ -3443,7 +3443,8 @@ var app = (function () {
     	level_1 = new Level({
     			props: {
     				blocks: /*visibleBlocks*/ ctx[6],
-    				x: /*player*/ ctx[3].x - /*viewport*/ ctx[7].width / 2,
+    				x: /*viewport*/ ctx[7].x,
+    				y: /*viewport*/ ctx[7].y,
     				$$slots: { default: [create_default_slot_1] },
     				$$scope: { ctx }
     			},
@@ -3461,9 +3462,10 @@ var app = (function () {
     		p: function update(ctx, dirty) {
     			const level_1_changes = {};
     			if (dirty & /*visibleBlocks*/ 64) level_1_changes.blocks = /*visibleBlocks*/ ctx[6];
-    			if (dirty & /*player, viewport*/ 136) level_1_changes.x = /*player*/ ctx[3].x - /*viewport*/ ctx[7].width / 2;
+    			if (dirty & /*viewport*/ 128) level_1_changes.x = /*viewport*/ ctx[7].x;
+    			if (dirty & /*viewport*/ 128) level_1_changes.y = /*viewport*/ ctx[7].y;
 
-    			if (dirty & /*$$scope, enemies*/ 134217744) {
+    			if (dirty & /*$$scope, player, enemies*/ 268435480) {
     				level_1_changes.$$scope = { dirty, ctx };
     			}
 
@@ -3487,18 +3489,18 @@ var app = (function () {
     		block,
     		id: create_if_block$1.name,
     		type: "if",
-    		source: "(9:2) {#if player != null}",
+    		source: "(8:2) {#if player != null}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (12:4) {#each enemies as enemy}
+    // (10:4) {#each enemies as enemy}
     function create_each_block$2(ctx) {
     	let enemy;
     	let current;
-    	const enemy_spread_levels = [/*enemy*/ ctx[24]];
+    	const enemy_spread_levels = [/*enemy*/ ctx[25]];
     	let enemy_props = {};
 
     	for (let i = 0; i < enemy_spread_levels.length; i += 1) {
@@ -3517,7 +3519,7 @@ var app = (function () {
     		},
     		p: function update(ctx, dirty) {
     			const enemy_changes = (dirty & /*enemies*/ 16)
-    			? get_spread_update(enemy_spread_levels, [get_spread_object(/*enemy*/ ctx[24])])
+    			? get_spread_update(enemy_spread_levels, [get_spread_object(/*enemy*/ ctx[25])])
     			: {};
 
     			enemy.$set(enemy_changes);
@@ -3540,16 +3542,17 @@ var app = (function () {
     		block,
     		id: create_each_block$2.name,
     		type: "each",
-    		source: "(12:4) {#each enemies as enemy}",
+    		source: "(10:4) {#each enemies as enemy}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (11:3) <Level blocks={visibleBlocks} x={player.x - viewport.width / 2}>
+    // (9:3) <Level blocks={visibleBlocks} x={viewport.x} y={viewport.y}>
     function create_default_slot_1(ctx) {
-    	let each_1_anchor;
+    	let t;
+    	let player_1;
     	let current;
     	let each_value = /*enemies*/ ctx[4];
     	validate_each_argument(each_value);
@@ -3563,20 +3566,31 @@ var app = (function () {
     		each_blocks[i] = null;
     	});
 
+    	const player_1_spread_levels = [/*player*/ ctx[3]];
+    	let player_1_props = {};
+
+    	for (let i = 0; i < player_1_spread_levels.length; i += 1) {
+    		player_1_props = assign(player_1_props, player_1_spread_levels[i]);
+    	}
+
+    	player_1 = new Player({ props: player_1_props, $$inline: true });
+
     	const block = {
     		c: function create() {
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
 
-    			each_1_anchor = empty();
+    			t = space();
+    			create_component(player_1.$$.fragment);
     		},
     		m: function mount(target, anchor) {
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].m(target, anchor);
     			}
 
-    			insert_dev(target, each_1_anchor, anchor);
+    			insert_dev(target, t, anchor);
+    			mount_component(player_1, target, anchor);
     			current = true;
     		},
     		p: function update(ctx, dirty) {
@@ -3595,7 +3609,7 @@ var app = (function () {
     						each_blocks[i] = create_each_block$2(child_ctx);
     						each_blocks[i].c();
     						transition_in(each_blocks[i], 1);
-    						each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
+    						each_blocks[i].m(t.parentNode, t);
     					}
     				}
 
@@ -3607,6 +3621,12 @@ var app = (function () {
 
     				check_outros();
     			}
+
+    			const player_1_changes = (dirty & /*player*/ 8)
+    			? get_spread_update(player_1_spread_levels, [get_spread_object(/*player*/ ctx[3])])
+    			: {};
+
+    			player_1.$set(player_1_changes);
     		},
     		i: function intro(local) {
     			if (current) return;
@@ -3615,6 +3635,7 @@ var app = (function () {
     				transition_in(each_blocks[i]);
     			}
 
+    			transition_in(player_1.$$.fragment, local);
     			current = true;
     		},
     		o: function outro(local) {
@@ -3624,11 +3645,13 @@ var app = (function () {
     				transition_out(each_blocks[i]);
     			}
 
+    			transition_out(player_1.$$.fragment, local);
     			current = false;
     		},
     		d: function destroy(detaching) {
     			destroy_each(each_blocks, detaching);
-    			if (detaching) detach_dev(each_1_anchor);
+    			if (detaching) detach_dev(t);
+    			destroy_component(player_1, detaching);
     		}
     	};
 
@@ -3636,38 +3659,27 @@ var app = (function () {
     		block,
     		id: create_default_slot_1.name,
     		type: "slot",
-    		source: "(11:3) <Level blocks={visibleBlocks} x={player.x - viewport.width / 2}>",
+    		source: "(9:3) <Level blocks={visibleBlocks} x={viewport.x} y={viewport.y}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (8:1) <Viewport {...viewport}>
+    // (7:1) <Viewport {...viewport}>
     function create_default_slot(ctx) {
-    	let t;
-    	let player_1;
+    	let if_block_anchor;
     	let current;
     	let if_block = /*player*/ ctx[3] != null && create_if_block$1(ctx);
-    	const player_1_spread_levels = [/*player*/ ctx[3], { x: /*viewport*/ ctx[7].width / 2 }];
-    	let player_1_props = {};
-
-    	for (let i = 0; i < player_1_spread_levels.length; i += 1) {
-    		player_1_props = assign(player_1_props, player_1_spread_levels[i]);
-    	}
-
-    	player_1 = new Player({ props: player_1_props, $$inline: true });
 
     	const block = {
     		c: function create() {
     			if (if_block) if_block.c();
-    			t = space();
-    			create_component(player_1.$$.fragment);
+    			if_block_anchor = empty();
     		},
     		m: function mount(target, anchor) {
     			if (if_block) if_block.m(target, anchor);
-    			insert_dev(target, t, anchor);
-    			mount_component(player_1, target, anchor);
+    			insert_dev(target, if_block_anchor, anchor);
     			current = true;
     		},
     		p: function update(ctx, dirty) {
@@ -3682,7 +3694,7 @@ var app = (function () {
     					if_block = create_if_block$1(ctx);
     					if_block.c();
     					transition_in(if_block, 1);
-    					if_block.m(t.parentNode, t);
+    					if_block.m(if_block_anchor.parentNode, if_block_anchor);
     				}
     			} else if (if_block) {
     				group_outros();
@@ -3693,31 +3705,19 @@ var app = (function () {
 
     				check_outros();
     			}
-
-    			const player_1_changes = (dirty & /*player, viewport*/ 136)
-    			? get_spread_update(player_1_spread_levels, [
-    					dirty & /*player*/ 8 && get_spread_object(/*player*/ ctx[3]),
-    					dirty & /*viewport*/ 128 && { x: /*viewport*/ ctx[7].width / 2 }
-    				])
-    			: {};
-
-    			player_1.$set(player_1_changes);
     		},
     		i: function intro(local) {
     			if (current) return;
     			transition_in(if_block);
-    			transition_in(player_1.$$.fragment, local);
     			current = true;
     		},
     		o: function outro(local) {
     			transition_out(if_block);
-    			transition_out(player_1.$$.fragment, local);
     			current = false;
     		},
     		d: function destroy(detaching) {
     			if (if_block) if_block.d(detaching);
-    			if (detaching) detach_dev(t);
-    			destroy_component(player_1, detaching);
+    			if (detaching) detach_dev(if_block_anchor);
     		}
     	};
 
@@ -3725,7 +3725,7 @@ var app = (function () {
     		block,
     		id: create_default_slot.name,
     		type: "slot",
-    		source: "(8:1) <Viewport {...viewport}>",
+    		source: "(7:1) <Viewport {...viewport}>",
     		ctx
     	});
 
@@ -3832,7 +3832,7 @@ var app = (function () {
     			? get_spread_update(viewport_1_spread_levels, [get_spread_object(/*viewport*/ ctx[7])])
     			: {};
 
-    			if (dirty & /*$$scope, player, viewport, visibleBlocks, enemies*/ 134217944) {
+    			if (dirty & /*$$scope, visibleBlocks, viewport, player, enemies*/ 268435672) {
     				viewport_1_changes.$$scope = { dirty, ctx };
     			}
 
@@ -3900,13 +3900,7 @@ var app = (function () {
     	let gameAlive = true;
     	let lastRequestedFrame = null;
     	let visibleBlocks;
-
-    	let viewport = {
-    		x: 0,
-    		y: 0,
-    		width: window.innerWidth,
-    		height: 900
-    	};
+    	let viewport = { width: window.innerWidth, height: 900 };
 
     	onMount(() => {
     		blocks = levelToBlocks(level, blockSize);
@@ -3917,6 +3911,8 @@ var app = (function () {
     		gameAlive = false;
     		window.cancelAnimationFrame(lastRequestedFrame);
     	});
+
+    	let rightBound;
 
     	function start() {
     		$$invalidate(0, wave = 0);
@@ -3944,8 +3940,37 @@ var app = (function () {
     	function gameLoop() {
     		if (!gameOver) {
     			$$invalidate(3, player = updateSprite(player, true));
-    			$$invalidate(7, viewport.x = player.x - viewport.width / 2, viewport);
-    			$$invalidate(6, visibleBlocks = blocks.filter(b => doObjectsIntersectX(viewport, b)));
+    			rightBound = blockSize * level.length;
+    			const halfViewportWidth = viewport.width / 2;
+    			const halfViewportHeight = viewport.height / 2;
+
+    			$$invalidate(
+    				7,
+    				viewport.x = // player is at beginning of level
+    				player.x < halfViewportWidth
+    				? // viewport all the way to the left
+    					0
+    				: // player is at end of level
+    					player.x > rightBound - halfViewportWidth
+    					? // viewport all the way to the right
+    						rightBound - viewport.width
+    					: // player is in middle of level, viewport centered on player
+    						player.x - halfViewportWidth,
+    				viewport
+    			);
+
+    			$$invalidate(
+    				7,
+    				viewport.y = // player is near bottom of screen
+    				player.y < halfViewportHeight
+    				? // viewport all the way to bottom
+    					0
+    				: // player above half viewport height, center on player
+    					player.y - halfViewportHeight,
+    				viewport
+    			);
+
+    			$$invalidate(6, visibleBlocks = blocks.filter(b => doObjectsIntersect(viewport, b)));
 
     			// if no enemies are alive, spawn some more
     			// todo: levels should add mobs, not auto spawn
@@ -4032,7 +4057,6 @@ var app = (function () {
     		// x momentum
     		if (sprite.momentum.x != 0) {
     			if (sprite.momentum.x > 0) {
-    				const rightBound = blockSize * level.length;
     				const targetX = sprite.x + sprite.momentum.x;
     				sprite.x = targetX > rightBound ? rightBound : targetX;
     			} else {
@@ -4174,6 +4198,7 @@ var app = (function () {
     		lastRequestedFrame,
     		visibleBlocks,
     		viewport,
+    		rightBound,
     		start,
     		gameLoop,
     		updateSprite,
@@ -4200,6 +4225,7 @@ var app = (function () {
     		if ("lastRequestedFrame" in $$props) lastRequestedFrame = $$props.lastRequestedFrame;
     		if ("visibleBlocks" in $$props) $$invalidate(6, visibleBlocks = $$props.visibleBlocks);
     		if ("viewport" in $$props) $$invalidate(7, viewport = $$props.viewport);
+    		if ("rightBound" in $$props) rightBound = $$props.rightBound;
     	};
 
     	if ($$props && "$$inject" in $$props) {

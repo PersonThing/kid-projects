@@ -22,7 +22,7 @@ export function levelToBlocks(level, blockSize) {
 			// todo should be objects allowing different block types and config, not just 0 or 1
 			if (level.data[x][y])
 				b.push(
-					floater(x * blockSize + 600, y * blockSize, blockSize, blockSize, level.data[x][y], true)
+					floater(x * blockSize, y * blockSize, blockSize, blockSize, level.data[x][y], true)
 					// floater(x + 20, y, blockSize, true, BlockColors.Green)
 				)
 		}
