@@ -6,7 +6,7 @@
 	{/if}
 	<Viewport {...viewport}>
 		{#if player != null}
-			<Level blocks={visibleBlocks} x={viewport.x} y={viewport.y}>
+			<Level blocks={visibleBlocks} x={viewport.x} y={viewport.y} {height} {width}>
 				{#each enemies as enemy}
 					<Enemy {...enemy} />
 				{/each}
@@ -34,7 +34,9 @@
 
 	export let level = null
 	const blockSize = 25
-	let blocks = []
+	let blocks
+	let width = 0
+	let height = 0
 
 	let wave = 0
 	let score = 0
@@ -61,6 +63,8 @@
 
 	onMount(() => {
 		blocks = levelToBlocks(level, blockSize)
+		width = level.data.length * blockSize
+		height = Math.max(...blocks.map(b => b.y + b.height))
 		start()
 	})
 
@@ -77,7 +81,7 @@
 			width: 85,
 			height: 75,
 			x: blocks[0].x,
-			y: blocks[0].y + blocks[0].height + 25,
+			y: blocks[0].y + blocks[0].height + 100,
 			direction: 1,
 			momentum: {
 				x: 0,
@@ -191,15 +195,15 @@
 	}
 
 	function updateSprite(sprite, isPlayerControlled = false) {
-		const groundHeightsBelowSprite = blocks.filter(b => b.interactive && isAAboveB(sprite, b)).map(b => b.y + b.height)
-		const groundY = groundHeightsBelowSprite.length > 0 ? Math.max(...groundHeightsBelowSprite) : 0
+		const surfacesBelowSprite = blocks.filter(b => b.interactive && isAAboveB(sprite, b)).map(b => b.y + b.height)
+		const surfaceY = surfacesBelowSprite.length > 0 ? Math.max(...surfacesBelowSprite) : 0
 
 		if (sprite.momentum.y != 0) {
 			sprite.y += sprite.momentum.y
 
 			// if we just hit the ground, take some life away
-			if (sprite.y <= groundY) {
-				sprite.y = groundY
+			if (sprite.y <= surfaceY) {
+				sprite.y = surfaceY
 				sprite.health += sprite.momentum.y / (isPlayerControlled ? 2 : 10)
 			}
 		}
@@ -216,7 +220,7 @@
 			}
 		}
 
-		if (sprite.y > groundY) {
+		if (sprite.y > surfaceY) {
 			sprite.momentum.y--
 		} else {
 			sprite.momentum.y = 0
@@ -276,6 +280,10 @@
 	}
 
 	function onKeyUp(e) {
+		if (gameOver) {
+			start()
+			return
+		}
 		switch (e.code) {
 			case 'KeyA':
 				leftDown = false

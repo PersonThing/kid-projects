@@ -1562,55 +1562,50 @@ var app = (function () {
     const file$1 = "src\\pages\\BubTheBobcat\\Block.svelte";
 
     function create_fragment$3(ctx) {
-    	let div;
+    	let rect;
 
     	const block = {
     		c: function create() {
-    			div = element("div");
-    			attr_dev(div, "class", "block svelte-1f5t6il");
-    			set_style(div, "height", /*height*/ ctx[3] + "px");
-    			set_style(div, "width", /*width*/ ctx[2] + "px");
-    			set_style(div, "bottom", /*y*/ ctx[0] + "px");
-    			set_style(div, "left", /*x*/ ctx[1] + "px");
-    			set_style(div, "background-color", /*color*/ ctx[5]);
-    			toggle_class(div, "interactive", /*interactive*/ ctx[4]);
-    			add_location(div, file$1, 0, 0, 0);
+    			rect = svg_element("rect");
+    			attr_dev(rect, "x", /*x*/ ctx[1]);
+    			attr_dev(rect, "y", /*y*/ ctx[0]);
+    			attr_dev(rect, "width", /*width*/ ctx[2]);
+    			attr_dev(rect, "height", /*height*/ ctx[3]);
+    			attr_dev(rect, "fill", /*color*/ ctx[4]);
+    			attr_dev(rect, "stroke", "black");
+    			add_location(rect, file$1, 0, 0, 0);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div, anchor);
+    			insert_dev(target, rect, anchor);
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*height*/ 8) {
-    				set_style(div, "height", /*height*/ ctx[3] + "px");
-    			}
-
-    			if (dirty & /*width*/ 4) {
-    				set_style(div, "width", /*width*/ ctx[2] + "px");
+    			if (dirty & /*x*/ 2) {
+    				attr_dev(rect, "x", /*x*/ ctx[1]);
     			}
 
     			if (dirty & /*y*/ 1) {
-    				set_style(div, "bottom", /*y*/ ctx[0] + "px");
+    				attr_dev(rect, "y", /*y*/ ctx[0]);
     			}
 
-    			if (dirty & /*x*/ 2) {
-    				set_style(div, "left", /*x*/ ctx[1] + "px");
+    			if (dirty & /*width*/ 4) {
+    				attr_dev(rect, "width", /*width*/ ctx[2]);
     			}
 
-    			if (dirty & /*color*/ 32) {
-    				set_style(div, "background-color", /*color*/ ctx[5]);
+    			if (dirty & /*height*/ 8) {
+    				attr_dev(rect, "height", /*height*/ ctx[3]);
     			}
 
-    			if (dirty & /*interactive*/ 16) {
-    				toggle_class(div, "interactive", /*interactive*/ ctx[4]);
+    			if (dirty & /*color*/ 16) {
+    				attr_dev(rect, "fill", /*color*/ ctx[4]);
     			}
     		},
     		i: noop,
     		o: noop,
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div);
+    			if (detaching) detach_dev(rect);
     		}
     	};
 
@@ -1646,8 +1641,8 @@ var app = (function () {
     		if ("x" in $$props) $$invalidate(1, x = $$props.x);
     		if ("width" in $$props) $$invalidate(2, width = $$props.width);
     		if ("height" in $$props) $$invalidate(3, height = $$props.height);
-    		if ("interactive" in $$props) $$invalidate(4, interactive = $$props.interactive);
-    		if ("color" in $$props) $$invalidate(5, color = $$props.color);
+    		if ("interactive" in $$props) $$invalidate(5, interactive = $$props.interactive);
+    		if ("color" in $$props) $$invalidate(4, color = $$props.color);
     	};
 
     	$$self.$capture_state = () => ({ y, x, width, height, interactive, color });
@@ -1657,15 +1652,15 @@ var app = (function () {
     		if ("x" in $$props) $$invalidate(1, x = $$props.x);
     		if ("width" in $$props) $$invalidate(2, width = $$props.width);
     		if ("height" in $$props) $$invalidate(3, height = $$props.height);
-    		if ("interactive" in $$props) $$invalidate(4, interactive = $$props.interactive);
-    		if ("color" in $$props) $$invalidate(5, color = $$props.color);
+    		if ("interactive" in $$props) $$invalidate(5, interactive = $$props.interactive);
+    		if ("color" in $$props) $$invalidate(4, color = $$props.color);
     	};
 
     	if ($$props && "$$inject" in $$props) {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [y, x, width, height, interactive, color];
+    	return [y, x, width, height, color, interactive];
     }
 
     class Block extends SvelteComponentDev {
@@ -1677,8 +1672,8 @@ var app = (function () {
     			x: 1,
     			width: 2,
     			height: 3,
-    			interactive: 4,
-    			color: 5
+    			interactive: 5,
+    			color: 4
     		});
 
     		dispatch_dev("SvelteRegisterComponent", {
@@ -1743,15 +1738,15 @@ var app = (function () {
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[5] = list[i];
+    	child_ctx[7] = list[i];
     	return child_ctx;
     }
 
-    // (2:1) {#each blocks as b}
+    // (3:2) {#each blocks as b}
     function create_each_block(ctx) {
     	let block;
     	let current;
-    	const block_spread_levels = [/*b*/ ctx[5]];
+    	const block_spread_levels = [/*b*/ ctx[7]];
     	let block_props = {};
 
     	for (let i = 0; i < block_spread_levels.length; i += 1) {
@@ -1769,8 +1764,8 @@ var app = (function () {
     			current = true;
     		},
     		p: function update(ctx, dirty) {
-    			const block_changes = (dirty & /*blocks*/ 1)
-    			? get_spread_update(block_spread_levels, [get_spread_object(/*b*/ ctx[5])])
+    			const block_changes = (dirty & /*blocks*/ 4)
+    			? get_spread_update(block_spread_levels, [get_spread_object(/*b*/ ctx[7])])
     			: {};
 
     			block.$set(block_changes);
@@ -1793,7 +1788,7 @@ var app = (function () {
     		block: block_1,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(2:1) {#each blocks as b}",
+    		source: "(3:2) {#each blocks as b}",
     		ctx
     	});
 
@@ -1802,9 +1797,10 @@ var app = (function () {
 
     function create_fragment$4(ctx) {
     	let div;
+    	let svg;
     	let t;
     	let current;
-    	let each_value = /*blocks*/ ctx[0];
+    	let each_value = /*blocks*/ ctx[2];
     	validate_each_argument(each_value);
     	let each_blocks = [];
 
@@ -1816,12 +1812,13 @@ var app = (function () {
     		each_blocks[i] = null;
     	});
 
-    	const default_slot_template = /*$$slots*/ ctx[4].default;
-    	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[3], null);
+    	const default_slot_template = /*$$slots*/ ctx[6].default;
+    	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[5], null);
 
     	const block = {
     		c: function create() {
     			div = element("div");
+    			svg = svg_element("svg");
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
@@ -1829,9 +1826,13 @@ var app = (function () {
 
     			t = space();
     			if (default_slot) default_slot.c();
+    			attr_dev(svg, "width", /*width*/ ctx[0]);
+    			attr_dev(svg, "height", /*height*/ ctx[1]);
+    			set_style(svg, "transform", "scaleY(-1)");
+    			add_location(svg, file$2, 1, 1, 66);
     			set_style(div, "position", "absolute");
-    			set_style(div, "left", -/*x*/ ctx[1] + "px");
-    			set_style(div, "bottom", -/*y*/ ctx[2] + "px");
+    			set_style(div, "left", -/*x*/ ctx[3] + "px");
+    			set_style(div, "bottom", -/*y*/ ctx[4] + "px");
     			add_location(div, file$2, 0, 0, 0);
     		},
     		l: function claim(nodes) {
@@ -1839,9 +1840,10 @@ var app = (function () {
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
+    			append_dev(div, svg);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
-    				each_blocks[i].m(div, null);
+    				each_blocks[i].m(svg, null);
     			}
 
     			append_dev(div, t);
@@ -1853,8 +1855,8 @@ var app = (function () {
     			current = true;
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*blocks*/ 1) {
-    				each_value = /*blocks*/ ctx[0];
+    			if (dirty & /*blocks*/ 4) {
+    				each_value = /*blocks*/ ctx[2];
     				validate_each_argument(each_value);
     				let i;
 
@@ -1868,7 +1870,7 @@ var app = (function () {
     						each_blocks[i] = create_each_block(child_ctx);
     						each_blocks[i].c();
     						transition_in(each_blocks[i], 1);
-    						each_blocks[i].m(div, t);
+    						each_blocks[i].m(svg, null);
     					}
     				}
 
@@ -1881,18 +1883,26 @@ var app = (function () {
     				check_outros();
     			}
 
+    			if (!current || dirty & /*width*/ 1) {
+    				attr_dev(svg, "width", /*width*/ ctx[0]);
+    			}
+
+    			if (!current || dirty & /*height*/ 2) {
+    				attr_dev(svg, "height", /*height*/ ctx[1]);
+    			}
+
     			if (default_slot) {
-    				if (default_slot.p && dirty & /*$$scope*/ 8) {
-    					update_slot(default_slot, default_slot_template, ctx, /*$$scope*/ ctx[3], dirty, null, null);
+    				if (default_slot.p && dirty & /*$$scope*/ 32) {
+    					update_slot(default_slot, default_slot_template, ctx, /*$$scope*/ ctx[5], dirty, null, null);
     				}
     			}
 
-    			if (!current || dirty & /*x*/ 2) {
-    				set_style(div, "left", -/*x*/ ctx[1] + "px");
+    			if (!current || dirty & /*x*/ 8) {
+    				set_style(div, "left", -/*x*/ ctx[3] + "px");
     			}
 
-    			if (!current || dirty & /*y*/ 4) {
-    				set_style(div, "bottom", -/*y*/ ctx[2] + "px");
+    			if (!current || dirty & /*y*/ 16) {
+    				set_style(div, "bottom", -/*y*/ ctx[4] + "px");
     			}
     		},
     		i: function intro(local) {
@@ -1934,10 +1944,12 @@ var app = (function () {
     }
 
     function instance$4($$self, $$props, $$invalidate) {
+    	let { width = 0 } = $$props;
+    	let { height = 0 } = $$props;
     	let { blocks = [] } = $$props;
     	let { x = 0 } = $$props;
     	let { y = 0 } = $$props;
-    	const writable_props = ["blocks", "x", "y"];
+    	const writable_props = ["width", "height", "blocks", "x", "y"];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<Level> was created with unknown prop '${key}'`);
@@ -1947,31 +1959,50 @@ var app = (function () {
     	validate_slots("Level", $$slots, ['default']);
 
     	$$self.$$set = $$props => {
-    		if ("blocks" in $$props) $$invalidate(0, blocks = $$props.blocks);
-    		if ("x" in $$props) $$invalidate(1, x = $$props.x);
-    		if ("y" in $$props) $$invalidate(2, y = $$props.y);
-    		if ("$$scope" in $$props) $$invalidate(3, $$scope = $$props.$$scope);
+    		if ("width" in $$props) $$invalidate(0, width = $$props.width);
+    		if ("height" in $$props) $$invalidate(1, height = $$props.height);
+    		if ("blocks" in $$props) $$invalidate(2, blocks = $$props.blocks);
+    		if ("x" in $$props) $$invalidate(3, x = $$props.x);
+    		if ("y" in $$props) $$invalidate(4, y = $$props.y);
+    		if ("$$scope" in $$props) $$invalidate(5, $$scope = $$props.$$scope);
     	};
 
-    	$$self.$capture_state = () => ({ doObjectsIntersect, Block, blocks, x, y });
+    	$$self.$capture_state = () => ({
+    		doObjectsIntersect,
+    		Block,
+    		width,
+    		height,
+    		blocks,
+    		x,
+    		y
+    	});
 
     	$$self.$inject_state = $$props => {
-    		if ("blocks" in $$props) $$invalidate(0, blocks = $$props.blocks);
-    		if ("x" in $$props) $$invalidate(1, x = $$props.x);
-    		if ("y" in $$props) $$invalidate(2, y = $$props.y);
+    		if ("width" in $$props) $$invalidate(0, width = $$props.width);
+    		if ("height" in $$props) $$invalidate(1, height = $$props.height);
+    		if ("blocks" in $$props) $$invalidate(2, blocks = $$props.blocks);
+    		if ("x" in $$props) $$invalidate(3, x = $$props.x);
+    		if ("y" in $$props) $$invalidate(4, y = $$props.y);
     	};
 
     	if ($$props && "$$inject" in $$props) {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [blocks, x, y, $$scope, $$slots];
+    	return [width, height, blocks, x, y, $$scope, $$slots];
     }
 
     class Level extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$4, create_fragment$4, safe_not_equal, { blocks: 0, x: 1, y: 2 });
+
+    		init(this, options, instance$4, create_fragment$4, safe_not_equal, {
+    			width: 0,
+    			height: 1,
+    			blocks: 2,
+    			x: 3,
+    			y: 4
+    		});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
@@ -1979,6 +2010,22 @@ var app = (function () {
     			options,
     			id: create_fragment$4.name
     		});
+    	}
+
+    	get width() {
+    		throw new Error("<Level>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set width(value) {
+    		throw new Error("<Level>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get height() {
+    		throw new Error("<Level>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set height(value) {
+    		throw new Error("<Level>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
 
     	get blocks() {
@@ -3215,7 +3262,7 @@ var app = (function () {
     			t3 = text(/*score*/ ctx[0]);
     			t4 = space();
     			p = element("p");
-    			p.textContent = "Press enter to restart.";
+    			p.textContent = "Press any key to restart.";
     			attr_dev(h10, "class", "svelte-1ogvx1s");
     			add_location(h10, file$8, 1, 1, 26);
     			attr_dev(h11, "class", "svelte-1ogvx1s");
@@ -3379,7 +3426,7 @@ var app = (function () {
 
     function get_each_context$2(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[25] = list[i];
+    	child_ctx[27] = list[i];
     	return child_ctx;
     }
 
@@ -3390,8 +3437,8 @@ var app = (function () {
 
     	gameover = new GameOver({
     			props: {
-    				wave: /*wave*/ ctx[0],
-    				score: /*score*/ ctx[1]
+    				wave: /*wave*/ ctx[2],
+    				score: /*score*/ ctx[3]
     			},
     			$$inline: true
     		});
@@ -3406,8 +3453,8 @@ var app = (function () {
     		},
     		p: function update(ctx, dirty) {
     			const gameover_changes = {};
-    			if (dirty & /*wave*/ 1) gameover_changes.wave = /*wave*/ ctx[0];
-    			if (dirty & /*score*/ 2) gameover_changes.score = /*score*/ ctx[1];
+    			if (dirty & /*wave*/ 4) gameover_changes.wave = /*wave*/ ctx[2];
+    			if (dirty & /*score*/ 8) gameover_changes.score = /*score*/ ctx[3];
     			gameover.$set(gameover_changes);
     		},
     		i: function intro(local) {
@@ -3442,9 +3489,11 @@ var app = (function () {
 
     	level_1 = new Level({
     			props: {
-    				blocks: /*visibleBlocks*/ ctx[6],
-    				x: /*viewport*/ ctx[7].x,
-    				y: /*viewport*/ ctx[7].y,
+    				blocks: /*visibleBlocks*/ ctx[8],
+    				x: /*viewport*/ ctx[9].x,
+    				y: /*viewport*/ ctx[9].y,
+    				height: /*height*/ ctx[1],
+    				width: /*width*/ ctx[0],
     				$$slots: { default: [create_default_slot_1] },
     				$$scope: { ctx }
     			},
@@ -3461,11 +3510,13 @@ var app = (function () {
     		},
     		p: function update(ctx, dirty) {
     			const level_1_changes = {};
-    			if (dirty & /*visibleBlocks*/ 64) level_1_changes.blocks = /*visibleBlocks*/ ctx[6];
-    			if (dirty & /*viewport*/ 128) level_1_changes.x = /*viewport*/ ctx[7].x;
-    			if (dirty & /*viewport*/ 128) level_1_changes.y = /*viewport*/ ctx[7].y;
+    			if (dirty & /*visibleBlocks*/ 256) level_1_changes.blocks = /*visibleBlocks*/ ctx[8];
+    			if (dirty & /*viewport*/ 512) level_1_changes.x = /*viewport*/ ctx[9].x;
+    			if (dirty & /*viewport*/ 512) level_1_changes.y = /*viewport*/ ctx[9].y;
+    			if (dirty & /*height*/ 2) level_1_changes.height = /*height*/ ctx[1];
+    			if (dirty & /*width*/ 1) level_1_changes.width = /*width*/ ctx[0];
 
-    			if (dirty & /*$$scope, player, enemies*/ 268435480) {
+    			if (dirty & /*$$scope, player, enemies*/ 1073741920) {
     				level_1_changes.$$scope = { dirty, ctx };
     			}
 
@@ -3500,7 +3551,7 @@ var app = (function () {
     function create_each_block$2(ctx) {
     	let enemy;
     	let current;
-    	const enemy_spread_levels = [/*enemy*/ ctx[25]];
+    	const enemy_spread_levels = [/*enemy*/ ctx[27]];
     	let enemy_props = {};
 
     	for (let i = 0; i < enemy_spread_levels.length; i += 1) {
@@ -3518,8 +3569,8 @@ var app = (function () {
     			current = true;
     		},
     		p: function update(ctx, dirty) {
-    			const enemy_changes = (dirty & /*enemies*/ 16)
-    			? get_spread_update(enemy_spread_levels, [get_spread_object(/*enemy*/ ctx[25])])
+    			const enemy_changes = (dirty & /*enemies*/ 64)
+    			? get_spread_update(enemy_spread_levels, [get_spread_object(/*enemy*/ ctx[27])])
     			: {};
 
     			enemy.$set(enemy_changes);
@@ -3549,12 +3600,12 @@ var app = (function () {
     	return block;
     }
 
-    // (9:3) <Level blocks={visibleBlocks} x={viewport.x} y={viewport.y}>
+    // (9:3) <Level blocks={visibleBlocks} x={viewport.x} y={viewport.y} {height} {width}>
     function create_default_slot_1(ctx) {
     	let t;
     	let player_1;
     	let current;
-    	let each_value = /*enemies*/ ctx[4];
+    	let each_value = /*enemies*/ ctx[6];
     	validate_each_argument(each_value);
     	let each_blocks = [];
 
@@ -3566,7 +3617,7 @@ var app = (function () {
     		each_blocks[i] = null;
     	});
 
-    	const player_1_spread_levels = [/*player*/ ctx[3]];
+    	const player_1_spread_levels = [/*player*/ ctx[5]];
     	let player_1_props = {};
 
     	for (let i = 0; i < player_1_spread_levels.length; i += 1) {
@@ -3594,8 +3645,8 @@ var app = (function () {
     			current = true;
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*enemies*/ 16) {
-    				each_value = /*enemies*/ ctx[4];
+    			if (dirty & /*enemies*/ 64) {
+    				each_value = /*enemies*/ ctx[6];
     				validate_each_argument(each_value);
     				let i;
 
@@ -3622,8 +3673,8 @@ var app = (function () {
     				check_outros();
     			}
 
-    			const player_1_changes = (dirty & /*player*/ 8)
-    			? get_spread_update(player_1_spread_levels, [get_spread_object(/*player*/ ctx[3])])
+    			const player_1_changes = (dirty & /*player*/ 32)
+    			? get_spread_update(player_1_spread_levels, [get_spread_object(/*player*/ ctx[5])])
     			: {};
 
     			player_1.$set(player_1_changes);
@@ -3659,7 +3710,7 @@ var app = (function () {
     		block,
     		id: create_default_slot_1.name,
     		type: "slot",
-    		source: "(9:3) <Level blocks={visibleBlocks} x={viewport.x} y={viewport.y}>",
+    		source: "(9:3) <Level blocks={visibleBlocks} x={viewport.x} y={viewport.y} {height} {width}>",
     		ctx
     	});
 
@@ -3670,7 +3721,7 @@ var app = (function () {
     function create_default_slot(ctx) {
     	let if_block_anchor;
     	let current;
-    	let if_block = /*player*/ ctx[3] != null && create_if_block$1(ctx);
+    	let if_block = /*player*/ ctx[5] != null && create_if_block$1(ctx);
 
     	const block = {
     		c: function create() {
@@ -3683,11 +3734,11 @@ var app = (function () {
     			current = true;
     		},
     		p: function update(ctx, dirty) {
-    			if (/*player*/ ctx[3] != null) {
+    			if (/*player*/ ctx[5] != null) {
     				if (if_block) {
     					if_block.p(ctx, dirty);
 
-    					if (dirty & /*player*/ 8) {
+    					if (dirty & /*player*/ 32) {
     						transition_in(if_block, 1);
     					}
     				} else {
@@ -3743,8 +3794,8 @@ var app = (function () {
     	let current;
     	let mounted;
     	let dispose;
-    	let if_block = /*gameOver*/ ctx[5] && create_if_block_1(ctx);
-    	const viewport_1_spread_levels = [/*viewport*/ ctx[7]];
+    	let if_block = /*gameOver*/ ctx[7] && create_if_block_1(ctx);
+    	const viewport_1_spread_levels = [/*viewport*/ ctx[9]];
 
     	let viewport_1_props = {
     		$$slots: { default: [create_default_slot] },
@@ -3759,8 +3810,8 @@ var app = (function () {
 
     	status = new Status({
     			props: {
-    				wave: /*wave*/ ctx[0],
-    				score: /*score*/ ctx[1]
+    				wave: /*wave*/ ctx[2],
+    				score: /*score*/ ctx[3]
     			},
     			$$inline: true
     		});
@@ -3792,24 +3843,24 @@ var app = (function () {
     			mount_component(status, div, null);
     			append_dev(div, t2);
     			mount_component(instructions, div, null);
-    			/*div_binding*/ ctx[11](div);
+    			/*div_binding*/ ctx[13](div);
     			current = true;
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(window_1, "keydown", /*onKeyDown*/ ctx[8], false, false, false),
-    					listen_dev(window_1, "keyup", /*onKeyUp*/ ctx[9], false, false, false)
+    					listen_dev(window_1, "keydown", /*onKeyDown*/ ctx[10], false, false, false),
+    					listen_dev(window_1, "keyup", /*onKeyUp*/ ctx[11], false, false, false)
     				];
 
     				mounted = true;
     			}
     		},
     		p: function update(ctx, [dirty]) {
-    			if (/*gameOver*/ ctx[5]) {
+    			if (/*gameOver*/ ctx[7]) {
     				if (if_block) {
     					if_block.p(ctx, dirty);
 
-    					if (dirty & /*gameOver*/ 32) {
+    					if (dirty & /*gameOver*/ 128) {
     						transition_in(if_block, 1);
     					}
     				} else {
@@ -3828,18 +3879,18 @@ var app = (function () {
     				check_outros();
     			}
 
-    			const viewport_1_changes = (dirty & /*viewport*/ 128)
-    			? get_spread_update(viewport_1_spread_levels, [get_spread_object(/*viewport*/ ctx[7])])
+    			const viewport_1_changes = (dirty & /*viewport*/ 512)
+    			? get_spread_update(viewport_1_spread_levels, [get_spread_object(/*viewport*/ ctx[9])])
     			: {};
 
-    			if (dirty & /*$$scope, visibleBlocks, viewport, player, enemies*/ 268435672) {
+    			if (dirty & /*$$scope, visibleBlocks, viewport, height, width, player, enemies*/ 1073742691) {
     				viewport_1_changes.$$scope = { dirty, ctx };
     			}
 
     			viewport_1.$set(viewport_1_changes);
     			const status_changes = {};
-    			if (dirty & /*wave*/ 1) status_changes.wave = /*wave*/ ctx[0];
-    			if (dirty & /*score*/ 2) status_changes.score = /*score*/ ctx[1];
+    			if (dirty & /*wave*/ 4) status_changes.wave = /*wave*/ ctx[2];
+    			if (dirty & /*score*/ 8) status_changes.score = /*score*/ ctx[3];
     			status.$set(status_changes);
     		},
     		i: function intro(local) {
@@ -3863,7 +3914,7 @@ var app = (function () {
     			destroy_component(viewport_1);
     			destroy_component(status);
     			destroy_component(instructions);
-    			/*div_binding*/ ctx[11](null);
+    			/*div_binding*/ ctx[13](null);
     			mounted = false;
     			run_all(dispose);
     		}
@@ -3884,7 +3935,9 @@ var app = (function () {
 
     function instance$b($$self, $$props, $$invalidate) {
     	let { level = null } = $$props;
-    	let blocks = [];
+    	let blocks;
+    	let width = 0;
+    	let height = 0;
     	let wave = 0;
     	let score = 0;
     	let mainEl;
@@ -3904,6 +3957,8 @@ var app = (function () {
 
     	onMount(() => {
     		blocks = levelToBlocks(level, blockSize);
+    		$$invalidate(0, width = level.data.length * blockSize);
+    		$$invalidate(1, height = Math.max(...blocks.map(b => b.y + b.height)));
     		start();
     	});
 
@@ -3915,14 +3970,14 @@ var app = (function () {
     	let rightBound;
 
     	function start() {
-    		$$invalidate(0, wave = 0);
-    		$$invalidate(1, score = 0);
+    		$$invalidate(2, wave = 0);
+    		$$invalidate(3, score = 0);
 
-    		$$invalidate(3, player = {
+    		$$invalidate(5, player = {
     			width: 85,
     			height: 75,
     			x: blocks[0].x,
-    			y: blocks[0].y + blocks[0].height + 25,
+    			y: blocks[0].y + blocks[0].height + 100,
     			direction: 1,
     			momentum: { x: 0, y: 0 },
     			spinning: false,
@@ -3930,8 +3985,8 @@ var app = (function () {
     			maxHealth: 100
     		});
 
-    		$$invalidate(4, enemies = []);
-    		$$invalidate(5, gameOver = false);
+    		$$invalidate(6, enemies = []);
+    		$$invalidate(7, gameOver = false);
 
     		// only start game loop if it's not already going
     		if (lastRequestedFrame == null) gameLoop();
@@ -3939,13 +3994,13 @@ var app = (function () {
 
     	function gameLoop() {
     		if (!gameOver) {
-    			$$invalidate(3, player = updateSprite(player, true));
+    			$$invalidate(5, player = updateSprite(player, true));
     			rightBound = blockSize * level.length;
     			const halfViewportWidth = viewport.width / 2;
     			const halfViewportHeight = viewport.height / 2;
 
     			$$invalidate(
-    				7,
+    				9,
     				viewport.x = // player is at beginning of level
     				player.x < halfViewportWidth
     				? // viewport all the way to the left
@@ -3960,7 +4015,7 @@ var app = (function () {
     			);
 
     			$$invalidate(
-    				7,
+    				9,
     				viewport.y = // player is near bottom of screen
     				player.y < halfViewportHeight
     				? // viewport all the way to bottom
@@ -3970,7 +4025,7 @@ var app = (function () {
     				viewport
     			);
 
-    			$$invalidate(6, visibleBlocks = blocks.filter(b => doObjectsIntersect(viewport, b)));
+    			$$invalidate(8, visibleBlocks = blocks.filter(b => doObjectsIntersect(viewport, b)));
 
     			// if no enemies are alive, spawn some more
     			// todo: levels should add mobs, not auto spawn
@@ -4018,38 +4073,38 @@ var app = (function () {
     			// }
     			// for every live enemy intersecting the player, one or the other should take damage
     			for (let i = 0; i < enemies.length; i++) {
-    				$$invalidate(4, enemies[i] = updateSprite(enemies[i]), enemies);
+    				$$invalidate(6, enemies[i] = updateSprite(enemies[i]), enemies);
 
     				if (enemies[i].health > 0 && doObjectsIntersect(player, enemies[i])) {
     					if (player.spinning) {
-    						$$invalidate(4, enemies[i].gettingHit = true, enemies);
-    						$$invalidate(4, enemies[i].health -= 1, enemies);
+    						$$invalidate(6, enemies[i].gettingHit = true, enemies);
+    						$$invalidate(6, enemies[i].health -= 1, enemies);
     					} else {
-    						$$invalidate(3, player.health -= 1 * wave, player);
+    						$$invalidate(5, player.health -= 1 * wave, player);
     					}
     				}
     			}
 
     			// game is over if player dies
-    			if (player.health <= 0) $$invalidate(5, gameOver = true);
+    			if (player.health <= 0) $$invalidate(7, gameOver = true);
     		}
 
     		if (gameAlive) lastRequestedFrame = window.requestAnimationFrame(gameLoop);
     	}
 
     	function updateSprite(sprite, isPlayerControlled = false) {
-    		const groundHeightsBelowSprite = blocks.filter(b => b.interactive && isAAboveB(sprite, b)).map(b => b.y + b.height);
+    		const surfacesBelowSprite = blocks.filter(b => b.interactive && isAAboveB(sprite, b)).map(b => b.y + b.height);
 
-    		const groundY = groundHeightsBelowSprite.length > 0
-    		? Math.max(...groundHeightsBelowSprite)
+    		const surfaceY = surfacesBelowSprite.length > 0
+    		? Math.max(...surfacesBelowSprite)
     		: 0;
 
     		if (sprite.momentum.y != 0) {
     			sprite.y += sprite.momentum.y;
 
     			// if we just hit the ground, take some life away
-    			if (sprite.y <= groundY) {
-    				sprite.y = groundY;
+    			if (sprite.y <= surfaceY) {
+    				sprite.y = surfaceY;
     				sprite.health += sprite.momentum.y / (isPlayerControlled ? 2 : 10);
     			}
     		}
@@ -4066,7 +4121,7 @@ var app = (function () {
     			}
     		}
 
-    		if (sprite.y > groundY) {
+    		if (sprite.y > surfaceY) {
     			sprite.momentum.y--;
     		} else {
     			sprite.momentum.y = 0;
@@ -4103,26 +4158,31 @@ var app = (function () {
 
     		switch (e.code) {
     			case "KeyA":
-    				$$invalidate(3, player.direction = -1, player);
+    				$$invalidate(5, player.direction = -1, player);
     				leftDown = true;
     				break;
     			case "KeyD":
-    				$$invalidate(3, player.direction = 1, player);
+    				$$invalidate(5, player.direction = 1, player);
     				rightDown = true;
     				break;
     			case "Space":
     				spaceDown = true;
     				break;
     			case "KeyR":
-    				$$invalidate(3, player.spinning = true, player);
+    				$$invalidate(5, player.spinning = true, player);
     				break;
     			case "KeyQ":
-    				$$invalidate(3, player.health = player.maxHealth, player);
+    				$$invalidate(5, player.health = player.maxHealth, player);
     				break;
     		}
     	}
 
     	function onKeyUp(e) {
+    		if (gameOver) {
+    			start();
+    			return;
+    		}
+
     		switch (e.code) {
     			case "KeyA":
     				leftDown = false;
@@ -4134,7 +4194,7 @@ var app = (function () {
     				spaceDown = false;
     				break;
     			case "KeyR":
-    				$$invalidate(3, player.spinning = false, player);
+    				$$invalidate(5, player.spinning = false, player);
     				break;
     			case "Enter":
     				start();
@@ -4154,12 +4214,12 @@ var app = (function () {
     	function div_binding($$value) {
     		binding_callbacks[$$value ? "unshift" : "push"](() => {
     			mainEl = $$value;
-    			$$invalidate(2, mainEl);
+    			$$invalidate(4, mainEl);
     		});
     	}
 
     	$$self.$$set = $$props => {
-    		if ("level" in $$props) $$invalidate(10, level = $$props.level);
+    		if ("level" in $$props) $$invalidate(12, level = $$props.level);
     	};
 
     	$$self.$capture_state = () => ({
@@ -4182,6 +4242,8 @@ var app = (function () {
     		level,
     		blockSize,
     		blocks,
+    		width,
+    		height,
     		wave,
     		score,
     		mainEl,
@@ -4207,24 +4269,26 @@ var app = (function () {
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ("level" in $$props) $$invalidate(10, level = $$props.level);
+    		if ("level" in $$props) $$invalidate(12, level = $$props.level);
     		if ("blocks" in $$props) blocks = $$props.blocks;
-    		if ("wave" in $$props) $$invalidate(0, wave = $$props.wave);
-    		if ("score" in $$props) $$invalidate(1, score = $$props.score);
-    		if ("mainEl" in $$props) $$invalidate(2, mainEl = $$props.mainEl);
+    		if ("width" in $$props) $$invalidate(0, width = $$props.width);
+    		if ("height" in $$props) $$invalidate(1, height = $$props.height);
+    		if ("wave" in $$props) $$invalidate(2, wave = $$props.wave);
+    		if ("score" in $$props) $$invalidate(3, score = $$props.score);
+    		if ("mainEl" in $$props) $$invalidate(4, mainEl = $$props.mainEl);
     		if ("maxSpeed" in $$props) maxSpeed = $$props.maxSpeed;
     		if ("maxEnemySpeed" in $$props) maxEnemySpeed = $$props.maxEnemySpeed;
     		if ("jumpMomentum" in $$props) jumpMomentum = $$props.jumpMomentum;
-    		if ("player" in $$props) $$invalidate(3, player = $$props.player);
-    		if ("enemies" in $$props) $$invalidate(4, enemies = $$props.enemies);
+    		if ("player" in $$props) $$invalidate(5, player = $$props.player);
+    		if ("enemies" in $$props) $$invalidate(6, enemies = $$props.enemies);
     		if ("leftDown" in $$props) leftDown = $$props.leftDown;
     		if ("rightDown" in $$props) rightDown = $$props.rightDown;
     		if ("spaceDown" in $$props) spaceDown = $$props.spaceDown;
-    		if ("gameOver" in $$props) $$invalidate(5, gameOver = $$props.gameOver);
+    		if ("gameOver" in $$props) $$invalidate(7, gameOver = $$props.gameOver);
     		if ("gameAlive" in $$props) gameAlive = $$props.gameAlive;
     		if ("lastRequestedFrame" in $$props) lastRequestedFrame = $$props.lastRequestedFrame;
-    		if ("visibleBlocks" in $$props) $$invalidate(6, visibleBlocks = $$props.visibleBlocks);
-    		if ("viewport" in $$props) $$invalidate(7, viewport = $$props.viewport);
+    		if ("visibleBlocks" in $$props) $$invalidate(8, visibleBlocks = $$props.visibleBlocks);
+    		if ("viewport" in $$props) $$invalidate(9, viewport = $$props.viewport);
     		if ("rightBound" in $$props) rightBound = $$props.rightBound;
     	};
 
@@ -4233,6 +4297,8 @@ var app = (function () {
     	}
 
     	return [
+    		width,
+    		height,
     		wave,
     		score,
     		mainEl,
@@ -4251,7 +4317,7 @@ var app = (function () {
     class Game extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$b, create_fragment$b, safe_not_equal, { level: 10 });
+    		init(this, options, instance$b, create_fragment$b, safe_not_equal, { level: 12 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,

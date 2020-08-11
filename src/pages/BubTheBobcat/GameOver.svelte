@@ -1,7 +1,7 @@
 <div class="game-over">
 	<h1>Bub is dead now. You really let him down.</h1>
 	<h1>Final score: {score}</h1>
-	<p>Press enter to restart.</p>
+	<p>Press any key to restart.</p>
 </div>
 
 <script>
