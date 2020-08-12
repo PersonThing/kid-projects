@@ -13,13 +13,14 @@ export class SimpleEnemy {
 		this.jumpVelocity = 20
 		this.gravityDamageMultiplier = 2
 		this.score = 1
+		this.dps = 10
 
 		// todo replace w/ graphic states
 		this.isBoss = false
 
 		this.grounded = false
 	}
-
+	q
 	tick(player) {
 		// default enemy just moves toward player
 		if (this.grounded) {
@@ -45,6 +46,9 @@ export class BossEnemy extends SimpleEnemy {
 		this.health = 400
 		this.maxHealth = 400
 		this.score = 5
+		this.width = 400
+		this.height = 300
 		this.isBoss = true
+		this.dps = 50
 	}
 }

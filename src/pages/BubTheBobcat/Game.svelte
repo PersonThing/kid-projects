@@ -123,12 +123,9 @@
 
 			// todo: levels should add mobs, not auto spawn
 			if (!enemies.some(e => e.health > 0)) {
-				// if they haven't killed 10 yet, spawn some more small enemies
 				if (enemies.length < 5) {
-					// bunch of small enemies
 					enemies = enemies.concat([1, 2, 3, 4, 5].map(x => new SimpleEnemy(player.x + 200, player.y + 200)))
 				} else {
-					// spawn a boss
 					enemies = [new BossEnemy(player.x + 200, player.y + 200)]
 				}
 			}
@@ -143,7 +140,7 @@
 							enemies[i].gettingHit = true
 							enemies[i].health -= 1
 						} else {
-							player.health -= 1
+							player.health -= enemies[i].dps / 60 // damage per frame
 						}
 					}
 					if (enemies[i].health <= 0) {

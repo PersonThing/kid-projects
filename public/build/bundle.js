@@ -2620,12 +2620,11 @@ var app = (function () {
     			path1_1 = svg_element("path");
     			attr_dev(path0, "d", /*path1*/ ctx[10]);
     			attr_dev(path0, "fill", /*bodyColor*/ ctx[8]);
-    			add_location(path0, file$6, 9, 2, 404);
+    			add_location(path0, file$6, 9, 2, 392);
     			attr_dev(path1_1, "d", /*path2*/ ctx[11]);
     			attr_dev(path1_1, "fill", /*eyeColor*/ ctx[9]);
-    			add_location(path1_1, file$6, 10, 2, 443);
+    			add_location(path1_1, file$6, 10, 2, 431);
     			attr_dev(svg, "class", "graphic svelte-1x7nj5j");
-    			set_style(svg, "left", "15px");
     			set_style(svg, "width", /*width*/ ctx[3] + "px");
     			set_style(svg, "height", /*height*/ ctx[4] + "px");
 
@@ -3140,13 +3139,14 @@ var app = (function () {
     		this.jumpVelocity = 20;
     		this.gravityDamageMultiplier = 2;
     		this.score = 1;
+    		this.dps = 10;
 
     		// todo replace w/ graphic states
     		this.isBoss = false;
 
     		this.grounded = false;
     	}
-
+    	q
     	tick(player) {
     		// default enemy just moves toward player
     		if (this.grounded) {
@@ -3172,7 +3172,10 @@ var app = (function () {
     		this.health = 400;
     		this.maxHealth = 400;
     		this.score = 5;
+    		this.width = 400;
+    		this.height = 300;
     		this.isBoss = true;
+    		this.dps = 50;
     	}
     }
 
@@ -3751,12 +3754,9 @@ var app = (function () {
 
     			// todo: levels should add mobs, not auto spawn
     			if (!enemies.some(e => e.health > 0)) {
-    				// if they haven't killed 10 yet, spawn some more small enemies
     				if (enemies.length < 5) {
-    					// bunch of small enemies
     					$$invalidate(7, enemies = enemies.concat([1, 2, 3, 4, 5].map(x => new SimpleEnemy(player.x + 200, player.y + 200))));
     				} else {
-    					// spawn a boss
     					$$invalidate(7, enemies = [new BossEnemy(player.x + 200, player.y + 200)]);
     				}
     			}
@@ -3772,7 +3772,7 @@ var app = (function () {
     							$$invalidate(7, enemies[i].gettingHit = true, enemies);
     							$$invalidate(7, enemies[i].health -= 1, enemies);
     						} else {
-    							$$invalidate(6, player.health -= 1, player);
+    							$$invalidate(6, player.health -= enemies[i].dps / 60, player); // damage per frame
     						}
     					}
 
