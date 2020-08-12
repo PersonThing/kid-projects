@@ -1,10 +1,10 @@
 <div>
-	<p>Wave: {wave}</p>
+	<p>Level: {level.name}</p>
 	<p>Score: {score}</p>
 </div>
 
 <script>
-	export let wave = 0
+	export let level = {}
 	export let score = 0
 </script>
 

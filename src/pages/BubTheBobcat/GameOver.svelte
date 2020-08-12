@@ -6,7 +6,6 @@
 
 <script>
 	export let score = 0
-	export let wave = 0
 </script>
 
 <style>

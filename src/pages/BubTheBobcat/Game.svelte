@@ -2,21 +2,18 @@
 
 <div class="game-window" bind:this={mainEl}>
 	{#if gameOver}
-		<GameOver {wave} {score} />
+		<GameOver {score} />
 	{/if}
-	{#if level != null}
+	{#if level != null && player != null}
 		<Viewport {...viewport} backgroundColor={level.backgroundColor}>
-			{#if player != null}
-				<Level {blocks} x={viewport.x} y={viewport.y} {height} {width}>
-					{#each enemies as enemy}
-						<Enemy {...enemy} />
-					{/each}
-					<Player {...player} />
-				</Level>
-			{/if}
+			<Level {blocks} width={levelWidth} height={levelHeight} />
+			{#each enemies as enemy}
+				<Enemy {...enemy} />
+			{/each}
+			<Player {...player} />
 		</Viewport>
 	{/if}
-	<Status {wave} {score} />
+	<Status {level} {score} />
 	<Instructions />
 </div>
 
@@ -30,28 +27,22 @@
 	import Enemy from './Enemy.svelte'
 	import HealthBar from './HealthBar.svelte'
 	import GameOver from './GameOver.svelte'
-	import Block from './Block.svelte'
 	import { levelToBlocks } from './blocks'
 	import { doObjectsIntersect, isAAboveB } from './spatial-functions'
+	import { BossEnemy, SimpleEnemy } from './enemies'
 
 	export let level = null
 	const blockSize = 25
 	let blocks
-	let width = 0
-	let height = 0
+	let levelWidth = 0
+	let levelHeight = 0
 
-	let wave = 0
 	let score = 0
 
 	let mainEl
-	let maxSpeed = 5
-	let maxEnemySpeed = 2
-	let jumpVelocity = 20
+	let jumpVelocity = 15
 	let player
 	let enemies
-	let leftDown = false
-	let rightDown = false
-	let spaceDown = false
 	let gameOver = false
 
 	let gameAlive = true
@@ -65,8 +56,8 @@
 
 	onMount(() => {
 		blocks = levelToBlocks(level, blockSize)
-		width = level.data.length * blockSize
-		height = Math.max(...blocks.map(b => b.y + b.height))
+		levelWidth = level.data.length * blockSize
+		levelHeight = Math.max(...blocks.map(b => b.y + b.height))
 		start()
 	})
 
@@ -77,19 +68,22 @@
 
 	let rightBound
 	function start() {
-		wave = 0
 		score = 0
 		player = {
 			width: 85,
 			height: 75,
 			x: blocks[0].x,
 			y: blocks[0].y + blocks[0].height + 100,
-			direction: 1,
 			vx: 0,
 			vy: 0,
 			spinning: false,
 			health: 100,
 			maxHealth: 100,
+			tvx: 7,
+			gravityDamageMultiplier: 10,
+			tick() {
+				console.log('i am the player in a frame')
+			},
 		}
 		enemies = []
 		gameOver = false
@@ -101,7 +95,7 @@
 	function gameLoop() {
 		if (!gameOver) {
 			// visibleBlocks = blocks.filter(b => doObjectsIntersect(viewport, b))
-			player = updateSprite(player, true)
+			player = applyGravityAndVelocity(player, true)
 
 			rightBound = blockSize * level.length
 			const halfViewportWidth = viewport.width / 2
@@ -127,57 +121,35 @@
 					: // player above half viewport height, center on player
 					  player.y - halfViewportHeight
 
-			// if no enemies are alive, spawn some more
 			// todo: levels should add mobs, not auto spawn
-
-			// if (!enemies.some(e => e.health > 0)) {
-			// 	// if they haven't killed 10 yet, spawn some more small enemies
-			// 	if (enemies.length < 5) {
-			// 		wave++
-			// 		score += wave > 1 ? 100 : 0
-			// 		// bunch of small enemies
-			// 		enemies = enemies.concat(
-			// 			[1, 2, 3, 4, 5].map(x => ({
-			// 				width: 100,
-			// 				height: 50,
-			// 				x: player.x + 100 + x * 100,
-			// 				y: 600,
-			// 				direction: -1,
-			// 				vx: 0,
-			// 				vy: 0,
-			// 				health: 100 * wave,
-			// 				maxHealth: 100 * wave,
-			// 			}))
-			// 		)
-			// 	} else {
-			// 		// spawn a boss
-			// 		score += 50
-			// 		enemies = [
-			// 			{
-			// 				isBoss: true,
-			// 				width: 400,
-			// 				height: 200,
-			// 				x: player.x + 200,
-			// 				y: 600,
-			// 				direction: -1,
-			// 				vx: 0,
-			// 				vy: 0,
-			// 				health: 400 * wave,
-			// 				maxHealth: 400 * wave,
-			// 			},
-			// 		]
-			// 	}
-			// }
+			if (!enemies.some(e => e.health > 0)) {
+				// if they haven't killed 10 yet, spawn some more small enemies
+				if (enemies.length < 5) {
+					// bunch of small enemies
+					enemies = enemies.concat([1, 2, 3, 4, 5].map(x => new SimpleEnemy(player.x + 200, player.y + 200)))
+				} else {
+					// spawn a boss
+					enemies = [new BossEnemy(player.x + 200, player.y + 200)]
+				}
+			}
 
 			// for every live enemy intersecting the player, one or the other should take damage
 			for (let i = 0; i < enemies.length; i++) {
-				enemies[i] = updateSprite(enemies[i])
-				if (enemies[i].health > 0 && doObjectsIntersect(player, enemies[i])) {
-					if (player.spinning) {
-						enemies[i].gettingHit = true
-						enemies[i].health -= 1
-					} else {
-						player.health -= 1 * wave
+				if (enemies[i].alive) {
+					enemies[i] = applyGravityAndVelocity(enemies[i])
+					enemies[i].tick(player)
+					if (doObjectsIntersect(player, enemies[i])) {
+						if (player.spinning) {
+							enemies[i].gettingHit = true
+							enemies[i].health -= 1
+						} else {
+							player.health -= 1
+						}
+					}
+					if (enemies[i].health <= 0) {
+						enemies[i].alive = false
+						enemies[i].onDeath()
+						score += enemies[i].score
 					}
 				}
 			}
@@ -189,23 +161,29 @@
 		if (gameAlive) lastRequestedFrame = window.requestAnimationFrame(gameLoop)
 	}
 
-	function updateSprite(sprite, isPlayerControlled = false) {
+	function applyGravityAndVelocity(sprite, isPlayerControlled = false) {
 		const surfacesBelowSprite = blocks.filter(b => b.interactive && isAAboveB(sprite, b)).map(b => b.y + b.height)
 		const surfaceY = surfacesBelowSprite.length > 0 ? Math.max(...surfacesBelowSprite) : -500 // some number off screen
 
-		// if they go below 0, take damage
-		if (sprite.y < -100) {
-			sprite.health = 0
-		}
+		sprite.y += sprite.vy
+		sprite.grounded = sprite.y <= surfaceY
 
-		if (sprite.vy != 0) {
-			sprite.y += sprite.vy
-
-			// if we just hit the ground, take some life away
-			if (sprite.y <= surfaceY) {
-				sprite.y = surfaceY
-				sprite.health += sprite.vy / (isPlayerControlled ? 2 : 10)
+		// gravity affects all sprites
+		if (sprite.grounded) {
+			// we're grounded - take damage if we were previously falling
+			if (sprite.vy < 0) {
+				sprite.health += sprite.vy / sprite.gravityDamageMultiplier
+				sprite.vy = 0
 			}
+
+			// make sure we're exactly on the ground
+			sprite.y = surfaceY
+		} else if (sprite.y < -200) {
+			// we fell under the map, die
+			sprite.health = 0
+		} else {
+			// we're in the air, accelerate downward
+			sprite.vy--
 		}
 
 		// x velocity
@@ -220,53 +198,20 @@
 			}
 		}
 
-		if (sprite.y > surfaceY) {
-			sprite.vy--
-		} else {
-			sprite.vy = 0
-
-			if (isPlayerControlled) {
-				// player can jump if they're on the ground
-				if (spaceDown) {
-					sprite.vy = jumpVelocity
-					sprite.y += 1
-				} else if (!leftDown && !rightDown) sprite.vx = 0
-			} else {
-				// enemy, just move toward player
-				// if player is above enemy, jump
-				if (player.y > sprite.y + sprite.height) {
-					sprite.vy = jumpVelocity
-					sprite.y += 1
-				}
-			}
-		}
-
-		if (isPlayerControlled) {
-			// player can move left and right
-			if (leftDown) sprite.vx = -maxSpeed
-			else if (rightDown) sprite.vx = maxSpeed
-		} else {
-			// enemy, just move toward player
-			if (player.x < sprite.x) sprite.vx = -maxEnemySpeed
-			else sprite.vx = maxEnemySpeed
-		}
-
 		return sprite
 	}
 
 	function onKeyDown(e) {
 		if (gameOver) return
 		switch (e.code) {
-			case 'KeyA':
-				player.direction = -1
-				leftDown = true
+			case 'ArrowLeft':
+				player.vx = -player.tvx
 				break
-			case 'KeyD':
-				player.direction = 1
-				rightDown = true
+			case 'ArrowRight':
+				player.vx = player.tvx
 				break
 			case 'Space':
-				spaceDown = true
+				if (player.grounded) player.vy = jumpVelocity
 				break
 			case 'KeyR':
 				player.spinning = true
@@ -285,14 +230,13 @@
 			return
 		}
 		switch (e.code) {
-			case 'KeyA':
-				leftDown = false
+			case 'ArrowLeft':
+				player.vx = 0
 				break
-			case 'KeyD':
-				rightDown = false
+			case 'ArrowRight':
+				player.vx = 0
 				break
 			case 'Space':
-				spaceDown = false
 				break
 			case 'KeyR':
 				player.spinning = false

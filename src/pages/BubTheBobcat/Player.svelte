@@ -4,7 +4,7 @@
 		class="graphic"
 		src="https://i.imgur.com/g1jV9bN.png"
 		alt="Bub"
-		style="width: {width}px; height: {height}px; transform: scaleX({scaleX}) rotate({rotate}deg);" />
+		style="width: {width}px; height: {height}px; transform: scaleX({direction}) rotate({rotate}deg);" />
 </div>
 
 <script>
@@ -15,13 +15,13 @@
 	export let x = 0
 	export let width = 150
 	export let height = 100
-	export let direction = 1
 	export let health = 100
 	export let maxHealth = 100
-
 	export let spinning = false
 
-	$: scaleX = direction
+	let direction = 1
+	$: if (vx != 0) direction = vx > 0 ? 1 : -1
+
 	$: rotate = spinning ? spinningRotation : -1 * (5 + (vy > 0 ? vy * 3 : vy * 1.5))
 
 	let spinningRotation = 0
