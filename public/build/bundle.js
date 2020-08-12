@@ -13903,7 +13903,7 @@ var app = (function () {
     	return block;
     }
 
-    // (45:3) {#each colors as color}
+    // (72:3) {#each colors as color}
     function create_each_block_2(ctx) {
     	let button;
     	let mounted;
@@ -13919,7 +13919,7 @@ var app = (function () {
     			set_style(button, "background-color", /*color*/ ctx[46]);
     			attr_dev(button, "class", "svelte-1i9cs17");
     			toggle_class(button, "active", /*color*/ ctx[46] == /*selectedColor*/ ctx[1]);
-    			add_location(button, file$9, 45, 4, 1344);
+    			add_location(button, file$9, 72, 4, 1932);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
@@ -13947,14 +13947,14 @@ var app = (function () {
     		block,
     		id: create_each_block_2.name,
     		type: "each",
-    		source: "(45:3) {#each colors as color}",
+    		source: "(72:3) {#each colors as color}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (59:4) {#each columns as column}
+    // (86:4) {#each columns as column}
     function create_each_block_1(ctx) {
     	let rect;
     	let rect_y_value;
@@ -13974,7 +13974,7 @@ var app = (function () {
     			attr_dev(rect, "data-row", rect_data_row_value = /*row*/ ctx[40]);
     			attr_dev(rect, "data-column", rect_data_column_value = /*column*/ ctx[43]);
     			attr_dev(rect, "stroke", rect_stroke_value = /*showGrid*/ ctx[7] ? "#eee" : null);
-    			add_location(rect, file$9, 59, 5, 1795);
+    			add_location(rect, file$9, 86, 5, 2383);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, rect, anchor);
@@ -14021,14 +14021,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(59:4) {#each columns as column}",
+    		source: "(86:4) {#each columns as column}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (58:3) {#each rows as row}
+    // (85:3) {#each rows as row}
     function create_each_block$2(ctx) {
     	let each_1_anchor;
     	let each_value_1 = /*columns*/ ctx[12];
@@ -14089,7 +14089,7 @@ var app = (function () {
     		block,
     		id: create_each_block$2.name,
     		type: "each",
-    		source: "(58:3) {#each rows as row}",
+    		source: "(85:3) {#each rows as row}",
     		ctx
     	});
 
@@ -14222,53 +14222,53 @@ var app = (function () {
     			add_location(button1, file$9, 15, 1, 520);
     			button2.disabled = button2_disabled_value = /*undos*/ ctx[5].length == 0;
     			attr_dev(button2, "class", "btn btn-default btn-sm");
-    			add_location(button2, file$9, 18, 2, 621);
+    			add_location(button2, file$9, 45, 2, 1209);
     			button3.disabled = button3_disabled_value = /*redos*/ ctx[6].length == 0;
     			attr_dev(button3, "class", "btn btn-default btn-sm");
-    			add_location(button3, file$9, 19, 2, 736);
+    			add_location(button3, file$9, 46, 2, 1324);
     			attr_dev(div0, "class", "btn-group svelte-1i9cs17");
-    			add_location(div0, file$9, 17, 1, 595);
+    			add_location(div0, file$9, 44, 1, 1183);
     			attr_dev(input0, "type", "number");
     			attr_dev(input0, "min", "15");
     			attr_dev(input0, "max", "50");
     			attr_dev(input0, "step", "5");
     			attr_dev(input0, "class", "svelte-1i9cs17");
-    			add_location(input0, file$9, 24, 2, 879);
+    			add_location(input0, file$9, 51, 2, 1467);
     			attr_dev(div1, "class", "svelte-1i9cs17");
-    			add_location(div1, file$9, 22, 1, 859);
+    			add_location(div1, file$9, 49, 1, 1447);
     			attr_dev(input1, "type", "number");
     			attr_dev(input1, "placeholder", "Height");
     			attr_dev(input1, "class", "svelte-1i9cs17");
-    			add_location(input1, file$9, 28, 2, 978);
+    			add_location(input1, file$9, 55, 2, 1566);
     			attr_dev(div2, "class", "svelte-1i9cs17");
-    			add_location(div2, file$9, 26, 1, 961);
+    			add_location(div2, file$9, 53, 1, 1549);
     			attr_dev(input2, "type", "number");
     			attr_dev(input2, "placeholder", "Width");
     			attr_dev(input2, "class", "svelte-1i9cs17");
-    			add_location(input2, file$9, 32, 2, 1068);
+    			add_location(input2, file$9, 59, 2, 1656);
     			attr_dev(div3, "class", "svelte-1i9cs17");
-    			add_location(div3, file$9, 30, 1, 1052);
+    			add_location(div3, file$9, 57, 1, 1640);
     			attr_dev(input3, "type", "checkbox");
-    			add_location(input3, file$9, 35, 2, 1150);
+    			add_location(input3, file$9, 62, 2, 1738);
     			attr_dev(label, "class", "svelte-1i9cs17");
-    			add_location(label, file$9, 34, 1, 1140);
+    			add_location(label, file$9, 61, 1, 1728);
     			attr_dev(div4, "class", "flex svelte-1i9cs17");
     			add_location(div4, file$9, 13, 0, 417);
     			attr_dev(div5, "class", "color-picker svelte-1i9cs17");
-    			add_location(div5, file$9, 43, 2, 1286);
+    			add_location(div5, file$9, 70, 2, 1874);
     			attr_dev(div6, "class", "controls svelte-1i9cs17");
-    			add_location(div6, file$9, 41, 1, 1260);
+    			add_location(div6, file$9, 68, 1, 1848);
     			attr_dev(svg, "width", svg_width_value = /*width*/ ctx[4] * (/*gridSize*/ ctx[2] + 2));
     			attr_dev(svg, "height", svg_height_value = /*height*/ ctx[3] * (/*gridSize*/ ctx[2] + 2));
     			attr_dev(svg, "class", "svelte-1i9cs17");
-    			add_location(svg, file$9, 50, 2, 1518);
+    			add_location(svg, file$9, 77, 2, 2106);
     			attr_dev(div7, "class", "flex-grow svelte-1i9cs17");
-    			add_location(div7, file$9, 49, 1, 1492);
+    			add_location(div7, file$9, 76, 1, 2080);
     			attr_dev(div8, "class", "flex align-top svelte-1i9cs17");
-    			add_location(div8, file$9, 40, 0, 1230);
+    			add_location(div8, file$9, 67, 0, 1818);
     			textarea.value = textarea_value_value = JSON.stringify(/*levelData*/ ctx[8]);
     			attr_dev(textarea, "class", "svelte-1i9cs17");
-    			add_location(textarea, file$9, 74, 0, 2094);
+    			add_location(textarea, file$9, 101, 0, 2682);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
