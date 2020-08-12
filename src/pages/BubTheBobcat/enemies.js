@@ -11,7 +11,7 @@ export class SimpleEnemy {
 		this.health = 100
 		this.maxHealth = 100
 		this.jumpVelocity = 20
-		this.gravityDamageMultiplier = 2
+		this.fallDamageMultiplier = 2
 		this.score = 1
 		this.dps = 10
 

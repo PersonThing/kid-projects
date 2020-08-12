@@ -80,7 +80,8 @@
 			health: 100,
 			maxHealth: 100,
 			tvx: 7,
-			gravityDamageMultiplier: 10,
+			fallDamageMultiplier: 10,
+			dps: 120,
 			tick() {
 				console.log('i am the player in a frame')
 			},
@@ -124,7 +125,7 @@
 			// todo: levels should add mobs, not auto spawn
 			if (!enemies.some(e => e.health > 0)) {
 				if (enemies.length < 5) {
-					enemies = enemies.concat([1, 2, 3, 4, 5].map(x => new SimpleEnemy(player.x + 200, player.y + 200)))
+					enemies = enemies.concat([1, 2, 3, 4, 5].map(x => new SimpleEnemy(player.x + 200 * x, player.y + 200)))
 				} else {
 					enemies = [new BossEnemy(player.x + 200, player.y + 200)]
 				}
@@ -138,7 +139,7 @@
 					if (doObjectsIntersect(player, enemies[i])) {
 						if (player.spinning) {
 							enemies[i].gettingHit = true
-							enemies[i].health -= 1
+							enemies[i].health -= player.dps / 60 // damage per frame
 						} else {
 							player.health -= enemies[i].dps / 60 // damage per frame
 						}
@@ -169,7 +170,7 @@
 		if (sprite.grounded) {
 			// we're grounded - take damage if we were previously falling
 			if (sprite.vy < 0) {
-				sprite.health += sprite.vy / sprite.gravityDamageMultiplier
+				sprite.health += sprite.vy / sprite.fallDamageMultiplier
 				sprite.vy = 0
 			}
 
