@@ -47,6 +47,7 @@
 		</div>
 	</div>
 	<div class="flex-grow">
+
 		<svg
 			width={width * (gridSize + 2)}
 			height={height * (gridSize + 2)}
@@ -68,6 +69,15 @@
 				{/each}
 			{/each}
 		</svg>
+		<div>
+			Preview at in-game size / repeated next to same graphic:
+			<div style="background: rgb(135, 206, 235); padding: 20px;">
+				{#each [20, 0, 0, 0, 0] as margin}
+					<img src={previewPNG} alt="" style="margin-right: {margin}px;" />
+				{/each}
+			</div>
+
+		</div>
 	</div>
 </div>
 
@@ -77,8 +87,11 @@
 	const savedDrawings = LocalStorageStore('pixel-drawings', {})
 	$: savedNames = Object.keys($savedDrawings)
 
+	$: previewPNG = toPNG(data, width, height)
+
 	let loaded = null
 	const colors = [
+		'transparent',
 		'white',
 		'rgb(204, 204, 204)',
 		'rgb(160, 164, 160)',
@@ -259,26 +272,13 @@
 			height,
 			data,
 			showGrid,
+			png: toPNG(data, width, height),
 		}
 		loaded = name
 	}
 
 	function load(name) {
 		let savedDrawing = JSON.parse(JSON.stringify($savedDrawings[name]))
-
-		if (Array.isArray(savedDrawing)) {
-			// migrate old format to new
-			console.log('migrating old format')
-			savedDrawing = {
-				name,
-				gridSize: 30,
-				width: 50,
-				height: 40,
-				data: savedDrawing,
-				showGrid,
-			}
-			$savedDrawings[name] = savedDrawing
-		}
 
 		data = savedDrawing.data
 		gridSize = savedDrawing.gridSize
@@ -301,6 +301,27 @@
 
 	function getCellColor(d, row, column) {
 		return d.length > row && d[row].length > column ? d[row][column] : 'white'
+	}
+
+	const pngScale = 2
+	function toPNG(data, width, height) {
+		const canvas = document.createElement('canvas')
+		canvas.width = width * pngScale
+		canvas.height = height * pngScale
+		const ctx = canvas.getContext('2d')
+		for (let y = 0; y < data.length; y++) {
+			for (let x = 0; x < data.length; x++) {
+				const color = data[y][x]
+				if (color == null || color == 'white') continue
+
+				ctx.beginPath()
+				ctx.rect(x * pngScale, y * pngScale, pngScale, pngScale)
+				ctx.fillStyle = color
+				ctx.fill()
+			}
+		}
+
+		return canvas.toDataURL('image/png')
 	}
 </script>
 
