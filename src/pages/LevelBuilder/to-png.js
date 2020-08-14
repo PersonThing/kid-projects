@@ -5,7 +5,7 @@ export default function toPNG(data, width, height) {
 	canvas.height = height * pngScale
 	const ctx = canvas.getContext('2d')
 	for (let y = 0; y < data.length; y++) {
-		for (let x = 0; x < data.length; x++) {
+		for (let x = 0; x < data[y].length; x++) {
 			const color = data[y][x]
 			if (color == null || color == 'transparent') continue
 
