@@ -3,6 +3,9 @@
 		<a class="nav-link" href="#/pixel-art-maker">Pixel Art Maker</a>
 	</li>
 	<li class="nav-item">
+		<a class="nav-link" href="#/game-builder">Game Builder</a>
+	</li>
+	<li class="nav-item">
 		<a class="nav-link" href="#/bub-the-bobcat">Bub the Bobcat</a>
 	</li>
 </ul>
@@ -14,13 +17,15 @@
 <script>
 	// svelte-spa-router for hash routing since this is just going to be hosted on github pages
 	import Router from 'svelte-spa-router'
-	import BubTheBobcat from './pages/BubTheBobcat/Index.svelte'
 	import PixelArtMaker from './pages/PixelArtMaker/Index.svelte'
+	import GameBuilder from './pages/GameBuilder/Index.svelte'
+	import BubTheBobcat from './pages/BubTheBobcat/Index.svelte'
 	import NotFound from './pages/NotFound.svelte'
 
 	const routes = {
-		'/bub-the-bobcat': BubTheBobcat,
 		'/pixel-art-maker': PixelArtMaker,
+		'/game-builder/:tab?': GameBuilder,
+		'/bub-the-bobcat': BubTheBobcat,
 		'*': NotFound,
 	}
 </script>
