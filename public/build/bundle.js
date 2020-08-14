@@ -17975,7 +17975,7 @@ var app = (function () {
     			t1 = space();
     			li1 = element("li");
     			a1 = element("a");
-    			a1.textContent = "Game Builder";
+    			a1.textContent = "Level Builder";
     			t3 = space();
     			li2 = element("li");
     			a2 = element("a");
@@ -17995,13 +17995,13 @@ var app = (function () {
     			add_location(li1, file$o, 4, 1, 115);
     			attr_dev(a2, "class", "nav-link");
     			attr_dev(a2, "href", "#/bub-the-bobcat");
-    			add_location(a2, file$o, 8, 2, 230);
+    			add_location(a2, file$o, 8, 2, 231);
     			attr_dev(li2, "class", "nav-item");
-    			add_location(li2, file$o, 7, 1, 206);
+    			add_location(li2, file$o, 7, 1, 207);
     			attr_dev(ul, "class", "nav");
     			add_location(ul, file$o, 0, 0, 0);
     			attr_dev(main, "class", "svelte-1ten5ne");
-    			add_location(main, file$o, 12, 0, 307);
+    			add_location(main, file$o, 12, 0, 308);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");

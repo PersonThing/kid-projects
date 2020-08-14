@@ -3,7 +3,7 @@
 		<a class="nav-link" href="#/pixel-art-maker">Pixel Art Maker</a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" href="#/game-builder">Game Builder</a>
+		<a class="nav-link" href="#/game-builder">Level Builder</a>
 	</li>
 	<li class="nav-item">
 		<a class="nav-link" href="#/bub-the-bobcat">Bub the Bobcat</a>
