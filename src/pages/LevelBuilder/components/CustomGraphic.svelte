@@ -1,26 +1,14 @@
-{#if graphic}
-	{#if graphic.png != null}
-		<img src={graphic.png} alt={graphic.name} />
-	{:else}
-		<svg width={graphic.width * scale} height={graphic.height * scale} alt={graphic.name}>
-			{#each graphic.data as row, ri}
-				{#each row as color, ci}
-					{#if color != null}
-						<rect x={ci * scale} y={ri * scale} width={scale} height={scale} fill={color} />
-					{/if}
-				{/each}
-			{/each}
-		</svg>
-	{/if}
+{#if graphic?.png != null}
+	<img src={graphic.png} alt={graphic.name} />
 {/if}
 
 <script>
-	// this component renders our custom pixel art as an svg
-	// so we can preview it in the level builder
-
-	// todo instead of dynamically rendering svg, cache png data
+	import toPNG from '../to-png'
 
 	export let graphic
 
-	export let scale = 2
+	// set png for any that haven't been saved with png yet
+	$: if (graphic != null && graphic.png == null) {
+		graphic.png = toPNG(graphic, graphic.width, graphic.height)
+	}
 </script>
