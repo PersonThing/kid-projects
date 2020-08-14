@@ -47,7 +47,14 @@
 		</div>
 	</div>
 	<div class="flex-grow">
-
+		<div>
+			Preview at in-game size / repeated next to same graphic:
+			<div style="background: rgb(135, 206, 235); padding: 20px;">
+				{#each [20, 0, 0, 0, 0] as margin}
+					<img src={previewPNG} alt="" style="margin-right: {margin}px;" />
+				{/each}
+			</div>
+		</div>
 		<svg
 			width={width * (gridSize + 2)}
 			height={height * (gridSize + 2)}
@@ -69,15 +76,6 @@
 				{/each}
 			{/each}
 		</svg>
-		<div>
-			Preview at in-game size / repeated next to same graphic:
-			<div style="background: rgb(135, 206, 235); padding: 20px;">
-				{#each [20, 0, 0, 0, 0] as margin}
-					<img src={previewPNG} alt="" style="margin-right: {margin}px;" />
-				{/each}
-			</div>
-
-		</div>
 	</div>
 </div>
 
