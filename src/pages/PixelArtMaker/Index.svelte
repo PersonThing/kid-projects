@@ -14,33 +14,6 @@
 <div class="flex">
 	<button class="btn btn-success btn-sm mr-2" on:click={() => save()}>Save</button>
 	<button class="btn btn-secondary btn-sm" on:click={reset}>Reset</button>
-	<!-- export to png ?
-
-		ideal workflow...
-
-		level editor
-		- create level
-		- place enemies / etc
-
-		pixel art maker
-		- export svg
-		- export png
-
-
-		something kids could use?
-		pixel art maker
-			save as enemy
-				choose default properties [ health, speed, dps, score ]
-				saves enemy template to local storage (later, to an api / db) {
-					health, speed, dps, score,
-					width,
-					height,
-					graphic (svg - optimize so each color used has one path?  figure out how)
-				}
-			save as player character
-				choose default properties [ health, speed, fallDamageMultiplier ]
-
-	-->
 
 	<div class="btn-group">
 		<button disabled={undos.length == 0} class="btn btn-default btn-sm" on:click={undo}>Undo {undos.length}</button>
@@ -67,7 +40,6 @@
 
 <div class="flex align-top">
 	<div class="controls">
-
 		<div class="color-picker">
 			{#each colors as color}
 				<button style="background-color: {color}" class:active={color == selectedColor} on:click={() => selectColor(color)} />
@@ -98,8 +70,6 @@
 		</svg>
 	</div>
 </div>
-
-<textarea value={JSON.stringify(levelData)} on:focus={e => e.target.select()} />
 
 <script>
 	import LocalStorageStore from '../../stores/local-storage-store'
@@ -188,15 +158,15 @@
 	$: rows = [...Array(height)].map((_, i) => i)
 	$: columns = [...Array(width)].map((_, i) => i)
 
-	let levelData = []
-	$: if (columns.length > 0) {
-		const newLevelData = []
-		const reverseData = JSON.parse(JSON.stringify(data)).reverse()
-		for (let c = 0; c < columns.length; c++) {
-			newLevelData.push(reverseData.map(r => (r.length > c ? r[c] : null)))
-		}
-		levelData = newLevelData
-	}
+	// let levelData = []
+	// $: if (columns.length > 0) {
+	// 	const newLevelData = []
+	// 	const reverseData = JSON.parse(JSON.stringify(data)).reverse()
+	// 	for (let c = 0; c < columns.length; c++) {
+	// 		newLevelData.push(reverseData.map(r => (r.length > c ? r[c] : null)))
+	// 	}
+	// 	levelData = newLevelData
+	// }
 
 	let data = []
 	let mouseDown = false

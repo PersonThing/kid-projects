@@ -1404,32 +1404,32 @@ var app = (function () {
 
     function get_each_context_1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[43] = list[i];
+    	child_ctx[42] = list[i];
     	return child_ctx;
     }
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[40] = list[i];
+    	child_ctx[39] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_2(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[46] = list[i];
+    	child_ctx[45] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_3(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[49] = list[i];
+    	child_ctx[48] = list[i];
     	return child_ctx;
     }
 
     // (1:0) {#if savedNames.length}
     function create_if_block$1(ctx) {
     	let div;
-    	let each_value_3 = /*savedNames*/ ctx[10];
+    	let each_value_3 = /*savedNames*/ ctx[9];
     	validate_each_argument(each_value_3);
     	let each_blocks = [];
 
@@ -1456,8 +1456,8 @@ var app = (function () {
     			}
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*deleteSave, savedNames, loaded, load*/ 25166849) {
-    				each_value_3 = /*savedNames*/ ctx[10];
+    			if (dirty[0] & /*deleteSave, savedNames, loaded, load*/ 12583425) {
+    				each_value_3 = /*savedNames*/ ctx[9];
     				validate_each_argument(each_value_3);
     				let i;
 
@@ -1501,7 +1501,7 @@ var app = (function () {
     function create_each_block_3(ctx) {
     	let div;
     	let button0;
-    	let t0_value = /*savedDrawingName*/ ctx[49] + "";
+    	let t0_value = /*savedDrawingName*/ ctx[48] + "";
     	let t0;
     	let button0_class_value;
     	let t1;
@@ -1511,11 +1511,11 @@ var app = (function () {
     	let dispose;
 
     	function click_handler(...args) {
-    		return /*click_handler*/ ctx[26](/*savedDrawingName*/ ctx[49], ...args);
+    		return /*click_handler*/ ctx[25](/*savedDrawingName*/ ctx[48], ...args);
     	}
 
     	function click_handler_1(...args) {
-    		return /*click_handler_1*/ ctx[27](/*savedDrawingName*/ ctx[49], ...args);
+    		return /*click_handler_1*/ ctx[26](/*savedDrawingName*/ ctx[48], ...args);
     	}
 
     	const block = {
@@ -1528,7 +1528,7 @@ var app = (function () {
     			button1.textContent = "x";
     			t3 = space();
 
-    			attr_dev(button0, "class", button0_class_value = "btn btn-sm btn-" + (/*savedDrawingName*/ ctx[49] == /*loaded*/ ctx[0]
+    			attr_dev(button0, "class", button0_class_value = "btn btn-sm btn-" + (/*savedDrawingName*/ ctx[48] == /*loaded*/ ctx[0]
     			? "primary active"
     			: "secondary"));
 
@@ -1557,9 +1557,9 @@ var app = (function () {
     		},
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
-    			if (dirty[0] & /*savedNames*/ 1024 && t0_value !== (t0_value = /*savedDrawingName*/ ctx[49] + "")) set_data_dev(t0, t0_value);
+    			if (dirty[0] & /*savedNames*/ 512 && t0_value !== (t0_value = /*savedDrawingName*/ ctx[48] + "")) set_data_dev(t0, t0_value);
 
-    			if (dirty[0] & /*savedNames, loaded*/ 1025 && button0_class_value !== (button0_class_value = "btn btn-sm btn-" + (/*savedDrawingName*/ ctx[49] == /*loaded*/ ctx[0]
+    			if (dirty[0] & /*savedNames, loaded*/ 513 && button0_class_value !== (button0_class_value = "btn btn-sm btn-" + (/*savedDrawingName*/ ctx[48] == /*loaded*/ ctx[0]
     			? "primary active"
     			: "secondary"))) {
     				attr_dev(button0, "class", button0_class_value);
@@ -1583,23 +1583,23 @@ var app = (function () {
     	return block;
     }
 
-    // (72:3) {#each colors as color}
+    // (44:3) {#each colors as color}
     function create_each_block_2(ctx) {
     	let button;
     	let mounted;
     	let dispose;
 
     	function click_handler_3(...args) {
-    		return /*click_handler_3*/ ctx[33](/*color*/ ctx[46], ...args);
+    		return /*click_handler_3*/ ctx[32](/*color*/ ctx[45], ...args);
     	}
 
     	const block = {
     		c: function create() {
     			button = element("button");
-    			set_style(button, "background-color", /*color*/ ctx[46]);
+    			set_style(button, "background-color", /*color*/ ctx[45]);
     			attr_dev(button, "class", "svelte-1i9cs17");
-    			toggle_class(button, "active", /*color*/ ctx[46] == /*selectedColor*/ ctx[1]);
-    			add_location(button, file, 72, 4, 2004);
+    			toggle_class(button, "active", /*color*/ ctx[45] == /*selectedColor*/ ctx[1]);
+    			add_location(button, file, 44, 4, 1387);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
@@ -1612,8 +1612,8 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
 
-    			if (dirty[0] & /*colors, selectedColor*/ 16386) {
-    				toggle_class(button, "active", /*color*/ ctx[46] == /*selectedColor*/ ctx[1]);
+    			if (dirty[0] & /*colors, selectedColor*/ 8194) {
+    				toggle_class(button, "active", /*color*/ ctx[45] == /*selectedColor*/ ctx[1]);
     			}
     		},
     		d: function destroy(detaching) {
@@ -1627,14 +1627,14 @@ var app = (function () {
     		block,
     		id: create_each_block_2.name,
     		type: "each",
-    		source: "(72:3) {#each colors as color}",
+    		source: "(44:3) {#each colors as color}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (86:4) {#each columns as column}
+    // (58:4) {#each columns as column}
     function create_each_block_1(ctx) {
     	let rect;
     	let rect_y_value;
@@ -1646,30 +1646,30 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			rect = svg_element("rect");
-    			attr_dev(rect, "y", rect_y_value = /*row*/ ctx[40] * /*gridSize*/ ctx[2]);
-    			attr_dev(rect, "x", rect_x_value = /*column*/ ctx[43] * /*gridSize*/ ctx[2]);
-    			set_style(rect, "fill", getCellColor(/*data*/ ctx[9], /*row*/ ctx[40], /*column*/ ctx[43]));
+    			attr_dev(rect, "y", rect_y_value = /*row*/ ctx[39] * /*gridSize*/ ctx[2]);
+    			attr_dev(rect, "x", rect_x_value = /*column*/ ctx[42] * /*gridSize*/ ctx[2]);
+    			set_style(rect, "fill", getCellColor(/*data*/ ctx[8], /*row*/ ctx[39], /*column*/ ctx[42]));
     			attr_dev(rect, "width", /*gridSize*/ ctx[2]);
     			attr_dev(rect, "height", /*gridSize*/ ctx[2]);
-    			attr_dev(rect, "data-row", rect_data_row_value = /*row*/ ctx[40]);
-    			attr_dev(rect, "data-column", rect_data_column_value = /*column*/ ctx[43]);
+    			attr_dev(rect, "data-row", rect_data_row_value = /*row*/ ctx[39]);
+    			attr_dev(rect, "data-column", rect_data_column_value = /*column*/ ctx[42]);
     			attr_dev(rect, "stroke", rect_stroke_value = /*showGrid*/ ctx[7] ? "#eee" : null);
-    			add_location(rect, file, 86, 5, 2469);
+    			add_location(rect, file, 58, 5, 1852);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, rect, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*rows, gridSize*/ 2052 && rect_y_value !== (rect_y_value = /*row*/ ctx[40] * /*gridSize*/ ctx[2])) {
+    			if (dirty[0] & /*rows, gridSize*/ 1028 && rect_y_value !== (rect_y_value = /*row*/ ctx[39] * /*gridSize*/ ctx[2])) {
     				attr_dev(rect, "y", rect_y_value);
     			}
 
-    			if (dirty[0] & /*columns, gridSize*/ 4100 && rect_x_value !== (rect_x_value = /*column*/ ctx[43] * /*gridSize*/ ctx[2])) {
+    			if (dirty[0] & /*columns, gridSize*/ 2052 && rect_x_value !== (rect_x_value = /*column*/ ctx[42] * /*gridSize*/ ctx[2])) {
     				attr_dev(rect, "x", rect_x_value);
     			}
 
-    			if (dirty[0] & /*data, rows, columns*/ 6656) {
-    				set_style(rect, "fill", getCellColor(/*data*/ ctx[9], /*row*/ ctx[40], /*column*/ ctx[43]));
+    			if (dirty[0] & /*data, rows, columns*/ 3328) {
+    				set_style(rect, "fill", getCellColor(/*data*/ ctx[8], /*row*/ ctx[39], /*column*/ ctx[42]));
     			}
 
     			if (dirty[0] & /*gridSize*/ 4) {
@@ -1680,11 +1680,11 @@ var app = (function () {
     				attr_dev(rect, "height", /*gridSize*/ ctx[2]);
     			}
 
-    			if (dirty[0] & /*rows*/ 2048 && rect_data_row_value !== (rect_data_row_value = /*row*/ ctx[40])) {
+    			if (dirty[0] & /*rows*/ 1024 && rect_data_row_value !== (rect_data_row_value = /*row*/ ctx[39])) {
     				attr_dev(rect, "data-row", rect_data_row_value);
     			}
 
-    			if (dirty[0] & /*columns*/ 4096 && rect_data_column_value !== (rect_data_column_value = /*column*/ ctx[43])) {
+    			if (dirty[0] & /*columns*/ 2048 && rect_data_column_value !== (rect_data_column_value = /*column*/ ctx[42])) {
     				attr_dev(rect, "data-column", rect_data_column_value);
     			}
 
@@ -1701,17 +1701,17 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(86:4) {#each columns as column}",
+    		source: "(58:4) {#each columns as column}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (85:3) {#each rows as row}
+    // (57:3) {#each rows as row}
     function create_each_block(ctx) {
     	let each_1_anchor;
-    	let each_value_1 = /*columns*/ ctx[12];
+    	let each_value_1 = /*columns*/ ctx[11];
     	validate_each_argument(each_value_1);
     	let each_blocks = [];
 
@@ -1735,8 +1735,8 @@ var app = (function () {
     			insert_dev(target, each_1_anchor, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*rows, gridSize, columns, data, showGrid*/ 6788) {
-    				each_value_1 = /*columns*/ ctx[12];
+    			if (dirty[0] & /*rows, gridSize, columns, data, showGrid*/ 3460) {
+    				each_value_1 = /*columns*/ ctx[11];
     				validate_each_argument(each_value_1);
     				let i;
 
@@ -1769,7 +1769,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(85:3) {#each rows as row}",
+    		source: "(57:3) {#each rows as row}",
     		ctx
     	});
 
@@ -1820,13 +1820,10 @@ var app = (function () {
     	let svg;
     	let svg_width_value;
     	let svg_height_value;
-    	let t20;
-    	let textarea;
-    	let textarea_value_value;
     	let mounted;
     	let dispose;
-    	let if_block = /*savedNames*/ ctx[10].length && create_if_block$1(ctx);
-    	let each_value_2 = /*colors*/ ctx[14];
+    	let if_block = /*savedNames*/ ctx[9].length && create_if_block$1(ctx);
+    	let each_value_2 = /*colors*/ ctx[13];
     	validate_each_argument(each_value_2);
     	let each_blocks_1 = [];
 
@@ -1834,7 +1831,7 @@ var app = (function () {
     		each_blocks_1[i] = create_each_block_2(get_each_context_2(ctx, each_value_2, i));
     	}
 
-    	let each_value = /*rows*/ ctx[11];
+    	let each_value = /*rows*/ ctx[10];
     	validate_each_argument(each_value);
     	let each_blocks = [];
 
@@ -1894,61 +1891,56 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			t20 = space();
-    			textarea = element("textarea");
     			attr_dev(button0, "class", "btn btn-success btn-sm mr-2 svelte-1i9cs17");
     			add_location(button0, file, 14, 1, 451);
     			attr_dev(button1, "class", "btn btn-secondary btn-sm svelte-1i9cs17");
     			add_location(button1, file, 15, 1, 535);
     			button2.disabled = button2_disabled_value = /*undos*/ ctx[5].length == 0;
     			attr_dev(button2, "class", "btn btn-default btn-sm");
-    			add_location(button2, file, 45, 2, 1254);
+    			add_location(button2, file, 18, 2, 639);
     			button3.disabled = button3_disabled_value = /*redos*/ ctx[6].length == 0;
     			attr_dev(button3, "class", "btn btn-default btn-sm");
-    			add_location(button3, file, 46, 2, 1370);
+    			add_location(button3, file, 19, 2, 755);
     			attr_dev(div0, "class", "btn-group svelte-1i9cs17");
-    			add_location(div0, file, 44, 1, 1227);
+    			add_location(div0, file, 17, 1, 612);
     			attr_dev(input0, "type", "number");
     			attr_dev(input0, "min", "15");
     			attr_dev(input0, "max", "50");
     			attr_dev(input0, "step", "5");
     			attr_dev(input0, "class", "svelte-1i9cs17");
-    			add_location(input0, file, 51, 2, 1518);
+    			add_location(input0, file, 24, 2, 903);
     			attr_dev(div1, "class", "svelte-1i9cs17");
-    			add_location(div1, file, 49, 1, 1496);
+    			add_location(div1, file, 22, 1, 881);
     			attr_dev(input1, "type", "number");
     			attr_dev(input1, "placeholder", "Height");
     			attr_dev(input1, "class", "svelte-1i9cs17");
-    			add_location(input1, file, 55, 2, 1621);
+    			add_location(input1, file, 28, 2, 1006);
     			attr_dev(div2, "class", "svelte-1i9cs17");
-    			add_location(div2, file, 53, 1, 1602);
+    			add_location(div2, file, 26, 1, 987);
     			attr_dev(input2, "type", "number");
     			attr_dev(input2, "placeholder", "Width");
     			attr_dev(input2, "class", "svelte-1i9cs17");
-    			add_location(input2, file, 59, 2, 1715);
+    			add_location(input2, file, 32, 2, 1100);
     			attr_dev(div3, "class", "svelte-1i9cs17");
-    			add_location(div3, file, 57, 1, 1697);
+    			add_location(div3, file, 30, 1, 1082);
     			attr_dev(input3, "type", "checkbox");
-    			add_location(input3, file, 62, 2, 1800);
+    			add_location(input3, file, 35, 2, 1185);
     			attr_dev(label, "class", "svelte-1i9cs17");
-    			add_location(label, file, 61, 1, 1789);
+    			add_location(label, file, 34, 1, 1174);
     			attr_dev(div4, "class", "flex svelte-1i9cs17");
     			add_location(div4, file, 13, 0, 430);
     			attr_dev(div5, "class", "color-picker svelte-1i9cs17");
-    			add_location(div5, file, 70, 2, 1944);
+    			add_location(div5, file, 42, 2, 1327);
     			attr_dev(div6, "class", "controls svelte-1i9cs17");
-    			add_location(div6, file, 68, 1, 1916);
+    			add_location(div6, file, 41, 1, 1301);
     			attr_dev(svg, "width", svg_width_value = /*width*/ ctx[4] * (/*gridSize*/ ctx[2] + 2));
     			attr_dev(svg, "height", svg_height_value = /*height*/ ctx[3] * (/*gridSize*/ ctx[2] + 2));
     			attr_dev(svg, "class", "svelte-1i9cs17");
-    			add_location(svg, file, 77, 2, 2183);
+    			add_location(svg, file, 49, 2, 1566);
     			attr_dev(div7, "class", "flex-grow svelte-1i9cs17");
-    			add_location(div7, file, 76, 1, 2156);
+    			add_location(div7, file, 48, 1, 1539);
     			attr_dev(div8, "class", "flex align-top svelte-1i9cs17");
-    			add_location(div8, file, 67, 0, 1885);
-    			textarea.value = textarea_value_value = JSON.stringify(/*levelData*/ ctx[8]);
-    			attr_dev(textarea, "class", "svelte-1i9cs17");
-    			add_location(textarea, file, 101, 0, 2783);
+    			add_location(div8, file, 40, 0, 1270);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -2006,31 +1998,27 @@ var app = (function () {
     				each_blocks[i].m(svg, null);
     			}
 
-    			insert_dev(target, t20, anchor);
-    			insert_dev(target, textarea, anchor);
-
     			if (!mounted) {
     				dispose = [
-    					listen_dev(button0, "click", /*click_handler_2*/ ctx[28], false, false, false),
-    					listen_dev(button1, "click", /*reset*/ ctx[15], false, false, false),
-    					listen_dev(button2, "click", /*undo*/ ctx[19], false, false, false),
-    					listen_dev(button3, "click", /*redo*/ ctx[20], false, false, false),
-    					listen_dev(input0, "input", /*input0_input_handler*/ ctx[29]),
-    					listen_dev(input1, "input", /*input1_input_handler*/ ctx[30]),
-    					listen_dev(input2, "input", /*input2_input_handler*/ ctx[31]),
-    					listen_dev(input3, "change", /*input3_change_handler*/ ctx[32]),
-    					listen_dev(svg, "mousedown", /*onSvgMouseDown*/ ctx[16], false, false, false),
-    					listen_dev(svg, "mouseup", /*onSvgMouseUp*/ ctx[17], false, false, false),
-    					listen_dev(svg, "contextmenu", prevent_default(/*contextmenu_handler*/ ctx[25]), false, true, false),
-    					listen_dev(svg, "mousemove", /*mousemove_handler*/ ctx[34], false, false, false),
-    					listen_dev(textarea, "focus", focus_handler, false, false, false)
+    					listen_dev(button0, "click", /*click_handler_2*/ ctx[27], false, false, false),
+    					listen_dev(button1, "click", /*reset*/ ctx[14], false, false, false),
+    					listen_dev(button2, "click", /*undo*/ ctx[18], false, false, false),
+    					listen_dev(button3, "click", /*redo*/ ctx[19], false, false, false),
+    					listen_dev(input0, "input", /*input0_input_handler*/ ctx[28]),
+    					listen_dev(input1, "input", /*input1_input_handler*/ ctx[29]),
+    					listen_dev(input2, "input", /*input2_input_handler*/ ctx[30]),
+    					listen_dev(input3, "change", /*input3_change_handler*/ ctx[31]),
+    					listen_dev(svg, "mousedown", /*onSvgMouseDown*/ ctx[15], false, false, false),
+    					listen_dev(svg, "mouseup", /*onSvgMouseUp*/ ctx[16], false, false, false),
+    					listen_dev(svg, "contextmenu", prevent_default(/*contextmenu_handler*/ ctx[24]), false, true, false),
+    					listen_dev(svg, "mousemove", /*mousemove_handler*/ ctx[33], false, false, false)
     				];
 
     				mounted = true;
     			}
     		},
     		p: function update(ctx, dirty) {
-    			if (/*savedNames*/ ctx[10].length) {
+    			if (/*savedNames*/ ctx[9].length) {
     				if (if_block) {
     					if_block.p(ctx, dirty);
     				} else {
@@ -2071,8 +2059,8 @@ var app = (function () {
     				input3.checked = /*showGrid*/ ctx[7];
     			}
 
-    			if (dirty[0] & /*colors, selectedColor, selectColor*/ 2113538) {
-    				each_value_2 = /*colors*/ ctx[14];
+    			if (dirty[0] & /*colors, selectedColor, selectColor*/ 1056770) {
+    				each_value_2 = /*colors*/ ctx[13];
     				validate_each_argument(each_value_2);
     				let i;
 
@@ -2095,8 +2083,8 @@ var app = (function () {
     				each_blocks_1.length = each_value_2.length;
     			}
 
-    			if (dirty[0] & /*columns, rows, gridSize, data, showGrid*/ 6788) {
-    				each_value = /*rows*/ ctx[11];
+    			if (dirty[0] & /*columns, rows, gridSize, data, showGrid*/ 3460) {
+    				each_value = /*rows*/ ctx[10];
     				validate_each_argument(each_value);
     				let i;
 
@@ -2126,10 +2114,6 @@ var app = (function () {
     			if (dirty[0] & /*height, gridSize*/ 12 && svg_height_value !== (svg_height_value = /*height*/ ctx[3] * (/*gridSize*/ ctx[2] + 2))) {
     				attr_dev(svg, "height", svg_height_value);
     			}
-
-    			if (dirty[0] & /*levelData*/ 256 && textarea_value_value !== (textarea_value_value = JSON.stringify(/*levelData*/ ctx[8]))) {
-    				prop_dev(textarea, "value", textarea_value_value);
-    			}
     		},
     		i: noop,
     		o: noop,
@@ -2141,8 +2125,6 @@ var app = (function () {
     			if (detaching) detach_dev(div8);
     			destroy_each(each_blocks_1, detaching);
     			destroy_each(each_blocks, detaching);
-    			if (detaching) detach_dev(t20);
-    			if (detaching) detach_dev(textarea);
     			mounted = false;
     			run_all(dispose);
     		}
@@ -2169,13 +2151,11 @@ var app = (function () {
     	: "white";
     }
 
-    const focus_handler = e => e.target.select();
-
     function instance$1($$self, $$props, $$invalidate) {
     	let $savedDrawings;
     	const savedDrawings = LocalStorageStore("pixel-drawings", {});
     	validate_store(savedDrawings, "savedDrawings");
-    	component_subscribe($$self, savedDrawings, value => $$invalidate(36, $savedDrawings = value));
+    	component_subscribe($$self, savedDrawings, value => $$invalidate(35, $savedDrawings = value));
     	let loaded = null;
 
     	const colors = [
@@ -2251,14 +2231,24 @@ var app = (function () {
     	let undos = [];
     	let redos = [];
     	let showGrid = true;
-    	let levelData = [];
+
+    	// let levelData = []
+    	// $: if (columns.length > 0) {
+    	// 	const newLevelData = []
+    	// 	const reverseData = JSON.parse(JSON.stringify(data)).reverse()
+    	// 	for (let c = 0; c < columns.length; c++) {
+    	// 		newLevelData.push(reverseData.map(r => (r.length > c ? r[c] : null)))
+    	// 	}
+    	// 	levelData = newLevelData
+    	// }
     	let data = [];
+
     	let mouseDown = false;
     	reset();
 
     	function reset() {
     		addUndoState();
-    		$$invalidate(9, data = buildRows(height));
+    		$$invalidate(8, data = buildRows(height));
     		$$invalidate(0, loaded = null);
     	}
 
@@ -2299,14 +2289,14 @@ var app = (function () {
 
     	function undo() {
     		$$invalidate(6, redos = [...redos, JSON.stringify(data)]);
-    		$$invalidate(9, data = JSON.parse(undos.pop()));
+    		$$invalidate(8, data = JSON.parse(undos.pop()));
     		$$invalidate(5, undos);
     	}
 
     	function redo() {
     		if (redos.length == 0) return;
     		$$invalidate(5, undos = [...undos, JSON.stringify(data)]);
-    		$$invalidate(9, data = JSON.parse(redos.pop()));
+    		$$invalidate(8, data = JSON.parse(redos.pop()));
     		$$invalidate(6, redos);
     	}
 
@@ -2315,11 +2305,11 @@ var app = (function () {
     		if (row > data.length) {
     			const rowsNeeded = height - data.length;
     			console.log("trying to set row ", row, " but only have ", data.length, " adding " + rowsNeeded);
-    			$$invalidate(9, data = data.concat(buildRows(rowsNeeded)));
+    			$$invalidate(8, data = data.concat(buildRows(rowsNeeded)));
     		}
 
     		// don't need to worry about columns.. they get auto-filled with null
-    		$$invalidate(9, data[row][column] = color, data);
+    		$$invalidate(8, data[row][column] = color, data);
     	}
 
     	function selectColor(color) {
@@ -2365,7 +2355,7 @@ var app = (function () {
     			set_store_value(savedDrawings, $savedDrawings[name] = savedDrawing, $savedDrawings);
     		}
 
-    		$$invalidate(9, data = savedDrawing.data);
+    		$$invalidate(8, data = savedDrawing.data);
     		$$invalidate(2, gridSize = savedDrawing.gridSize);
     		$$invalidate(4, width = savedDrawing.width || savedDrawing.data[0].length);
     		$$invalidate(3, height = savedDrawing.height || savedDrawing.data.length);
@@ -2436,7 +2426,6 @@ var app = (function () {
     		undos,
     		redos,
     		showGrid,
-    		levelData,
     		data,
     		mouseDown,
     		reset,
@@ -2469,12 +2458,11 @@ var app = (function () {
     		if ("undos" in $$props) $$invalidate(5, undos = $$props.undos);
     		if ("redos" in $$props) $$invalidate(6, redos = $$props.redos);
     		if ("showGrid" in $$props) $$invalidate(7, showGrid = $$props.showGrid);
-    		if ("levelData" in $$props) $$invalidate(8, levelData = $$props.levelData);
-    		if ("data" in $$props) $$invalidate(9, data = $$props.data);
+    		if ("data" in $$props) $$invalidate(8, data = $$props.data);
     		if ("mouseDown" in $$props) mouseDown = $$props.mouseDown;
-    		if ("savedNames" in $$props) $$invalidate(10, savedNames = $$props.savedNames);
-    		if ("rows" in $$props) $$invalidate(11, rows = $$props.rows);
-    		if ("columns" in $$props) $$invalidate(12, columns = $$props.columns);
+    		if ("savedNames" in $$props) $$invalidate(9, savedNames = $$props.savedNames);
+    		if ("rows" in $$props) $$invalidate(10, rows = $$props.rows);
+    		if ("columns" in $$props) $$invalidate(11, columns = $$props.columns);
     	};
 
     	let savedNames;
@@ -2486,29 +2474,16 @@ var app = (function () {
     	}
 
     	$$self.$$.update = () => {
-    		if ($$self.$$.dirty[1] & /*$savedDrawings*/ 32) {
-    			 $$invalidate(10, savedNames = Object.keys($savedDrawings));
+    		if ($$self.$$.dirty[1] & /*$savedDrawings*/ 16) {
+    			 $$invalidate(9, savedNames = Object.keys($savedDrawings));
     		}
 
     		if ($$self.$$.dirty[0] & /*height*/ 8) {
-    			 $$invalidate(11, rows = [...Array(height)].map((_, i) => i));
+    			 $$invalidate(10, rows = [...Array(height)].map((_, i) => i));
     		}
 
     		if ($$self.$$.dirty[0] & /*width*/ 16) {
-    			 $$invalidate(12, columns = [...Array(width)].map((_, i) => i));
-    		}
-
-    		if ($$self.$$.dirty[0] & /*columns, data*/ 4608) {
-    			 if (columns.length > 0) {
-    				const newLevelData = [];
-    				const reverseData = JSON.parse(JSON.stringify(data)).reverse();
-
-    				for (let c = 0; c < columns.length; c++) {
-    					newLevelData.push(reverseData.map(r => r.length > c ? r[c] : null));
-    				}
-
-    				$$invalidate(8, levelData = newLevelData);
-    			}
+    			 $$invalidate(11, columns = [...Array(width)].map((_, i) => i));
     		}
     	};
 
@@ -2521,7 +2496,6 @@ var app = (function () {
     		undos,
     		redos,
     		showGrid,
-    		levelData,
     		data,
     		savedNames,
     		rows,
