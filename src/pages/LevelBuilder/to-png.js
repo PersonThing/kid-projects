@@ -7,7 +7,7 @@ export default function toPNG(data, width, height) {
 	for (let y = 0; y < data.length; y++) {
 		for (let x = 0; x < data.length; x++) {
 			const color = data[y][x]
-			if (color == null || color == 'white') continue
+			if (color == null || color == 'transparent') continue
 
 			ctx.beginPath()
 			ctx.rect(x * pngScale, y * pngScale, pngScale, pngScale)
