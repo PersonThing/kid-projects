@@ -254,7 +254,6 @@
 		// make sure we have enough rows in data to fit the value
 		if (row > data.length) {
 			const rowsNeeded = height - data.length
-			console.log('trying to set row ', row, ' but only have ', data.length, ' adding ' + rowsNeeded)
 			data = data.concat(buildRows(rowsNeeded))
 		}
 

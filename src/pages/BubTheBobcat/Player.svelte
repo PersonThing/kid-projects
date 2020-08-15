@@ -1,22 +1,31 @@
-<div class="player" style="left: {x}px; bottom: {y - 5}px;">
+<div class="player" style="left: {x}px; bottom: {y}px;">
 	<HealthBar {health} {maxHealth} />
-	<img
-		class="graphic"
-		src="https://i.imgur.com/g1jV9bN.png"
-		alt="Bub"
-		style="width: {width}px; height: {height}px; transform: scaleX({direction}) rotate({rotate}deg);" />
+	{#if graphic != null}
+		<img
+			class="graphic"
+			src={graphic.png}
+			alt={name}
+			style="width: {graphic.width}px; height: {graphic.height}px; transform: scaleX({direction}) rotate({rotate}deg);" />
+	{/if}
 </div>
 
 <script>
+	import artStore from '../../stores/art-store'
 	import HealthBar from './HealthBar.svelte'
+
+	export let name
+	export let maxHealth
+	export let graphicStill
+
 	export let vx = 0
 	export let vy = 0
 	export let y = 0
 	export let x = 0
-	export let width = 150
-	export let height = 100
-	export let health = 100
-	export let maxHealth = 100
+
+	export let health
+
+	$: graphic = graphicStill != null ? $artStore[graphicStill] : null
+
 	export let spinning = false
 
 	let direction = 1

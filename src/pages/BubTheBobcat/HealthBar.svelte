@@ -2,7 +2,7 @@
 
 <div class="health-bar">
 	<div class="filled" style="width: {displayPercent}%; background-color: {color}" />
-	<div class="text">{displayHealth} - {displayPercent > 0 ? `${displayPercent}%` : 'I am dead.'}</div>
+	<div class="text">{displayHealth} {displayPercent > 0 ? `(${displayPercent}%)` : 'I am dead.'}</div>
 </div>
 
 <script>
@@ -23,6 +23,7 @@
 		position: relative;
 		border-radius: 5px;
 		overflow: hidden;
+		min-width: 75px;
 	}
 
 	.filled {

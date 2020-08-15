@@ -1,13 +1,23 @@
 <canvas bind:this={canvas} {width} {height} />
 
 <script>
+	// import blockStore from '../../stores/block-store'
 	export let width = 0
 	export let height = 0
 	export let blocks = []
 
+	// preload all graphics
+	// import artStore from '../../stores/art-store'
+	const imageCache = {}
+	// for (let name in $artStore) {
+	// 	const art = $artStore[name]
+	// 	const drawing = new Image()
+	// 	drawing.src = art.png
+	// 	imageCache[art.png] = drawing
+	// }
+
 	let canvas
 	let context
-	const imageCache = {}
 	let drawnBlocks = []
 
 	$: if (canvas != null) context = canvas.getContext('2d')
@@ -18,34 +28,17 @@
 		// toErase.forEach(b => context.clearRect(b.x, b.y, b.width, b.height))
 		// toDraw.forEach(b => {
 		context.clearRect(0, 0, width, height)
+
 		blocks.forEach(b => {
-			if (b.png) {
-				let drawing = imageCache[b.png]
-				if (drawing == null) {
-					drawing = new Image()
-					drawing.onload = () => context.drawImage(drawing, b.x, height - b.y)
-					drawing.src = b.png
-					imageCache[b.png] = drawing
-				} else if (drawing.complete) {
-					context.drawImage(drawing, b.x, height - b.y)
-				} else {
-					drawing.onload = () => {
-						context.drawImage(drawing, b.x, height - b.y)
-					}
-				}
-			} else {
-				// temporarily supporting old data format with colors instead of pngs
-				context.beginPath()
-				context.rect(b.x, height - b.y - b.height, b.width, b.height)
-				context.fillStyle = b.color
-				context.fill()
-				// draw a line on top
-				context.beginPath()
-				context.moveTo(b.x, height - b.y - b.height)
-				context.lineTo(b.x + b.width, height - b.y - b.height)
-				context.strokeStyle = 'black'
-				context.stroke()
+			let drawing = imageCache[b.png]
+			if (drawing == null) {
+				drawing = new Image()
+				drawing.src = b.png
+				imageCache[b.png] = drawing
 			}
+			setTimeout(() => {
+				context.drawImage(drawing, b.x, height - b.y - b.height)
+			}, 50)
 		})
 
 		// drawnBlocks = JSON.parse(JSON.stringify(blocks))

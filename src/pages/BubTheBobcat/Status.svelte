@@ -12,7 +12,7 @@
 	div {
 		position: absolute;
 		font-size: 30px;
-		top: 10px;
+		top: 50px;
 		left: 10px;
 		color: #333;
 	}

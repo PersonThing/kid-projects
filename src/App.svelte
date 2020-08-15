@@ -1,9 +1,9 @@
 <ul class="nav">
 	<li class="nav-item">
-		<a class="nav-link" href="#/bub-the-bobcat">Bub the Bobcat</a>
+		<a class="nav-link" href="#/bub-the-bobcat">Play!</a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" href="#/level-builder">Level Builder (WIP)</a>
+		<a class="nav-link" href="#/level-builder">Level Builder</a>
 	</li>
 </ul>
 

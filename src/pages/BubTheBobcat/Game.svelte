@@ -2,10 +2,10 @@
 
 <div class="game-window" bind:this={mainEl}>
 	{#if gameOver}
-		<GameOver {score} />
+		<GameOver {score} {player} />
 	{/if}
 	{#if level != null && player != null}
-		<Viewport {...viewport} backgroundColor={level.backgroundColor}>
+		<Viewport {...viewport} background={level.background}>
 			<Level {blocks} width={levelWidth} height={levelHeight} />
 			{#each enemies as enemy}
 				<Enemy {...enemy} />
@@ -20,27 +20,31 @@
 <script>
 	import { onMount, onDestroy } from 'svelte'
 	import Status from './Status.svelte'
-	import Level from './LevelOld.svelte'
+	import Level from './Level.svelte'
 	import Instructions from './Instructions.svelte'
 	import Viewport from './Viewport.svelte'
 	import Player from './Player.svelte'
 	import Enemy from './Enemy.svelte'
 	import HealthBar from './HealthBar.svelte'
 	import GameOver from './GameOver.svelte'
-	import { levelToBlocks } from './blocks'
 	import { doObjectsIntersect, isAAboveB } from './spatial-functions'
 	import { BossEnemy, SimpleEnemy } from './enemies'
 
+	import artStore from '../../stores/art-store'
+	import blockStore from '../../stores/block-store'
+
 	export let level = null
+	export let character = null
+
 	const blockSize = 25
 	let blocks
+	let damageBlocks
 	let levelWidth = 0
 	let levelHeight = 0
 
 	let score = 0
 
 	let mainEl
-	let jumpVelocity = 15
 	let player
 	let enemies
 	let gameOver = false
@@ -51,13 +55,36 @@
 	let visibleBlocks
 	let viewport = {
 		width: window.innerWidth,
-		height: 900,
+		height: 800,
 	}
 
+	let leftDown = false
+	let rightDown = false
+
 	onMount(() => {
-		blocks = levelToBlocks(level, blockSize)
-		levelWidth = level.data.length * blockSize
-		levelHeight = Math.max(...blocks.map(b => b.y + b.height))
+		// sort blocks by x, then y
+		blocks = level.blocks
+			.sort((a, b) => {
+				if (a.x > b.x) return 1
+				else if (b.x > a.x) return -1
+
+				if (a.y > b.y) return -1
+				else if (b.y > a.y) return 1
+
+				return 0
+			})
+			.map(b => ({
+				...b,
+				solid: $blockStore[b.name].solid,
+				png: $artStore[$blockStore[b.name].graphic].png,
+				dps: $blockStore[b.name].dps,
+				throwOnTouch: $blockStore[b.name].throwOnTouch,
+			}))
+
+		damageBlocks = blocks.filter(b => b.dps > 0)
+
+		levelWidth = Math.max(...blocks.map(b => b.x + b.width))
+		levelHeight = 800 //Math.max(...blocks.map(b => b.y + b.height))
 		start()
 	})
 
@@ -67,23 +94,33 @@
 	})
 
 	let rightBound
+	const artScale = 2
 	function start() {
 		score = 0
 		player = {
-			width: 85,
-			height: 75,
+			...character,
+			health: character.maxHealth,
+			tvx: character.maxVelocity,
+
+			width: $artStore[character.graphicStill].width * artScale, // width of graphic
+			height: $artStore[character.graphicStill].height * artScale, // height of graphic
+
+			// runtime stuff
 			x: blocks[0].x,
 			y: blocks[0].y + blocks[0].height + 100,
 			vx: 0,
 			vy: 0,
+
+			// todo: replace "spinning" with abilities
 			spinning: false,
-			health: 100,
-			maxHealth: 100,
-			tvx: 7,
-			fallDamageMultiplier: 10,
-			dps: 120,
+
 			tick() {
-				console.log('i am the player in a frame')
+				// x axis controls
+				if (player.grounded) {
+					if (leftDown && !rightDown) player.vx = -player.tvx
+					else if (rightDown && !leftDown) player.vx = player.tvx
+					else player.vx = 0
+				}
 			},
 		}
 		enemies = []
@@ -96,7 +133,10 @@
 	function gameLoop() {
 		if (!gameOver) {
 			// visibleBlocks = blocks.filter(b => doObjectsIntersect(viewport, b))
-			player = applyGravityAndVelocity(player, true)
+			player = applyGravityAndVelocityAndLevelDamage(player, true)
+
+			// handle movement / attack abilities
+			player.tick()
 
 			rightBound = blockSize * level.length
 			const halfViewportWidth = viewport.width / 2
@@ -134,7 +174,7 @@
 			// for every live enemy intersecting the player, one or the other should take damage
 			for (let i = 0; i < enemies.length; i++) {
 				if (enemies[i].alive) {
-					enemies[i] = applyGravityAndVelocity(enemies[i])
+					enemies[i] = applyGravityAndVelocityAndLevelDamage(enemies[i])
 					enemies[i].tick(player)
 					if (doObjectsIntersect(player, enemies[i])) {
 						if (player.spinning) {
@@ -159,8 +199,8 @@
 		if (gameAlive) lastRequestedFrame = window.requestAnimationFrame(gameLoop)
 	}
 
-	function applyGravityAndVelocity(sprite, isPlayerControlled = false) {
-		const surfacesBelowSprite = blocks.filter(b => b.interactive && isAAboveB(sprite, b)).map(b => b.y + b.height)
+	function applyGravityAndVelocityAndLevelDamage(sprite, isPlayerControlled = false) {
+		const surfacesBelowSprite = blocks.filter(b => b.solid && isAAboveB(sprite, b)).map(b => b.y + b.height)
 		const surfaceY = surfacesBelowSprite.length > 0 ? Math.max(...surfacesBelowSprite) : -500 // some number off screen
 
 		sprite.y += sprite.vy
@@ -170,7 +210,7 @@
 		if (sprite.grounded) {
 			// we're grounded - take damage if we were previously falling
 			if (sprite.vy < 0) {
-				sprite.health += sprite.vy / sprite.fallDamageMultiplier
+				sprite.health += (sprite.vy / 10) * sprite.fallDamageMultiplier
 				sprite.vy = 0
 			}
 
@@ -196,6 +236,18 @@
 			}
 		}
 
+		// blocks that do damage
+		for (let i = 0; i < damageBlocks.length; i++) {
+			if (doObjectsIntersect(sprite, damageBlocks[i])) {
+				sprite.health -= damageBlocks[i].dps / 60 // damage per frame
+
+				// does the block also throw?
+				if (damageBlocks[i].throwOnTouch) {
+					sprite.vy = 20
+				}
+			}
+		}
+
 		return sprite
 	}
 
@@ -203,13 +255,13 @@
 		if (gameOver) return
 		switch (e.code) {
 			case 'ArrowLeft':
-				player.vx = -player.tvx
+				leftDown = true
 				break
 			case 'ArrowRight':
-				player.vx = player.tvx
+				rightDown = true
 				break
 			case 'Space':
-				if (player.grounded) player.vy = jumpVelocity
+				if (player.grounded) player.vy = player.jumpVelocity
 				break
 			case 'KeyR':
 				player.spinning = true
@@ -229,10 +281,10 @@
 		}
 		switch (e.code) {
 			case 'ArrowLeft':
-				player.vx = 0
+				leftDown = false
 				break
 			case 'ArrowRight':
-				player.vx = 0
+				rightDown = false
 				break
 			case 'Space':
 				break

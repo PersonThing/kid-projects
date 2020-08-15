@@ -99,20 +99,21 @@
 		const container = e.target.closest('.level-container')
 		return {
 			x: Math.floor(e.offsetX / blockSize) * blockSize,
-			y: height - Math.floor(e.offsetY / blockSize) * blockSize,
+			y: Math.floor((height - e.offsetY) / blockSize) * blockSize,
 		}
 	}
 
 	function placeBlock(x, y) {
 		if (selectedBlock == null) return eraseBlock(x, y)
 
+		const template = $blockStore[selectedBlock]
 		const block = {
 			x,
 			y,
 			width: blockSize,
 			height: blockSize,
 			name: selectedBlock,
-			png: $artStore[$blockStore[selectedBlock].graphic].png,
+			png: $artStore[template.graphic].png,
 		}
 		// add this block, filtering out any block that used to be at the same position
 		// todo: sort blocks by x asc, y desc
