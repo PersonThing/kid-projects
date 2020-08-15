@@ -66,3 +66,21 @@ button:not(:disabled):active {
 button:focus {
 	border-color: #666;
 }
+
+.flex {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.align-top {
+	align-items: flex-start;
+}
+
+.flex > * {
+	margin-right: 8px;
+}
+
+.flex-grow {
+	flex-grow: 1;
+}

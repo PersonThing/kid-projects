@@ -38,8 +38,8 @@
 		$blocks[input.name] = JSON.parse(JSON.stringify(input))
 	}
 
-	function edit(blockName) {
-		input = { ...$blocks[blockName] }
+	function edit(name) {
+		input = { ...$blocks[name] }
 	}
 
 	function create() {

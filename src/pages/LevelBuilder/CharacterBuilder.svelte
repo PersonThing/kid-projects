@@ -25,8 +25,8 @@
 			<FieldGraphicPicker bind:value={input.graphicMoving3}>Moving graphic 3</FieldGraphicPicker> -->
 			<FieldNumber name="maxVelocity" min={0} bind:value={input.maxVelocity}>Max velocity</FieldNumber>
 			<FieldNumber name="jumpVelocity" min={0} bind:value={input.jumpVelocity}>Jump velocity</FieldNumber>
-			<FieldNumber name="gravityMultiplier" min={0} max={2} bind:value={input.gravityMultiplier}>Gravity multiplier</FieldNumber>
-			<FieldNumber name="fallDamageMultiplier" min={0} max={1} bind:value={input.fallDamageMultiplier}>Fall damage multiplier</FieldNumber>
+			<FieldNumber name="gravityMultiplier" min={0} max={2} step={0.1} bind:value={input.gravityMultiplier}>Gravity multiplier</FieldNumber>
+			<FieldNumber name="fallDamageMultiplier" min={0} max={1} step={0.1} bind:value={input.fallDamageMultiplier}>Fall damage multiplier</FieldNumber>
 			<FieldNumber name="maxHealth" bind:value={input.maxHealth}>Max health</FieldNumber>
 			<FieldNumber name="dps" bind:value={input.dpsToPlayers}>
 				DPS (when in contact with enemies - we will replace this with abilities later)
@@ -59,8 +59,8 @@
 		$characters[input.name] = JSON.parse(JSON.stringify(input))
 	}
 
-	function edit(blockName) {
-		input = { ...$characters[blockName] }
+	function edit(name) {
+		input = { ...$characters[name] }
 	}
 
 	function create() {

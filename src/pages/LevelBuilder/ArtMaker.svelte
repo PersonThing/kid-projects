@@ -326,25 +326,7 @@
 		padding: 5px;
 	}
 
-	.flex {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-	}
-
-	.align-top {
-		align-items: flex-start;
-	}
-
-	.flex > * {
-		margin-right: 8px;
-	}
-
 	.flex input[type='number'] {
 		width: 50px;
-	}
-
-	.flex-grow {
-		flex-grow: 1;
 	}
 </style>
