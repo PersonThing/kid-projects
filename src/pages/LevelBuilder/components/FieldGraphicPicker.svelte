@@ -2,18 +2,17 @@
 	<label for="graphic">
 		<slot>Graphic</slot>
 	</label>
-	<div class="list-group">
+	<div class="options">
 		{#each options as drawingName}
-			<div class="list-group-item list-group-item-action" class:active={value == drawingName} on:click={() => (value = drawingName)}>
-				<CustomGraphic graphic={$savedDrawings[drawingName]} />
-				{drawingName}
+			<div class:active={value == drawingName} on:click={() => (value = drawingName)}>
+				<CustomGraphic graphic={$savedDrawings[drawingName]} name={drawingName} />
 			</div>
 		{/each}
 	</div>
 </div>
 
 <script>
-	import savedDrawings from '../../../stores/pixel-art-store'
+	import savedDrawings from '../../../stores/art-store'
 	import CustomGraphic from './CustomGraphic.svelte'
 	import { onMount } from 'svelte'
 	export let value = null
@@ -23,8 +22,15 @@
 </script>
 
 <style>
-	.list-group {
+	.options {
 		overflow: auto;
-		max-height: 250px;
+	}
+	.options > div {
+		padding: 10px;
+		float: left;
+		border-radius: 0.25rem;
+	}
+	.options > div.active {
+		background: #007bff;
 	}
 </style>

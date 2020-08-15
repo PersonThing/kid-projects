@@ -1434,31 +1434,31 @@ var app = (function () {
 
     function get_each_context_1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[43] = list[i];
+    	child_ctx[44] = list[i];
     	return child_ctx;
     }
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[40] = list[i];
+    	child_ctx[41] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_2(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[46] = list[i];
+    	child_ctx[47] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_3(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[49] = list[i];
+    	child_ctx[50] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_4(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[52] = list[i];
+    	child_ctx[53] = list[i];
     	return child_ctx;
     }
 
@@ -1536,7 +1536,7 @@ var app = (function () {
     function create_each_block_4(ctx) {
     	let div;
     	let button0;
-    	let t0_value = /*savedDrawingName*/ ctx[52] + "";
+    	let t0_value = /*savedDrawingName*/ ctx[53] + "";
     	let t0;
     	let button0_class_value;
     	let t1;
@@ -1546,11 +1546,11 @@ var app = (function () {
     	let dispose;
 
     	function click_handler(...args) {
-    		return /*click_handler*/ ctx[26](/*savedDrawingName*/ ctx[52], ...args);
+    		return /*click_handler*/ ctx[27](/*savedDrawingName*/ ctx[53], ...args);
     	}
 
     	function click_handler_1(...args) {
-    		return /*click_handler_1*/ ctx[27](/*savedDrawingName*/ ctx[52], ...args);
+    		return /*click_handler_1*/ ctx[28](/*savedDrawingName*/ ctx[53], ...args);
     	}
 
     	const block = {
@@ -1563,7 +1563,7 @@ var app = (function () {
     			button1.textContent = "x";
     			t3 = space();
 
-    			attr_dev(button0, "class", button0_class_value = "btn btn-sm btn-" + (/*savedDrawingName*/ ctx[52] == /*loaded*/ ctx[0]
+    			attr_dev(button0, "class", button0_class_value = "btn btn-sm btn-" + (/*savedDrawingName*/ ctx[53] == /*loaded*/ ctx[0]
     			? "primary active"
     			: "secondary"));
 
@@ -1592,9 +1592,9 @@ var app = (function () {
     		},
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
-    			if (dirty[0] & /*savedNames*/ 512 && t0_value !== (t0_value = /*savedDrawingName*/ ctx[52] + "")) set_data_dev(t0, t0_value);
+    			if (dirty[0] & /*savedNames*/ 512 && t0_value !== (t0_value = /*savedDrawingName*/ ctx[53] + "")) set_data_dev(t0, t0_value);
 
-    			if (dirty[0] & /*savedNames, loaded*/ 513 && button0_class_value !== (button0_class_value = "btn btn-sm btn-" + (/*savedDrawingName*/ ctx[52] == /*loaded*/ ctx[0]
+    			if (dirty[0] & /*savedNames, loaded*/ 513 && button0_class_value !== (button0_class_value = "btn btn-sm btn-" + (/*savedDrawingName*/ ctx[53] == /*loaded*/ ctx[0]
     			? "primary active"
     			: "secondary"))) {
     				attr_dev(button0, "class", button0_class_value);
@@ -1625,15 +1625,19 @@ var app = (function () {
     	let dispose;
 
     	function click_handler_3(...args) {
-    		return /*click_handler_3*/ ctx[33](/*color*/ ctx[49], ...args);
+    		return /*click_handler_3*/ ctx[34](/*color*/ ctx[50], ...args);
     	}
 
     	const block = {
     		c: function create() {
     			button = element("button");
-    			set_style(button, "background-color", /*color*/ ctx[49]);
-    			attr_dev(button, "class", "svelte-ngg2f5");
-    			toggle_class(button, "active", /*color*/ ctx[49] == /*selectedColor*/ ctx[1]);
+
+    			set_style(button, "background", /*color*/ ctx[50] != "transparent"
+    			? /*color*/ ctx[50]
+    			: "linear-gradient(110deg, rgba(200,200,200,1) 45%, rgba(255,255,255,1) 55%, rgba(255,255,255,1) 100%)");
+
+    			attr_dev(button, "class", "svelte-1a4yczt");
+    			toggle_class(button, "active", /*color*/ ctx[50] == /*selectedColor*/ ctx[1]);
     			add_location(button, file, 44, 4, 1387);
     		},
     		m: function mount(target, anchor) {
@@ -1648,7 +1652,7 @@ var app = (function () {
     			ctx = new_ctx;
 
     			if (dirty[0] & /*colors, selectedColor*/ 16386) {
-    				toggle_class(button, "active", /*color*/ ctx[49] == /*selectedColor*/ ctx[1]);
+    				toggle_class(button, "active", /*color*/ ctx[50] == /*selectedColor*/ ctx[1]);
     			}
     		},
     		d: function destroy(detaching) {
@@ -1669,7 +1673,7 @@ var app = (function () {
     	return block;
     }
 
-    // (53:4) {#each [20, 0, 0, 0, 0] as margin}
+    // (56:4) {#each [20, 0, 0, 0, 0] as margin}
     function create_each_block_2(ctx) {
     	let img;
     	let img_src_value;
@@ -1679,8 +1683,8 @@ var app = (function () {
     			img = element("img");
     			if (img.src !== (img_src_value = /*previewPNG*/ ctx[10])) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "");
-    			set_style(img, "margin-right", /*margin*/ ctx[46] + "px");
-    			add_location(img, file, 53, 5, 1744);
+    			set_style(img, "margin-right", /*margin*/ ctx[47] + "px");
+    			add_location(img, file, 56, 5, 1854);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, img, anchor);
@@ -1699,14 +1703,14 @@ var app = (function () {
     		block,
     		id: create_each_block_2.name,
     		type: "each",
-    		source: "(53:4) {#each [20, 0, 0, 0, 0] as margin}",
+    		source: "(56:4) {#each [20, 0, 0, 0, 0] as margin}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (66:4) {#each columns as column}
+    // (70:4) {#each columns as column}
     function create_each_block_1(ctx) {
     	let rect;
     	let rect_y_value;
@@ -1718,30 +1722,30 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			rect = svg_element("rect");
-    			attr_dev(rect, "y", rect_y_value = /*row*/ ctx[40] * /*gridSize*/ ctx[2]);
-    			attr_dev(rect, "x", rect_x_value = /*column*/ ctx[43] * /*gridSize*/ ctx[2]);
-    			set_style(rect, "fill", getCellColor(/*data*/ ctx[8], /*row*/ ctx[40], /*column*/ ctx[43]));
+    			attr_dev(rect, "y", rect_y_value = /*row*/ ctx[41] * /*gridSize*/ ctx[2]);
+    			attr_dev(rect, "x", rect_x_value = /*column*/ ctx[44] * /*gridSize*/ ctx[2]);
+    			set_style(rect, "fill", getCellColor(/*data*/ ctx[8], /*row*/ ctx[41], /*column*/ ctx[44]));
     			attr_dev(rect, "width", /*gridSize*/ ctx[2]);
     			attr_dev(rect, "height", /*gridSize*/ ctx[2]);
-    			attr_dev(rect, "data-row", rect_data_row_value = /*row*/ ctx[40]);
-    			attr_dev(rect, "data-column", rect_data_column_value = /*column*/ ctx[43]);
+    			attr_dev(rect, "data-row", rect_data_row_value = /*row*/ ctx[41]);
+    			attr_dev(rect, "data-column", rect_data_column_value = /*column*/ ctx[44]);
     			attr_dev(rect, "stroke", rect_stroke_value = /*showGrid*/ ctx[7] ? "#eee" : null);
-    			add_location(rect, file, 66, 5, 2133);
+    			add_location(rect, file, 70, 5, 2266);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, rect, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*rows, gridSize*/ 2052 && rect_y_value !== (rect_y_value = /*row*/ ctx[40] * /*gridSize*/ ctx[2])) {
+    			if (dirty[0] & /*rows, gridSize*/ 2052 && rect_y_value !== (rect_y_value = /*row*/ ctx[41] * /*gridSize*/ ctx[2])) {
     				attr_dev(rect, "y", rect_y_value);
     			}
 
-    			if (dirty[0] & /*columns, gridSize*/ 4100 && rect_x_value !== (rect_x_value = /*column*/ ctx[43] * /*gridSize*/ ctx[2])) {
+    			if (dirty[0] & /*columns, gridSize*/ 4100 && rect_x_value !== (rect_x_value = /*column*/ ctx[44] * /*gridSize*/ ctx[2])) {
     				attr_dev(rect, "x", rect_x_value);
     			}
 
     			if (dirty[0] & /*data, rows, columns*/ 6400) {
-    				set_style(rect, "fill", getCellColor(/*data*/ ctx[8], /*row*/ ctx[40], /*column*/ ctx[43]));
+    				set_style(rect, "fill", getCellColor(/*data*/ ctx[8], /*row*/ ctx[41], /*column*/ ctx[44]));
     			}
 
     			if (dirty[0] & /*gridSize*/ 4) {
@@ -1752,11 +1756,11 @@ var app = (function () {
     				attr_dev(rect, "height", /*gridSize*/ ctx[2]);
     			}
 
-    			if (dirty[0] & /*rows*/ 2048 && rect_data_row_value !== (rect_data_row_value = /*row*/ ctx[40])) {
+    			if (dirty[0] & /*rows*/ 2048 && rect_data_row_value !== (rect_data_row_value = /*row*/ ctx[41])) {
     				attr_dev(rect, "data-row", rect_data_row_value);
     			}
 
-    			if (dirty[0] & /*columns*/ 4096 && rect_data_column_value !== (rect_data_column_value = /*column*/ ctx[43])) {
+    			if (dirty[0] & /*columns*/ 4096 && rect_data_column_value !== (rect_data_column_value = /*column*/ ctx[44])) {
     				attr_dev(rect, "data-column", rect_data_column_value);
     			}
 
@@ -1773,14 +1777,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(66:4) {#each columns as column}",
+    		source: "(70:4) {#each columns as column}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (65:3) {#each rows as row}
+    // (69:3) {#each rows as row}
     function create_each_block(ctx) {
     	let each_1_anchor;
     	let each_value_1 = /*columns*/ ctx[12];
@@ -1841,7 +1845,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(65:3) {#each rows as row}",
+    		source: "(69:3) {#each rows as row}",
     		ctx
     	});
 
@@ -2000,38 +2004,37 @@ var app = (function () {
     			attr_dev(input0, "min", "15");
     			attr_dev(input0, "max", "50");
     			attr_dev(input0, "step", "5");
-    			attr_dev(input0, "class", "svelte-ngg2f5");
+    			attr_dev(input0, "class", "svelte-1a4yczt");
     			add_location(input0, file, 24, 2, 903);
     			add_location(div1, file, 22, 1, 881);
     			attr_dev(input1, "type", "number");
     			attr_dev(input1, "placeholder", "Height");
-    			attr_dev(input1, "class", "svelte-ngg2f5");
+    			attr_dev(input1, "class", "svelte-1a4yczt");
     			add_location(input1, file, 28, 2, 1006);
     			add_location(div2, file, 26, 1, 987);
     			attr_dev(input2, "type", "number");
     			attr_dev(input2, "placeholder", "Width");
-    			attr_dev(input2, "class", "svelte-ngg2f5");
+    			attr_dev(input2, "class", "svelte-1a4yczt");
     			add_location(input2, file, 32, 2, 1100);
     			add_location(div3, file, 30, 1, 1082);
     			attr_dev(input3, "type", "checkbox");
     			add_location(input3, file, 35, 2, 1185);
     			add_location(label, file, 34, 1, 1174);
-    			attr_dev(div4, "class", "flex svelte-ngg2f5");
+    			attr_dev(div4, "class", "flex svelte-1a4yczt");
     			add_location(div4, file, 13, 0, 430);
-    			attr_dev(div5, "class", "color-picker svelte-ngg2f5");
+    			attr_dev(div5, "class", "color-picker svelte-1a4yczt");
     			add_location(div5, file, 42, 2, 1327);
     			attr_dev(div6, "class", "controls");
     			add_location(div6, file, 41, 1, 1301);
-    			set_style(div7, "background", "rgb(135, 206, 235)");
-    			set_style(div7, "padding", "20px");
-    			add_location(div7, file, 51, 3, 1637);
-    			add_location(div8, file, 49, 2, 1566);
-    			attr_dev(svg, "width", svg_width_value = /*width*/ ctx[4] * (/*gridSize*/ ctx[2] + 2));
-    			attr_dev(svg, "height", svg_height_value = /*height*/ ctx[3] * (/*gridSize*/ ctx[2] + 2));
-    			attr_dev(svg, "class", "svelte-ngg2f5");
-    			add_location(svg, file, 57, 2, 1847);
-    			attr_dev(div9, "class", "flex-grow");
-    			add_location(div9, file, 48, 1, 1539);
+    			attr_dev(div7, "class", "p-3 preview-bg svelte-1a4yczt");
+    			add_location(div7, file, 54, 3, 1779);
+    			add_location(div8, file, 52, 2, 1708);
+    			attr_dev(svg, "class", "preview-bg svelte-1a4yczt");
+    			attr_dev(svg, "width", svg_width_value = /*width*/ ctx[4] * (/*gridSize*/ ctx[2] + 1));
+    			attr_dev(svg, "height", svg_height_value = /*height*/ ctx[3] * (/*gridSize*/ ctx[2] + 1));
+    			add_location(svg, file, 60, 2, 1957);
+    			attr_dev(div9, "class", "flex-grow ");
+    			add_location(div9, file, 51, 1, 1680);
     			attr_dev(div10, "class", "flex align-top");
     			add_location(div10, file, 40, 0, 1270);
     		},
@@ -2102,18 +2105,20 @@ var app = (function () {
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(button0, "click", /*click_handler_2*/ ctx[28], false, false, false),
+    					listen_dev(window, "keydown", onKeyDown, false, false, false),
+    					listen_dev(window, "keyup", /*onKeyUp*/ ctx[25], false, false, false),
+    					listen_dev(button0, "click", /*click_handler_2*/ ctx[29], false, false, false),
     					listen_dev(button1, "click", /*reset*/ ctx[15], false, false, false),
     					listen_dev(button2, "click", /*undo*/ ctx[19], false, false, false),
     					listen_dev(button3, "click", /*redo*/ ctx[20], false, false, false),
-    					listen_dev(input0, "input", /*input0_input_handler*/ ctx[29]),
-    					listen_dev(input1, "input", /*input1_input_handler*/ ctx[30]),
-    					listen_dev(input2, "input", /*input2_input_handler*/ ctx[31]),
-    					listen_dev(input3, "change", /*input3_change_handler*/ ctx[32]),
+    					listen_dev(input0, "input", /*input0_input_handler*/ ctx[30]),
+    					listen_dev(input1, "input", /*input1_input_handler*/ ctx[31]),
+    					listen_dev(input2, "input", /*input2_input_handler*/ ctx[32]),
+    					listen_dev(input3, "change", /*input3_change_handler*/ ctx[33]),
     					listen_dev(svg, "mousedown", /*onSvgMouseDown*/ ctx[16], false, false, false),
     					listen_dev(svg, "mouseup", /*onSvgMouseUp*/ ctx[17], false, false, false),
-    					listen_dev(svg, "contextmenu", prevent_default(/*contextmenu_handler*/ ctx[25]), false, true, false),
-    					listen_dev(svg, "mousemove", /*mousemove_handler*/ ctx[34], false, false, false)
+    					listen_dev(svg, "contextmenu", prevent_default(/*contextmenu_handler*/ ctx[26]), false, true, false),
+    					listen_dev(svg, "mousemove", /*mousemove_handler*/ ctx[35], false, false, false)
     				];
 
     				mounted = true;
@@ -2231,11 +2236,11 @@ var app = (function () {
     				each_blocks.length = each_value.length;
     			}
 
-    			if (dirty[0] & /*width, gridSize*/ 20 && svg_width_value !== (svg_width_value = /*width*/ ctx[4] * (/*gridSize*/ ctx[2] + 2))) {
+    			if (dirty[0] & /*width, gridSize*/ 20 && svg_width_value !== (svg_width_value = /*width*/ ctx[4] * (/*gridSize*/ ctx[2] + 1))) {
     				attr_dev(svg, "width", svg_width_value);
     			}
 
-    			if (dirty[0] & /*height, gridSize*/ 12 && svg_height_value !== (svg_height_value = /*height*/ ctx[3] * (/*gridSize*/ ctx[2] + 2))) {
+    			if (dirty[0] & /*height, gridSize*/ 12 && svg_height_value !== (svg_height_value = /*height*/ ctx[3] * (/*gridSize*/ ctx[2] + 1))) {
     				attr_dev(svg, "height", svg_height_value);
     			}
     		},
@@ -2267,7 +2272,7 @@ var app = (function () {
     }
 
     function buildColumns(num) {
-    	return [...Array(num)].map(c => null);
+    	return [...Array(num)].map(c => "transparent");
     }
 
     function getCellColor(d, row, column) {
@@ -2276,11 +2281,15 @@ var app = (function () {
     	: "white";
     }
 
+    function onKeyDown(e) {
+    	
+    }
+
     function instance$1($$self, $$props, $$invalidate) {
     	let $savedDrawings;
     	const savedDrawings = LocalStorageStore("pixel-drawings", {});
     	validate_store(savedDrawings, "savedDrawings");
-    	component_subscribe($$self, savedDrawings, value => $$invalidate(36, $savedDrawings = value));
+    	component_subscribe($$self, savedDrawings, value => $$invalidate(37, $savedDrawings = value));
     	let loaded = null;
 
     	const colors = [
@@ -2351,29 +2360,18 @@ var app = (function () {
     	// '#F8D0B0',
     	let selectedColor = "black";
 
-    	let gridSize = 30;
-    	let height = 30;
-    	let width = 30;
+    	let gridSize = 25;
+    	let height = 20;
+    	let width = 20;
     	let undos = [];
     	let redos = [];
     	let showGrid = true;
-
-    	// let levelData = []
-    	// $: if (columns.length > 0) {
-    	// 	const newLevelData = []
-    	// 	const reverseData = JSON.parse(JSON.stringify(data)).reverse()
-    	// 	for (let c = 0; c < columns.length; c++) {
-    	// 		newLevelData.push(reverseData.map(r => (r.length > c ? r[c] : null)))
-    	// 	}
-    	// 	levelData = newLevelData
-    	// }
     	let data = [];
-
     	let mouseDown = false;
-    	reset();
+    	reset(false);
 
-    	function reset() {
-    		addUndoState();
+    	function reset(undoable = true) {
+    		if (undoable) addUndoState();
     		$$invalidate(8, data = buildRows(height));
     		$$invalidate(0, loaded = null);
     	}
@@ -2414,6 +2412,7 @@ var app = (function () {
     	}
 
     	function undo() {
+    		if (undos.length == 0) return;
     		$$invalidate(6, redos = [...redos, JSON.stringify(data)]);
     		$$invalidate(8, data = JSON.parse(undos.pop()));
     		$$invalidate(5, undos);
@@ -2481,6 +2480,17 @@ var app = (function () {
     		if ($savedDrawings.hasOwnProperty(name)) {
     			delete $savedDrawings[name];
     			savedDrawings.set($savedDrawings);
+    		}
+    	}
+
+    	function onKeyUp(e) {
+    		switch (e.code) {
+    			case "KeyZ":
+    				if (e.ctrlKey) undo();
+    				break;
+    			case "KeyY":
+    				if (e.ctrlKey) redo();
+    				break;
     		}
     	}
 
@@ -2554,6 +2564,8 @@ var app = (function () {
     		load,
     		deleteSave,
     		getCellColor,
+    		onKeyDown,
+    		onKeyUp,
     		savedNames,
     		$savedDrawings,
     		previewPNG,
@@ -2588,7 +2600,7 @@ var app = (function () {
     	}
 
     	$$self.$$.update = () => {
-    		if ($$self.$$.dirty[1] & /*$savedDrawings*/ 32) {
+    		if ($$self.$$.dirty[1] & /*$savedDrawings*/ 64) {
     			 $$invalidate(9, savedNames = Object.keys($savedDrawings));
     		}
 
@@ -2631,6 +2643,7 @@ var app = (function () {
     		save,
     		load,
     		deleteSave,
+    		onKeyUp,
     		contextmenu_handler,
     		click_handler,
     		click_handler_1,
@@ -2658,9 +2671,10 @@ var app = (function () {
     	}
     }
 
-    const savedDrawings = LocalStorageStore('blocks', {});
+    const store = LocalStorageStore('blocks', {});
 
-    const savedDrawings$1 = LocalStorageStore('pixel-drawings', {});
+    console.log('art store');
+    const store$1 = LocalStorageStore('pixel-drawings', {});
 
     /* src\pages\LevelBuilder\components\CustomGraphic.svelte generated by Svelte v3.24.1 */
     const file$1 = "src\\pages\\LevelBuilder\\components\\CustomGraphic.svelte";
@@ -2863,17 +2877,15 @@ var app = (function () {
     function create_each_block$1(ctx) {
     	let div;
     	let customgraphic;
-    	let t0;
-    	let t1_value = /*drawingName*/ ctx[7] + "";
-    	let t1;
-    	let t2;
+    	let t;
     	let current;
     	let mounted;
     	let dispose;
 
     	customgraphic = new CustomGraphic({
     			props: {
-    				graphic: /*$savedDrawings*/ ctx[2][/*drawingName*/ ctx[7]]
+    				graphic: /*$savedDrawings*/ ctx[2][/*drawingName*/ ctx[7]],
+    				name: /*drawingName*/ ctx[7]
     			},
     			$$inline: true
     		});
@@ -2886,19 +2898,15 @@ var app = (function () {
     		c: function create() {
     			div = element("div");
     			create_component(customgraphic.$$.fragment);
-    			t0 = space();
-    			t1 = text(t1_value);
-    			t2 = space();
-    			attr_dev(div, "class", "list-group-item list-group-item-action");
+    			t = space();
+    			attr_dev(div, "class", "svelte-1u0b3hs");
     			toggle_class(div, "active", /*value*/ ctx[0] == /*drawingName*/ ctx[7]);
-    			add_location(div, file$2, 6, 3, 149);
+    			add_location(div, file$2, 6, 3, 146);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
     			mount_component(customgraphic, div, null);
-    			append_dev(div, t0);
-    			append_dev(div, t1);
-    			append_dev(div, t2);
+    			append_dev(div, t);
     			current = true;
 
     			if (!mounted) {
@@ -2910,8 +2918,8 @@ var app = (function () {
     			ctx = new_ctx;
     			const customgraphic_changes = {};
     			if (dirty & /*$savedDrawings, options*/ 6) customgraphic_changes.graphic = /*$savedDrawings*/ ctx[2][/*drawingName*/ ctx[7]];
+    			if (dirty & /*options*/ 2) customgraphic_changes.name = /*drawingName*/ ctx[7];
     			customgraphic.$set(customgraphic_changes);
-    			if ((!current || dirty & /*options*/ 2) && t1_value !== (t1_value = /*drawingName*/ ctx[7] + "")) set_data_dev(t1, t1_value);
 
     			if (dirty & /*value, options*/ 3) {
     				toggle_class(div, "active", /*value*/ ctx[0] == /*drawingName*/ ctx[7]);
@@ -2980,9 +2988,9 @@ var app = (function () {
 
     			attr_dev(label, "for", "graphic");
     			add_location(label, file$2, 1, 1, 27);
-    			attr_dev(div0, "class", "list-group svelte-1ul1s81");
+    			attr_dev(div0, "class", "options svelte-1u0b3hs");
     			add_location(div0, file$2, 4, 1, 86);
-    			attr_dev(div1, "class", "form-group");
+    			attr_dev(div1, "class", "form-group svelte-1u0b3hs");
     			add_location(div1, file$2, 0, 0, 0);
     		},
     		l: function claim(nodes) {
@@ -3080,8 +3088,8 @@ var app = (function () {
 
     function instance$3($$self, $$props, $$invalidate) {
     	let $savedDrawings;
-    	validate_store(savedDrawings$1, "savedDrawings");
-    	component_subscribe($$self, savedDrawings$1, $$value => $$invalidate(2, $savedDrawings = $$value));
+    	validate_store(store$1, "savedDrawings");
+    	component_subscribe($$self, store$1, $$value => $$invalidate(2, $savedDrawings = $$value));
     	let { value = null } = $$props;
     	let { filter = null } = $$props;
     	const writable_props = ["value", "filter"];
@@ -3101,7 +3109,7 @@ var app = (function () {
     	};
 
     	$$self.$capture_state = () => ({
-    		savedDrawings: savedDrawings$1,
+    		savedDrawings: store$1,
     		CustomGraphic,
     		onMount,
     		value,
@@ -4756,13 +4764,13 @@ var app = (function () {
 
     function instance$a($$self, $$props, $$invalidate) {
     	let $blocks;
-    	validate_store(savedDrawings, "blocks");
-    	component_subscribe($$self, savedDrawings, $$value => $$invalidate(2, $blocks = $$value));
+    	validate_store(store, "blocks");
+    	component_subscribe($$self, store, $$value => $$invalidate(2, $blocks = $$value));
     	let input;
     	create();
 
     	function save() {
-    		set_store_value(savedDrawings, $blocks[input.name] = JSON.parse(JSON.stringify(input)), $blocks);
+    		set_store_value(store, $blocks[input.name] = JSON.parse(JSON.stringify(input)), $blocks);
     	}
 
     	function edit(name) {
@@ -4775,7 +4783,7 @@ var app = (function () {
 
     	function del(name) {
     		if (confirm(`Are you sure you want to delete "${name}"?`)) delete $blocks[name];
-    		savedDrawings.set($blocks);
+    		store.set($blocks);
     	}
 
     	const writable_props = [];
@@ -4811,7 +4819,7 @@ var app = (function () {
     	const click_handler = () => del(input.name);
 
     	$$self.$capture_state = () => ({
-    		blocks: savedDrawings,
+    		blocks: store,
     		FieldGraphicPicker,
     		FieldText,
     		FieldCheckbox,
@@ -4875,7 +4883,7 @@ var app = (function () {
     	}
     }
 
-    const savedDrawings$2 = LocalStorageStore('characters', {});
+    const store$2 = LocalStorageStore('characters', {});
 
     /* src\pages\LevelBuilder\CharacterBuilder.svelte generated by Svelte v3.24.1 */
     const file$a = "src\\pages\\LevelBuilder\\CharacterBuilder.svelte";
@@ -5687,13 +5695,13 @@ var app = (function () {
 
     function instance$b($$self, $$props, $$invalidate) {
     	let $characters;
-    	validate_store(savedDrawings$2, "characters");
-    	component_subscribe($$self, savedDrawings$2, $$value => $$invalidate(2, $characters = $$value));
+    	validate_store(store$2, "characters");
+    	component_subscribe($$self, store$2, $$value => $$invalidate(2, $characters = $$value));
     	let input;
     	create();
 
     	function save() {
-    		set_store_value(savedDrawings$2, $characters[input.name] = JSON.parse(JSON.stringify(input)), $characters);
+    		set_store_value(store$2, $characters[input.name] = JSON.parse(JSON.stringify(input)), $characters);
     	}
 
     	function edit(name) {
@@ -5714,7 +5722,7 @@ var app = (function () {
 
     	function del(name) {
     		if (confirm(`Are you sure you want to delete "${name}"?`)) delete $characters[name];
-    		savedDrawings$2.set($characters);
+    		store$2.set($characters);
     	}
 
     	const writable_props = [];
@@ -5770,7 +5778,7 @@ var app = (function () {
     	const click_handler = () => del(input.name);
 
     	$$self.$capture_state = () => ({
-    		characters: savedDrawings$2,
+    		characters: store$2,
     		FieldGraphicPicker,
     		FieldText,
     		FieldCheckbox,
@@ -5838,7 +5846,7 @@ var app = (function () {
     	}
     }
 
-    const savedDrawings$3 = LocalStorageStore('enemies', {});
+    const store$3 = LocalStorageStore('enemies', {});
 
     /* src\pages\LevelBuilder\EnemyBuilder.svelte generated by Svelte v3.24.1 */
     const file$b = "src\\pages\\LevelBuilder\\EnemyBuilder.svelte";
@@ -6650,13 +6658,13 @@ var app = (function () {
 
     function instance$c($$self, $$props, $$invalidate) {
     	let $enemies;
-    	validate_store(savedDrawings$3, "enemies");
-    	component_subscribe($$self, savedDrawings$3, $$value => $$invalidate(2, $enemies = $$value));
+    	validate_store(store$3, "enemies");
+    	component_subscribe($$self, store$3, $$value => $$invalidate(2, $enemies = $$value));
     	let input;
     	create();
 
     	function save() {
-    		set_store_value(savedDrawings$3, $enemies[input.name] = JSON.parse(JSON.stringify(input)), $enemies);
+    		set_store_value(store$3, $enemies[input.name] = JSON.parse(JSON.stringify(input)), $enemies);
     	}
 
     	function edit(name) {
@@ -6677,7 +6685,7 @@ var app = (function () {
 
     	function del(name) {
     		if (confirm(`Are you sure you want to delete "${name}"?`)) delete $enemies[name];
-    		savedDrawings$3.set($enemies);
+    		store$3.set($enemies);
     	}
 
     	const writable_props = [];
@@ -6733,7 +6741,7 @@ var app = (function () {
     	const click_handler = () => del(input.name);
 
     	$$self.$capture_state = () => ({
-    		enemies: savedDrawings$3,
+    		enemies: store$3,
     		FieldGraphicPicker,
     		FieldText,
     		FieldCheckbox,
@@ -7076,27 +7084,569 @@ var app = (function () {
     	}
     }
 
-    const savedDrawings$4 = LocalStorageStore('levels', {});
+    const store$4 = LocalStorageStore('levels', {});
 
-    /* src\pages\LevelBuilder\LevelBuilder.svelte generated by Svelte v3.24.1 */
+    // object x, y coords are always bottom left... add width or height to get other sides
+    const doObjectsIntersect = (a, b) => doObjectsIntersectX(a, b) && doObjectsIntersectY(a, b);
+    const doObjectsIntersectX = (a, b) => a.x < b.x + b.width && a.x + a.width > b.x;
+    const doObjectsIntersectY = (a, b) => a.y + a.height > b.y && a.y < b.y + b.height;
+    const isAAboveB = (a, b) => a.y >= b.y + b.height && doObjectsIntersectX(a, b);
+
+    // x|    |x+width
+    //    x|     |x+width
+
+    /* src\pages\BubTheBobcat\Level.svelte generated by Svelte v3.24.1 */
+    const file$d = "src\\pages\\BubTheBobcat\\Level.svelte";
+
+    function create_fragment$e(ctx) {
+    	let canvas;
+
+    	const block = {
+    		c: function create() {
+    			canvas = element("canvas");
+    			attr_dev(canvas, "width", /*width*/ ctx[0]);
+    			attr_dev(canvas, "height", /*height*/ ctx[1]);
+    			set_style(canvas, "transform", "scaleY(-1)");
+    			set_style(canvas, "position", "absolute");
+    			set_style(canvas, "bottom", "0px");
+    			set_style(canvas, "left", "0px");
+    			add_location(canvas, file$d, 1, 0, 40);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, canvas, anchor);
+    			/*canvas_binding*/ ctx[4](canvas);
+    		},
+    		p: function update(ctx, [dirty]) {
+    			if (dirty & /*width*/ 1) {
+    				attr_dev(canvas, "width", /*width*/ ctx[0]);
+    			}
+
+    			if (dirty & /*height*/ 2) {
+    				attr_dev(canvas, "height", /*height*/ ctx[1]);
+    			}
+    		},
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(canvas);
+    			/*canvas_binding*/ ctx[4](null);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$e.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$e($$self, $$props, $$invalidate) {
+    	let { width = 0 } = $$props;
+    	let { height = 0 } = $$props;
+    	let { blocks = [] } = $$props;
+    	let staticCanvas;
+    	const writable_props = ["width", "height", "blocks"];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<Level> was created with unknown prop '${key}'`);
+    	});
+
+    	let { $$slots = {}, $$scope } = $$props;
+    	validate_slots("Level", $$slots, []);
+
+    	function canvas_binding($$value) {
+    		binding_callbacks[$$value ? "unshift" : "push"](() => {
+    			staticCanvas = $$value;
+    			$$invalidate(2, staticCanvas);
+    		});
+    	}
+
+    	$$self.$$set = $$props => {
+    		if ("width" in $$props) $$invalidate(0, width = $$props.width);
+    		if ("height" in $$props) $$invalidate(1, height = $$props.height);
+    		if ("blocks" in $$props) $$invalidate(3, blocks = $$props.blocks);
+    	};
+
+    	$$self.$capture_state = () => ({
+    		doObjectsIntersect,
+    		onMount,
+    		width,
+    		height,
+    		blocks,
+    		staticCanvas
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ("width" in $$props) $$invalidate(0, width = $$props.width);
+    		if ("height" in $$props) $$invalidate(1, height = $$props.height);
+    		if ("blocks" in $$props) $$invalidate(3, blocks = $$props.blocks);
+    		if ("staticCanvas" in $$props) $$invalidate(2, staticCanvas = $$props.staticCanvas);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	$$self.$$.update = () => {
+    		if ($$self.$$.dirty & /*blocks, staticCanvas*/ 12) {
+    			 if (blocks != null && blocks.length) {
+    				// render blocks to static canvas
+    				let ctx = staticCanvas.getContext("2d");
+
+    				// todo allow drawing only visibleBlocks / adding incrementally
+    				blocks.forEach(b => {
+    					ctx.beginPath();
+    					ctx.rect(b.x, b.y, b.width, b.height);
+    					ctx.fillStyle = b.color;
+    					ctx.fill();
+
+    					// draw a line on top
+    					if (b.interactive) {
+    						ctx.beginPath();
+    						ctx.moveTo(b.x, b.y + b.height);
+    						ctx.lineTo(b.x + b.width, b.y + b.height);
+    						ctx.strokeStyle = "black";
+    						ctx.stroke();
+    					}
+    				});
+    			}
+    		}
+    	};
+
+    	return [width, height, staticCanvas, blocks, canvas_binding];
+    }
+
+    class Level extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$e, create_fragment$e, safe_not_equal, { width: 0, height: 1, blocks: 3 });
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Level",
+    			options,
+    			id: create_fragment$e.name
+    		});
+    	}
+
+    	get width() {
+    		throw new Error("<Level>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set width(value) {
+    		throw new Error("<Level>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get height() {
+    		throw new Error("<Level>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set height(value) {
+    		throw new Error("<Level>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get blocks() {
+    		throw new Error("<Level>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set blocks(value) {
+    		throw new Error("<Level>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    /* src\pages\LevelBuilder\components\LevelBuilderDataEditor.svelte generated by Svelte v3.24.1 */
 
     const { Object: Object_1$4 } = globals;
-    const file$d = "src\\pages\\LevelBuilder\\LevelBuilder.svelte";
+    const file$e = "src\\pages\\LevelBuilder\\components\\LevelBuilderDataEditor.svelte";
 
     function get_each_context$4(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[14] = list[i];
+    	child_ctx[6] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_1$1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[17] = list[i];
+    	child_ctx[9] = list[i];
     	return child_ctx;
     }
 
+    // (4:2) {#each Object.keys($blockStore) as blockName}
+    function create_each_block_1$1(ctx) {
+    	let div;
+    	let t_value = /*blockName*/ ctx[9] + "";
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			t = text(t_value);
+    			add_location(div, file$e, 4, 3, 117);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			append_dev(div, t);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*$blockStore*/ 16 && t_value !== (t_value = /*blockName*/ ctx[9] + "")) set_data_dev(t, t_value);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_each_block_1$1.name,
+    		type: "each",
+    		source: "(4:2) {#each Object.keys($blockStore) as blockName}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (9:3) {#each Object.keys($enemyStore) as enemyName}
+    function create_each_block$4(ctx) {
+    	let div;
+    	let t_value = /*enemyName*/ ctx[6] + "";
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			t = text(t_value);
+    			add_location(div, file$e, 9, 4, 257);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			append_dev(div, t);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*$enemyStore*/ 32 && t_value !== (t_value = /*enemyName*/ ctx[6] + "")) set_data_dev(t, t_value);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_each_block$4.name,
+    		type: "each",
+    		source: "(9:3) {#each Object.keys($enemyStore) as enemyName}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$f(ctx) {
+    	let div4;
+    	let div1;
+    	let strong0;
+    	let t1;
+    	let t2;
+    	let div0;
+    	let strong1;
+    	let t4;
+    	let t5;
+    	let div3;
+    	let div2;
+    	let level;
+    	let current;
+    	let each_value_1 = Object.keys(/*$blockStore*/ ctx[4]);
+    	validate_each_argument(each_value_1);
+    	let each_blocks_1 = [];
+
+    	for (let i = 0; i < each_value_1.length; i += 1) {
+    		each_blocks_1[i] = create_each_block_1$1(get_each_context_1$1(ctx, each_value_1, i));
+    	}
+
+    	let each_value = Object.keys(/*$enemyStore*/ ctx[5]);
+    	validate_each_argument(each_value);
+    	let each_blocks = [];
+
+    	for (let i = 0; i < each_value.length; i += 1) {
+    		each_blocks[i] = create_each_block$4(get_each_context$4(ctx, each_value, i));
+    	}
+
+    	level = new Level({
+    			props: {
+    				blocks: /*blocks*/ ctx[1],
+    				enemies: /*enemies*/ ctx[2]
+    			},
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			div4 = element("div");
+    			div1 = element("div");
+    			strong0 = element("strong");
+    			strong0.textContent = "Blocks";
+    			t1 = space();
+
+    			for (let i = 0; i < each_blocks_1.length; i += 1) {
+    				each_blocks_1[i].c();
+    			}
+
+    			t2 = space();
+    			div0 = element("div");
+    			strong1 = element("strong");
+    			strong1.textContent = "Enemies";
+    			t4 = space();
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+
+    			t5 = space();
+    			div3 = element("div");
+    			div2 = element("div");
+    			create_component(level.$$.fragment);
+    			add_location(strong0, file$e, 2, 2, 40);
+    			add_location(strong1, file$e, 7, 3, 177);
+    			attr_dev(div0, "class", "mt-3");
+    			add_location(div0, file$e, 6, 2, 154);
+    			add_location(div1, file$e, 1, 1, 31);
+    			set_style(div2, "background", /*background*/ ctx[0]);
+    			set_style(div2, "height", /*height*/ ctx[3] + "px");
+    			add_location(div2, file$e, 14, 2, 340);
+    			attr_dev(div3, "class", "flex-grow");
+    			add_location(div3, file$e, 13, 1, 313);
+    			attr_dev(div4, "class", "flex align-top");
+    			add_location(div4, file$e, 0, 0, 0);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div4, anchor);
+    			append_dev(div4, div1);
+    			append_dev(div1, strong0);
+    			append_dev(div1, t1);
+
+    			for (let i = 0; i < each_blocks_1.length; i += 1) {
+    				each_blocks_1[i].m(div1, null);
+    			}
+
+    			append_dev(div1, t2);
+    			append_dev(div1, div0);
+    			append_dev(div0, strong1);
+    			append_dev(div0, t4);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(div0, null);
+    			}
+
+    			append_dev(div4, t5);
+    			append_dev(div4, div3);
+    			append_dev(div3, div2);
+    			mount_component(level, div2, null);
+    			current = true;
+    		},
+    		p: function update(ctx, [dirty]) {
+    			if (dirty & /*Object, $blockStore*/ 16) {
+    				each_value_1 = Object.keys(/*$blockStore*/ ctx[4]);
+    				validate_each_argument(each_value_1);
+    				let i;
+
+    				for (i = 0; i < each_value_1.length; i += 1) {
+    					const child_ctx = get_each_context_1$1(ctx, each_value_1, i);
+
+    					if (each_blocks_1[i]) {
+    						each_blocks_1[i].p(child_ctx, dirty);
+    					} else {
+    						each_blocks_1[i] = create_each_block_1$1(child_ctx);
+    						each_blocks_1[i].c();
+    						each_blocks_1[i].m(div1, t2);
+    					}
+    				}
+
+    				for (; i < each_blocks_1.length; i += 1) {
+    					each_blocks_1[i].d(1);
+    				}
+
+    				each_blocks_1.length = each_value_1.length;
+    			}
+
+    			if (dirty & /*Object, $enemyStore*/ 32) {
+    				each_value = Object.keys(/*$enemyStore*/ ctx[5]);
+    				validate_each_argument(each_value);
+    				let i;
+
+    				for (i = 0; i < each_value.length; i += 1) {
+    					const child_ctx = get_each_context$4(ctx, each_value, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(child_ctx, dirty);
+    					} else {
+    						each_blocks[i] = create_each_block$4(child_ctx);
+    						each_blocks[i].c();
+    						each_blocks[i].m(div0, null);
+    					}
+    				}
+
+    				for (; i < each_blocks.length; i += 1) {
+    					each_blocks[i].d(1);
+    				}
+
+    				each_blocks.length = each_value.length;
+    			}
+
+    			const level_changes = {};
+    			if (dirty & /*blocks*/ 2) level_changes.blocks = /*blocks*/ ctx[1];
+    			if (dirty & /*enemies*/ 4) level_changes.enemies = /*enemies*/ ctx[2];
+    			level.$set(level_changes);
+
+    			if (!current || dirty & /*background*/ 1) {
+    				set_style(div2, "background", /*background*/ ctx[0]);
+    			}
+
+    			if (!current || dirty & /*height*/ 8) {
+    				set_style(div2, "height", /*height*/ ctx[3] + "px");
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(level.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(level.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div4);
+    			destroy_each(each_blocks_1, detaching);
+    			destroy_each(each_blocks, detaching);
+    			destroy_component(level);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$f.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$f($$self, $$props, $$invalidate) {
+    	let $blockStore;
+    	let $enemyStore;
+    	validate_store(store, "blockStore");
+    	component_subscribe($$self, store, $$value => $$invalidate(4, $blockStore = $$value));
+    	validate_store(store$3, "enemyStore");
+    	component_subscribe($$self, store$3, $$value => $$invalidate(5, $enemyStore = $$value));
+    	let { background = null } = $$props;
+    	let { blocks = [] } = $$props;
+    	let { enemies = [] } = $$props;
+    	let height = 100;
+    	const writable_props = ["background", "blocks", "enemies"];
+
+    	Object_1$4.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<LevelBuilderDataEditor> was created with unknown prop '${key}'`);
+    	});
+
+    	let { $$slots = {}, $$scope } = $$props;
+    	validate_slots("LevelBuilderDataEditor", $$slots, []);
+
+    	$$self.$$set = $$props => {
+    		if ("background" in $$props) $$invalidate(0, background = $$props.background);
+    		if ("blocks" in $$props) $$invalidate(1, blocks = $$props.blocks);
+    		if ("enemies" in $$props) $$invalidate(2, enemies = $$props.enemies);
+    	};
+
+    	$$self.$capture_state = () => ({
+    		Level,
+    		blockStore: store,
+    		enemyStore: store$3,
+    		background,
+    		blocks,
+    		enemies,
+    		height,
+    		$blockStore,
+    		$enemyStore
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ("background" in $$props) $$invalidate(0, background = $$props.background);
+    		if ("blocks" in $$props) $$invalidate(1, blocks = $$props.blocks);
+    		if ("enemies" in $$props) $$invalidate(2, enemies = $$props.enemies);
+    		if ("height" in $$props) $$invalidate(3, height = $$props.height);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	$$self.$$.update = () => {
+    		if ($$self.$$.dirty & /*blocks*/ 2) {
+    			// make level viewer at least 100px higher than the highest block
+    			 $$invalidate(3, height = Math.max(...blocks.map(b => b.y + b.height)) + 100);
+    		}
+    	};
+
+    	return [background, blocks, enemies, height, $blockStore, $enemyStore];
+    }
+
+    class LevelBuilderDataEditor extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$f, create_fragment$f, safe_not_equal, { background: 0, blocks: 1, enemies: 2 });
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "LevelBuilderDataEditor",
+    			options,
+    			id: create_fragment$f.name
+    		});
+    	}
+
+    	get background() {
+    		throw new Error("<LevelBuilderDataEditor>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set background(value) {
+    		throw new Error("<LevelBuilderDataEditor>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get blocks() {
+    		throw new Error("<LevelBuilderDataEditor>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set blocks(value) {
+    		throw new Error("<LevelBuilderDataEditor>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get enemies() {
+    		throw new Error("<LevelBuilderDataEditor>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set enemies(value) {
+    		throw new Error("<LevelBuilderDataEditor>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    /* src\pages\LevelBuilder\LevelBuilder.svelte generated by Svelte v3.24.1 */
+
+    const { Object: Object_1$5 } = globals;
+    const file$f = "src\\pages\\LevelBuilder\\LevelBuilder.svelte";
+
     // (23:3) <FieldText name="name" bind:value={input.name}>
-    function create_default_slot_2$3(ctx) {
+    function create_default_slot_3$3(ctx) {
     	let t;
 
     	const block = {
@@ -7113,7 +7663,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_2$3.name,
+    		id: create_default_slot_3$3.name,
     		type: "slot",
     		source: "(23:3) <FieldText name=\\\"name\\\" bind:value={input.name}>",
     		ctx
@@ -7122,8 +7672,8 @@ var app = (function () {
     	return block;
     }
 
-    // (24:3) <FieldMultiSelect name="characters" bind:value={input.characters} options={Object.keys($characters)}>
-    function create_default_slot_1$3(ctx) {
+    // (25:3) <FieldMultiSelect name="playableCharacters" bind:value={input.playableCharacters} options={Object.keys($characters)}>
+    function create_default_slot_2$3(ctx) {
     	let t;
 
     	const block = {
@@ -7140,86 +7690,43 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
+    		id: create_default_slot_2$3.name,
+    		type: "slot",
+    		source: "(25:3) <FieldMultiSelect name=\\\"playableCharacters\\\" bind:value={input.playableCharacters} options={Object.keys($characters)}>",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (29:3) <FieldText name="background" bind:value={input.background}>
+    function create_default_slot_1$3(ctx) {
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			t = text("Background (any css background value)");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, t, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(t);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
     		id: create_default_slot_1$3.name,
     		type: "slot",
-    		source: "(24:3) <FieldMultiSelect name=\\\"characters\\\" bind:value={input.characters} options={Object.keys($characters)}>",
+    		source: "(29:3) <FieldText name=\\\"background\\\" bind:value={input.background}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (31:5) {#each Object.keys($blocks) as blockName}
-    function create_each_block_1$1(ctx) {
-    	let div;
-    	let t_value = /*blockName*/ ctx[17] + "";
-    	let t;
-
-    	const block = {
-    		c: function create() {
-    			div = element("div");
-    			t = text(t_value);
-    			add_location(div, file$d, 31, 6, 923);
-    		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, div, anchor);
-    			append_dev(div, t);
-    		},
-    		p: function update(ctx, dirty) {
-    			if (dirty & /*$blocks*/ 16 && t_value !== (t_value = /*blockName*/ ctx[17] + "")) set_data_dev(t, t_value);
-    		},
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_each_block_1$1.name,
-    		type: "each",
-    		source: "(31:5) {#each Object.keys($blocks) as blockName}",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    // (36:6) {#each Object.keys($enemies) as enemyName}
-    function create_each_block$4(ctx) {
-    	let div;
-    	let t_value = /*enemyName*/ ctx[14] + "";
-    	let t;
-
-    	const block = {
-    		c: function create() {
-    			div = element("div");
-    			t = text(t_value);
-    			add_location(div, file$d, 36, 7, 1075);
-    		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, div, anchor);
-    			append_dev(div, t);
-    		},
-    		p: function update(ctx, dirty) {
-    			if (dirty & /*$enemies*/ 32 && t_value !== (t_value = /*enemyName*/ ctx[14] + "")) set_data_dev(t, t_value);
-    		},
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_each_block$4.name,
-    		type: "each",
-    		source: "(36:6) {#each Object.keys($enemies) as enemyName}",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    // (46:4) {#if !isAdding}
+    // (34:4) {#if !isAdding}
     function create_if_block$6(ctx) {
     	let button;
     	let mounted;
@@ -7230,13 +7737,13 @@ var app = (function () {
     			button = element("button");
     			button.textContent = "Delete";
     			attr_dev(button, "class", "btn btn-danger");
-    			add_location(button, file$d, 46, 5, 1271);
+    			add_location(button, file$f, 34, 5, 1091);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
 
     			if (!mounted) {
-    				dispose = listen_dev(button, "click", /*click_handler*/ ctx[13], false, false, false);
+    				dispose = listen_dev(button, "click", /*click_handler*/ ctx[14], false, false, false);
     				mounted = true;
     			}
     		},
@@ -7252,14 +7759,14 @@ var app = (function () {
     		block,
     		id: create_if_block$6.name,
     		type: "if",
-    		source: "(46:4) {#if !isAdding}",
+    		source: "(34:4) {#if !isAdding}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (45:3) <span slot="buttons">
+    // (33:3) <span slot="buttons">
     function create_buttons_slot$3(ctx) {
     	let span;
     	let if_block = !/*isAdding*/ ctx[1] && create_if_block$6(ctx);
@@ -7269,7 +7776,7 @@ var app = (function () {
     			span = element("span");
     			if (if_block) if_block.c();
     			attr_dev(span, "slot", "buttons");
-    			add_location(span, file$d, 44, 3, 1222);
+    			add_location(span, file$f, 32, 3, 1042);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -7299,7 +7806,7 @@ var app = (function () {
     		block,
     		id: create_buttons_slot$3.name,
     		type: "slot",
-    		source: "(45:3) <span slot=\\\"buttons\\\">",
+    		source: "(33:3) <span slot=\\\"buttons\\\">",
     		ctx
     	});
 
@@ -7308,55 +7815,51 @@ var app = (function () {
 
     // (22:2) <Form on:submit={save}>
     function create_default_slot$3(ctx) {
-    	let fieldtext;
+    	let fieldtext0;
     	let updating_value;
     	let t0;
     	let fieldmultiselect;
     	let updating_value_1;
     	let t1;
-    	let div3;
-    	let div1;
-    	let strong0;
+    	let fieldtext1;
+    	let updating_value_2;
+    	let t2;
+    	let levelbuilderdataeditor;
+    	let updating_blocks;
+    	let updating_enemies;
     	let t3;
-    	let t4;
-    	let div0;
-    	let strong1;
-    	let t6;
-    	let t7;
-    	let div2;
-    	let t9;
     	let current;
 
-    	function fieldtext_value_binding(value) {
-    		/*fieldtext_value_binding*/ ctx[11].call(null, value);
+    	function fieldtext0_value_binding(value) {
+    		/*fieldtext0_value_binding*/ ctx[9].call(null, value);
     	}
 
-    	let fieldtext_props = {
+    	let fieldtext0_props = {
     		name: "name",
-    		$$slots: { default: [create_default_slot_2$3] },
+    		$$slots: { default: [create_default_slot_3$3] },
     		$$scope: { ctx }
     	};
 
     	if (/*input*/ ctx[0].name !== void 0) {
-    		fieldtext_props.value = /*input*/ ctx[0].name;
+    		fieldtext0_props.value = /*input*/ ctx[0].name;
     	}
 
-    	fieldtext = new FieldText({ props: fieldtext_props, $$inline: true });
-    	binding_callbacks.push(() => bind(fieldtext, "value", fieldtext_value_binding));
+    	fieldtext0 = new FieldText({ props: fieldtext0_props, $$inline: true });
+    	binding_callbacks.push(() => bind(fieldtext0, "value", fieldtext0_value_binding));
 
     	function fieldmultiselect_value_binding(value) {
-    		/*fieldmultiselect_value_binding*/ ctx[12].call(null, value);
+    		/*fieldmultiselect_value_binding*/ ctx[10].call(null, value);
     	}
 
     	let fieldmultiselect_props = {
-    		name: "characters",
+    		name: "playableCharacters",
     		options: Object.keys(/*$characters*/ ctx[3]),
-    		$$slots: { default: [create_default_slot_1$3] },
+    		$$slots: { default: [create_default_slot_2$3] },
     		$$scope: { ctx }
     	};
 
-    	if (/*input*/ ctx[0].characters !== void 0) {
-    		fieldmultiselect_props.value = /*input*/ ctx[0].characters;
+    	if (/*input*/ ctx[0].playableCharacters !== void 0) {
+    		fieldmultiselect_props.value = /*input*/ ctx[0].playableCharacters;
     	}
 
     	fieldmultiselect = new FieldMultiSelect({
@@ -7365,188 +7868,154 @@ var app = (function () {
     		});
 
     	binding_callbacks.push(() => bind(fieldmultiselect, "value", fieldmultiselect_value_binding));
-    	let each_value_1 = Object.keys(/*$blocks*/ ctx[4]);
-    	validate_each_argument(each_value_1);
-    	let each_blocks_1 = [];
 
-    	for (let i = 0; i < each_value_1.length; i += 1) {
-    		each_blocks_1[i] = create_each_block_1$1(get_each_context_1$1(ctx, each_value_1, i));
+    	function fieldtext1_value_binding(value) {
+    		/*fieldtext1_value_binding*/ ctx[11].call(null, value);
     	}
 
-    	let each_value = Object.keys(/*$enemies*/ ctx[5]);
-    	validate_each_argument(each_value);
-    	let each_blocks = [];
+    	let fieldtext1_props = {
+    		name: "background",
+    		$$slots: { default: [create_default_slot_1$3] },
+    		$$scope: { ctx }
+    	};
 
-    	for (let i = 0; i < each_value.length; i += 1) {
-    		each_blocks[i] = create_each_block$4(get_each_context$4(ctx, each_value, i));
+    	if (/*input*/ ctx[0].background !== void 0) {
+    		fieldtext1_props.value = /*input*/ ctx[0].background;
     	}
+
+    	fieldtext1 = new FieldText({ props: fieldtext1_props, $$inline: true });
+    	binding_callbacks.push(() => bind(fieldtext1, "value", fieldtext1_value_binding));
+
+    	function levelbuilderdataeditor_blocks_binding(value) {
+    		/*levelbuilderdataeditor_blocks_binding*/ ctx[12].call(null, value);
+    	}
+
+    	function levelbuilderdataeditor_enemies_binding(value) {
+    		/*levelbuilderdataeditor_enemies_binding*/ ctx[13].call(null, value);
+    	}
+
+    	let levelbuilderdataeditor_props = { background: /*input*/ ctx[0].background };
+
+    	if (/*input*/ ctx[0].blocks !== void 0) {
+    		levelbuilderdataeditor_props.blocks = /*input*/ ctx[0].blocks;
+    	}
+
+    	if (/*input*/ ctx[0].enemies !== void 0) {
+    		levelbuilderdataeditor_props.enemies = /*input*/ ctx[0].enemies;
+    	}
+
+    	levelbuilderdataeditor = new LevelBuilderDataEditor({
+    			props: levelbuilderdataeditor_props,
+    			$$inline: true
+    		});
+
+    	binding_callbacks.push(() => bind(levelbuilderdataeditor, "blocks", levelbuilderdataeditor_blocks_binding));
+    	binding_callbacks.push(() => bind(levelbuilderdataeditor, "enemies", levelbuilderdataeditor_enemies_binding));
 
     	const block = {
     		c: function create() {
-    			create_component(fieldtext.$$.fragment);
+    			create_component(fieldtext0.$$.fragment);
     			t0 = space();
     			create_component(fieldmultiselect.$$.fragment);
     			t1 = space();
-    			div3 = element("div");
-    			div1 = element("div");
-    			strong0 = element("strong");
-    			strong0.textContent = "Blocks";
+    			create_component(fieldtext1.$$.fragment);
+    			t2 = space();
+    			create_component(levelbuilderdataeditor.$$.fragment);
     			t3 = space();
-
-    			for (let i = 0; i < each_blocks_1.length; i += 1) {
-    				each_blocks_1[i].c();
-    			}
-
-    			t4 = space();
-    			div0 = element("div");
-    			strong1 = element("strong");
-    			strong1.textContent = "Enemies";
-    			t6 = space();
-
-    			for (let i = 0; i < each_blocks.length; i += 1) {
-    				each_blocks[i].c();
-    			}
-
-    			t7 = space();
-    			div2 = element("div");
-    			div2.textContent = "GRID HERE";
-    			t9 = space();
-    			add_location(strong0, file$d, 29, 5, 844);
-    			add_location(strong1, file$d, 34, 6, 992);
-    			attr_dev(div0, "class", "mt-3");
-    			add_location(div0, file$d, 33, 5, 966);
-    			attr_dev(div1, "class", "align-top");
-    			add_location(div1, file$d, 28, 4, 814);
-    			attr_dev(div2, "class", "flex-grow align-top level-grid svelte-115z112");
-    			add_location(div2, file$d, 41, 4, 1145);
-    			attr_dev(div3, "class", "flex");
-    			add_location(div3, file$d, 27, 3, 790);
     		},
     		m: function mount(target, anchor) {
-    			mount_component(fieldtext, target, anchor);
+    			mount_component(fieldtext0, target, anchor);
     			insert_dev(target, t0, anchor);
     			mount_component(fieldmultiselect, target, anchor);
     			insert_dev(target, t1, anchor);
-    			insert_dev(target, div3, anchor);
-    			append_dev(div3, div1);
-    			append_dev(div1, strong0);
-    			append_dev(div1, t3);
-
-    			for (let i = 0; i < each_blocks_1.length; i += 1) {
-    				each_blocks_1[i].m(div1, null);
-    			}
-
-    			append_dev(div1, t4);
-    			append_dev(div1, div0);
-    			append_dev(div0, strong1);
-    			append_dev(div0, t6);
-
-    			for (let i = 0; i < each_blocks.length; i += 1) {
-    				each_blocks[i].m(div0, null);
-    			}
-
-    			append_dev(div3, t7);
-    			append_dev(div3, div2);
-    			insert_dev(target, t9, anchor);
+    			mount_component(fieldtext1, target, anchor);
+    			insert_dev(target, t2, anchor);
+    			mount_component(levelbuilderdataeditor, target, anchor);
+    			insert_dev(target, t3, anchor);
     			current = true;
     		},
     		p: function update(ctx, dirty) {
-    			const fieldtext_changes = {};
+    			const fieldtext0_changes = {};
 
-    			if (dirty & /*$$scope*/ 1048576) {
-    				fieldtext_changes.$$scope = { dirty, ctx };
+    			if (dirty & /*$$scope*/ 32768) {
+    				fieldtext0_changes.$$scope = { dirty, ctx };
     			}
 
     			if (!updating_value && dirty & /*input*/ 1) {
     				updating_value = true;
-    				fieldtext_changes.value = /*input*/ ctx[0].name;
+    				fieldtext0_changes.value = /*input*/ ctx[0].name;
     				add_flush_callback(() => updating_value = false);
     			}
 
-    			fieldtext.$set(fieldtext_changes);
+    			fieldtext0.$set(fieldtext0_changes);
     			const fieldmultiselect_changes = {};
     			if (dirty & /*$characters*/ 8) fieldmultiselect_changes.options = Object.keys(/*$characters*/ ctx[3]);
 
-    			if (dirty & /*$$scope*/ 1048576) {
+    			if (dirty & /*$$scope*/ 32768) {
     				fieldmultiselect_changes.$$scope = { dirty, ctx };
     			}
 
     			if (!updating_value_1 && dirty & /*input*/ 1) {
     				updating_value_1 = true;
-    				fieldmultiselect_changes.value = /*input*/ ctx[0].characters;
+    				fieldmultiselect_changes.value = /*input*/ ctx[0].playableCharacters;
     				add_flush_callback(() => updating_value_1 = false);
     			}
 
     			fieldmultiselect.$set(fieldmultiselect_changes);
+    			const fieldtext1_changes = {};
 
-    			if (dirty & /*Object, $blocks*/ 16) {
-    				each_value_1 = Object.keys(/*$blocks*/ ctx[4]);
-    				validate_each_argument(each_value_1);
-    				let i;
-
-    				for (i = 0; i < each_value_1.length; i += 1) {
-    					const child_ctx = get_each_context_1$1(ctx, each_value_1, i);
-
-    					if (each_blocks_1[i]) {
-    						each_blocks_1[i].p(child_ctx, dirty);
-    					} else {
-    						each_blocks_1[i] = create_each_block_1$1(child_ctx);
-    						each_blocks_1[i].c();
-    						each_blocks_1[i].m(div1, t4);
-    					}
-    				}
-
-    				for (; i < each_blocks_1.length; i += 1) {
-    					each_blocks_1[i].d(1);
-    				}
-
-    				each_blocks_1.length = each_value_1.length;
+    			if (dirty & /*$$scope*/ 32768) {
+    				fieldtext1_changes.$$scope = { dirty, ctx };
     			}
 
-    			if (dirty & /*Object, $enemies*/ 32) {
-    				each_value = Object.keys(/*$enemies*/ ctx[5]);
-    				validate_each_argument(each_value);
-    				let i;
-
-    				for (i = 0; i < each_value.length; i += 1) {
-    					const child_ctx = get_each_context$4(ctx, each_value, i);
-
-    					if (each_blocks[i]) {
-    						each_blocks[i].p(child_ctx, dirty);
-    					} else {
-    						each_blocks[i] = create_each_block$4(child_ctx);
-    						each_blocks[i].c();
-    						each_blocks[i].m(div0, null);
-    					}
-    				}
-
-    				for (; i < each_blocks.length; i += 1) {
-    					each_blocks[i].d(1);
-    				}
-
-    				each_blocks.length = each_value.length;
+    			if (!updating_value_2 && dirty & /*input*/ 1) {
+    				updating_value_2 = true;
+    				fieldtext1_changes.value = /*input*/ ctx[0].background;
+    				add_flush_callback(() => updating_value_2 = false);
     			}
+
+    			fieldtext1.$set(fieldtext1_changes);
+    			const levelbuilderdataeditor_changes = {};
+    			if (dirty & /*input*/ 1) levelbuilderdataeditor_changes.background = /*input*/ ctx[0].background;
+
+    			if (!updating_blocks && dirty & /*input*/ 1) {
+    				updating_blocks = true;
+    				levelbuilderdataeditor_changes.blocks = /*input*/ ctx[0].blocks;
+    				add_flush_callback(() => updating_blocks = false);
+    			}
+
+    			if (!updating_enemies && dirty & /*input*/ 1) {
+    				updating_enemies = true;
+    				levelbuilderdataeditor_changes.enemies = /*input*/ ctx[0].enemies;
+    				add_flush_callback(() => updating_enemies = false);
+    			}
+
+    			levelbuilderdataeditor.$set(levelbuilderdataeditor_changes);
     		},
     		i: function intro(local) {
     			if (current) return;
-    			transition_in(fieldtext.$$.fragment, local);
+    			transition_in(fieldtext0.$$.fragment, local);
     			transition_in(fieldmultiselect.$$.fragment, local);
+    			transition_in(fieldtext1.$$.fragment, local);
+    			transition_in(levelbuilderdataeditor.$$.fragment, local);
     			current = true;
     		},
     		o: function outro(local) {
-    			transition_out(fieldtext.$$.fragment, local);
+    			transition_out(fieldtext0.$$.fragment, local);
     			transition_out(fieldmultiselect.$$.fragment, local);
+    			transition_out(fieldtext1.$$.fragment, local);
+    			transition_out(levelbuilderdataeditor.$$.fragment, local);
     			current = false;
     		},
     		d: function destroy(detaching) {
-    			destroy_component(fieldtext, detaching);
+    			destroy_component(fieldtext0, detaching);
     			if (detaching) detach_dev(t0);
     			destroy_component(fieldmultiselect, detaching);
     			if (detaching) detach_dev(t1);
-    			if (detaching) detach_dev(div3);
-    			destroy_each(each_blocks_1, detaching);
-    			destroy_each(each_blocks, detaching);
-    			if (detaching) detach_dev(t9);
+    			destroy_component(fieldtext1, detaching);
+    			if (detaching) detach_dev(t2);
+    			destroy_component(levelbuilderdataeditor, detaching);
+    			if (detaching) detach_dev(t3);
     		}
     	};
 
@@ -7561,7 +8030,7 @@ var app = (function () {
     	return block;
     }
 
-    function create_fragment$e(ctx) {
+    function create_fragment$g(ctx) {
     	let div2;
     	let div0;
     	let storenav;
@@ -7578,8 +8047,8 @@ var app = (function () {
     			$$inline: true
     		});
 
-    	storenav.$on("create", /*create*/ ctx[8]);
-    	storenav.$on("edit", /*edit_handler*/ ctx[10]);
+    	storenav.$on("create", /*create*/ ctx[6]);
+    	storenav.$on("edit", /*edit_handler*/ ctx[8]);
 
     	form = new Form({
     			props: {
@@ -7592,7 +8061,7 @@ var app = (function () {
     			$$inline: true
     		});
 
-    	form.$on("submit", /*save*/ ctx[6]);
+    	form.$on("submit", /*save*/ ctx[4]);
 
     	const block = {
     		c: function create() {
@@ -7603,11 +8072,11 @@ var app = (function () {
     			div1 = element("div");
     			create_component(form.$$.fragment);
     			attr_dev(div0, "class", "col-2");
-    			add_location(div0, file$d, 17, 1, 362);
+    			add_location(div0, file$f, 17, 1, 362);
     			attr_dev(div1, "class", "col");
-    			add_location(div1, file$d, 20, 1, 498);
+    			add_location(div1, file$f, 20, 1, 498);
     			attr_dev(div2, "class", "row");
-    			add_location(div2, file$d, 16, 0, 342);
+    			add_location(div2, file$f, 16, 0, 342);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -7628,7 +8097,7 @@ var app = (function () {
     			storenav.$set(storenav_changes);
     			const form_changes = {};
 
-    			if (dirty & /*$$scope, input, isAdding, $enemies, $blocks, $characters*/ 1048635) {
+    			if (dirty & /*$$scope, input, isAdding, $characters*/ 32779) {
     				form_changes.$$scope = { dirty, ctx };
     			}
 
@@ -7654,7 +8123,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$e.name,
+    		id: create_fragment$g.name,
     		type: "component",
     		source: "",
     		ctx
@@ -7663,24 +8132,18 @@ var app = (function () {
     	return block;
     }
 
-    function instance$e($$self, $$props, $$invalidate) {
+    function instance$g($$self, $$props, $$invalidate) {
     	let $levels;
     	let $characters;
-    	let $blocks;
-    	let $enemies;
-    	validate_store(savedDrawings$4, "levels");
-    	component_subscribe($$self, savedDrawings$4, $$value => $$invalidate(2, $levels = $$value));
-    	validate_store(savedDrawings$2, "characters");
-    	component_subscribe($$self, savedDrawings$2, $$value => $$invalidate(3, $characters = $$value));
-    	validate_store(savedDrawings, "blocks");
-    	component_subscribe($$self, savedDrawings, $$value => $$invalidate(4, $blocks = $$value));
-    	validate_store(savedDrawings$3, "enemies");
-    	component_subscribe($$self, savedDrawings$3, $$value => $$invalidate(5, $enemies = $$value));
+    	validate_store(store$4, "levels");
+    	component_subscribe($$self, store$4, $$value => $$invalidate(2, $levels = $$value));
+    	validate_store(store$2, "characters");
+    	component_subscribe($$self, store$2, $$value => $$invalidate(3, $characters = $$value));
     	let input;
     	create();
 
     	function save() {
-    		set_store_value(savedDrawings$4, $levels[input.name] = JSON.parse(JSON.stringify(input)), $levels);
+    		set_store_value(store$4, $levels[input.name] = JSON.parse(JSON.stringify(input)), $levels);
     	}
 
     	function edit(name) {
@@ -7688,17 +8151,23 @@ var app = (function () {
     	}
 
     	function create() {
-    		$$invalidate(0, input = { name: "", characters: [], data: [] });
+    		$$invalidate(0, input = {
+    			name: "",
+    			playableCharacters: [],
+    			background: "rgb(135, 206, 235)",
+    			blocks: [],
+    			enemies: []
+    		});
     	}
 
     	function del(name) {
     		if (confirm(`Are you sure you want to delete "${name}"?`)) delete $levels[name];
-    		savedDrawings$4.set($levels);
+    		store$4.set($levels);
     	}
 
     	const writable_props = [];
 
-    	Object_1$4.keys($$props).forEach(key => {
+    	Object_1$5.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<LevelBuilder> was created with unknown prop '${key}'`);
     	});
 
@@ -7706,13 +8175,28 @@ var app = (function () {
     	validate_slots("LevelBuilder", $$slots, []);
     	const edit_handler = e => edit(e.detail);
 
-    	function fieldtext_value_binding(value) {
+    	function fieldtext0_value_binding(value) {
     		input.name = value;
     		$$invalidate(0, input);
     	}
 
     	function fieldmultiselect_value_binding(value) {
-    		input.characters = value;
+    		input.playableCharacters = value;
+    		$$invalidate(0, input);
+    	}
+
+    	function fieldtext1_value_binding(value) {
+    		input.background = value;
+    		$$invalidate(0, input);
+    	}
+
+    	function levelbuilderdataeditor_blocks_binding(value) {
+    		input.blocks = value;
+    		$$invalidate(0, input);
+    	}
+
+    	function levelbuilderdataeditor_enemies_binding(value) {
+    		input.enemies = value;
     		$$invalidate(0, input);
     	}
 
@@ -7726,10 +8210,9 @@ var app = (function () {
     		Form,
     		StoreNav,
     		FieldMultiSelect,
-    		characters: savedDrawings$2,
-    		blocks: savedDrawings,
-    		enemies: savedDrawings$3,
-    		levels: savedDrawings$4,
+    		characters: store$2,
+    		levels: store$4,
+    		LevelBuilderDataEditor,
     		input,
     		save,
     		edit,
@@ -7737,9 +8220,7 @@ var app = (function () {
     		del,
     		isAdding,
     		$levels,
-    		$characters,
-    		$blocks,
-    		$enemies
+    		$characters
     	});
 
     	$$self.$inject_state = $$props => {
@@ -7764,15 +8245,16 @@ var app = (function () {
     		isAdding,
     		$levels,
     		$characters,
-    		$blocks,
-    		$enemies,
     		save,
     		edit,
     		create,
     		del,
     		edit_handler,
-    		fieldtext_value_binding,
+    		fieldtext0_value_binding,
     		fieldmultiselect_value_binding,
+    		fieldtext1_value_binding,
+    		levelbuilderdataeditor_blocks_binding,
+    		levelbuilderdataeditor_enemies_binding,
     		click_handler
     	];
     }
@@ -7780,21 +8262,21 @@ var app = (function () {
     class LevelBuilder extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$e, create_fragment$e, safe_not_equal, {});
+    		init(this, options, instance$g, create_fragment$g, safe_not_equal, {});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "LevelBuilder",
     			options,
-    			id: create_fragment$e.name
+    			id: create_fragment$g.name
     		});
     	}
     }
 
     /* src\pages\LevelBuilder\Index.svelte generated by Svelte v3.24.1 */
-    const file$e = "src\\pages\\LevelBuilder\\Index.svelte";
+    const file$g = "src\\pages\\LevelBuilder\\Index.svelte";
 
-    function create_fragment$f(ctx) {
+    function create_fragment$h(ctx) {
     	let div3;
     	let div1;
     	let div0;
@@ -7842,31 +8324,31 @@ var app = (function () {
     			attr_dev(a0, "class", "list-group-item list-group-item-action");
     			attr_dev(a0, "href", "#/level-builder");
     			toggle_class(a0, "active", /*tab*/ ctx[0] == "art");
-    			add_location(a0, file$e, 3, 3, 72);
+    			add_location(a0, file$g, 3, 3, 72);
     			attr_dev(a1, "class", "list-group-item list-group-item-action");
     			attr_dev(a1, "href", "#/level-builder/blocks");
     			toggle_class(a1, "active", /*tab*/ ctx[0] == "blocks");
-    			add_location(a1, file$e, 4, 3, 185);
+    			add_location(a1, file$g, 4, 3, 185);
     			attr_dev(a2, "class", "list-group-item list-group-item-action");
     			attr_dev(a2, "href", "#/level-builder/characters");
     			toggle_class(a2, "active", /*tab*/ ctx[0] == "characters");
-    			add_location(a2, file$e, 5, 3, 311);
+    			add_location(a2, file$g, 5, 3, 311);
     			attr_dev(a3, "class", "list-group-item list-group-item-action");
     			attr_dev(a3, "href", "#/level-builder/enemies");
     			toggle_class(a3, "active", /*tab*/ ctx[0] == "enemies");
-    			add_location(a3, file$e, 6, 3, 449);
+    			add_location(a3, file$g, 6, 3, 449);
     			attr_dev(a4, "class", "list-group-item list-group-item-action");
     			attr_dev(a4, "href", "#/level-builder/levels");
     			toggle_class(a4, "active", /*tab*/ ctx[0] == "levels");
-    			add_location(a4, file$e, 7, 3, 578);
+    			add_location(a4, file$g, 7, 3, 578);
     			attr_dev(div0, "class", "list-group");
-    			add_location(div0, file$e, 2, 2, 43);
+    			add_location(div0, file$g, 2, 2, 43);
     			attr_dev(div1, "class", "col-2");
-    			add_location(div1, file$e, 1, 1, 20);
+    			add_location(div1, file$g, 1, 1, 20);
     			attr_dev(div2, "class", "col");
-    			add_location(div2, file$e, 10, 1, 721);
+    			add_location(div2, file$g, 10, 1, 721);
     			attr_dev(div3, "class", "row");
-    			add_location(div3, file$e, 0, 0, 0);
+    			add_location(div3, file$g, 0, 0, 0);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -7927,7 +8409,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$f.name,
+    		id: create_fragment$h.name,
     		type: "component",
     		source: "",
     		ctx
@@ -7938,7 +8420,7 @@ var app = (function () {
 
     const prefix = "/level-builder";
 
-    function instance$f($$self, $$props, $$invalidate) {
+    function instance$h($$self, $$props, $$invalidate) {
     	let { params = {} } = $$props;
 
     	const routes = {
@@ -7998,13 +8480,13 @@ var app = (function () {
     class Index extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$f, create_fragment$f, safe_not_equal, { params: 2 });
+    		init(this, options, instance$h, create_fragment$h, safe_not_equal, { params: 2 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "Index",
     			options,
-    			id: create_fragment$f.name
+    			id: create_fragment$h.name
     		});
     	}
 
@@ -8019,7 +8501,7 @@ var app = (function () {
 
     /* src\pages\BubTheBobcat\LevelBuilder.svelte generated by Svelte v3.24.1 */
 
-    function create_fragment$g(ctx) {
+    function create_fragment$i(ctx) {
     	const block = {
     		c: noop,
     		l: function claim(nodes) {
@@ -8034,7 +8516,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$g.name,
+    		id: create_fragment$i.name,
     		type: "component",
     		source: "",
     		ctx
@@ -8043,7 +8525,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$g($$self, $$props) {
+    function instance$i($$self, $$props) {
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
@@ -8058,22 +8540,22 @@ var app = (function () {
     class LevelBuilder$1 extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$g, create_fragment$g, safe_not_equal, {});
+    		init(this, options, instance$i, create_fragment$i, safe_not_equal, {});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "LevelBuilder",
     			options,
-    			id: create_fragment$g.name
+    			id: create_fragment$i.name
     		});
     	}
     }
 
     /* src\pages\BubTheBobcat\Status.svelte generated by Svelte v3.24.1 */
 
-    const file$f = "src\\pages\\BubTheBobcat\\Status.svelte";
+    const file$h = "src\\pages\\BubTheBobcat\\Status.svelte";
 
-    function create_fragment$h(ctx) {
+    function create_fragment$j(ctx) {
     	let div;
     	let p0;
     	let t0;
@@ -8095,11 +8577,11 @@ var app = (function () {
     			t3 = text("Score: ");
     			t4 = text(/*score*/ ctx[1]);
     			attr_dev(p0, "class", "svelte-18s0d67");
-    			add_location(p0, file$f, 1, 1, 8);
+    			add_location(p0, file$h, 1, 1, 8);
     			attr_dev(p1, "class", "svelte-18s0d67");
-    			add_location(p1, file$f, 2, 1, 37);
+    			add_location(p1, file$h, 2, 1, 37);
     			attr_dev(div, "class", "svelte-18s0d67");
-    			add_location(div, file$f, 0, 0, 0);
+    			add_location(div, file$h, 0, 0, 0);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -8127,7 +8609,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$h.name,
+    		id: create_fragment$j.name,
     		type: "component",
     		source: "",
     		ctx
@@ -8136,7 +8618,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$h($$self, $$props, $$invalidate) {
+    function instance$j($$self, $$props, $$invalidate) {
     	let { level = {} } = $$props;
     	let { score = 0 } = $$props;
     	const writable_props = ["level", "score"];
@@ -8170,13 +8652,13 @@ var app = (function () {
     class Status extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$h, create_fragment$h, safe_not_equal, { level: 0, score: 1 });
+    		init(this, options, instance$j, create_fragment$j, safe_not_equal, { level: 0, score: 1 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "Status",
     			options,
-    			id: create_fragment$h.name
+    			id: create_fragment$j.name
     		});
     	}
 
@@ -8197,181 +8679,9 @@ var app = (function () {
     	}
     }
 
-    // object x, y coords are always bottom left... add width or height to get other sides
-    const doObjectsIntersect = (a, b) => doObjectsIntersectX(a, b) && doObjectsIntersectY(a, b);
-    const doObjectsIntersectX = (a, b) => a.x < b.x + b.width && a.x + a.width > b.x;
-    const doObjectsIntersectY = (a, b) => a.y + a.height > b.y && a.y < b.y + b.height;
-    const isAAboveB = (a, b) => a.y >= b.y + b.height && doObjectsIntersectX(a, b);
-
-    // x|    |x+width
-    //    x|     |x+width
-
-    /* src\pages\BubTheBobcat\Level.svelte generated by Svelte v3.24.1 */
-    const file$g = "src\\pages\\BubTheBobcat\\Level.svelte";
-
-    function create_fragment$i(ctx) {
-    	let canvas;
-
-    	const block = {
-    		c: function create() {
-    			canvas = element("canvas");
-    			attr_dev(canvas, "width", /*width*/ ctx[0]);
-    			attr_dev(canvas, "height", /*height*/ ctx[1]);
-    			set_style(canvas, "transform", "scaleY(-1)");
-    			set_style(canvas, "position", "absolute");
-    			set_style(canvas, "bottom", "0px");
-    			set_style(canvas, "left", "0px");
-    			add_location(canvas, file$g, 1, 0, 40);
-    		},
-    		l: function claim(nodes) {
-    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
-    		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, canvas, anchor);
-    			/*canvas_binding*/ ctx[4](canvas);
-    		},
-    		p: function update(ctx, [dirty]) {
-    			if (dirty & /*width*/ 1) {
-    				attr_dev(canvas, "width", /*width*/ ctx[0]);
-    			}
-
-    			if (dirty & /*height*/ 2) {
-    				attr_dev(canvas, "height", /*height*/ ctx[1]);
-    			}
-    		},
-    		i: noop,
-    		o: noop,
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(canvas);
-    			/*canvas_binding*/ ctx[4](null);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_fragment$i.name,
-    		type: "component",
-    		source: "",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    function instance$i($$self, $$props, $$invalidate) {
-    	let { width = 0 } = $$props;
-    	let { height = 0 } = $$props;
-    	let { blocks = [] } = $$props;
-    	let staticCanvas;
-
-    	onMount(() => {
-    		// render blocks to static canvas
-    		let ctx = staticCanvas.getContext("2d");
-
-    		// todo allow drawing only visibleBlocks / adding incrementally
-    		blocks.forEach(b => {
-    			ctx.beginPath();
-    			ctx.rect(b.x, b.y, b.width, b.height);
-    			ctx.fillStyle = b.color;
-    			ctx.fill();
-
-    			// draw a line on top
-    			if (b.interactive) {
-    				ctx.beginPath();
-    				ctx.moveTo(b.x, b.y + b.height);
-    				ctx.lineTo(b.x + b.width, b.y + b.height);
-    				ctx.strokeStyle = "black";
-    				ctx.stroke();
-    			}
-    		});
-    	});
-
-    	const writable_props = ["width", "height", "blocks"];
-
-    	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<Level> was created with unknown prop '${key}'`);
-    	});
-
-    	let { $$slots = {}, $$scope } = $$props;
-    	validate_slots("Level", $$slots, []);
-
-    	function canvas_binding($$value) {
-    		binding_callbacks[$$value ? "unshift" : "push"](() => {
-    			staticCanvas = $$value;
-    			$$invalidate(2, staticCanvas);
-    		});
-    	}
-
-    	$$self.$$set = $$props => {
-    		if ("width" in $$props) $$invalidate(0, width = $$props.width);
-    		if ("height" in $$props) $$invalidate(1, height = $$props.height);
-    		if ("blocks" in $$props) $$invalidate(3, blocks = $$props.blocks);
-    	};
-
-    	$$self.$capture_state = () => ({
-    		doObjectsIntersect,
-    		onMount,
-    		width,
-    		height,
-    		blocks,
-    		staticCanvas
-    	});
-
-    	$$self.$inject_state = $$props => {
-    		if ("width" in $$props) $$invalidate(0, width = $$props.width);
-    		if ("height" in $$props) $$invalidate(1, height = $$props.height);
-    		if ("blocks" in $$props) $$invalidate(3, blocks = $$props.blocks);
-    		if ("staticCanvas" in $$props) $$invalidate(2, staticCanvas = $$props.staticCanvas);
-    	};
-
-    	if ($$props && "$$inject" in $$props) {
-    		$$self.$inject_state($$props.$$inject);
-    	}
-
-    	return [width, height, staticCanvas, blocks, canvas_binding];
-    }
-
-    class Level extends SvelteComponentDev {
-    	constructor(options) {
-    		super(options);
-    		init(this, options, instance$i, create_fragment$i, safe_not_equal, { width: 0, height: 1, blocks: 3 });
-
-    		dispatch_dev("SvelteRegisterComponent", {
-    			component: this,
-    			tagName: "Level",
-    			options,
-    			id: create_fragment$i.name
-    		});
-    	}
-
-    	get width() {
-    		throw new Error("<Level>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	set width(value) {
-    		throw new Error("<Level>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	get height() {
-    		throw new Error("<Level>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	set height(value) {
-    		throw new Error("<Level>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	get blocks() {
-    		throw new Error("<Level>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	set blocks(value) {
-    		throw new Error("<Level>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-    }
-
     /* src\pages\BubTheBobcat\Instructions.svelte generated by Svelte v3.24.1 */
 
-    const file$h = "src\\pages\\BubTheBobcat\\Instructions.svelte";
+    const file$i = "src\\pages\\BubTheBobcat\\Instructions.svelte";
 
     function get_each_context$5(ctx, list, i) {
     	const child_ctx = ctx.slice();
@@ -8403,10 +8713,10 @@ var app = (function () {
     			t3 = text(t3_value);
     			t4 = space();
     			attr_dev(td0, "class", "svelte-1d0wu93");
-    			add_location(td0, file$h, 4, 4, 79);
+    			add_location(td0, file$i, 4, 4, 79);
     			attr_dev(td1, "class", "svelte-1d0wu93");
-    			add_location(td1, file$h, 5, 4, 104);
-    			add_location(tr, file$h, 3, 3, 69);
+    			add_location(td1, file$i, 5, 4, 104);
+    			add_location(tr, file$i, 3, 3, 69);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, tr, anchor);
@@ -8435,7 +8745,7 @@ var app = (function () {
     	return block;
     }
 
-    function create_fragment$j(ctx) {
+    function create_fragment$k(ctx) {
     	let div;
     	let table;
     	let each_value = /*keyBinds*/ ctx[0];
@@ -8456,9 +8766,9 @@ var app = (function () {
     			}
 
     			attr_dev(table, "class", "svelte-1d0wu93");
-    			add_location(table, file$h, 1, 1, 29);
+    			add_location(table, file$i, 1, 1, 29);
     			attr_dev(div, "class", "instructions svelte-1d0wu93");
-    			add_location(div, file$h, 0, 0, 0);
+    			add_location(div, file$i, 0, 0, 0);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -8506,7 +8816,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$j.name,
+    		id: create_fragment$k.name,
     		type: "component",
     		source: "",
     		ctx
@@ -8515,7 +8825,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$j($$self, $$props, $$invalidate) {
+    function instance$k($$self, $$props, $$invalidate) {
     	const keyBinds = [
     		{
     			key: "Left + Right Arrow",
@@ -8542,22 +8852,22 @@ var app = (function () {
     class Instructions extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$j, create_fragment$j, safe_not_equal, {});
+    		init(this, options, instance$k, create_fragment$k, safe_not_equal, {});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "Instructions",
     			options,
-    			id: create_fragment$j.name
+    			id: create_fragment$k.name
     		});
     	}
     }
 
     /* src\pages\BubTheBobcat\Viewport.svelte generated by Svelte v3.24.1 */
 
-    const file$i = "src\\pages\\BubTheBobcat\\Viewport.svelte";
+    const file$j = "src\\pages\\BubTheBobcat\\Viewport.svelte";
 
-    function create_fragment$k(ctx) {
+    function create_fragment$l(ctx) {
     	let div1;
     	let div0;
     	let current;
@@ -8573,12 +8883,12 @@ var app = (function () {
     			set_style(div0, "left", -/*x*/ ctx[0] + "px");
     			set_style(div0, "bottom", -/*y*/ ctx[1] + "px");
     			set_style(div0, "height", /*height*/ ctx[3] + "px");
-    			add_location(div0, file$i, 1, 1, 107);
+    			add_location(div0, file$j, 1, 1, 107);
     			attr_dev(div1, "class", "viewport svelte-cjx02");
     			set_style(div1, "width", /*width*/ ctx[2] + "px");
     			set_style(div1, "height", /*height*/ ctx[3] + "px");
     			set_style(div1, "background-color", /*backgroundColor*/ ctx[4]);
-    			add_location(div1, file$i, 0, 0, 0);
+    			add_location(div1, file$j, 0, 0, 0);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -8641,7 +8951,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$k.name,
+    		id: create_fragment$l.name,
     		type: "component",
     		source: "",
     		ctx
@@ -8650,7 +8960,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$k($$self, $$props, $$invalidate) {
+    function instance$l($$self, $$props, $$invalidate) {
     	let { x = 0 } = $$props;
     	let { y = 0 } = $$props;
     	let { width = 0 } = $$props;
@@ -8695,7 +9005,7 @@ var app = (function () {
     	constructor(options) {
     		super(options);
 
-    		init(this, options, instance$k, create_fragment$k, safe_not_equal, {
+    		init(this, options, instance$l, create_fragment$l, safe_not_equal, {
     			x: 0,
     			y: 1,
     			width: 2,
@@ -8707,7 +9017,7 @@ var app = (function () {
     			component: this,
     			tagName: "Viewport",
     			options,
-    			id: create_fragment$k.name
+    			id: create_fragment$l.name
     		});
     	}
 
@@ -8754,9 +9064,9 @@ var app = (function () {
 
     /* src\pages\BubTheBobcat\HealthBar.svelte generated by Svelte v3.24.1 */
 
-    const file$j = "src\\pages\\BubTheBobcat\\HealthBar.svelte";
+    const file$k = "src\\pages\\BubTheBobcat\\HealthBar.svelte";
 
-    function create_fragment$l(ctx) {
+    function create_fragment$m(ctx) {
     	let div2;
     	let div0;
     	let t0;
@@ -8782,11 +9092,11 @@ var app = (function () {
     			attr_dev(div0, "class", "filled svelte-nlzclx");
     			set_style(div0, "width", /*displayPercent*/ ctx[1] + "%");
     			set_style(div0, "background-color", /*color*/ ctx[2]);
-    			add_location(div0, file$j, 3, 1, 72);
+    			add_location(div0, file$k, 3, 1, 72);
     			attr_dev(div1, "class", "text svelte-nlzclx");
-    			add_location(div1, file$j, 4, 1, 157);
+    			add_location(div1, file$k, 4, 1, 157);
     			attr_dev(div2, "class", "health-bar svelte-nlzclx");
-    			add_location(div2, file$j, 2, 0, 45);
+    			add_location(div2, file$k, 2, 0, 45);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -8824,7 +9134,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$l.name,
+    		id: create_fragment$m.name,
     		type: "component",
     		source: "",
     		ctx
@@ -8833,7 +9143,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$l($$self, $$props, $$invalidate) {
+    function instance$m($$self, $$props, $$invalidate) {
     	let { percent = 100 } = $$props;
     	let { health = 100 } = $$props;
     	let { maxHealth = 100 } = $$props;
@@ -8906,13 +9216,13 @@ var app = (function () {
     class HealthBar extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$l, create_fragment$l, safe_not_equal, { percent: 3, health: 4, maxHealth: 5 });
+    		init(this, options, instance$m, create_fragment$m, safe_not_equal, { percent: 3, health: 4, maxHealth: 5 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "HealthBar",
     			options,
-    			id: create_fragment$l.name
+    			id: create_fragment$m.name
     		});
     	}
 
@@ -8942,9 +9252,9 @@ var app = (function () {
     }
 
     /* src\pages\BubTheBobcat\Player.svelte generated by Svelte v3.24.1 */
-    const file$k = "src\\pages\\BubTheBobcat\\Player.svelte";
+    const file$l = "src\\pages\\BubTheBobcat\\Player.svelte";
 
-    function create_fragment$m(ctx) {
+    function create_fragment$n(ctx) {
     	let div;
     	let healthbar;
     	let t;
@@ -8972,11 +9282,11 @@ var app = (function () {
     			set_style(img, "width", /*width*/ ctx[2] + "px");
     			set_style(img, "height", /*height*/ ctx[3] + "px");
     			set_style(img, "transform", "scaleX(" + /*direction*/ ctx[6] + ") rotate(" + /*rotate*/ ctx[7] + "deg)");
-    			add_location(img, file$k, 2, 1, 100);
+    			add_location(img, file$l, 2, 1, 100);
     			attr_dev(div, "class", "player svelte-8td79i");
     			set_style(div, "left", /*x*/ ctx[1] + "px");
     			set_style(div, "bottom", /*y*/ ctx[0] - 5 + "px");
-    			add_location(div, file$k, 0, 0, 0);
+    			add_location(div, file$l, 0, 0, 0);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -9031,7 +9341,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$m.name,
+    		id: create_fragment$n.name,
     		type: "component",
     		source: "",
     		ctx
@@ -9040,7 +9350,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$m($$self, $$props, $$invalidate) {
+    function instance$n($$self, $$props, $$invalidate) {
     	let { vx = 0 } = $$props;
     	let { vy = 0 } = $$props;
     	let { y = 0 } = $$props;
@@ -9145,7 +9455,7 @@ var app = (function () {
     	constructor(options) {
     		super(options);
 
-    		init(this, options, instance$m, create_fragment$m, safe_not_equal, {
+    		init(this, options, instance$n, create_fragment$n, safe_not_equal, {
     			vx: 8,
     			vy: 9,
     			y: 0,
@@ -9161,7 +9471,7 @@ var app = (function () {
     			component: this,
     			tagName: "Player",
     			options,
-    			id: create_fragment$m.name
+    			id: create_fragment$n.name
     		});
     	}
 
@@ -9239,9 +9549,9 @@ var app = (function () {
     }
 
     /* src\pages\BubTheBobcat\Enemy.svelte generated by Svelte v3.24.1 */
-    const file$l = "src\\pages\\BubTheBobcat\\Enemy.svelte";
+    const file$m = "src\\pages\\BubTheBobcat\\Enemy.svelte";
 
-    function create_fragment$n(ctx) {
+    function create_fragment$o(ctx) {
     	let div;
     	let healthbar;
     	let t;
@@ -9268,10 +9578,10 @@ var app = (function () {
     			path1_1 = svg_element("path");
     			attr_dev(path0, "d", /*path1*/ ctx[10]);
     			attr_dev(path0, "fill", /*bodyColor*/ ctx[8]);
-    			add_location(path0, file$l, 9, 2, 392);
+    			add_location(path0, file$m, 9, 2, 392);
     			attr_dev(path1_1, "d", /*path2*/ ctx[11]);
     			attr_dev(path1_1, "fill", /*eyeColor*/ ctx[9]);
-    			add_location(path1_1, file$l, 10, 2, 431);
+    			add_location(path1_1, file$m, 10, 2, 431);
     			attr_dev(svg, "class", "graphic svelte-1x7nj5j");
     			set_style(svg, "width", /*width*/ ctx[3] + "px");
     			set_style(svg, "height", /*height*/ ctx[4] + "px");
@@ -9285,11 +9595,11 @@ var app = (function () {
     			attr_dev(svg, "viewBox", "0 10 1024 749");
     			attr_dev(svg, "version", "1.1");
     			attr_dev(svg, "xml:space", "preserve");
-    			add_location(svg, file$l, 2, 1, 95);
+    			add_location(svg, file$m, 2, 1, 95);
     			attr_dev(div, "class", "enemy svelte-1x7nj5j");
     			set_style(div, "left", /*x*/ ctx[1] + "px");
     			set_style(div, "bottom", /*y*/ ctx[2] + "px");
-    			add_location(div, file$l, 0, 0, 0);
+    			add_location(div, file$m, 0, 0, 0);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -9360,7 +9670,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$n.name,
+    		id: create_fragment$o.name,
     		type: "component",
     		source: "",
     		ctx
@@ -9369,7 +9679,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$n($$self, $$props, $$invalidate) {
+    function instance$o($$self, $$props, $$invalidate) {
     	let { vx = 0 } = $$props;
     	let { vy = 0 } = $$props;
     	let { x = 0 } = $$props;
@@ -9500,7 +9810,7 @@ var app = (function () {
     	constructor(options) {
     		super(options);
 
-    		init(this, options, instance$n, create_fragment$n, safe_not_equal, {
+    		init(this, options, instance$o, create_fragment$o, safe_not_equal, {
     			vx: 12,
     			vy: 0,
     			x: 1,
@@ -9517,7 +9827,7 @@ var app = (function () {
     			component: this,
     			tagName: "Enemy",
     			options,
-    			id: create_fragment$n.name
+    			id: create_fragment$o.name
     		});
     	}
 
@@ -9604,9 +9914,9 @@ var app = (function () {
 
     /* src\pages\BubTheBobcat\GameOver.svelte generated by Svelte v3.24.1 */
 
-    const file$m = "src\\pages\\BubTheBobcat\\GameOver.svelte";
+    const file$n = "src\\pages\\BubTheBobcat\\GameOver.svelte";
 
-    function create_fragment$o(ctx) {
+    function create_fragment$p(ctx) {
     	let div;
     	let h10;
     	let t1;
@@ -9629,13 +9939,13 @@ var app = (function () {
     			p = element("p");
     			p.textContent = "Press any key to restart.";
     			attr_dev(h10, "class", "svelte-1ogvx1s");
-    			add_location(h10, file$m, 1, 1, 26);
+    			add_location(h10, file$n, 1, 1, 26);
     			attr_dev(h11, "class", "svelte-1ogvx1s");
-    			add_location(h11, file$m, 2, 1, 79);
+    			add_location(h11, file$n, 2, 1, 79);
     			attr_dev(p, "class", "svelte-1ogvx1s");
-    			add_location(p, file$m, 3, 1, 111);
+    			add_location(p, file$n, 3, 1, 111);
     			attr_dev(div, "class", "game-over svelte-1ogvx1s");
-    			add_location(div, file$m, 0, 0, 0);
+    			add_location(div, file$n, 0, 0, 0);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -9662,7 +9972,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$o.name,
+    		id: create_fragment$p.name,
     		type: "component",
     		source: "",
     		ctx
@@ -9671,7 +9981,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$o($$self, $$props, $$invalidate) {
+    function instance$p($$self, $$props, $$invalidate) {
     	let { score = 0 } = $$props;
     	const writable_props = ["score"];
 
@@ -9702,13 +10012,13 @@ var app = (function () {
     class GameOver extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$o, create_fragment$o, safe_not_equal, { score: 0 });
+    		init(this, options, instance$p, create_fragment$p, safe_not_equal, { score: 0 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "GameOver",
     			options,
-    			id: create_fragment$o.name
+    			id: create_fragment$p.name
     		});
     	}
 
@@ -9830,7 +10140,7 @@ var app = (function () {
     /* src\pages\BubTheBobcat\Game.svelte generated by Svelte v3.24.1 */
 
     const { console: console_1$2, window: window_1 } = globals;
-    const file$n = "src\\pages\\BubTheBobcat\\Game.svelte";
+    const file$o = "src\\pages\\BubTheBobcat\\Game.svelte";
 
     function get_each_context$6(ctx, list, i) {
     	const child_ctx = ctx.slice();
@@ -10156,7 +10466,7 @@ var app = (function () {
     	return block;
     }
 
-    function create_fragment$p(ctx) {
+    function create_fragment$q(ctx) {
     	let div;
     	let t0;
     	let t1;
@@ -10190,7 +10500,7 @@ var app = (function () {
     			t2 = space();
     			create_component(instructions.$$.fragment);
     			attr_dev(div, "class", "game-window svelte-1ihy09s");
-    			add_location(div, file$n, 2, 0, 63);
+    			add_location(div, file$o, 2, 0, 63);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -10297,7 +10607,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$p.name,
+    		id: create_fragment$q.name,
     		type: "component",
     		source: "",
     		ctx
@@ -10308,7 +10618,7 @@ var app = (function () {
 
     const blockSize = 25;
 
-    function instance$p($$self, $$props, $$invalidate) {
+    function instance$q($$self, $$props, $$invalidate) {
     	let { level = null } = $$props;
     	let blocks;
     	let levelWidth = 0;
@@ -10633,13 +10943,13 @@ var app = (function () {
     class Game extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$p, create_fragment$p, safe_not_equal, { level: 0 });
+    		init(this, options, instance$q, create_fragment$q, safe_not_equal, { level: 0 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "Game",
     			options,
-    			id: create_fragment$p.name
+    			id: create_fragment$q.name
     		});
     	}
 
@@ -10654,7 +10964,7 @@ var app = (function () {
 
     /* src\pages\BubTheBobcat\Index.svelte generated by Svelte v3.24.1 */
 
-    function create_fragment$q(ctx) {
+    function create_fragment$r(ctx) {
     	let game;
     	let current;
 
@@ -10691,7 +11001,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$q.name,
+    		id: create_fragment$r.name,
     		type: "component",
     		source: "",
     		ctx
@@ -10700,7 +11010,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$q($$self, $$props, $$invalidate) {
+    function instance$r($$self, $$props, $$invalidate) {
     	let level = null;
 
     	let levels = [
@@ -20337,29 +20647,29 @@ var app = (function () {
     class Index$1 extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$q, create_fragment$q, safe_not_equal, {});
+    		init(this, options, instance$r, create_fragment$r, safe_not_equal, {});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "Index",
     			options,
-    			id: create_fragment$q.name
+    			id: create_fragment$r.name
     		});
     	}
     }
 
     /* src\pages\NotFound.svelte generated by Svelte v3.24.1 */
 
-    const file$o = "src\\pages\\NotFound.svelte";
+    const file$p = "src\\pages\\NotFound.svelte";
 
-    function create_fragment$r(ctx) {
+    function create_fragment$s(ctx) {
     	let h1;
 
     	const block = {
     		c: function create() {
     			h1 = element("h1");
     			h1.textContent = "Page not found";
-    			add_location(h1, file$o, 0, 0, 0);
+    			add_location(h1, file$p, 0, 0, 0);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -20377,7 +20687,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$r.name,
+    		id: create_fragment$s.name,
     		type: "component",
     		source: "",
     		ctx
@@ -20386,7 +20696,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$r($$self, $$props) {
+    function instance$s($$self, $$props) {
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
@@ -20401,21 +20711,21 @@ var app = (function () {
     class NotFound extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$r, create_fragment$r, safe_not_equal, {});
+    		init(this, options, instance$s, create_fragment$s, safe_not_equal, {});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "NotFound",
     			options,
-    			id: create_fragment$r.name
+    			id: create_fragment$s.name
     		});
     	}
     }
 
     /* src\App.svelte generated by Svelte v3.24.1 */
-    const file$p = "src\\App.svelte";
+    const file$q = "src\\App.svelte";
 
-    function create_fragment$s(ctx) {
+    function create_fragment$t(ctx) {
     	let ul;
     	let li0;
     	let a0;
@@ -20447,18 +20757,18 @@ var app = (function () {
     			create_component(router.$$.fragment);
     			attr_dev(a0, "class", "nav-link");
     			attr_dev(a0, "href", "#/bub-the-bobcat");
-    			add_location(a0, file$p, 2, 2, 42);
+    			add_location(a0, file$q, 2, 2, 42);
     			attr_dev(li0, "class", "nav-item");
-    			add_location(li0, file$p, 1, 1, 18);
+    			add_location(li0, file$q, 1, 1, 18);
     			attr_dev(a1, "class", "nav-link");
     			attr_dev(a1, "href", "#/level-builder");
-    			add_location(a1, file$p, 5, 2, 137);
+    			add_location(a1, file$q, 5, 2, 137);
     			attr_dev(li1, "class", "nav-item");
-    			add_location(li1, file$p, 4, 1, 113);
+    			add_location(li1, file$q, 4, 1, 113);
     			attr_dev(ul, "class", "nav");
-    			add_location(ul, file$p, 0, 0, 0);
+    			add_location(ul, file$q, 0, 0, 0);
     			attr_dev(main, "class", "svelte-1ten5ne");
-    			add_location(main, file$p, 9, 0, 218);
+    			add_location(main, file$q, 9, 0, 218);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -20495,7 +20805,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$s.name,
+    		id: create_fragment$t.name,
     		type: "component",
     		source: "",
     		ctx
@@ -20504,7 +20814,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$s($$self, $$props, $$invalidate) {
+    function instance$t($$self, $$props, $$invalidate) {
     	const routes = {
     		"/level-builder/:tab?": Index,
     		"/bub-the-bobcat": Index$1,
@@ -20534,13 +20844,13 @@ var app = (function () {
     class App extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$s, create_fragment$s, safe_not_equal, {});
+    		init(this, options, instance$t, create_fragment$t, safe_not_equal, {});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "App",
     			options,
-    			id: create_fragment$s.name
+    			id: create_fragment$t.name
     		});
     	}
     }

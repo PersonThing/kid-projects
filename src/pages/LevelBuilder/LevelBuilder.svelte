@@ -21,26 +21,14 @@
 	<div class="col">
 		<Form on:submit={save}>
 			<FieldText name="name" bind:value={input.name}>Name</FieldText>
-			<FieldMultiSelect name="characters" bind:value={input.characters} options={Object.keys($characters)}>
+
+			<FieldMultiSelect name="playableCharacters" bind:value={input.playableCharacters} options={Object.keys($characters)}>
 				Which characters can play this level?
 			</FieldMultiSelect>
 
-			<div class="flex">
-				<div class="align-top">
-					<strong>Blocks</strong>
-					{#each Object.keys($blocks) as blockName}
-						<div>{blockName}</div>
-					{/each}
-					<div class="mt-3">
-						<strong>Enemies</strong>
-						{#each Object.keys($enemies) as enemyName}
-							<div>{enemyName}</div>
-						{/each}
-					</div>
+			<FieldText name="background" bind:value={input.background}>Background (any css background value)</FieldText>
 
-				</div>
-				<div class="flex-grow align-top level-grid">GRID HERE</div>
-			</div>
+			<LevelBuilderDataEditor background={input.background} bind:blocks={input.blocks} bind:enemies={input.enemies} />
 
 			<span slot="buttons">
 				{#if !isAdding}
@@ -61,9 +49,8 @@
 	import FieldMultiSelect from './components/FieldMultiSelect.svelte'
 
 	import characters from '../../stores/character-store'
-	import blocks from '../../stores/block-store'
-	import enemies from '../../stores/enemy-store'
 	import levels from '../../stores/level-store'
+	import LevelBuilderDataEditor from './components/LevelBuilderDataEditor.svelte'
 
 	let input
 
@@ -82,8 +69,10 @@
 	function create() {
 		input = {
 			name: '',
-			characters: [],
-			data: [],
+			playableCharacters: [],
+			background: 'rgb(135, 206, 235)',
+			blocks: [],
+			enemies: [],
 		}
 	}
 
@@ -92,9 +81,3 @@
 		$levels = $levels
 	}
 </script>
-
-<style>
-	.level-grid {
-		background: rgb(135, 206, 235);
-	}
-</style>

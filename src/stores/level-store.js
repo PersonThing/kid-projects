@@ -1,3 +1,3 @@
 import LocalStorageStore from './local-storage-store'
-const savedDrawings = LocalStorageStore('levels', {})
-export default savedDrawings
+const store = LocalStorageStore('levels', {})
+export default store

@@ -42,22 +42,26 @@
 	<div class="controls">
 		<div class="color-picker">
 			{#each colors as color}
-				<button style="background-color: {color}" class:active={color == selectedColor} on:click={() => selectColor(color)} />
+				<button
+					style="background: {color != 'transparent' ? color : 'linear-gradient(110deg, rgba(200,200,200,1) 45%, rgba(255,255,255,1) 55%, rgba(255,255,255,1) 100%)'}"
+					class:active={color == selectedColor}
+					on:click={() => selectColor(color)} />
 			{/each}
 		</div>
 	</div>
-	<div class="flex-grow">
+	<div class="flex-grow ">
 		<div>
 			Preview at in-game size / repeated next to same graphic:
-			<div style="background: rgb(135, 206, 235); padding: 20px;">
+			<div class="p-3 preview-bg">
 				{#each [20, 0, 0, 0, 0] as margin}
 					<img src={previewPNG} alt="" style="margin-right: {margin}px;" />
 				{/each}
 			</div>
 		</div>
 		<svg
-			width={width * (gridSize + 2)}
-			height={height * (gridSize + 2)}
+			class="preview-bg"
+			width={width * (gridSize + 1)}
+			height={height * (gridSize + 1)}
 			on:mousedown={onSvgMouseDown}
 			on:mouseup={onSvgMouseUp}
 			on:contextmenu|preventDefault
@@ -78,6 +82,8 @@
 		</svg>
 	</div>
 </div>
+
+<svelte:window on:keydown={onKeyDown} on:keyup={onKeyUp} />
 
 <script>
 	import LocalStorageStore from '../../stores/local-storage-store'
@@ -160,9 +166,9 @@
 		// '#F8D0B0',
 	]
 	let selectedColor = 'black'
-	let gridSize = 30
-	let height = 30
-	let width = 30
+	let gridSize = 25
+	let height = 20
+	let width = 20
 	let undos = []
 	let redos = []
 	let showGrid = true
@@ -170,23 +176,13 @@
 	$: rows = [...Array(height)].map((_, i) => i)
 	$: columns = [...Array(width)].map((_, i) => i)
 
-	// let levelData = []
-	// $: if (columns.length > 0) {
-	// 	const newLevelData = []
-	// 	const reverseData = JSON.parse(JSON.stringify(data)).reverse()
-	// 	for (let c = 0; c < columns.length; c++) {
-	// 		newLevelData.push(reverseData.map(r => (r.length > c ? r[c] : null)))
-	// 	}
-	// 	levelData = newLevelData
-	// }
-
 	let data = []
 	let mouseDown = false
 
-	reset()
+	reset(false)
 
-	function reset() {
-		addUndoState()
+	function reset(undoable = true) {
+		if (undoable) addUndoState()
 		data = buildRows(height)
 		loaded = null
 	}
@@ -227,10 +223,12 @@
 	}
 
 	function buildColumns(num) {
-		return [...Array(num)].map(c => null)
+		return [...Array(num)].map(c => 'transparent')
 	}
 
 	function undo() {
+		if (undos.length == 0) return
+
 		redos = [...redos, JSON.stringify(data)]
 		data = JSON.parse(undos.pop())
 		undos = undos
@@ -301,6 +299,19 @@
 	function getCellColor(d, row, column) {
 		return d.length > row && d[row].length > column ? d[row][column] : 'white'
 	}
+
+	function onKeyDown(e) {}
+
+	function onKeyUp(e) {
+		switch (e.code) {
+			case 'KeyZ':
+				if (e.ctrlKey) undo()
+				break
+			case 'KeyY':
+				if (e.ctrlKey) redo()
+				break
+		}
+	}
 </script>
 
 <style>
@@ -328,5 +339,9 @@
 
 	.flex input[type='number'] {
 		width: 50px;
+	}
+
+	.preview-bg {
+		background: rgb(135, 206, 235);
 	}
 </style>

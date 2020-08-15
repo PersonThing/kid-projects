@@ -10,7 +10,7 @@
 	export let blocks = []
 
 	let staticCanvas
-	onMount(() => {
+	$: if (blocks != null && blocks.length) {
 		// render blocks to static canvas
 		let ctx = staticCanvas.getContext('2d')
 
@@ -30,5 +30,5 @@
 				ctx.stroke()
 			}
 		})
-	})
+	}
 </script>

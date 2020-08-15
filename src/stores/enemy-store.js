@@ -1,3 +1,3 @@
 import LocalStorageStore from './local-storage-store'
-const savedDrawings = LocalStorageStore('enemies', {})
-export default savedDrawings
+const store = LocalStorageStore('enemies', {})
+export default store
