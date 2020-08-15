@@ -1433,8 +1433,6 @@ var app = (function () {
 
     // (1:0) {#if graphic?.png != null}
     function create_if_block$1(ctx) {
-    	let t0;
-    	let t1;
     	let img;
     	let img_src_value;
     	let img_alt_value;
@@ -1442,42 +1440,34 @@ var app = (function () {
 
     	const block = {
     		c: function create() {
-    			t0 = text(/*spin*/ ctx[0]);
-    			t1 = space();
     			img = element("img");
-    			if (img.src !== (img_src_value = /*graphic*/ ctx[1].png)) attr_dev(img, "src", img_src_value);
-    			attr_dev(img, "alt", img_alt_value = /*graphic*/ ctx[1].name);
-    			attr_dev(img, "title", img_title_value = /*graphic*/ ctx[1].name);
-    			set_style(img, "transform", "rotate(" + /*rotation*/ ctx[2] + "deg)");
-    			add_location(img, file, 2, 1, 38);
+    			if (img.src !== (img_src_value = /*graphic*/ ctx[0].png)) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", img_alt_value = /*graphic*/ ctx[0].name);
+    			attr_dev(img, "title", img_title_value = /*graphic*/ ctx[0].name);
+    			set_style(img, "transform", "rotate(" + /*rotation*/ ctx[1] + "deg)");
+    			add_location(img, file, 1, 1, 29);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, t0, anchor);
-    			insert_dev(target, t1, anchor);
     			insert_dev(target, img, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*spin*/ 1) set_data_dev(t0, /*spin*/ ctx[0]);
-
-    			if (dirty & /*graphic*/ 2 && img.src !== (img_src_value = /*graphic*/ ctx[1].png)) {
+    			if (dirty & /*graphic*/ 1 && img.src !== (img_src_value = /*graphic*/ ctx[0].png)) {
     				attr_dev(img, "src", img_src_value);
     			}
 
-    			if (dirty & /*graphic*/ 2 && img_alt_value !== (img_alt_value = /*graphic*/ ctx[1].name)) {
+    			if (dirty & /*graphic*/ 1 && img_alt_value !== (img_alt_value = /*graphic*/ ctx[0].name)) {
     				attr_dev(img, "alt", img_alt_value);
     			}
 
-    			if (dirty & /*graphic*/ 2 && img_title_value !== (img_title_value = /*graphic*/ ctx[1].name)) {
+    			if (dirty & /*graphic*/ 1 && img_title_value !== (img_title_value = /*graphic*/ ctx[0].name)) {
     				attr_dev(img, "title", img_title_value);
     			}
 
-    			if (dirty & /*rotation*/ 4) {
-    				set_style(img, "transform", "rotate(" + /*rotation*/ ctx[2] + "deg)");
+    			if (dirty & /*rotation*/ 2) {
+    				set_style(img, "transform", "rotate(" + /*rotation*/ ctx[1] + "deg)");
     			}
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(t0);
-    			if (detaching) detach_dev(t1);
     			if (detaching) detach_dev(img);
     		}
     	};
@@ -1495,7 +1485,7 @@ var app = (function () {
 
     function create_fragment$1(ctx) {
     	let if_block_anchor;
-    	let if_block = /*graphic*/ ctx[1]?.png != null && create_if_block$1(ctx);
+    	let if_block = /*graphic*/ ctx[0]?.png != null && create_if_block$1(ctx);
 
     	const block = {
     		c: function create() {
@@ -1510,7 +1500,7 @@ var app = (function () {
     			insert_dev(target, if_block_anchor, anchor);
     		},
     		p: function update(ctx, [dirty]) {
-    			if (/*graphic*/ ctx[1]?.png != null) {
+    			if (/*graphic*/ ctx[0]?.png != null) {
     				if (if_block) {
     					if_block.p(ctx, dirty);
     				} else {
@@ -1561,8 +1551,8 @@ var app = (function () {
     	validate_slots("Art", $$slots, []);
 
     	$$self.$$set = $$props => {
-    		if ("name" in $$props) $$invalidate(3, name = $$props.name);
-    		if ("spin" in $$props) $$invalidate(0, spin = $$props.spin);
+    		if ("name" in $$props) $$invalidate(2, name = $$props.name);
+    		if ("spin" in $$props) $$invalidate(3, spin = $$props.spin);
     	};
 
     	$$self.$capture_state = () => ({
@@ -1577,11 +1567,11 @@ var app = (function () {
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ("name" in $$props) $$invalidate(3, name = $$props.name);
-    		if ("spin" in $$props) $$invalidate(0, spin = $$props.spin);
-    		if ("graphic" in $$props) $$invalidate(1, graphic = $$props.graphic);
+    		if ("name" in $$props) $$invalidate(2, name = $$props.name);
+    		if ("spin" in $$props) $$invalidate(3, spin = $$props.spin);
+    		if ("graphic" in $$props) $$invalidate(0, graphic = $$props.graphic);
     		if ("spinTimeout" in $$props) $$invalidate(4, spinTimeout = $$props.spinTimeout);
-    		if ("rotation" in $$props) $$invalidate(2, rotation = $$props.rotation);
+    		if ("rotation" in $$props) $$invalidate(1, rotation = $$props.rotation);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -1589,22 +1579,22 @@ var app = (function () {
     	}
 
     	$$self.$$.update = () => {
-    		if ($$self.$$.dirty & /*name, $artStore, graphic*/ 42) {
+    		if ($$self.$$.dirty & /*name, $artStore, graphic*/ 37) {
     			 if (name != null) {
-    				$$invalidate(1, graphic = $artStore[name]);
+    				$$invalidate(0, graphic = $artStore[name]);
 
     				// set png for any that haven't been saved with png yet
     				if (graphic != null && graphic.png == null) {
-    					$$invalidate(1, graphic.png = toPNG(graphic, graphic.width, graphic.height), graphic);
+    					$$invalidate(0, graphic.png = toPNG(graphic, graphic.width, graphic.height), graphic);
     				}
     			}
     		}
 
-    		if ($$self.$$.dirty & /*spin, rotation, spinTimeout*/ 21) {
+    		if ($$self.$$.dirty & /*spin, rotation, spinTimeout*/ 26) {
     			 if (spin) {
     				$$invalidate(4, spinTimeout = setTimeout(
     					() => {
-    						$$invalidate(2, rotation += 30);
+    						$$invalidate(1, rotation += 30);
     					},
     					25
     				));
@@ -1614,13 +1604,13 @@ var app = (function () {
     		}
     	};
 
-    	return [spin, graphic, rotation, name];
+    	return [graphic, rotation, name, spin];
     }
 
     class Art extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$1, create_fragment$1, safe_not_equal, { name: 3, spin: 0 });
+    		init(this, options, instance$1, create_fragment$1, safe_not_equal, { name: 2, spin: 3 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
@@ -1632,7 +1622,7 @@ var app = (function () {
     		const { ctx } = this.$$;
     		const props = options.props || {};
 
-    		if (/*name*/ ctx[3] === undefined && !("name" in props)) {
+    		if (/*name*/ ctx[2] === undefined && !("name" in props)) {
     			console.warn("<Art> was created without expected prop 'name'");
     		}
     	}

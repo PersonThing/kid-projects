@@ -1,5 +1,4 @@
 {#if graphic?.png != null}
-	{spin}
 	<img src={graphic.png} alt={graphic.name} title={graphic.name} style="transform: rotate({rotation}deg)" />
 {/if}
 
