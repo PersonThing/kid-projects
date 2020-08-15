@@ -10,7 +10,7 @@
 	export let blocks = []
 
 	let staticCanvas
-	$: if (blocks != null && blocks.length) {
+	$: if (blocks != null && blocks.length && staticCanvas != null) {
 		// render blocks to static canvas
 		let ctx = staticCanvas.getContext('2d')
 

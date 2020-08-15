@@ -7196,7 +7196,7 @@ var app = (function () {
 
     	$$self.$$.update = () => {
     		if ($$self.$$.dirty & /*blocks, staticCanvas*/ 12) {
-    			 if (blocks != null && blocks.length) {
+    			 if (blocks != null && blocks.length && staticCanvas != null) {
     				// render blocks to static canvas
     				let ctx = staticCanvas.getContext("2d");
 
