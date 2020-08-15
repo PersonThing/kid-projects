@@ -1,4 +1,4 @@
-<canvas bind:this={canvas} {width} {height} style="position: absolute; bottom: 0px; left: 0px;" />
+<canvas bind:this={canvas} {width} {height} />
 
 <script>
 	export let width = 0
@@ -6,46 +6,48 @@
 	export let blocks = []
 
 	let canvas
-
+	let context
+	const imageCache = {}
 	let drawnBlocks = []
 
-	const imageCache = {}
-
-	$: if (blocks != null && canvas != null && width > 0 && height > 0) {
-		let ctx = canvas.getContext('2d')
-
+	$: if (canvas != null) context = canvas.getContext('2d')
+	$: if (blocks != null && width != null && height != null && context != null) {
 		// erase any blocks that are drawn that aren't in the new array
-		const toErase = drawnBlocks.filter(db => !blocks.some(b => db.x == b.x && db.y == b.y && db.png == b.png))
-		const toDraw = blocks.filter(b => !drawnBlocks.some(db => db.x == b.x && db.y == b.y && db.png == b.png))
-
-		toErase.forEach(b => ctx.clearRect(b.x, b.y, b.width, b.height))
-
-		toDraw.forEach(b => {
+		// const toErase = drawnBlocks.filter(db => !blocks.some(b => db.x == b.x && db.y == b.y && db.png == b.png))
+		// const toDraw = blocks.filter(b => !drawnBlocks.some(db => db.x == b.x && db.y == b.y && db.png == b.png))
+		// toErase.forEach(b => context.clearRect(b.x, b.y, b.width, b.height))
+		// toDraw.forEach(b => {
+		context.clearRect(0, 0, width, height)
+		blocks.forEach(b => {
 			if (b.png) {
 				let drawing = imageCache[b.png]
 				if (drawing == null) {
 					drawing = new Image()
+					drawing.onload = () => context.drawImage(drawing, b.x, height - b.y)
 					drawing.src = b.png
 					imageCache[b.png] = drawing
-					drawing.onload = () => ctx.drawImage(drawing, b.x, b.y)
+				} else if (drawing.complete) {
+					context.drawImage(drawing, b.x, height - b.y)
 				} else {
-					ctx.drawImage(drawing, b.x, b.y)
+					drawing.onload = () => {
+						context.drawImage(drawing, b.x, height - b.y)
+					}
 				}
 			} else {
 				// temporarily supporting old data format with colors instead of pngs
-				ctx.beginPath()
-				ctx.rect(b.x, height - b.y - b.height, b.width, b.height)
-				ctx.fillStyle = b.color
-				ctx.fill()
+				context.beginPath()
+				context.rect(b.x, height - b.y - b.height, b.width, b.height)
+				context.fillStyle = b.color
+				context.fill()
 				// draw a line on top
-				ctx.beginPath()
-				ctx.moveTo(b.x, height - b.y - b.height)
-				ctx.lineTo(b.x + b.width, height - b.y - b.height)
-				ctx.strokeStyle = 'black'
-				ctx.stroke()
+				context.beginPath()
+				context.moveTo(b.x, height - b.y - b.height)
+				context.lineTo(b.x + b.width, height - b.y - b.height)
+				context.strokeStyle = 'black'
+				context.stroke()
 			}
 		})
 
-		drawnBlocks = JSON.parse(JSON.stringify(blocks))
+		// drawnBlocks = JSON.parse(JSON.stringify(blocks))
 	}
 </script>

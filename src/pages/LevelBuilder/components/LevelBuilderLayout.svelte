@@ -1,5 +1,5 @@
-<div class="row">
-	<div class="col-2">
+<div class="flex align-top">
+	<div>
 		<div class="list-group">
 			<a class="list-group-item list-group-item-action" class:active={tab == 'art'} href={baseUrl}>Art</a>
 			{#each tabs as t}
@@ -20,7 +20,7 @@
 			{/each}
 		</div>
 	</div>
-	<div class="col">
+	<div class="flex-grow">
 		<slot />
 	</div>
 </div>

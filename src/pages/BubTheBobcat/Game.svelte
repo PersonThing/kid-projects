@@ -20,7 +20,7 @@
 <script>
 	import { onMount, onDestroy } from 'svelte'
 	import Status from './Status.svelte'
-	import Level from './Level.svelte'
+	import Level from './LevelOld.svelte'
 	import Instructions from './Instructions.svelte'
 	import Viewport from './Viewport.svelte'
 	import Player from './Player.svelte'

@@ -4,7 +4,7 @@
 	</label>
 	<div class="options">
 		{#each Object.keys($characterStore) as name}
-			<div class:active={value.contains(name)} on:click={() => toggle(name)}>
+			<div class:active={value.indexOf(name) > -1} on:click={() => toggle(name)}>
 				<Art name={$characterStore[name].graphicStill} />
 			</div>
 		{/each}
@@ -21,7 +21,7 @@
 	$: options = Object.keys($artStore).filter(name => filter == null || filter($artStore[name]))
 
 	function toggle(name) {
-		value = value.contains(name) ? value.filter(v => v != name) : [...value, name]
+		value = value.indexOf(name) > -1 ? value.filter(v => v != name) : [...value, name]
 	}
 </script>
 
@@ -33,8 +33,10 @@
 		padding: 10px;
 		float: left;
 		border-radius: 0.25rem;
+		margin-right: 3px;
 	}
 	.options > div.active {
 		background: #007bff;
+		/* background: #28a745; */
 	}
 </style>

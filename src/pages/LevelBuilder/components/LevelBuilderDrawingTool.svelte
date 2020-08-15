@@ -1,28 +1,35 @@
-<div class="tool-picker">
-	<strong>Blocks</strong>
-	{#each Object.keys($blockStore) as name}
-		<button type="button" class="btn btn-{name == selectedBlock ? 'primary' : 'default'}" on:click={() => selectBlock(name)}>
-			<Art name={$blockStore[name].graphic} />
-		</button>
-	{/each}
-	<!-- <div class="mt-2">
-		<strong>Enemies</strong>
-		{#each Object.keys($enemyStore) as name}
-			<button type="button" class="btn btn-{name == selectedEnemy ? 'primary' : 'default'}" on:click={() => selectEnemy(name)}>
-				<Art name={$enemyStore[name].graphicStill} />
+<div class="drawing-tool">
+	<div class="tool-picker">
+		<strong>Blocks</strong>
+		{#each Object.keys($blockStore) as name}
+			<button type="button" class="btn btn-{name == selectedBlock ? 'primary' : 'default'}" on:click={() => selectBlock(name)}>
+				<Art name={$blockStore[name].graphic} />
 			</button>
 		{/each}
-	</div> -->
-</div>
+		<!-- <div class="mt-2">
+			<strong>Enemies</strong>
+			{#each Object.keys($enemyStore) as name}
+				<button type="button" class="btn btn-{name == selectedEnemy ? 'primary' : 'default'}" on:click={() => selectEnemy(name)}>
+					<Art name={$enemyStore[name].graphicStill} />
+				</button>
+			{/each}
+		</div> -->
+	</div>
 
-<div class="level-container" style="background: {background};">
-	<div class="level-overlay" on:mousedown={onMouseDown} on:mouseup={onMouseUp} on:mousemove={onMouseMove} on:contextmenu|preventDefault />
-	<!-- same level component as actual game uses -->
-	<Level {blocks} {width} {height} />
+	<div
+		class="level-container"
+		style="background: {background}; height: {height}px;"
+		on:mousedown={onMouseDown}
+		on:mouseup={onMouseUp}
+		on:mousemove={onMouseMove}
+		on:contextmenu|preventDefault>
+		<!-- same level component as actual game uses -->
+		<Level {blocks} {width} {height} />
 
-	<!-- {#each enemies as enemy}
+		<!-- {#each enemies as enemy}
 				<Enemy {...enemy} />
 			{/each} -->
+	</div>
 </div>
 
 <script>
@@ -38,7 +45,7 @@
 
 	// each block passed to <Level> needs x, y, width, height, png
 	export let blocks = []
-	export let enemies = []
+	// export let enemies = []
 
 	const blockSize = 40
 
@@ -46,12 +53,11 @@
 	let selectedEnemy = null
 	let mouseDown = false
 
-	$: highestYUsed = blocks.length > 0 ? Math.max(...blocks.map(b => b.y + b.height)) : 0
-	$: height = 400 //Math.max(400, highestYUsed)
+	// $: highestYUsed = blocks.length > 0 ? Math.max(...blocks.map(b => b.y + b.height)) : 0
+	$: height = 800 //Math.max(400, highestYUsed + 300)
 
 	$: highestXUsed = blocks.length > 0 ? Math.max(...blocks.map(b => b.x + b.width)) : 0
-	$: width = 800 //Math.max(800, highestXUsed)
-	$: console.log(width, highestXUsed)
+	$: width = Math.max(800, highestXUsed + 500)
 
 	function selectBlock(name) {
 		selectedEnemy = null
@@ -90,10 +96,10 @@
 	}
 
 	function getEventBlockPosition(e) {
-		console.log(e.target, e.offsetX, e.offsetY, e.target.closest('.level-container').className)
+		const container = e.target.closest('.level-container')
 		return {
 			x: Math.floor(e.offsetX / blockSize) * blockSize,
-			y: Math.floor(e.offsetY / blockSize) * blockSize,
+			y: height - Math.floor(e.offsetY / blockSize) * blockSize,
 		}
 	}
 
@@ -123,27 +129,21 @@
 </script>
 
 <style>
+	.drawing-tool {
+		position: relative;
+	}
+
+	.tool-picker {
+		position: sticky;
+		top: 0;
+		left: 0;
+	}
+
 	.tool-picker .btn {
 		margin-right: 0.5rem;
 	}
 
 	.level-container {
-		position: relative;
-		height: 400px;
-		overflow: auto;
-	}
-
-	.level-overlay {
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		z-index: 100;
-		border: 1px solid blue;
-	}
-
-	:global(canvas) {
-		border: 1px solid red;
+		overflow-x: auto;
 	}
 </style>
