@@ -11,7 +11,6 @@ function LocalStorageStore(key, defaultValue) {
 	const { subscribe, set, update } = writable(initialValue)
 	return {
 		subscribe,
-		update, // not sure if i need to handle this
 		set: function (value) {
 			set(value)
 			localStorage.setItem(key, JSON.stringify(value))

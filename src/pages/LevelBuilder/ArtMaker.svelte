@@ -1,91 +1,99 @@
-{#if savedNames.length}
-	<div>
-		{#each savedNames as savedDrawingName}
-			<div class="btn-group mr-2">
-				<button class="btn btn-sm btn-{savedDrawingName == loaded ? 'primary active' : 'secondary'}" on:click={() => load(savedDrawingName)}>
-					{savedDrawingName}
-				</button>
-				<button class="btn btn-sm btn-secondary" on:click={() => deleteSave(savedDrawingName)}>x</button>
-			</div>
-		{/each}
-	</div>
-{/if}
-
-<div class="flex">
-	<button class="btn btn-success btn-sm mr-2" on:click={() => save()}>Save</button>
-	<button class="btn btn-secondary btn-sm" on:click={reset}>Reset</button>
-
-	<div class="btn-group">
-		<button disabled={undos.length == 0} class="btn btn-default btn-sm" on:click={undo}>Undo {undos.length}</button>
-		<button disabled={redos.length == 0} class="btn btn-default btn-sm" on:click={redo}>Redo {redos.length}</button>
-	</div>
-
-	<div>
-		Grid size
-		<input type="number" bind:value={gridSize} min="15" max="50" step="5" />
-	</div>
-	<div>
-		Height
-		<input type="number" bind:value={height} placeholder="Height" />
-	</div>
-	<div>
-		Width
-		<input type="number" bind:value={width} placeholder="Width" />
-	</div>
-	<label>
-		<input type="checkbox" bind:checked={showGrid} />
-		Show grid
-	</label>
-</div>
-
-<div class="flex align-top">
-	<div class="controls">
-		<div class="color-picker">
-			{#each colors as color}
-				<button
-					style="background: {color != 'transparent' ? color : 'linear-gradient(110deg, rgba(200,200,200,1) 45%, rgba(255,255,255,1) 55%, rgba(255,255,255,1) 100%)'}"
-					class:active={color == selectedColor}
-					on:click={() => selectColor(color)} />
-			{/each}
-		</div>
-	</div>
-	<div class="flex-grow ">
-		<div>
-			Preview at in-game size / repeated next to same graphic:
-			<div class="p-3 preview-bg">
-				{#each [20, 0, 0, 0, 0] as margin}
-					<img src={previewPNG} alt="" style="margin-right: {margin}px;" />
-				{/each}
-			</div>
-		</div>
-		<svg
-			class="preview-bg"
-			width={width * (gridSize + 1)}
-			height={height * (gridSize + 1)}
-			on:mousedown={onSvgMouseDown}
-			on:mouseup={onSvgMouseUp}
-			on:contextmenu|preventDefault
-			on:mousemove={e => onSvgMouseMove(e.target)}>
-			{#each rows as row}
-				{#each columns as column}
-					<rect
-						y={row * gridSize}
-						x={column * gridSize}
-						style="fill: {getCellColor(data, row, column)}"
-						width={gridSize}
-						height={gridSize}
-						data-row={row}
-						data-column={column}
-						stroke={showGrid ? '#eee' : null} />
-				{/each}
-			{/each}
-		</svg>
-	</div>
-</div>
-
 <svelte:window on:keydown={onKeyDown} on:keyup={onKeyUp} />
 
+<LevelBuilderLayout tab="art">
+	{#if savedNames.length}
+		<div>
+			{#each savedNames as savedDrawingName}
+				<div class="btn-group mr-2">
+					<button
+						type="button"
+						class="btn btn-sm btn-{savedDrawingName == loaded ? 'primary active' : 'secondary'}"
+						on:click={() => load(savedDrawingName)}>
+						{savedDrawingName}
+					</button>
+					<button type="button" class="btn btn-sm btn-secondary" on:click={() => deleteSave(savedDrawingName)}>x</button>
+				</div>
+			{/each}
+		</div>
+	{/if}
+
+	<div class="flex">
+		<button type="button" class="btn btn-success btn-sm mr-2" on:click={() => save()}>Save</button>
+		<button type="button" class="btn btn-secondary btn-sm" on:click={reset}>Reset</button>
+
+		<div class="btn-group">
+			<button type="button" disabled={undos.length == 0} class="btn btn-default btn-sm" on:click={undo}>Undo {undos.length}</button>
+			<button type="button" disabled={redos.length == 0} class="btn btn-default btn-sm" on:click={redo}>Redo {redos.length}</button>
+		</div>
+
+		<div>
+			Grid size
+			<input type="number" bind:value={gridSize} min="15" max="50" step="5" />
+		</div>
+		<div>
+			Height
+			<input type="number" bind:value={height} placeholder="Height" />
+		</div>
+		<div>
+			Width
+			<input type="number" bind:value={width} placeholder="Width" />
+		</div>
+		<label>
+			<input type="checkbox" bind:checked={showGrid} />
+			Show grid
+		</label>
+	</div>
+
+	<div class="flex align-top">
+		<div class="controls">
+			<div class="color-picker">
+				{#each colors as color}
+					<button
+						type="button"
+						style="background: {color != 'transparent' ? color : 'linear-gradient(110deg, rgba(200,200,200,1) 45%, rgba(255,255,255,1) 55%, rgba(255,255,255,1) 100%)'}"
+						class:active={color == selectedColor}
+						on:click={() => selectColor(color)} />
+				{/each}
+			</div>
+		</div>
+		<div class="flex-grow ">
+			<div>
+				Preview at in-game size / repeated next to same graphic:
+				<div class="p-3 preview-bg">
+					{#each [20, 0, 0, 0, 0] as margin}
+						<img src={previewPNG} alt="" style="margin-right: {margin}px;" />
+					{/each}
+				</div>
+			</div>
+			<svg
+				class="preview-bg"
+				width={width * (gridSize + 1)}
+				height={height * (gridSize + 1)}
+				on:mousedown={onSvgMouseDown}
+				on:mouseup={onSvgMouseUp}
+				on:contextmenu|preventDefault
+				on:mousemove={e => onSvgMouseMove(e.target)}>
+				{#each rows as row}
+					{#each columns as column}
+						<rect
+							y={row * gridSize}
+							x={column * gridSize}
+							style="fill: {getCellColor(data, row, column)}"
+							width={gridSize}
+							height={gridSize}
+							data-row={row}
+							data-column={column}
+							stroke={showGrid ? '#eee' : null} />
+					{/each}
+				{/each}
+			</svg>
+		</div>
+	</div>
+
+</LevelBuilderLayout>
+
 <script>
+	import LevelBuilderLayout from './components/LevelBuilderLayout.svelte'
 	import LocalStorageStore from '../../stores/local-storage-store'
 	import toPNG from './to-png'
 

@@ -1,15 +1,15 @@
 <div class="tool-picker">
 	<strong>Blocks</strong>
 	{#each Object.keys($blockStore) as name}
-		<button class="btn btn-{name == selectedBlock ? 'primary' : 'default'}" on:click={() => selectBlock(name)}>
-			<CustomGraphic graphic={$artStore[$blockStore[name].graphic]} />
+		<button type="button" class="btn btn-{name == selectedBlock ? 'primary' : 'default'}" on:click={() => selectBlock(name)}>
+			<Art name={$blockStore[name].graphic} />
 		</button>
 	{/each}
 	<!-- <div class="mt-2">
 		<strong>Enemies</strong>
 		{#each Object.keys($enemyStore) as name}
-			<button class="btn btn-{name == selectedEnemy ? 'primary' : 'default'}" on:click={() => selectEnemy(name)}>
-				<CustomGraphic graphic={$artStore[$enemyStore[name].graphicStill]} />
+			<button type="button" class="btn btn-{name == selectedEnemy ? 'primary' : 'default'}" on:click={() => selectEnemy(name)}>
+				<Art name={$enemyStore[name].graphicStill} />
 			</button>
 		{/each}
 	</div> -->
@@ -32,7 +32,7 @@
 	import blockStore from '../../../stores/block-store'
 	import enemyStore from '../../../stores/enemy-store'
 	import Enemy from '../../BubTheBobcat/Enemy.svelte'
-	import CustomGraphic from './CustomGraphic.svelte'
+	import Art from './Art.svelte'
 
 	export let background = null
 

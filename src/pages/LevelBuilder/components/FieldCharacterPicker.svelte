@@ -1,11 +1,11 @@
 <div class="form-group">
 	<label for="graphic">
-		<slot>Graphic</slot>
+		<slot>Characters</slot>
 	</label>
 	<div class="options">
-		{#each options as drawingName}
-			<div class:active={value == drawingName} on:click={() => (value = drawingName)}>
-				<Art name={drawingName} />
+		{#each Object.keys($characterStore) as name}
+			<div class:active={value.contains(name)} on:click={() => toggle(name)}>
+				<Art name={$characterStore[name].graphicStill} />
 			</div>
 		{/each}
 	</div>
@@ -13,11 +13,16 @@
 
 <script>
 	import artStore from '../../../stores/art-store'
+	import characterStore from '../../../stores/character-store'
 	import Art from './Art.svelte'
-	export let value = null
+	export let value = []
 	export let filter = null
 
 	$: options = Object.keys($artStore).filter(name => filter == null || filter($artStore[name]))
+
+	function toggle(name) {
+		value = value.contains(name) ? value.filter(v => v != name) : [...value, name]
+	}
 </script>
 
 <style>
