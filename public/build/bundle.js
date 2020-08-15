@@ -2190,15 +2190,15 @@ var app = (function () {
     	return child_ctx;
     }
 
-    function get_each_context_2(ctx, list, i) {
-    	const child_ctx = ctx.slice();
-    	child_ctx[47] = list[i];
-    	return child_ctx;
-    }
-
     function get_each_context_3(ctx, list, i) {
     	const child_ctx = ctx.slice();
     	child_ctx[50] = list[i];
+    	return child_ctx;
+    }
+
+    function get_each_context_2(ctx, list, i) {
+    	const child_ctx = ctx.slice();
+    	child_ctx[47] = list[i];
     	return child_ctx;
     }
 
@@ -2208,15 +2208,21 @@ var app = (function () {
     	return child_ctx;
     }
 
+    function get_each_context_5(ctx, list, i) {
+    	const child_ctx = ctx.slice();
+    	child_ctx[56] = list[i];
+    	return child_ctx;
+    }
+
     // (4:1) {#if savedNames.length}
-    function create_if_block$3(ctx) {
+    function create_if_block_1(ctx) {
     	let div;
-    	let each_value_4 = /*savedNames*/ ctx[9];
-    	validate_each_argument(each_value_4);
+    	let each_value_5 = /*savedNames*/ ctx[9];
+    	validate_each_argument(each_value_5);
     	let each_blocks = [];
 
-    	for (let i = 0; i < each_value_4.length; i += 1) {
-    		each_blocks[i] = create_each_block_4(get_each_context_4(ctx, each_value_4, i));
+    	for (let i = 0; i < each_value_5.length; i += 1) {
+    		each_blocks[i] = create_each_block_5(get_each_context_5(ctx, each_value_5, i));
     	}
 
     	const block = {
@@ -2238,17 +2244,17 @@ var app = (function () {
     		},
     		p: function update(ctx, dirty) {
     			if (dirty[0] & /*deleteSave, savedNames, loaded, load*/ 25166337) {
-    				each_value_4 = /*savedNames*/ ctx[9];
-    				validate_each_argument(each_value_4);
+    				each_value_5 = /*savedNames*/ ctx[9];
+    				validate_each_argument(each_value_5);
     				let i;
 
-    				for (i = 0; i < each_value_4.length; i += 1) {
-    					const child_ctx = get_each_context_4(ctx, each_value_4, i);
+    				for (i = 0; i < each_value_5.length; i += 1) {
+    					const child_ctx = get_each_context_5(ctx, each_value_5, i);
 
     					if (each_blocks[i]) {
     						each_blocks[i].p(child_ctx, dirty);
     					} else {
-    						each_blocks[i] = create_each_block_4(child_ctx);
+    						each_blocks[i] = create_each_block_5(child_ctx);
     						each_blocks[i].c();
     						each_blocks[i].m(div, null);
     					}
@@ -2258,7 +2264,7 @@ var app = (function () {
     					each_blocks[i].d(1);
     				}
 
-    				each_blocks.length = each_value_4.length;
+    				each_blocks.length = each_value_5.length;
     			}
     		},
     		d: function destroy(detaching) {
@@ -2269,7 +2275,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block$3.name,
+    		id: create_if_block_1.name,
     		type: "if",
     		source: "(4:1) {#if savedNames.length}",
     		ctx
@@ -2279,10 +2285,10 @@ var app = (function () {
     }
 
     // (6:3) {#each savedNames as savedDrawingName}
-    function create_each_block_4(ctx) {
+    function create_each_block_5(ctx) {
     	let div;
     	let button0;
-    	let t0_value = /*savedDrawingName*/ ctx[53] + "";
+    	let t0_value = /*savedDrawingName*/ ctx[56] + "";
     	let t0;
     	let button0_class_value;
     	let t1;
@@ -2292,11 +2298,11 @@ var app = (function () {
     	let dispose;
 
     	function click_handler(...args) {
-    		return /*click_handler*/ ctx[27](/*savedDrawingName*/ ctx[53], ...args);
+    		return /*click_handler*/ ctx[27](/*savedDrawingName*/ ctx[56], ...args);
     	}
 
     	function click_handler_1(...args) {
-    		return /*click_handler_1*/ ctx[28](/*savedDrawingName*/ ctx[53], ...args);
+    		return /*click_handler_1*/ ctx[28](/*savedDrawingName*/ ctx[56], ...args);
     	}
 
     	const block = {
@@ -2310,15 +2316,15 @@ var app = (function () {
     			t3 = space();
     			attr_dev(button0, "type", "button");
 
-    			attr_dev(button0, "class", button0_class_value = "btn btn-sm btn-" + (/*savedDrawingName*/ ctx[53] == /*loaded*/ ctx[0]
+    			attr_dev(button0, "class", button0_class_value = "btn btn-sm btn-" + (/*savedDrawingName*/ ctx[56] == /*loaded*/ ctx[0]
     			? "primary active"
     			: "secondary"));
 
-    			add_location(button0, file$2, 7, 5, 189);
+    			add_location(button0, file$2, 7, 5, 194);
     			attr_dev(button1, "type", "button");
     			attr_dev(button1, "class", "btn btn-sm btn-secondary");
-    			add_location(button1, file$2, 13, 5, 406);
-    			attr_dev(div, "class", "btn-group mr-2");
+    			add_location(button1, file$2, 13, 5, 411);
+    			attr_dev(div, "class", "btn-group mr-1 mb-1");
     			add_location(div, file$2, 6, 4, 154);
     		},
     		m: function mount(target, anchor) {
@@ -2340,9 +2346,9 @@ var app = (function () {
     		},
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
-    			if (dirty[0] & /*savedNames*/ 512 && t0_value !== (t0_value = /*savedDrawingName*/ ctx[53] + "")) set_data_dev(t0, t0_value);
+    			if (dirty[0] & /*savedNames*/ 512 && t0_value !== (t0_value = /*savedDrawingName*/ ctx[56] + "")) set_data_dev(t0, t0_value);
 
-    			if (dirty[0] & /*savedNames, loaded*/ 513 && button0_class_value !== (button0_class_value = "btn btn-sm btn-" + (/*savedDrawingName*/ ctx[53] == /*loaded*/ ctx[0]
+    			if (dirty[0] & /*savedNames, loaded*/ 513 && button0_class_value !== (button0_class_value = "btn btn-sm btn-" + (/*savedDrawingName*/ ctx[56] == /*loaded*/ ctx[0]
     			? "primary active"
     			: "secondary"))) {
     				attr_dev(button0, "class", button0_class_value);
@@ -2357,7 +2363,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_each_block_4.name,
+    		id: create_each_block_5.name,
     		type: "each",
     		source: "(6:3) {#each savedNames as savedDrawingName}",
     		ctx
@@ -2367,13 +2373,13 @@ var app = (function () {
     }
 
     // (50:4) {#each colors as color}
-    function create_each_block_3(ctx) {
+    function create_each_block_4(ctx) {
     	let button;
     	let mounted;
     	let dispose;
 
     	function click_handler_3(...args) {
-    		return /*click_handler_3*/ ctx[34](/*color*/ ctx[50], ...args);
+    		return /*click_handler_3*/ ctx[34](/*color*/ ctx[53], ...args);
     	}
 
     	const block = {
@@ -2381,13 +2387,13 @@ var app = (function () {
     			button = element("button");
     			attr_dev(button, "type", "button");
 
-    			set_style(button, "background", /*color*/ ctx[50] != "transparent"
-    			? /*color*/ ctx[50]
+    			set_style(button, "background", /*color*/ ctx[53] != "transparent"
+    			? /*color*/ ctx[53]
     			: "linear-gradient(110deg, rgba(200,200,200,1) 45%, rgba(255,255,255,1) 55%, rgba(255,255,255,1) 100%)");
 
     			attr_dev(button, "class", "svelte-1a4yczt");
-    			toggle_class(button, "active", /*color*/ ctx[50] == /*selectedColor*/ ctx[1]);
-    			add_location(button, file$2, 50, 5, 1605);
+    			toggle_class(button, "active", /*color*/ ctx[53] == /*selectedColor*/ ctx[1]);
+    			add_location(button, file$2, 50, 5, 1615);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
@@ -2401,7 +2407,7 @@ var app = (function () {
     			ctx = new_ctx;
 
     			if (dirty[0] & /*colors, selectedColor*/ 16386) {
-    				toggle_class(button, "active", /*color*/ ctx[50] == /*selectedColor*/ ctx[1]);
+    				toggle_class(button, "active", /*color*/ ctx[53] == /*selectedColor*/ ctx[1]);
     			}
     		},
     		d: function destroy(detaching) {
@@ -2413,7 +2419,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_each_block_3.name,
+    		id: create_each_block_4.name,
     		type: "each",
     		source: "(50:4) {#each colors as color}",
     		ctx
@@ -2422,8 +2428,77 @@ var app = (function () {
     	return block;
     }
 
-    // (63:5) {#each [20, 0, 0, 0, 0] as margin}
-    function create_each_block_2(ctx) {
+    // (68:5) {#if width == 20 && height == 20}
+    function create_if_block$3(ctx) {
+    	let div;
+    	let each_value_2 = [0, 0];
+    	validate_each_argument(each_value_2);
+    	let each_blocks = [];
+
+    	for (let i = 0; i < 2; i += 1) {
+    		each_blocks[i] = create_each_block_2(get_each_context_2(ctx, each_value_2, i));
+    	}
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+
+    			for (let i = 0; i < 2; i += 1) {
+    				each_blocks[i].c();
+    			}
+
+    			attr_dev(div, "class", "ml-3");
+    			add_location(div, file$2, 68, 6, 2259);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+
+    			for (let i = 0; i < 2; i += 1) {
+    				each_blocks[i].m(div, null);
+    			}
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty[0] & /*previewPNG*/ 1024) {
+    				each_value_2 = [0, 0];
+    				validate_each_argument(each_value_2);
+    				let i;
+
+    				for (i = 0; i < 2; i += 1) {
+    					const child_ctx = get_each_context_2(ctx, each_value_2, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(child_ctx, dirty);
+    					} else {
+    						each_blocks[i] = create_each_block_2(child_ctx);
+    						each_blocks[i].c();
+    						each_blocks[i].m(div, null);
+    					}
+    				}
+
+    				for (; i < 2; i += 1) {
+    					each_blocks[i].d(1);
+    				}
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    			destroy_each(each_blocks, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block$3.name,
+    		type: "if",
+    		source: "(68:5) {#if width == 20 && height == 20}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (72:9) {#each [0, 0, 0, 0] as margin}
+    function create_each_block_3(ctx) {
     	let img;
     	let img_src_value;
 
@@ -2431,9 +2506,8 @@ var app = (function () {
     		c: function create() {
     			img = element("img");
     			if (img.src !== (img_src_value = /*previewPNG*/ ctx[10])) attr_dev(img, "src", img_src_value);
-    			attr_dev(img, "alt", "");
-    			set_style(img, "margin-right", /*margin*/ ctx[47] + "px");
-    			add_location(img, file$2, 63, 6, 2105);
+    			attr_dev(img, "alt", "block repeating preview");
+    			add_location(img, file$2, 72, 10, 2373);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, img, anchor);
@@ -2450,16 +2524,88 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_each_block_2.name,
+    		id: create_each_block_3.name,
     		type: "each",
-    		source: "(63:5) {#each [20, 0, 0, 0, 0] as margin}",
+    		source: "(72:9) {#each [0, 0, 0, 0] as margin}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (77:5) {#each columns as column}
+    // (70:7) {#each [0, 0] as r}
+    function create_each_block_2(ctx) {
+    	let div;
+    	let t;
+    	let each_value_3 = [0, 0, 0, 0];
+    	validate_each_argument(each_value_3);
+    	let each_blocks = [];
+
+    	for (let i = 0; i < 4; i += 1) {
+    		each_blocks[i] = create_each_block_3(get_each_context_3(ctx, each_value_3, i));
+    	}
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+
+    			for (let i = 0; i < 4; i += 1) {
+    				each_blocks[i].c();
+    			}
+
+    			t = space();
+    			add_location(div, file$2, 70, 8, 2315);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+
+    			for (let i = 0; i < 4; i += 1) {
+    				each_blocks[i].m(div, null);
+    			}
+
+    			append_dev(div, t);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty[0] & /*previewPNG*/ 1024) {
+    				each_value_3 = [0, 0, 0, 0];
+    				validate_each_argument(each_value_3);
+    				let i;
+
+    				for (i = 0; i < 4; i += 1) {
+    					const child_ctx = get_each_context_3(ctx, each_value_3, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(child_ctx, dirty);
+    					} else {
+    						each_blocks[i] = create_each_block_3(child_ctx);
+    						each_blocks[i].c();
+    						each_blocks[i].m(div, t);
+    					}
+    				}
+
+    				for (; i < 4; i += 1) {
+    					each_blocks[i].d(1);
+    				}
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    			destroy_each(each_blocks, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_each_block_2.name,
+    		type: "each",
+    		source: "(70:7) {#each [0, 0] as r}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (90:5) {#each columns as column}
     function create_each_block_1$1(ctx) {
     	let rect;
     	let rect_y_value;
@@ -2479,7 +2625,7 @@ var app = (function () {
     			attr_dev(rect, "data-row", rect_data_row_value = /*row*/ ctx[41]);
     			attr_dev(rect, "data-column", rect_data_column_value = /*column*/ ctx[44]);
     			attr_dev(rect, "stroke", rect_stroke_value = /*showGrid*/ ctx[7] ? "#eee" : null);
-    			add_location(rect, file$2, 77, 6, 2531);
+    			add_location(rect, file$2, 90, 6, 2850);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, rect, anchor);
@@ -2526,14 +2672,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1$1.name,
     		type: "each",
-    		source: "(77:5) {#each columns as column}",
+    		source: "(90:5) {#each columns as column}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (76:4) {#each rows as row}
+    // (89:4) {#each rows as row}
     function create_each_block$1(ctx) {
     	let each_1_anchor;
     	let each_value_1 = /*columns*/ ctx[12];
@@ -2594,7 +2740,7 @@ var app = (function () {
     		block,
     		id: create_each_block$1.name,
     		type: "each",
-    		source: "(76:4) {#each rows as row}",
+    		source: "(89:4) {#each rows as row}",
     		ctx
     	});
 
@@ -2638,37 +2784,34 @@ var app = (function () {
     	let input3;
     	let t17;
     	let t18;
-    	let div10;
+    	let div11;
     	let div6;
     	let div5;
     	let t19;
+    	let div10;
     	let div9;
-    	let div8;
     	let t20;
+    	let div8;
     	let div7;
+    	let img;
+    	let img_src_value;
     	let t21;
+    	let t22;
     	let svg;
     	let svg_width_value;
     	let svg_height_value;
     	let mounted;
     	let dispose;
-    	let if_block = /*savedNames*/ ctx[9].length && create_if_block$3(ctx);
-    	let each_value_3 = /*colors*/ ctx[14];
-    	validate_each_argument(each_value_3);
-    	let each_blocks_2 = [];
-
-    	for (let i = 0; i < each_value_3.length; i += 1) {
-    		each_blocks_2[i] = create_each_block_3(get_each_context_3(ctx, each_value_3, i));
-    	}
-
-    	let each_value_2 = [20, 0, 0, 0, 0];
-    	validate_each_argument(each_value_2);
+    	let if_block0 = /*savedNames*/ ctx[9].length && create_if_block_1(ctx);
+    	let each_value_4 = /*colors*/ ctx[14];
+    	validate_each_argument(each_value_4);
     	let each_blocks_1 = [];
 
-    	for (let i = 0; i < 5; i += 1) {
-    		each_blocks_1[i] = create_each_block_2(get_each_context_2(ctx, each_value_2, i));
+    	for (let i = 0; i < each_value_4.length; i += 1) {
+    		each_blocks_1[i] = create_each_block_4(get_each_context_4(ctx, each_value_4, i));
     	}
 
+    	let if_block1 = /*width*/ ctx[4] == 20 && /*height*/ ctx[3] == 20 && create_if_block$3(ctx);
     	let each_value = /*rows*/ ctx[11];
     	validate_each_argument(each_value);
     	let each_blocks = [];
@@ -2679,7 +2822,7 @@ var app = (function () {
 
     	const block = {
     		c: function create() {
-    			if (if_block) if_block.c();
+    			if (if_block0) if_block0.c();
     			t0 = space();
     			div4 = element("div");
     			button0 = element("button");
@@ -2713,25 +2856,24 @@ var app = (function () {
     			input3 = element("input");
     			t17 = text("\r\n\t\t\tShow grid");
     			t18 = space();
-    			div10 = element("div");
+    			div11 = element("div");
     			div6 = element("div");
     			div5 = element("div");
 
-    			for (let i = 0; i < each_blocks_2.length; i += 1) {
-    				each_blocks_2[i].c();
-    			}
-
-    			t19 = space();
-    			div9 = element("div");
-    			div8 = element("div");
-    			t20 = text("Preview at in-game size / repeated next to same graphic:\r\n\t\t\t\t");
-    			div7 = element("div");
-
-    			for (let i = 0; i < 5; i += 1) {
+    			for (let i = 0; i < each_blocks_1.length; i += 1) {
     				each_blocks_1[i].c();
     			}
 
+    			t19 = space();
+    			div10 = element("div");
+    			div9 = element("div");
+    			t20 = text("Preview at in-game size / repeated next to same graphic:\r\n\t\t\t\t");
+    			div8 = element("div");
+    			div7 = element("div");
+    			img = element("img");
     			t21 = space();
+    			if (if_block1) if_block1.c();
+    			t22 = space();
     			svg = svg_element("svg");
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
@@ -2740,60 +2882,65 @@ var app = (function () {
 
     			attr_dev(button0, "type", "button");
     			attr_dev(button0, "class", "btn btn-success btn-sm mr-2");
-    			add_location(button0, file$2, 20, 2, 586);
+    			add_location(button0, file$2, 20, 2, 596);
     			attr_dev(button1, "type", "button");
     			attr_dev(button1, "class", "btn btn-secondary btn-sm");
-    			add_location(button1, file$2, 21, 2, 685);
+    			add_location(button1, file$2, 21, 2, 695);
     			attr_dev(button2, "type", "button");
     			button2.disabled = button2_disabled_value = /*undos*/ ctx[5].length == 0;
     			attr_dev(button2, "class", "btn btn-default btn-sm");
-    			add_location(button2, file$2, 24, 3, 805);
+    			add_location(button2, file$2, 24, 3, 815);
     			attr_dev(button3, "type", "button");
     			button3.disabled = button3_disabled_value = /*redos*/ ctx[6].length == 0;
     			attr_dev(button3, "class", "btn btn-default btn-sm");
-    			add_location(button3, file$2, 25, 3, 936);
+    			add_location(button3, file$2, 25, 3, 946);
     			attr_dev(div0, "class", "btn-group");
-    			add_location(div0, file$2, 23, 2, 777);
+    			add_location(div0, file$2, 23, 2, 787);
     			attr_dev(input0, "type", "number");
     			attr_dev(input0, "min", "15");
     			attr_dev(input0, "max", "50");
     			attr_dev(input0, "step", "5");
     			attr_dev(input0, "class", "svelte-1a4yczt");
-    			add_location(input0, file$2, 30, 3, 1102);
-    			add_location(div1, file$2, 28, 2, 1078);
+    			add_location(input0, file$2, 30, 3, 1112);
+    			add_location(div1, file$2, 28, 2, 1088);
     			attr_dev(input1, "type", "number");
     			attr_dev(input1, "placeholder", "Height");
     			attr_dev(input1, "class", "svelte-1a4yczt");
-    			add_location(input1, file$2, 34, 3, 1209);
-    			add_location(div2, file$2, 32, 2, 1188);
+    			add_location(input1, file$2, 34, 3, 1219);
+    			add_location(div2, file$2, 32, 2, 1198);
     			attr_dev(input2, "type", "number");
     			attr_dev(input2, "placeholder", "Width");
     			attr_dev(input2, "class", "svelte-1a4yczt");
-    			add_location(input2, file$2, 38, 3, 1307);
-    			add_location(div3, file$2, 36, 2, 1287);
+    			add_location(input2, file$2, 38, 3, 1317);
+    			add_location(div3, file$2, 36, 2, 1297);
     			attr_dev(input3, "type", "checkbox");
-    			add_location(input3, file$2, 41, 3, 1395);
-    			add_location(label, file$2, 40, 2, 1383);
-    			attr_dev(div4, "class", "flex svelte-1a4yczt");
-    			add_location(div4, file$2, 19, 1, 564);
+    			add_location(input3, file$2, 41, 3, 1405);
+    			add_location(label, file$2, 40, 2, 1393);
+    			attr_dev(div4, "class", "flex my-3 svelte-1a4yczt");
+    			add_location(div4, file$2, 19, 1, 569);
     			attr_dev(div5, "class", "color-picker svelte-1a4yczt");
-    			add_location(div5, file$2, 48, 3, 1543);
+    			add_location(div5, file$2, 48, 3, 1553);
     			attr_dev(div6, "class", "controls");
-    			add_location(div6, file$2, 47, 2, 1516);
-    			attr_dev(div7, "class", "p-3 preview-bg svelte-1a4yczt");
-    			add_location(div7, file$2, 61, 4, 2028);
-    			add_location(div8, file$2, 59, 3, 1955);
+    			add_location(div6, file$2, 47, 2, 1526);
+    			if (img.src !== (img_src_value = /*previewPNG*/ ctx[10])) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "preview");
+    			add_location(img, file$2, 63, 6, 2104);
+    			add_location(div7, file$2, 62, 5, 2091);
+    			attr_dev(div8, "class", "p-3 preview-bg flex svelte-1a4yczt");
+    			add_location(div8, file$2, 61, 4, 2051);
+    			attr_dev(div9, "class", "my-1");
+    			add_location(div9, file$2, 59, 3, 1965);
     			attr_dev(svg, "class", "preview-bg svelte-1a4yczt");
     			attr_dev(svg, "width", svg_width_value = /*width*/ ctx[4] * (/*gridSize*/ ctx[2] + 1));
     			attr_dev(svg, "height", svg_height_value = /*height*/ ctx[3] * (/*gridSize*/ ctx[2] + 1));
-    			add_location(svg, file$2, 67, 3, 2212);
-    			attr_dev(div9, "class", "flex-grow ");
-    			add_location(div9, file$2, 58, 2, 1926);
-    			attr_dev(div10, "class", "flex align-top");
-    			add_location(div10, file$2, 46, 1, 1484);
+    			add_location(svg, file$2, 80, 3, 2531);
+    			attr_dev(div10, "class", "flex-grow ");
+    			add_location(div10, file$2, 58, 2, 1936);
+    			attr_dev(div11, "class", "flex align-top");
+    			add_location(div11, file$2, 46, 1, 1494);
     		},
     		m: function mount(target, anchor) {
-    			if (if_block) if_block.m(target, anchor);
+    			if (if_block0) if_block0.m(target, anchor);
     			insert_dev(target, t0, anchor);
     			insert_dev(target, div4, anchor);
     			append_dev(div4, button0);
@@ -2829,26 +2976,25 @@ var app = (function () {
     			input3.checked = /*showGrid*/ ctx[7];
     			append_dev(label, t17);
     			insert_dev(target, t18, anchor);
-    			insert_dev(target, div10, anchor);
-    			append_dev(div10, div6);
+    			insert_dev(target, div11, anchor);
+    			append_dev(div11, div6);
     			append_dev(div6, div5);
 
-    			for (let i = 0; i < each_blocks_2.length; i += 1) {
-    				each_blocks_2[i].m(div5, null);
+    			for (let i = 0; i < each_blocks_1.length; i += 1) {
+    				each_blocks_1[i].m(div5, null);
     			}
 
-    			append_dev(div10, t19);
+    			append_dev(div11, t19);
+    			append_dev(div11, div10);
     			append_dev(div10, div9);
+    			append_dev(div9, t20);
     			append_dev(div9, div8);
-    			append_dev(div8, t20);
     			append_dev(div8, div7);
-
-    			for (let i = 0; i < 5; i += 1) {
-    				each_blocks_1[i].m(div7, null);
-    			}
-
-    			append_dev(div9, t21);
-    			append_dev(div9, svg);
+    			append_dev(div7, img);
+    			append_dev(div8, t21);
+    			if (if_block1) if_block1.m(div8, null);
+    			append_dev(div10, t22);
+    			append_dev(div10, svg);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].m(svg, null);
@@ -2875,16 +3021,16 @@ var app = (function () {
     		},
     		p: function update(ctx, dirty) {
     			if (/*savedNames*/ ctx[9].length) {
-    				if (if_block) {
-    					if_block.p(ctx, dirty);
+    				if (if_block0) {
+    					if_block0.p(ctx, dirty);
     				} else {
-    					if_block = create_if_block$3(ctx);
-    					if_block.c();
-    					if_block.m(t0.parentNode, t0);
+    					if_block0 = create_if_block_1(ctx);
+    					if_block0.c();
+    					if_block0.m(t0.parentNode, t0);
     				}
-    			} else if (if_block) {
-    				if_block.d(1);
-    				if_block = null;
+    			} else if (if_block0) {
+    				if_block0.d(1);
+    				if_block0 = null;
     			}
 
     			if (dirty[0] & /*undos*/ 32 && t6_value !== (t6_value = /*undos*/ ctx[5].length + "")) set_data_dev(t6, t6_value);
@@ -2916,49 +3062,44 @@ var app = (function () {
     			}
 
     			if (dirty[0] & /*colors, selectedColor, selectColor*/ 2113538) {
-    				each_value_3 = /*colors*/ ctx[14];
-    				validate_each_argument(each_value_3);
+    				each_value_4 = /*colors*/ ctx[14];
+    				validate_each_argument(each_value_4);
     				let i;
 
-    				for (i = 0; i < each_value_3.length; i += 1) {
-    					const child_ctx = get_each_context_3(ctx, each_value_3, i);
-
-    					if (each_blocks_2[i]) {
-    						each_blocks_2[i].p(child_ctx, dirty);
-    					} else {
-    						each_blocks_2[i] = create_each_block_3(child_ctx);
-    						each_blocks_2[i].c();
-    						each_blocks_2[i].m(div5, null);
-    					}
-    				}
-
-    				for (; i < each_blocks_2.length; i += 1) {
-    					each_blocks_2[i].d(1);
-    				}
-
-    				each_blocks_2.length = each_value_3.length;
-    			}
-
-    			if (dirty[0] & /*previewPNG*/ 1024) {
-    				each_value_2 = [20, 0, 0, 0, 0];
-    				validate_each_argument(each_value_2);
-    				let i;
-
-    				for (i = 0; i < 5; i += 1) {
-    					const child_ctx = get_each_context_2(ctx, each_value_2, i);
+    				for (i = 0; i < each_value_4.length; i += 1) {
+    					const child_ctx = get_each_context_4(ctx, each_value_4, i);
 
     					if (each_blocks_1[i]) {
     						each_blocks_1[i].p(child_ctx, dirty);
     					} else {
-    						each_blocks_1[i] = create_each_block_2(child_ctx);
+    						each_blocks_1[i] = create_each_block_4(child_ctx);
     						each_blocks_1[i].c();
-    						each_blocks_1[i].m(div7, null);
+    						each_blocks_1[i].m(div5, null);
     					}
     				}
 
-    				for (; i < 5; i += 1) {
+    				for (; i < each_blocks_1.length; i += 1) {
     					each_blocks_1[i].d(1);
     				}
+
+    				each_blocks_1.length = each_value_4.length;
+    			}
+
+    			if (dirty[0] & /*previewPNG*/ 1024 && img.src !== (img_src_value = /*previewPNG*/ ctx[10])) {
+    				attr_dev(img, "src", img_src_value);
+    			}
+
+    			if (/*width*/ ctx[4] == 20 && /*height*/ ctx[3] == 20) {
+    				if (if_block1) {
+    					if_block1.p(ctx, dirty);
+    				} else {
+    					if_block1 = create_if_block$3(ctx);
+    					if_block1.c();
+    					if_block1.m(div8, null);
+    				}
+    			} else if (if_block1) {
+    				if_block1.d(1);
+    				if_block1 = null;
     			}
 
     			if (dirty[0] & /*columns, rows, gridSize, data, showGrid*/ 6532) {
@@ -2994,13 +3135,13 @@ var app = (function () {
     			}
     		},
     		d: function destroy(detaching) {
-    			if (if_block) if_block.d(detaching);
+    			if (if_block0) if_block0.d(detaching);
     			if (detaching) detach_dev(t0);
     			if (detaching) detach_dev(div4);
     			if (detaching) detach_dev(t18);
-    			if (detaching) detach_dev(div10);
-    			destroy_each(each_blocks_2, detaching);
+    			if (detaching) detach_dev(div11);
     			destroy_each(each_blocks_1, detaching);
+    			if (if_block1) if_block1.d();
     			destroy_each(each_blocks, detaching);
     			mounted = false;
     			run_all(dispose);
@@ -3052,7 +3193,7 @@ var app = (function () {
     		p: function update(ctx, dirty) {
     			const levelbuilderlayout_changes = {};
 
-    			if (dirty[0] & /*width, gridSize, height, rows, columns, data, showGrid, previewPNG, selectedColor, redos, undos, savedNames, loaded*/ 8191 | dirty[1] & /*$$scope*/ 33554432) {
+    			if (dirty[0] & /*width, gridSize, height, rows, columns, data, showGrid, previewPNG, selectedColor, redos, undos, savedNames, loaded*/ 8191 | dirty[1] & /*$$scope*/ 268435456) {
     				levelbuilderlayout_changes.$$scope = { dirty, ctx };
     			}
 
@@ -3091,7 +3232,7 @@ var app = (function () {
 
     function getCellColor(d, row, column) {
     	return d.length > row && d[row].length > column
-    	? d[row][column]
+    	? d[row][column] || "transparent"
     	: "white";
     }
 
@@ -9430,7 +9571,7 @@ var app = (function () {
     }
 
     // (11:4) {#if !isAdding}
-    function create_if_block_1(ctx) {
+    function create_if_block_1$1(ctx) {
     	let button;
     	let mounted;
     	let dispose;
@@ -9461,7 +9602,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_1.name,
+    		id: create_if_block_1$1.name,
     		type: "if",
     		source: "(11:4) {#if !isAdding}",
     		ctx
@@ -9473,7 +9614,7 @@ var app = (function () {
     // (10:3) <span slot="buttons">
     function create_buttons_slot$3(ctx) {
     	let span;
-    	let if_block = !/*isAdding*/ ctx[1] && create_if_block_1(ctx);
+    	let if_block = !/*isAdding*/ ctx[1] && create_if_block_1$1(ctx);
 
     	const block = {
     		c: function create() {
@@ -9491,7 +9632,7 @@ var app = (function () {
     				if (if_block) {
     					if_block.p(ctx, dirty);
     				} else {
-    					if_block = create_if_block_1(ctx);
+    					if_block = create_if_block_1$1(ctx);
     					if_block.c();
     					if_block.m(span, null);
     				}
@@ -11332,7 +11473,7 @@ var app = (function () {
     }
 
     // (4:1) {#if gameOver}
-    function create_if_block_1$1(ctx) {
+    function create_if_block_1$2(ctx) {
     	let gameover;
     	let current;
 
@@ -11374,7 +11515,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_1$1.name,
+    		id: create_if_block_1$2.name,
     		type: "if",
     		source: "(4:1) {#if gameOver}",
     		ctx
@@ -11655,7 +11796,7 @@ var app = (function () {
     	let current;
     	let mounted;
     	let dispose;
-    	let if_block0 = /*gameOver*/ ctx[8] && create_if_block_1$1(ctx);
+    	let if_block0 = /*gameOver*/ ctx[8] && create_if_block_1$2(ctx);
     	let if_block1 = /*level*/ ctx[0] != null && /*player*/ ctx[6] != null && create_if_block$a(ctx);
 
     	status = new Status({
@@ -11714,7 +11855,7 @@ var app = (function () {
     						transition_in(if_block0, 1);
     					}
     				} else {
-    					if_block0 = create_if_block_1$1(ctx);
+    					if_block0 = create_if_block_1$2(ctx);
     					if_block0.c();
     					transition_in(if_block0, 1);
     					if_block0.m(div, t0);

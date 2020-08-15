@@ -4,7 +4,7 @@
 	{#if savedNames.length}
 		<div>
 			{#each savedNames as savedDrawingName}
-				<div class="btn-group mr-2">
+				<div class="btn-group mr-1 mb-1">
 					<button
 						type="button"
 						class="btn btn-sm btn-{savedDrawingName == loaded ? 'primary active' : 'secondary'}"
@@ -17,7 +17,7 @@
 		</div>
 	{/if}
 
-	<div class="flex">
+	<div class="flex my-3">
 		<button type="button" class="btn btn-success btn-sm mr-2" on:click={() => save()}>Save</button>
 		<button type="button" class="btn btn-secondary btn-sm" on:click={reset}>Reset</button>
 
@@ -57,12 +57,25 @@
 			</div>
 		</div>
 		<div class="flex-grow ">
-			<div>
+			<div class="my-1">
 				Preview at in-game size / repeated next to same graphic:
-				<div class="p-3 preview-bg">
-					{#each [20, 0, 0, 0, 0] as margin}
-						<img src={previewPNG} alt="" style="margin-right: {margin}px;" />
-					{/each}
+				<div class="p-3 preview-bg flex">
+					<div>
+						<img src={previewPNG} alt="preview" />
+					</div>
+
+					<!-- if block size, show repeated in x and y-->
+					{#if width == 20 && height == 20}
+						<div class="ml-3">
+							{#each [0, 0] as r}
+								<div>
+									{#each [0, 0, 0, 0] as margin}
+										<img src={previewPNG} alt="block repeating preview" />
+									{/each}
+								</div>
+							{/each}
+						</div>
+					{/if}
 				</div>
 			</div>
 			<svg
@@ -304,7 +317,7 @@
 	}
 
 	function getCellColor(d, row, column) {
-		return d.length > row && d[row].length > column ? d[row][column] : 'white'
+		return d.length > row && d[row].length > column ? d[row][column] || 'transparent' : 'white'
 	}
 
 	function onKeyUp(e) {
