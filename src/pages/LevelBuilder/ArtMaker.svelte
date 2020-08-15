@@ -1,4 +1,4 @@
-<svelte:window on:keydown={onKeyDown} on:keyup={onKeyUp} />
+<svelte:window on:keyup={onKeyUp} />
 
 <LevelBuilderLayout tab="art">
 	{#if savedNames.length}
@@ -306,8 +306,6 @@
 	function getCellColor(d, row, column) {
 		return d.length > row && d[row].length > column ? d[row][column] : 'white'
 	}
-
-	function onKeyDown(e) {}
 
 	function onKeyUp(e) {
 		switch (e.code) {

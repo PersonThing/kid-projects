@@ -2227,7 +2227,7 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			add_location(div, file$2, 4, 2, 123);
+    			add_location(div, file$2, 4, 2, 100);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -2314,12 +2314,12 @@ var app = (function () {
     			? "primary active"
     			: "secondary"));
 
-    			add_location(button0, file$2, 7, 5, 212);
+    			add_location(button0, file$2, 7, 5, 189);
     			attr_dev(button1, "type", "button");
     			attr_dev(button1, "class", "btn btn-sm btn-secondary");
-    			add_location(button1, file$2, 13, 5, 429);
+    			add_location(button1, file$2, 13, 5, 406);
     			attr_dev(div, "class", "btn-group mr-2");
-    			add_location(div, file$2, 6, 4, 177);
+    			add_location(div, file$2, 6, 4, 154);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -2387,7 +2387,7 @@ var app = (function () {
 
     			attr_dev(button, "class", "svelte-1a4yczt");
     			toggle_class(button, "active", /*color*/ ctx[50] == /*selectedColor*/ ctx[1]);
-    			add_location(button, file$2, 50, 5, 1628);
+    			add_location(button, file$2, 50, 5, 1605);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
@@ -2433,7 +2433,7 @@ var app = (function () {
     			if (img.src !== (img_src_value = /*previewPNG*/ ctx[10])) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "");
     			set_style(img, "margin-right", /*margin*/ ctx[47] + "px");
-    			add_location(img, file$2, 63, 6, 2128);
+    			add_location(img, file$2, 63, 6, 2105);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, img, anchor);
@@ -2479,7 +2479,7 @@ var app = (function () {
     			attr_dev(rect, "data-row", rect_data_row_value = /*row*/ ctx[41]);
     			attr_dev(rect, "data-column", rect_data_column_value = /*column*/ ctx[44]);
     			attr_dev(rect, "stroke", rect_stroke_value = /*showGrid*/ ctx[7] ? "#eee" : null);
-    			add_location(rect, file$2, 77, 6, 2554);
+    			add_location(rect, file$2, 77, 6, 2531);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, rect, anchor);
@@ -2740,57 +2740,57 @@ var app = (function () {
 
     			attr_dev(button0, "type", "button");
     			attr_dev(button0, "class", "btn btn-success btn-sm mr-2");
-    			add_location(button0, file$2, 20, 2, 609);
+    			add_location(button0, file$2, 20, 2, 586);
     			attr_dev(button1, "type", "button");
     			attr_dev(button1, "class", "btn btn-secondary btn-sm");
-    			add_location(button1, file$2, 21, 2, 708);
+    			add_location(button1, file$2, 21, 2, 685);
     			attr_dev(button2, "type", "button");
     			button2.disabled = button2_disabled_value = /*undos*/ ctx[5].length == 0;
     			attr_dev(button2, "class", "btn btn-default btn-sm");
-    			add_location(button2, file$2, 24, 3, 828);
+    			add_location(button2, file$2, 24, 3, 805);
     			attr_dev(button3, "type", "button");
     			button3.disabled = button3_disabled_value = /*redos*/ ctx[6].length == 0;
     			attr_dev(button3, "class", "btn btn-default btn-sm");
-    			add_location(button3, file$2, 25, 3, 959);
+    			add_location(button3, file$2, 25, 3, 936);
     			attr_dev(div0, "class", "btn-group");
-    			add_location(div0, file$2, 23, 2, 800);
+    			add_location(div0, file$2, 23, 2, 777);
     			attr_dev(input0, "type", "number");
     			attr_dev(input0, "min", "15");
     			attr_dev(input0, "max", "50");
     			attr_dev(input0, "step", "5");
     			attr_dev(input0, "class", "svelte-1a4yczt");
-    			add_location(input0, file$2, 30, 3, 1125);
-    			add_location(div1, file$2, 28, 2, 1101);
+    			add_location(input0, file$2, 30, 3, 1102);
+    			add_location(div1, file$2, 28, 2, 1078);
     			attr_dev(input1, "type", "number");
     			attr_dev(input1, "placeholder", "Height");
     			attr_dev(input1, "class", "svelte-1a4yczt");
-    			add_location(input1, file$2, 34, 3, 1232);
-    			add_location(div2, file$2, 32, 2, 1211);
+    			add_location(input1, file$2, 34, 3, 1209);
+    			add_location(div2, file$2, 32, 2, 1188);
     			attr_dev(input2, "type", "number");
     			attr_dev(input2, "placeholder", "Width");
     			attr_dev(input2, "class", "svelte-1a4yczt");
-    			add_location(input2, file$2, 38, 3, 1330);
-    			add_location(div3, file$2, 36, 2, 1310);
+    			add_location(input2, file$2, 38, 3, 1307);
+    			add_location(div3, file$2, 36, 2, 1287);
     			attr_dev(input3, "type", "checkbox");
-    			add_location(input3, file$2, 41, 3, 1418);
-    			add_location(label, file$2, 40, 2, 1406);
+    			add_location(input3, file$2, 41, 3, 1395);
+    			add_location(label, file$2, 40, 2, 1383);
     			attr_dev(div4, "class", "flex svelte-1a4yczt");
-    			add_location(div4, file$2, 19, 1, 587);
+    			add_location(div4, file$2, 19, 1, 564);
     			attr_dev(div5, "class", "color-picker svelte-1a4yczt");
-    			add_location(div5, file$2, 48, 3, 1566);
+    			add_location(div5, file$2, 48, 3, 1543);
     			attr_dev(div6, "class", "controls");
-    			add_location(div6, file$2, 47, 2, 1539);
+    			add_location(div6, file$2, 47, 2, 1516);
     			attr_dev(div7, "class", "p-3 preview-bg svelte-1a4yczt");
-    			add_location(div7, file$2, 61, 4, 2051);
-    			add_location(div8, file$2, 59, 3, 1978);
+    			add_location(div7, file$2, 61, 4, 2028);
+    			add_location(div8, file$2, 59, 3, 1955);
     			attr_dev(svg, "class", "preview-bg svelte-1a4yczt");
     			attr_dev(svg, "width", svg_width_value = /*width*/ ctx[4] * (/*gridSize*/ ctx[2] + 1));
     			attr_dev(svg, "height", svg_height_value = /*height*/ ctx[3] * (/*gridSize*/ ctx[2] + 1));
-    			add_location(svg, file$2, 67, 3, 2235);
+    			add_location(svg, file$2, 67, 3, 2212);
     			attr_dev(div9, "class", "flex-grow ");
-    			add_location(div9, file$2, 58, 2, 1949);
+    			add_location(div9, file$2, 58, 2, 1926);
     			attr_dev(div10, "class", "flex align-top");
-    			add_location(div10, file$2, 46, 1, 1507);
+    			add_location(div10, file$2, 46, 1, 1484);
     		},
     		m: function mount(target, anchor) {
     			if (if_block) if_block.m(target, anchor);
@@ -3045,11 +3045,7 @@ var app = (function () {
     			current = true;
 
     			if (!mounted) {
-    				dispose = [
-    					listen_dev(window, "keydown", onKeyDown, false, false, false),
-    					listen_dev(window, "keyup", /*onKeyUp*/ ctx[25], false, false, false)
-    				];
-
+    				dispose = listen_dev(window, "keyup", /*onKeyUp*/ ctx[25], false, false, false);
     				mounted = true;
     			}
     		},
@@ -3074,7 +3070,7 @@ var app = (function () {
     		d: function destroy(detaching) {
     			destroy_component(levelbuilderlayout, detaching);
     			mounted = false;
-    			run_all(dispose);
+    			dispose();
     		}
     	};
 
@@ -3097,10 +3093,6 @@ var app = (function () {
     	return d.length > row && d[row].length > column
     	? d[row][column]
     	: "white";
-    }
-
-    function onKeyDown(e) {
-    	
     }
 
     function instance$3($$self, $$props, $$invalidate) {
@@ -3382,7 +3374,6 @@ var app = (function () {
     		load,
     		deleteSave,
     		getCellColor,
-    		onKeyDown,
     		onKeyUp,
     		savedNames,
     		$artStore,
@@ -5622,7 +5613,7 @@ var app = (function () {
     	return block;
     }
 
-    // (27:2) <FieldNumber name="dps" bind:value={input.dpsToPlayers}>
+    // (27:2) <FieldNumber name="dps" bind:value={input.dps}>
     function create_default_slot_2$1(ctx) {
     	let t;
 
@@ -5642,14 +5633,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_2$1.name,
     		type: "slot",
-    		source: "(27:2) <FieldNumber name=\\\"dps\\\" bind:value={input.dpsToPlayers}>",
+    		source: "(27:2) <FieldNumber name=\\\"dps\\\" bind:value={input.dps}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (31:3) {#if !isAdding}
+    // (29:3) {#if !isAdding}
     function create_if_block$5(ctx) {
     	let button;
     	let mounted;
@@ -5661,7 +5652,7 @@ var app = (function () {
     			button.textContent = "Delete";
     			attr_dev(button, "type", "button");
     			attr_dev(button, "class", "btn btn-danger");
-    			add_location(button, file$a, 31, 4, 2001);
+    			add_location(button, file$a, 29, 4, 1983);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
@@ -5683,14 +5674,14 @@ var app = (function () {
     		block,
     		id: create_if_block$5.name,
     		type: "if",
-    		source: "(31:3) {#if !isAdding}",
+    		source: "(29:3) {#if !isAdding}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (30:2) <span slot="buttons">
+    // (28:2) <span slot="buttons">
     function create_buttons_slot$1(ctx) {
     	let span;
     	let if_block = !/*isAdding*/ ctx[1] && create_if_block$5(ctx);
@@ -5700,7 +5691,7 @@ var app = (function () {
     			span = element("span");
     			if (if_block) if_block.c();
     			attr_dev(span, "slot", "buttons");
-    			add_location(span, file$a, 29, 2, 1954);
+    			add_location(span, file$a, 27, 2, 1936);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -5730,7 +5721,7 @@ var app = (function () {
     		block,
     		id: create_buttons_slot$1.name,
     		type: "slot",
-    		source: "(30:2) <span slot=\\\"buttons\\\">",
+    		source: "(28:2) <span slot=\\\"buttons\\\">",
     		ctx
     	});
 
@@ -5926,8 +5917,8 @@ var app = (function () {
     		$$scope: { ctx }
     	};
 
-    	if (/*input*/ ctx[0].dpsToPlayers !== void 0) {
-    		fieldnumber5_props.value = /*input*/ ctx[0].dpsToPlayers;
+    	if (/*input*/ ctx[0].dps !== void 0) {
+    		fieldnumber5_props.value = /*input*/ ctx[0].dps;
     	}
 
     	fieldnumber5 = new FieldNumber({
@@ -6075,7 +6066,7 @@ var app = (function () {
 
     			if (!updating_value_7 && dirty & /*input*/ 1) {
     				updating_value_7 = true;
-    				fieldnumber5_changes.value = /*input*/ ctx[0].dpsToPlayers;
+    				fieldnumber5_changes.value = /*input*/ ctx[0].dps;
     				add_flush_callback(() => updating_value_7 = false);
     			}
 
@@ -6340,7 +6331,7 @@ var app = (function () {
     	}
 
     	function fieldnumber5_value_binding(value) {
-    		input.dpsToPlayers = value;
+    		input.dps = value;
     		$$invalidate(0, input);
     	}
 
@@ -6633,7 +6624,7 @@ var app = (function () {
     	return block;
     }
 
-    // (24:2) <FieldNumber name="dps" bind:value={input.dpsToPlayers}>
+    // (24:2) <FieldNumber name="dps" bind:value={input.dps}>
     function create_default_slot_2$2(ctx) {
     	let t;
 
@@ -6653,14 +6644,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_2$2.name,
     		type: "slot",
-    		source: "(24:2) <FieldNumber name=\\\"dps\\\" bind:value={input.dpsToPlayers}>",
+    		source: "(24:2) <FieldNumber name=\\\"dps\\\" bind:value={input.dps}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (28:3) {#if !isAdding}
+    // (26:3) {#if !isAdding}
     function create_if_block$6(ctx) {
     	let button;
     	let mounted;
@@ -6672,7 +6663,7 @@ var app = (function () {
     			button.textContent = "Delete";
     			attr_dev(button, "type", "button");
     			attr_dev(button, "class", "btn btn-danger");
-    			add_location(button, file$b, 28, 4, 1607);
+    			add_location(button, file$b, 26, 4, 1589);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
@@ -6694,14 +6685,14 @@ var app = (function () {
     		block,
     		id: create_if_block$6.name,
     		type: "if",
-    		source: "(28:3) {#if !isAdding}",
+    		source: "(26:3) {#if !isAdding}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (27:2) <span slot="buttons">
+    // (25:2) <span slot="buttons">
     function create_buttons_slot$2(ctx) {
     	let span;
     	let if_block = !/*isAdding*/ ctx[1] && create_if_block$6(ctx);
@@ -6711,7 +6702,7 @@ var app = (function () {
     			span = element("span");
     			if (if_block) if_block.c();
     			attr_dev(span, "slot", "buttons");
-    			add_location(span, file$b, 26, 2, 1560);
+    			add_location(span, file$b, 24, 2, 1542);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -6741,7 +6732,7 @@ var app = (function () {
     		block,
     		id: create_buttons_slot$2.name,
     		type: "slot",
-    		source: "(27:2) <span slot=\\\"buttons\\\">",
+    		source: "(25:2) <span slot=\\\"buttons\\\">",
     		ctx
     	});
 
@@ -6937,8 +6928,8 @@ var app = (function () {
     		$$scope: { ctx }
     	};
 
-    	if (/*input*/ ctx[0].dpsToPlayers !== void 0) {
-    		fieldnumber5_props.value = /*input*/ ctx[0].dpsToPlayers;
+    	if (/*input*/ ctx[0].dps !== void 0) {
+    		fieldnumber5_props.value = /*input*/ ctx[0].dps;
     	}
 
     	fieldnumber5 = new FieldNumber({
@@ -7086,7 +7077,7 @@ var app = (function () {
 
     			if (!updating_value_7 && dirty & /*input*/ 1) {
     				updating_value_7 = true;
-    				fieldnumber5_changes.value = /*input*/ ctx[0].dpsToPlayers;
+    				fieldnumber5_changes.value = /*input*/ ctx[0].dps;
     				add_flush_callback(() => updating_value_7 = false);
     			}
 
@@ -7351,7 +7342,7 @@ var app = (function () {
     	}
 
     	function fieldnumber5_value_binding(value) {
-    		input.dpsToPlayers = value;
+    		input.dps = value;
     		$$invalidate(0, input);
     	}
 
@@ -8189,10 +8180,12 @@ var app = (function () {
 
     		if ($$self.$$.dirty & /*blocks, width, height, context, imageCache*/ 107) {
     			 if (blocks != null && width != null && height != null && context != null) {
-    				// erase any blocks that are drawn that aren't in the new array
     				// const toErase = drawnBlocks.filter(db => !blocks.some(b => db.x == b.x && db.y == b.y && db.png == b.png))
+    				// console.log('erasing', toErase.length)
+    				// toErase.forEach(b => {
+    				// 	context.clearRect(b.x, b.y, b.width, b.height)
+    				// })
     				// const toDraw = blocks.filter(b => !drawnBlocks.some(db => db.x == b.x && db.y == b.y && db.png == b.png))
-    				// toErase.forEach(b => context.clearRect(b.x, b.y, b.width, b.height))
     				// toDraw.forEach(b => {
     				context.clearRect(0, 0, width, height);
 
@@ -8202,15 +8195,15 @@ var app = (function () {
     					if (drawing == null) {
     						drawing = new Image();
     						drawing.src = b.png;
-    						$$invalidate(5, imageCache[b.png] = drawing, imageCache);
-    					}
 
-    					setTimeout(
-    						() => {
+    						drawing.onload = () => {
     							context.drawImage(drawing, b.x, height - b.y - b.height);
-    						},
-    						50
-    					);
+    						};
+
+    						$$invalidate(5, imageCache[b.png] = drawing, imageCache);
+    					} else {
+    						context.drawImage(drawing, b.x, height - b.y - b.height);
+    					}
     				});
     			} // drawnBlocks = JSON.parse(JSON.stringify(blocks))
     		}
@@ -12226,7 +12219,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (4:0) {:else}
+    // (5:0) {:else}
     function create_else_block$1(ctx) {
     	let div;
     	let current;
@@ -12251,7 +12244,7 @@ var app = (function () {
     			}
 
     			attr_dev(div, "class", "list-group");
-    			add_location(div, file$p, 4, 1, 220);
+    			add_location(div, file$p, 5, 1, 340);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -12319,7 +12312,7 @@ var app = (function () {
     		block,
     		id: create_else_block$1.name,
     		type: "else",
-    		source: "(4:0) {:else}",
+    		source: "(5:0) {:else}",
     		ctx
     	});
 
@@ -12330,6 +12323,10 @@ var app = (function () {
     function create_if_block$b(ctx) {
     	let button;
     	let t1;
+    	let a;
+    	let t2;
+    	let a_href_value;
+    	let t3;
     	let game;
     	let current;
     	let mounted;
@@ -12348,14 +12345,24 @@ var app = (function () {
     			button = element("button");
     			button.textContent = "< Change level";
     			t1 = space();
+    			a = element("a");
+    			t2 = text("Edit level");
+    			t3 = space();
     			create_component(game.$$.fragment);
     			attr_dev(button, "type", "button");
     			attr_dev(button, "class", "btn btn-info");
     			add_location(button, file$p, 1, 1, 26);
+    			attr_dev(a, "href", a_href_value = "#/level-builder/levels/" + encodeURIComponent(/*levelName*/ ctx[2]));
+    			attr_dev(a, "class", "btn btn-warning");
+    			attr_dev(a, "role", "button");
+    			add_location(a, file$p, 2, 1, 134);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
     			insert_dev(target, t1, anchor);
+    			insert_dev(target, a, anchor);
+    			append_dev(a, t2);
+    			insert_dev(target, t3, anchor);
     			mount_component(game, target, anchor);
     			current = true;
 
@@ -12365,6 +12372,10 @@ var app = (function () {
     			}
     		},
     		p: function update(ctx, dirty) {
+    			if (!current || dirty & /*levelName*/ 4 && a_href_value !== (a_href_value = "#/level-builder/levels/" + encodeURIComponent(/*levelName*/ ctx[2]))) {
+    				attr_dev(a, "href", a_href_value);
+    			}
+
     			const game_changes = {};
     			if (dirty & /*$levels, levelName*/ 5) game_changes.level = /*$levels*/ ctx[0][/*levelName*/ ctx[2]];
     			if (dirty & /*$characters, characterName*/ 10) game_changes.character = /*$characters*/ ctx[1][/*characterName*/ ctx[3]];
@@ -12382,6 +12393,8 @@ var app = (function () {
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(button);
     			if (detaching) detach_dev(t1);
+    			if (detaching) detach_dev(a);
+    			if (detaching) detach_dev(t3);
     			destroy_component(game, detaching);
     			mounted = false;
     			dispose();
@@ -12399,7 +12412,7 @@ var app = (function () {
     	return block;
     }
 
-    // (7:3) {#each $levels[levelName].playableCharacters as characterName}
+    // (8:3) {#each $levels[levelName].playableCharacters as characterName}
     function create_each_block_1$2(ctx) {
     	let div;
     	let art;
@@ -12435,7 +12448,7 @@ var app = (function () {
     			t3 = text(t3_value);
     			t4 = space();
     			attr_dev(div, "class", "list-group-item list-group-item-action");
-    			add_location(div, file$p, 7, 4, 362);
+    			add_location(div, file$p, 8, 4, 482);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -12481,14 +12494,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1$2.name,
     		type: "each",
-    		source: "(7:3) {#each $levels[levelName].playableCharacters as characterName}",
+    		source: "(8:3) {#each $levels[levelName].playableCharacters as characterName}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (6:2) {#each Object.keys($levels) as levelName}
+    // (7:2) {#each Object.keys($levels) as levelName}
     function create_each_block$8(ctx) {
     	let each_1_anchor;
     	let current;
@@ -12577,7 +12590,7 @@ var app = (function () {
     		block,
     		id: create_each_block$8.name,
     		type: "each",
-    		source: "(6:2) {#each Object.keys($levels) as levelName}",
+    		source: "(7:2) {#each Object.keys($levels) as levelName}",
     		ctx
     	});
 

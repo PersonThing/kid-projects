@@ -22,23 +22,27 @@
 
 	$: if (canvas != null) context = canvas.getContext('2d')
 	$: if (blocks != null && width != null && height != null && context != null) {
-		// erase any blocks that are drawn that aren't in the new array
 		// const toErase = drawnBlocks.filter(db => !blocks.some(b => db.x == b.x && db.y == b.y && db.png == b.png))
+		// console.log('erasing', toErase.length)
+		// toErase.forEach(b => {
+		// 	context.clearRect(b.x, b.y, b.width, b.height)
+		// })
+
 		// const toDraw = blocks.filter(b => !drawnBlocks.some(db => db.x == b.x && db.y == b.y && db.png == b.png))
-		// toErase.forEach(b => context.clearRect(b.x, b.y, b.width, b.height))
 		// toDraw.forEach(b => {
 		context.clearRect(0, 0, width, height)
-
 		blocks.forEach(b => {
 			let drawing = imageCache[b.png]
 			if (drawing == null) {
 				drawing = new Image()
 				drawing.src = b.png
+				drawing.onload = () => {
+					context.drawImage(drawing, b.x, height - b.y - b.height)
+				}
 				imageCache[b.png] = drawing
-			}
-			setTimeout(() => {
+			} else {
 				context.drawImage(drawing, b.x, height - b.y - b.height)
-			}, 50)
+			}
 		})
 
 		// drawnBlocks = JSON.parse(JSON.stringify(blocks))
