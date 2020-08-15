@@ -3,7 +3,7 @@
 		<slot>Graphic</slot>
 	</label>
 	<div class="list-group">
-		{#each Object.keys($savedDrawings) as drawingName}
+		{#each options as drawingName}
 			<div class="list-group-item list-group-item-action" class:active={value == drawingName} on:click={() => (value = drawingName)}>
 				<CustomGraphic graphic={$savedDrawings[drawingName]} />
 				{drawingName}
@@ -17,10 +17,9 @@
 	import CustomGraphic from './CustomGraphic.svelte'
 	import { onMount } from 'svelte'
 	export let value = null
+	export let filter = null
 
-	onMount(() => {
-		// scroll to selected graphic
-	})
+	$: options = Object.keys($savedDrawings).filter(name => filter == null || filter($savedDrawings[name]))
 </script>
 
 <style>

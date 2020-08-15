@@ -5,7 +5,7 @@
 	<div class="col">
 		<Form on:submit={save}>
 			<FieldText name="name" bind:value={input.name}>Name</FieldText>
-			<FieldGraphicPicker bind:value={input.graphic}>Graphic</FieldGraphicPicker>
+			<FieldGraphicPicker bind:value={input.graphic} filter={b => b.width == 20 && b.height == 20}>Graphic (must be 20x20)</FieldGraphicPicker>
 			<FieldCheckbox name="solid" bind:checked={input.solid}>Solid?</FieldCheckbox>
 			<FieldNumber name="dps" bind:value={input.dpsToPlayers}>
 				DPS (when players or enemies touch this block, how much damage should they take per second?)

@@ -2828,7 +2828,7 @@ var app = (function () {
 
     function get_each_context$1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[5] = list[i];
+    	child_ctx[7] = list[i];
     	return child_ctx;
     }
 
@@ -2859,12 +2859,12 @@ var app = (function () {
     	return block;
     }
 
-    // (6:2) {#each Object.keys($savedDrawings) as drawingName}
+    // (6:2) {#each options as drawingName}
     function create_each_block$1(ctx) {
     	let div;
     	let customgraphic;
     	let t0;
-    	let t1_value = /*drawingName*/ ctx[5] + "";
+    	let t1_value = /*drawingName*/ ctx[7] + "";
     	let t1;
     	let t2;
     	let current;
@@ -2873,13 +2873,13 @@ var app = (function () {
 
     	customgraphic = new CustomGraphic({
     			props: {
-    				graphic: /*$savedDrawings*/ ctx[1][/*drawingName*/ ctx[5]]
+    				graphic: /*$savedDrawings*/ ctx[2][/*drawingName*/ ctx[7]]
     			},
     			$$inline: true
     		});
 
     	function click_handler(...args) {
-    		return /*click_handler*/ ctx[4](/*drawingName*/ ctx[5], ...args);
+    		return /*click_handler*/ ctx[6](/*drawingName*/ ctx[7], ...args);
     	}
 
     	const block = {
@@ -2890,8 +2890,8 @@ var app = (function () {
     			t1 = text(t1_value);
     			t2 = space();
     			attr_dev(div, "class", "list-group-item list-group-item-action");
-    			toggle_class(div, "active", /*value*/ ctx[0] == /*drawingName*/ ctx[5]);
-    			add_location(div, file$2, 6, 3, 169);
+    			toggle_class(div, "active", /*value*/ ctx[0] == /*drawingName*/ ctx[7]);
+    			add_location(div, file$2, 6, 3, 149);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -2909,12 +2909,12 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
     			const customgraphic_changes = {};
-    			if (dirty & /*$savedDrawings*/ 2) customgraphic_changes.graphic = /*$savedDrawings*/ ctx[1][/*drawingName*/ ctx[5]];
+    			if (dirty & /*$savedDrawings, options*/ 6) customgraphic_changes.graphic = /*$savedDrawings*/ ctx[2][/*drawingName*/ ctx[7]];
     			customgraphic.$set(customgraphic_changes);
-    			if ((!current || dirty & /*$savedDrawings*/ 2) && t1_value !== (t1_value = /*drawingName*/ ctx[5] + "")) set_data_dev(t1, t1_value);
+    			if ((!current || dirty & /*options*/ 2) && t1_value !== (t1_value = /*drawingName*/ ctx[7] + "")) set_data_dev(t1, t1_value);
 
-    			if (dirty & /*value, Object, $savedDrawings*/ 3) {
-    				toggle_class(div, "active", /*value*/ ctx[0] == /*drawingName*/ ctx[5]);
+    			if (dirty & /*value, options*/ 3) {
+    				toggle_class(div, "active", /*value*/ ctx[0] == /*drawingName*/ ctx[7]);
     			}
     		},
     		i: function intro(local) {
@@ -2938,7 +2938,7 @@ var app = (function () {
     		block,
     		id: create_each_block$1.name,
     		type: "each",
-    		source: "(6:2) {#each Object.keys($savedDrawings) as drawingName}",
+    		source: "(6:2) {#each options as drawingName}",
     		ctx
     	});
 
@@ -2951,10 +2951,10 @@ var app = (function () {
     	let t;
     	let div0;
     	let current;
-    	const default_slot_template = /*$$slots*/ ctx[3].default;
-    	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[2], null);
+    	const default_slot_template = /*$$slots*/ ctx[5].default;
+    	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[4], null);
     	const default_slot_or_fallback = default_slot || fallback_block(ctx);
-    	let each_value = Object.keys(/*$savedDrawings*/ ctx[1]);
+    	let each_value = /*options*/ ctx[1];
     	validate_each_argument(each_value);
     	let each_blocks = [];
 
@@ -3007,13 +3007,13 @@ var app = (function () {
     		},
     		p: function update(ctx, [dirty]) {
     			if (default_slot) {
-    				if (default_slot.p && dirty & /*$$scope*/ 4) {
-    					update_slot(default_slot, default_slot_template, ctx, /*$$scope*/ ctx[2], dirty, null, null);
+    				if (default_slot.p && dirty & /*$$scope*/ 16) {
+    					update_slot(default_slot, default_slot_template, ctx, /*$$scope*/ ctx[4], dirty, null, null);
     				}
     			}
 
-    			if (dirty & /*value, Object, $savedDrawings*/ 3) {
-    				each_value = Object.keys(/*$savedDrawings*/ ctx[1]);
+    			if (dirty & /*value, options, $savedDrawings*/ 7) {
+    				each_value = /*options*/ ctx[1];
     				validate_each_argument(each_value);
     				let i;
 
@@ -3081,14 +3081,10 @@ var app = (function () {
     function instance$3($$self, $$props, $$invalidate) {
     	let $savedDrawings;
     	validate_store(savedDrawings$1, "savedDrawings");
-    	component_subscribe($$self, savedDrawings$1, $$value => $$invalidate(1, $savedDrawings = $$value));
+    	component_subscribe($$self, savedDrawings$1, $$value => $$invalidate(2, $savedDrawings = $$value));
     	let { value = null } = $$props;
-
-    	onMount(() => {
-    		
-    	}); // scroll to selected graphic
-
-    	const writable_props = ["value"];
+    	let { filter = null } = $$props;
+    	const writable_props = ["value", "filter"];
 
     	Object_1$2.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<FieldGraphicPicker> was created with unknown prop '${key}'`);
@@ -3100,7 +3096,8 @@ var app = (function () {
 
     	$$self.$$set = $$props => {
     		if ("value" in $$props) $$invalidate(0, value = $$props.value);
-    		if ("$$scope" in $$props) $$invalidate(2, $$scope = $$props.$$scope);
+    		if ("filter" in $$props) $$invalidate(3, filter = $$props.filter);
+    		if ("$$scope" in $$props) $$invalidate(4, $$scope = $$props.$$scope);
     	};
 
     	$$self.$capture_state = () => ({
@@ -3108,24 +3105,36 @@ var app = (function () {
     		CustomGraphic,
     		onMount,
     		value,
+    		filter,
+    		options,
     		$savedDrawings
     	});
 
     	$$self.$inject_state = $$props => {
     		if ("value" in $$props) $$invalidate(0, value = $$props.value);
+    		if ("filter" in $$props) $$invalidate(3, filter = $$props.filter);
+    		if ("options" in $$props) $$invalidate(1, options = $$props.options);
     	};
+
+    	let options;
 
     	if ($$props && "$$inject" in $$props) {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [value, $savedDrawings, $$scope, $$slots, click_handler];
+    	$$self.$$.update = () => {
+    		if ($$self.$$.dirty & /*$savedDrawings, filter*/ 12) {
+    			 $$invalidate(1, options = Object.keys($savedDrawings).filter(name => filter == null || filter($savedDrawings[name])));
+    		}
+    	};
+
+    	return [value, options, $savedDrawings, filter, $$scope, $$slots, click_handler];
     }
 
     class FieldGraphicPicker extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$3, create_fragment$3, safe_not_equal, { value: 0 });
+    		init(this, options, instance$3, create_fragment$3, safe_not_equal, { value: 0, filter: 3 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
@@ -3140,6 +3149,14 @@ var app = (function () {
     	}
 
     	set value(value) {
+    		throw new Error("<FieldGraphicPicker>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get filter() {
+    		throw new Error("<FieldGraphicPicker>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set filter(value) {
     		throw new Error("<FieldGraphicPicker>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
     }
@@ -4259,13 +4276,13 @@ var app = (function () {
     	return block;
     }
 
-    // (8:3) <FieldGraphicPicker bind:value={input.graphic}>
+    // (8:3) <FieldGraphicPicker bind:value={input.graphic} filter={b => b.width == 20 && b.height == 20}>
     function create_default_slot_3(ctx) {
     	let t;
 
     	const block = {
     		c: function create() {
-    			t = text("Graphic");
+    			t = text("Graphic (must be 20x20)");
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, t, anchor);
@@ -4279,7 +4296,7 @@ var app = (function () {
     		block,
     		id: create_default_slot_3.name,
     		type: "slot",
-    		source: "(8:3) <FieldGraphicPicker bind:value={input.graphic}>",
+    		source: "(8:3) <FieldGraphicPicker bind:value={input.graphic} filter={b => b.width == 20 && b.height == 20}>",
     		ctx
     	});
 
@@ -4351,7 +4368,7 @@ var app = (function () {
     			button = element("button");
     			button.textContent = "Delete";
     			attr_dev(button, "class", "btn btn-danger");
-    			add_location(button, file$9, 14, 5, 662);
+    			add_location(button, file$9, 14, 5, 724);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
@@ -4390,7 +4407,7 @@ var app = (function () {
     			span = element("span");
     			if (if_block) if_block.c();
     			attr_dev(span, "slot", "buttons");
-    			add_location(span, file$9, 12, 3, 613);
+    			add_location(span, file$9, 12, 3, 675);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -4465,6 +4482,7 @@ var app = (function () {
     	}
 
     	let fieldgraphicpicker_props = {
+    		filter: func,
     		$$slots: { default: [create_default_slot_3] },
     		$$scope: { ctx }
     	};
@@ -4734,6 +4752,8 @@ var app = (function () {
     	return block;
     }
 
+    const func = b => b.width == 20 && b.height == 20;
+
     function instance$a($$self, $$props, $$invalidate) {
     	let $blocks;
     	validate_store(savedDrawings, "blocks");
@@ -4887,7 +4907,7 @@ var app = (function () {
     	return block;
     }
 
-    // (22:3) <FieldGraphicPicker bind:value={input.graphicStill}>
+    // (22:3) <FieldGraphicPicker bind:value={input.graphicStill} filter={b => b.width != 20 || b.height != 20}>
     function create_default_slot_7(ctx) {
     	let t;
 
@@ -4907,7 +4927,7 @@ var app = (function () {
     		block,
     		id: create_default_slot_7.name,
     		type: "slot",
-    		source: "(22:3) <FieldGraphicPicker bind:value={input.graphicStill}>",
+    		source: "(22:3) <FieldGraphicPicker bind:value={input.graphicStill} filter={b => b.width != 20 || b.height != 20}>",
     		ctx
     	});
 
@@ -5087,7 +5107,7 @@ var app = (function () {
     			button = element("button");
     			button.textContent = "Delete";
     			attr_dev(button, "class", "btn btn-danger");
-    			add_location(button, file$a, 35, 5, 2068);
+    			add_location(button, file$a, 35, 5, 2114);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
@@ -5126,7 +5146,7 @@ var app = (function () {
     			span = element("span");
     			if (if_block) if_block.c();
     			attr_dev(span, "slot", "buttons");
-    			add_location(span, file$a, 33, 3, 2019);
+    			add_location(span, file$a, 33, 3, 2065);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -5213,6 +5233,7 @@ var app = (function () {
     	}
 
     	let fieldgraphicpicker_props = {
+    		filter: func$1,
     		$$slots: { default: [create_default_slot_7] },
     		$$scope: { ctx }
     	};
@@ -5662,6 +5683,8 @@ var app = (function () {
     	return block;
     }
 
+    const func$1 = b => b.width != 20 || b.height != 20;
+
     function instance$b($$self, $$props, $$invalidate) {
     	let $characters;
     	validate_store(savedDrawings$2, "characters");
@@ -5847,7 +5870,7 @@ var app = (function () {
     	return block;
     }
 
-    // (19:3) <FieldGraphicPicker bind:value={input.graphicStill}>
+    // (19:3) <FieldGraphicPicker bind:value={input.graphicStill} filter={b => b.width != 20 || b.height != 20}>
     function create_default_slot_7$1(ctx) {
     	let t;
 
@@ -5867,7 +5890,7 @@ var app = (function () {
     		block,
     		id: create_default_slot_7$1.name,
     		type: "slot",
-    		source: "(19:3) <FieldGraphicPicker bind:value={input.graphicStill}>",
+    		source: "(19:3) <FieldGraphicPicker bind:value={input.graphicStill} filter={b => b.width != 20 || b.height != 20}>",
     		ctx
     	});
 
@@ -6047,7 +6070,7 @@ var app = (function () {
     			button = element("button");
     			button.textContent = "Delete";
     			attr_dev(button, "class", "btn btn-danger");
-    			add_location(button, file$b, 32, 5, 1675);
+    			add_location(button, file$b, 32, 5, 1721);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
@@ -6086,7 +6109,7 @@ var app = (function () {
     			span = element("span");
     			if (if_block) if_block.c();
     			attr_dev(span, "slot", "buttons");
-    			add_location(span, file$b, 30, 3, 1626);
+    			add_location(span, file$b, 30, 3, 1672);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -6173,6 +6196,7 @@ var app = (function () {
     	}
 
     	let fieldgraphicpicker_props = {
+    		filter: func$2,
     		$$slots: { default: [create_default_slot_7$1] },
     		$$scope: { ctx }
     	};
@@ -6621,6 +6645,8 @@ var app = (function () {
 
     	return block;
     }
+
+    const func$2 = b => b.width != 20 || b.height != 20;
 
     function instance$c($$self, $$props, $$invalidate) {
     	let $enemies;
