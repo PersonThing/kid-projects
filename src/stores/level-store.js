@@ -1,3 +1,3 @@
 import LocalStorageStore from './local-storage-store'
-const store = LocalStorageStore('levels', {})
+const store = LocalStorageStore('level-store', {})
 export default store

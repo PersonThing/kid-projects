@@ -7084,7 +7084,7 @@ var app = (function () {
     	}
     }
 
-    const store$4 = LocalStorageStore('levels', {});
+    const store$4 = LocalStorageStore('level-store', {});
 
     // object x, y coords are always bottom left... add width or height to get other sides
     const doObjectsIntersect = (a, b) => doObjectsIntersectX(a, b) && doObjectsIntersectY(a, b);
