@@ -5,7 +5,7 @@
 			class="graphic"
 			src={graphic.png}
 			alt={name}
-			style="width: {graphic.width}px; height: {graphic.height}px; transform: scaleX({direction}) rotate({rotate}deg);" />
+			style="width: {graphic.width * artScale}px; height: {graphic.height * artScale}px; transform: scaleX({direction}) rotate({rotate}deg);" />
 	{/if}
 </div>
 
@@ -13,9 +13,12 @@
 	import artStore from '../../stores/art-store'
 	import HealthBar from './HealthBar.svelte'
 
+	const artScale = 2
+
 	export let name
 	export let maxHealth
 	export let graphicStill
+	export let graphicSpinning
 
 	export let vx = 0
 	export let vy = 0
@@ -24,7 +27,7 @@
 
 	export let health
 
-	$: graphic = graphicStill != null ? $artStore[graphicStill] : null
+	$: graphic = spinning && graphicSpinning != null ? $artStore[graphicSpinning] : graphicStill != null ? $artStore[graphicStill] : null
 
 	export let spinning = false
 
@@ -50,7 +53,7 @@
 	}
 
 	.graphic {
-		margin-top: 10px;
-		margin: -7px;
+		margin-top: 5px;
+		margin-bottom: -5px;
 	}
 </style>

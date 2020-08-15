@@ -16,6 +16,7 @@
 	<Form on:submit={save}>
 		<FieldText name="name" bind:value={input.name}>Name</FieldText>
 		<FieldGraphicPicker bind:value={input.graphicStill} filter={b => b.width != 20 || b.height != 20}>Standing still graphic</FieldGraphicPicker>
+		<FieldGraphicPicker bind:value={input.graphicSpinning} filter={b => b.width != 20 || b.height != 20} spin>Spinning graphic</FieldGraphicPicker>
 		<!-- <FieldGraphicPicker bind:value={input.graphicMoving1}>Moving graphic 1</FieldGraphicPicker>
 		<FieldGraphicPicker bind:value={input.graphicMoving2}>Moving graphic 2</FieldGraphicPicker>
 		<FieldGraphicPicker bind:value={input.graphicMoving3}>Moving graphic 3</FieldGraphicPicker> -->
@@ -61,6 +62,7 @@
 	function create() {
 		input = {
 			graphicStill: null,
+			graphicSpinning: null,
 			name: '',
 			maxVelocity: 20,
 			jumpVelocity: 15,

@@ -1433,6 +1433,8 @@ var app = (function () {
 
     // (1:0) {#if graphic?.png != null}
     function create_if_block$1(ctx) {
+    	let t0;
+    	let t1;
     	let img;
     	let img_src_value;
     	let img_alt_value;
@@ -1440,29 +1442,42 @@ var app = (function () {
 
     	const block = {
     		c: function create() {
+    			t0 = text(/*spin*/ ctx[0]);
+    			t1 = space();
     			img = element("img");
-    			if (img.src !== (img_src_value = /*graphic*/ ctx[0].png)) attr_dev(img, "src", img_src_value);
-    			attr_dev(img, "alt", img_alt_value = /*graphic*/ ctx[0].name);
-    			attr_dev(img, "title", img_title_value = /*graphic*/ ctx[0].name);
-    			add_location(img, file, 1, 1, 29);
+    			if (img.src !== (img_src_value = /*graphic*/ ctx[1].png)) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", img_alt_value = /*graphic*/ ctx[1].name);
+    			attr_dev(img, "title", img_title_value = /*graphic*/ ctx[1].name);
+    			set_style(img, "transform", "rotate(" + /*rotation*/ ctx[2] + "deg)");
+    			add_location(img, file, 2, 1, 38);
     		},
     		m: function mount(target, anchor) {
+    			insert_dev(target, t0, anchor);
+    			insert_dev(target, t1, anchor);
     			insert_dev(target, img, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*graphic*/ 1 && img.src !== (img_src_value = /*graphic*/ ctx[0].png)) {
+    			if (dirty & /*spin*/ 1) set_data_dev(t0, /*spin*/ ctx[0]);
+
+    			if (dirty & /*graphic*/ 2 && img.src !== (img_src_value = /*graphic*/ ctx[1].png)) {
     				attr_dev(img, "src", img_src_value);
     			}
 
-    			if (dirty & /*graphic*/ 1 && img_alt_value !== (img_alt_value = /*graphic*/ ctx[0].name)) {
+    			if (dirty & /*graphic*/ 2 && img_alt_value !== (img_alt_value = /*graphic*/ ctx[1].name)) {
     				attr_dev(img, "alt", img_alt_value);
     			}
 
-    			if (dirty & /*graphic*/ 1 && img_title_value !== (img_title_value = /*graphic*/ ctx[0].name)) {
+    			if (dirty & /*graphic*/ 2 && img_title_value !== (img_title_value = /*graphic*/ ctx[1].name)) {
     				attr_dev(img, "title", img_title_value);
+    			}
+
+    			if (dirty & /*rotation*/ 4) {
+    				set_style(img, "transform", "rotate(" + /*rotation*/ ctx[2] + "deg)");
     			}
     		},
     		d: function destroy(detaching) {
+    			if (detaching) detach_dev(t0);
+    			if (detaching) detach_dev(t1);
     			if (detaching) detach_dev(img);
     		}
     	};
@@ -1480,7 +1495,7 @@ var app = (function () {
 
     function create_fragment$1(ctx) {
     	let if_block_anchor;
-    	let if_block = /*graphic*/ ctx[0]?.png != null && create_if_block$1(ctx);
+    	let if_block = /*graphic*/ ctx[1]?.png != null && create_if_block$1(ctx);
 
     	const block = {
     		c: function create() {
@@ -1495,7 +1510,7 @@ var app = (function () {
     			insert_dev(target, if_block_anchor, anchor);
     		},
     		p: function update(ctx, [dirty]) {
-    			if (/*graphic*/ ctx[0]?.png != null) {
+    			if (/*graphic*/ ctx[1]?.png != null) {
     				if (if_block) {
     					if_block.p(ctx, dirty);
     				} else {
@@ -1530,10 +1545,13 @@ var app = (function () {
     function instance$1($$self, $$props, $$invalidate) {
     	let $artStore;
     	validate_store(artStore, "artStore");
-    	component_subscribe($$self, artStore, $$value => $$invalidate(2, $artStore = $$value));
+    	component_subscribe($$self, artStore, $$value => $$invalidate(5, $artStore = $$value));
     	let { name } = $$props;
+    	let { spin = false } = $$props;
     	let graphic;
-    	const writable_props = ["name"];
+    	let spinTimeout;
+    	let rotation = 0;
+    	const writable_props = ["name", "spin"];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<Art> was created with unknown prop '${key}'`);
@@ -1543,20 +1561,27 @@ var app = (function () {
     	validate_slots("Art", $$slots, []);
 
     	$$self.$$set = $$props => {
-    		if ("name" in $$props) $$invalidate(1, name = $$props.name);
+    		if ("name" in $$props) $$invalidate(3, name = $$props.name);
+    		if ("spin" in $$props) $$invalidate(0, spin = $$props.spin);
     	};
 
     	$$self.$capture_state = () => ({
     		toPNG,
     		artStore,
     		name,
+    		spin,
     		graphic,
+    		spinTimeout,
+    		rotation,
     		$artStore
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ("name" in $$props) $$invalidate(1, name = $$props.name);
-    		if ("graphic" in $$props) $$invalidate(0, graphic = $$props.graphic);
+    		if ("name" in $$props) $$invalidate(3, name = $$props.name);
+    		if ("spin" in $$props) $$invalidate(0, spin = $$props.spin);
+    		if ("graphic" in $$props) $$invalidate(1, graphic = $$props.graphic);
+    		if ("spinTimeout" in $$props) $$invalidate(4, spinTimeout = $$props.spinTimeout);
+    		if ("rotation" in $$props) $$invalidate(2, rotation = $$props.rotation);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -1564,25 +1589,38 @@ var app = (function () {
     	}
 
     	$$self.$$.update = () => {
-    		if ($$self.$$.dirty & /*name, $artStore, graphic*/ 7) {
+    		if ($$self.$$.dirty & /*name, $artStore, graphic*/ 42) {
     			 if (name != null) {
-    				$$invalidate(0, graphic = $artStore[name]);
+    				$$invalidate(1, graphic = $artStore[name]);
 
     				// set png for any that haven't been saved with png yet
     				if (graphic != null && graphic.png == null) {
-    					$$invalidate(0, graphic.png = toPNG(graphic, graphic.width, graphic.height), graphic);
+    					$$invalidate(1, graphic.png = toPNG(graphic, graphic.width, graphic.height), graphic);
     				}
+    			}
+    		}
+
+    		if ($$self.$$.dirty & /*spin, rotation, spinTimeout*/ 21) {
+    			 if (spin) {
+    				$$invalidate(4, spinTimeout = setTimeout(
+    					() => {
+    						$$invalidate(2, rotation += 30);
+    					},
+    					25
+    				));
+    			} else {
+    				clearTimeout(spinTimeout);
     			}
     		}
     	};
 
-    	return [graphic, name];
+    	return [spin, graphic, rotation, name];
     }
 
     class Art extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$1, create_fragment$1, safe_not_equal, { name: 1 });
+    		init(this, options, instance$1, create_fragment$1, safe_not_equal, { name: 3, spin: 0 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
@@ -1594,7 +1632,7 @@ var app = (function () {
     		const { ctx } = this.$$;
     		const props = options.props || {};
 
-    		if (/*name*/ ctx[1] === undefined && !("name" in props)) {
+    		if (/*name*/ ctx[3] === undefined && !("name" in props)) {
     			console.warn("<Art> was created without expected prop 'name'");
     		}
     	}
@@ -1604,6 +1642,14 @@ var app = (function () {
     	}
 
     	set name(value) {
+    		throw new Error("<Art>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get spin() {
+    		throw new Error("<Art>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set spin(value) {
     		throw new Error("<Art>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
     }
@@ -2180,37 +2226,37 @@ var app = (function () {
 
     function get_each_context_1$1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[44] = list[i];
+    	child_ctx[46] = list[i];
     	return child_ctx;
     }
 
     function get_each_context$1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[41] = list[i];
+    	child_ctx[43] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_3(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[50] = list[i];
+    	child_ctx[52] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_2(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[47] = list[i];
+    	child_ctx[49] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_4(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[53] = list[i];
+    	child_ctx[55] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_5(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[56] = list[i];
+    	child_ctx[58] = list[i];
     	return child_ctx;
     }
 
@@ -2288,7 +2334,7 @@ var app = (function () {
     function create_each_block_5(ctx) {
     	let div;
     	let button0;
-    	let t0_value = /*savedDrawingName*/ ctx[56] + "";
+    	let t0_value = /*savedDrawingName*/ ctx[58] + "";
     	let t0;
     	let button0_class_value;
     	let t1;
@@ -2298,11 +2344,11 @@ var app = (function () {
     	let dispose;
 
     	function click_handler(...args) {
-    		return /*click_handler*/ ctx[27](/*savedDrawingName*/ ctx[56], ...args);
+    		return /*click_handler*/ ctx[29](/*savedDrawingName*/ ctx[58], ...args);
     	}
 
     	function click_handler_1(...args) {
-    		return /*click_handler_1*/ ctx[28](/*savedDrawingName*/ ctx[56], ...args);
+    		return /*click_handler_1*/ ctx[30](/*savedDrawingName*/ ctx[58], ...args);
     	}
 
     	const block = {
@@ -2316,7 +2362,7 @@ var app = (function () {
     			t3 = space();
     			attr_dev(button0, "type", "button");
 
-    			attr_dev(button0, "class", button0_class_value = "btn btn-sm btn-" + (/*savedDrawingName*/ ctx[56] == /*loaded*/ ctx[0]
+    			attr_dev(button0, "class", button0_class_value = "btn btn-sm btn-" + (/*savedDrawingName*/ ctx[58] == /*loaded*/ ctx[0]
     			? "primary active"
     			: "secondary"));
 
@@ -2346,9 +2392,9 @@ var app = (function () {
     		},
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
-    			if (dirty[0] & /*savedNames*/ 512 && t0_value !== (t0_value = /*savedDrawingName*/ ctx[56] + "")) set_data_dev(t0, t0_value);
+    			if (dirty[0] & /*savedNames*/ 512 && t0_value !== (t0_value = /*savedDrawingName*/ ctx[58] + "")) set_data_dev(t0, t0_value);
 
-    			if (dirty[0] & /*savedNames, loaded*/ 513 && button0_class_value !== (button0_class_value = "btn btn-sm btn-" + (/*savedDrawingName*/ ctx[56] == /*loaded*/ ctx[0]
+    			if (dirty[0] & /*savedNames, loaded*/ 513 && button0_class_value !== (button0_class_value = "btn btn-sm btn-" + (/*savedDrawingName*/ ctx[58] == /*loaded*/ ctx[0]
     			? "primary active"
     			: "secondary"))) {
     				attr_dev(button0, "class", button0_class_value);
@@ -2372,14 +2418,14 @@ var app = (function () {
     	return block;
     }
 
-    // (50:4) {#each colors as color}
+    // (55:4) {#each colors as color}
     function create_each_block_4(ctx) {
     	let button;
     	let mounted;
     	let dispose;
 
     	function click_handler_3(...args) {
-    		return /*click_handler_3*/ ctx[34](/*color*/ ctx[53], ...args);
+    		return /*click_handler_3*/ ctx[36](/*color*/ ctx[55], ...args);
     	}
 
     	const block = {
@@ -2387,13 +2433,13 @@ var app = (function () {
     			button = element("button");
     			attr_dev(button, "type", "button");
 
-    			set_style(button, "background", /*color*/ ctx[53] != "transparent"
-    			? /*color*/ ctx[53]
+    			set_style(button, "background", /*color*/ ctx[55] != "transparent"
+    			? /*color*/ ctx[55]
     			: "linear-gradient(110deg, rgba(200,200,200,1) 45%, rgba(255,255,255,1) 55%, rgba(255,255,255,1) 100%)");
 
     			attr_dev(button, "class", "svelte-1a4yczt");
-    			toggle_class(button, "active", /*color*/ ctx[53] == /*selectedColor*/ ctx[1]);
-    			add_location(button, file$2, 50, 5, 1615);
+    			toggle_class(button, "active", /*color*/ ctx[55] == /*selectedColor*/ ctx[1]);
+    			add_location(button, file$2, 55, 5, 1854);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
@@ -2407,7 +2453,7 @@ var app = (function () {
     			ctx = new_ctx;
 
     			if (dirty[0] & /*colors, selectedColor*/ 16386) {
-    				toggle_class(button, "active", /*color*/ ctx[53] == /*selectedColor*/ ctx[1]);
+    				toggle_class(button, "active", /*color*/ ctx[55] == /*selectedColor*/ ctx[1]);
     			}
     		},
     		d: function destroy(detaching) {
@@ -2421,14 +2467,14 @@ var app = (function () {
     		block,
     		id: create_each_block_4.name,
     		type: "each",
-    		source: "(50:4) {#each colors as color}",
+    		source: "(55:4) {#each colors as color}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (68:5) {#if width == 20 && height == 20}
+    // (73:5) {#if width == 20 && height == 20}
     function create_if_block$3(ctx) {
     	let div;
     	let each_value_2 = [0, 0];
@@ -2448,7 +2494,7 @@ var app = (function () {
     			}
 
     			attr_dev(div, "class", "ml-3");
-    			add_location(div, file$2, 68, 6, 2259);
+    			add_location(div, file$2, 73, 6, 2498);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -2490,14 +2536,14 @@ var app = (function () {
     		block,
     		id: create_if_block$3.name,
     		type: "if",
-    		source: "(68:5) {#if width == 20 && height == 20}",
+    		source: "(73:5) {#if width == 20 && height == 20}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (72:9) {#each [0, 0, 0, 0] as margin}
+    // (77:9) {#each [0, 0, 0, 0] as margin}
     function create_each_block_3(ctx) {
     	let img;
     	let img_src_value;
@@ -2507,7 +2553,7 @@ var app = (function () {
     			img = element("img");
     			if (img.src !== (img_src_value = /*previewPNG*/ ctx[10])) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "block repeating preview");
-    			add_location(img, file$2, 72, 10, 2373);
+    			add_location(img, file$2, 77, 10, 2612);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, img, anchor);
@@ -2526,14 +2572,14 @@ var app = (function () {
     		block,
     		id: create_each_block_3.name,
     		type: "each",
-    		source: "(72:9) {#each [0, 0, 0, 0] as margin}",
+    		source: "(77:9) {#each [0, 0, 0, 0] as margin}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (70:7) {#each [0, 0] as r}
+    // (75:7) {#each [0, 0] as r}
     function create_each_block_2(ctx) {
     	let div;
     	let t;
@@ -2554,7 +2600,7 @@ var app = (function () {
     			}
 
     			t = space();
-    			add_location(div, file$2, 70, 8, 2315);
+    			add_location(div, file$2, 75, 8, 2554);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -2598,14 +2644,14 @@ var app = (function () {
     		block,
     		id: create_each_block_2.name,
     		type: "each",
-    		source: "(70:7) {#each [0, 0] as r}",
+    		source: "(75:7) {#each [0, 0] as r}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (90:5) {#each columns as column}
+    // (95:5) {#each columns as column}
     function create_each_block_1$1(ctx) {
     	let rect;
     	let rect_y_value;
@@ -2617,30 +2663,30 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			rect = svg_element("rect");
-    			attr_dev(rect, "y", rect_y_value = /*row*/ ctx[41] * /*gridSize*/ ctx[2]);
-    			attr_dev(rect, "x", rect_x_value = /*column*/ ctx[44] * /*gridSize*/ ctx[2]);
-    			set_style(rect, "fill", getCellColor(/*data*/ ctx[8], /*row*/ ctx[41], /*column*/ ctx[44]));
+    			attr_dev(rect, "y", rect_y_value = /*row*/ ctx[43] * /*gridSize*/ ctx[2]);
+    			attr_dev(rect, "x", rect_x_value = /*column*/ ctx[46] * /*gridSize*/ ctx[2]);
+    			set_style(rect, "fill", getCellColor(/*data*/ ctx[8], /*row*/ ctx[43], /*column*/ ctx[46]));
     			attr_dev(rect, "width", /*gridSize*/ ctx[2]);
     			attr_dev(rect, "height", /*gridSize*/ ctx[2]);
-    			attr_dev(rect, "data-row", rect_data_row_value = /*row*/ ctx[41]);
-    			attr_dev(rect, "data-column", rect_data_column_value = /*column*/ ctx[44]);
+    			attr_dev(rect, "data-row", rect_data_row_value = /*row*/ ctx[43]);
+    			attr_dev(rect, "data-column", rect_data_column_value = /*column*/ ctx[46]);
     			attr_dev(rect, "stroke", rect_stroke_value = /*showGrid*/ ctx[7] ? "#eee" : null);
-    			add_location(rect, file$2, 90, 6, 2850);
+    			add_location(rect, file$2, 95, 6, 3089);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, rect, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*rows, gridSize*/ 2052 && rect_y_value !== (rect_y_value = /*row*/ ctx[41] * /*gridSize*/ ctx[2])) {
+    			if (dirty[0] & /*rows, gridSize*/ 2052 && rect_y_value !== (rect_y_value = /*row*/ ctx[43] * /*gridSize*/ ctx[2])) {
     				attr_dev(rect, "y", rect_y_value);
     			}
 
-    			if (dirty[0] & /*columns, gridSize*/ 4100 && rect_x_value !== (rect_x_value = /*column*/ ctx[44] * /*gridSize*/ ctx[2])) {
+    			if (dirty[0] & /*columns, gridSize*/ 4100 && rect_x_value !== (rect_x_value = /*column*/ ctx[46] * /*gridSize*/ ctx[2])) {
     				attr_dev(rect, "x", rect_x_value);
     			}
 
     			if (dirty[0] & /*data, rows, columns*/ 6400) {
-    				set_style(rect, "fill", getCellColor(/*data*/ ctx[8], /*row*/ ctx[41], /*column*/ ctx[44]));
+    				set_style(rect, "fill", getCellColor(/*data*/ ctx[8], /*row*/ ctx[43], /*column*/ ctx[46]));
     			}
 
     			if (dirty[0] & /*gridSize*/ 4) {
@@ -2651,11 +2697,11 @@ var app = (function () {
     				attr_dev(rect, "height", /*gridSize*/ ctx[2]);
     			}
 
-    			if (dirty[0] & /*rows*/ 2048 && rect_data_row_value !== (rect_data_row_value = /*row*/ ctx[41])) {
+    			if (dirty[0] & /*rows*/ 2048 && rect_data_row_value !== (rect_data_row_value = /*row*/ ctx[43])) {
     				attr_dev(rect, "data-row", rect_data_row_value);
     			}
 
-    			if (dirty[0] & /*columns*/ 4096 && rect_data_column_value !== (rect_data_column_value = /*column*/ ctx[44])) {
+    			if (dirty[0] & /*columns*/ 4096 && rect_data_column_value !== (rect_data_column_value = /*column*/ ctx[46])) {
     				attr_dev(rect, "data-column", rect_data_column_value);
     			}
 
@@ -2672,14 +2718,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1$1.name,
     		type: "each",
-    		source: "(90:5) {#each columns as column}",
+    		source: "(95:5) {#each columns as column}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (89:4) {#each rows as row}
+    // (94:4) {#each rows as row}
     function create_each_block$1(ctx) {
     	let each_1_anchor;
     	let each_value_1 = /*columns*/ ctx[12];
@@ -2740,7 +2786,7 @@ var app = (function () {
     		block,
     		id: create_each_block$1.name,
     		type: "each",
-    		source: "(89:4) {#each rows as row}",
+    		source: "(94:4) {#each rows as row}",
     		ctx
     	});
 
@@ -2750,53 +2796,58 @@ var app = (function () {
     // (3:0) <LevelBuilderLayout tab="art">
     function create_default_slot(ctx) {
     	let t0;
-    	let div4;
+    	let div5;
     	let button0;
     	let t2;
     	let button1;
     	let t4;
     	let div0;
     	let button2;
-    	let t5;
-    	let t6_value = /*undos*/ ctx[5].length + "";
     	let t6;
-    	let button2_disabled_value;
-    	let t7;
     	let button3;
     	let t8;
-    	let t9_value = /*redos*/ ctx[6].length + "";
-    	let t9;
-    	let button3_disabled_value;
-    	let t10;
     	let div1;
+    	let button4;
+    	let t9;
+    	let t10_value = /*undos*/ ctx[5].length + "";
+    	let t10;
+    	let button4_disabled_value;
     	let t11;
-    	let input0;
+    	let button5;
     	let t12;
-    	let div2;
+    	let t13_value = /*redos*/ ctx[6].length + "";
     	let t13;
-    	let input1;
+    	let button5_disabled_value;
     	let t14;
-    	let div3;
+    	let div2;
     	let t15;
-    	let input2;
+    	let input0;
     	let t16;
+    	let div3;
+    	let t17;
+    	let input1;
+    	let t18;
+    	let div4;
+    	let t19;
+    	let input2;
+    	let t20;
     	let label;
     	let input3;
-    	let t17;
-    	let t18;
-    	let div11;
-    	let div6;
-    	let div5;
-    	let t19;
-    	let div10;
-    	let div9;
-    	let t20;
-    	let div8;
-    	let div7;
-    	let img;
-    	let img_src_value;
     	let t21;
     	let t22;
+    	let div12;
+    	let div7;
+    	let div6;
+    	let t23;
+    	let div11;
+    	let div10;
+    	let t24;
+    	let div9;
+    	let div8;
+    	let img;
+    	let img_src_value;
+    	let t25;
+    	let t26;
     	let svg;
     	let svg_width_value;
     	let svg_height_value;
@@ -2824,7 +2875,7 @@ var app = (function () {
     		c: function create() {
     			if (if_block0) if_block0.c();
     			t0 = space();
-    			div4 = element("div");
+    			div5 = element("div");
     			button0 = element("button");
     			button0.textContent = "Save";
     			t2 = space();
@@ -2833,47 +2884,54 @@ var app = (function () {
     			t4 = space();
     			div0 = element("div");
     			button2 = element("button");
-    			t5 = text("Undo ");
-    			t6 = text(t6_value);
-    			t7 = space();
+    			button2.textContent = "Flip horizontal";
+    			t6 = space();
     			button3 = element("button");
-    			t8 = text("Redo ");
-    			t9 = text(t9_value);
-    			t10 = space();
+    			button3.textContent = "Flip vertical";
+    			t8 = space();
     			div1 = element("div");
-    			t11 = text("Grid size\r\n\t\t\t");
-    			input0 = element("input");
-    			t12 = space();
-    			div2 = element("div");
-    			t13 = text("Height\r\n\t\t\t");
-    			input1 = element("input");
+    			button4 = element("button");
+    			t9 = text("Undo ");
+    			t10 = text(t10_value);
+    			t11 = space();
+    			button5 = element("button");
+    			t12 = text("Redo ");
+    			t13 = text(t13_value);
     			t14 = space();
-    			div3 = element("div");
-    			t15 = text("Width\r\n\t\t\t");
-    			input2 = element("input");
+    			div2 = element("div");
+    			t15 = text("Grid size\r\n\t\t\t");
+    			input0 = element("input");
     			t16 = space();
+    			div3 = element("div");
+    			t17 = text("Height\r\n\t\t\t");
+    			input1 = element("input");
+    			t18 = space();
+    			div4 = element("div");
+    			t19 = text("Width\r\n\t\t\t");
+    			input2 = element("input");
+    			t20 = space();
     			label = element("label");
     			input3 = element("input");
-    			t17 = text("\r\n\t\t\tShow grid");
-    			t18 = space();
-    			div11 = element("div");
+    			t21 = text("\r\n\t\t\tShow grid");
+    			t22 = space();
+    			div12 = element("div");
+    			div7 = element("div");
     			div6 = element("div");
-    			div5 = element("div");
 
     			for (let i = 0; i < each_blocks_1.length; i += 1) {
     				each_blocks_1[i].c();
     			}
 
-    			t19 = space();
+    			t23 = space();
+    			div11 = element("div");
     			div10 = element("div");
+    			t24 = text("Preview at in-game size / repeated next to same graphic:\r\n\t\t\t\t");
     			div9 = element("div");
-    			t20 = text("Preview at in-game size / repeated next to same graphic:\r\n\t\t\t\t");
     			div8 = element("div");
-    			div7 = element("div");
     			img = element("img");
-    			t21 = space();
+    			t25 = space();
     			if (if_block1) if_block1.c();
-    			t22 = space();
+    			t26 = space();
     			svg = svg_element("svg");
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
@@ -2887,114 +2945,127 @@ var app = (function () {
     			attr_dev(button1, "class", "btn btn-secondary btn-sm");
     			add_location(button1, file$2, 21, 2, 695);
     			attr_dev(button2, "type", "button");
-    			button2.disabled = button2_disabled_value = /*undos*/ ctx[5].length == 0;
-    			attr_dev(button2, "class", "btn btn-default btn-sm");
+    			attr_dev(button2, "class", "btn btn-secondary btn-sm");
     			add_location(button2, file$2, 24, 3, 815);
     			attr_dev(button3, "type", "button");
-    			button3.disabled = button3_disabled_value = /*redos*/ ctx[6].length == 0;
-    			attr_dev(button3, "class", "btn btn-default btn-sm");
-    			add_location(button3, file$2, 25, 3, 946);
+    			attr_dev(button3, "class", "btn btn-secondary btn-sm");
+    			add_location(button3, file$2, 25, 3, 916);
     			attr_dev(div0, "class", "btn-group");
     			add_location(div0, file$2, 23, 2, 787);
+    			attr_dev(button4, "type", "button");
+    			button4.disabled = button4_disabled_value = /*undos*/ ctx[5].length == 0;
+    			attr_dev(button4, "class", "btn btn-default btn-sm");
+    			add_location(button4, file$2, 29, 3, 1054);
+    			attr_dev(button5, "type", "button");
+    			button5.disabled = button5_disabled_value = /*redos*/ ctx[6].length == 0;
+    			attr_dev(button5, "class", "btn btn-default btn-sm");
+    			add_location(button5, file$2, 30, 3, 1185);
+    			attr_dev(div1, "class", "btn-group");
+    			add_location(div1, file$2, 28, 2, 1026);
     			attr_dev(input0, "type", "number");
     			attr_dev(input0, "min", "15");
     			attr_dev(input0, "max", "50");
     			attr_dev(input0, "step", "5");
     			attr_dev(input0, "class", "svelte-1a4yczt");
-    			add_location(input0, file$2, 30, 3, 1112);
-    			add_location(div1, file$2, 28, 2, 1088);
+    			add_location(input0, file$2, 35, 3, 1351);
+    			add_location(div2, file$2, 33, 2, 1327);
     			attr_dev(input1, "type", "number");
     			attr_dev(input1, "placeholder", "Height");
     			attr_dev(input1, "class", "svelte-1a4yczt");
-    			add_location(input1, file$2, 34, 3, 1219);
-    			add_location(div2, file$2, 32, 2, 1198);
+    			add_location(input1, file$2, 39, 3, 1458);
+    			add_location(div3, file$2, 37, 2, 1437);
     			attr_dev(input2, "type", "number");
     			attr_dev(input2, "placeholder", "Width");
     			attr_dev(input2, "class", "svelte-1a4yczt");
-    			add_location(input2, file$2, 38, 3, 1317);
-    			add_location(div3, file$2, 36, 2, 1297);
+    			add_location(input2, file$2, 43, 3, 1556);
+    			add_location(div4, file$2, 41, 2, 1536);
     			attr_dev(input3, "type", "checkbox");
-    			add_location(input3, file$2, 41, 3, 1405);
-    			add_location(label, file$2, 40, 2, 1393);
-    			attr_dev(div4, "class", "flex my-3 svelte-1a4yczt");
-    			add_location(div4, file$2, 19, 1, 569);
-    			attr_dev(div5, "class", "color-picker svelte-1a4yczt");
-    			add_location(div5, file$2, 48, 3, 1553);
-    			attr_dev(div6, "class", "controls");
-    			add_location(div6, file$2, 47, 2, 1526);
+    			add_location(input3, file$2, 46, 3, 1644);
+    			add_location(label, file$2, 45, 2, 1632);
+    			attr_dev(div5, "class", "flex my-3 svelte-1a4yczt");
+    			add_location(div5, file$2, 19, 1, 569);
+    			attr_dev(div6, "class", "color-picker svelte-1a4yczt");
+    			add_location(div6, file$2, 53, 3, 1792);
+    			attr_dev(div7, "class", "controls");
+    			add_location(div7, file$2, 52, 2, 1765);
     			if (img.src !== (img_src_value = /*previewPNG*/ ctx[10])) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "preview");
-    			add_location(img, file$2, 63, 6, 2104);
-    			add_location(div7, file$2, 62, 5, 2091);
-    			attr_dev(div8, "class", "p-3 preview-bg flex svelte-1a4yczt");
-    			add_location(div8, file$2, 61, 4, 2051);
-    			attr_dev(div9, "class", "my-1");
-    			add_location(div9, file$2, 59, 3, 1965);
+    			add_location(img, file$2, 68, 6, 2343);
+    			add_location(div8, file$2, 67, 5, 2330);
+    			attr_dev(div9, "class", "p-3 preview-bg flex svelte-1a4yczt");
+    			add_location(div9, file$2, 66, 4, 2290);
+    			attr_dev(div10, "class", "my-1");
+    			add_location(div10, file$2, 64, 3, 2204);
     			attr_dev(svg, "class", "preview-bg svelte-1a4yczt");
     			attr_dev(svg, "width", svg_width_value = /*width*/ ctx[4] * (/*gridSize*/ ctx[2] + 1));
     			attr_dev(svg, "height", svg_height_value = /*height*/ ctx[3] * (/*gridSize*/ ctx[2] + 1));
-    			add_location(svg, file$2, 80, 3, 2531);
-    			attr_dev(div10, "class", "flex-grow ");
-    			add_location(div10, file$2, 58, 2, 1936);
-    			attr_dev(div11, "class", "flex align-top");
-    			add_location(div11, file$2, 46, 1, 1494);
+    			add_location(svg, file$2, 85, 3, 2770);
+    			attr_dev(div11, "class", "flex-grow ");
+    			add_location(div11, file$2, 63, 2, 2175);
+    			attr_dev(div12, "class", "flex align-top");
+    			add_location(div12, file$2, 51, 1, 1733);
     		},
     		m: function mount(target, anchor) {
     			if (if_block0) if_block0.m(target, anchor);
     			insert_dev(target, t0, anchor);
-    			insert_dev(target, div4, anchor);
-    			append_dev(div4, button0);
-    			append_dev(div4, t2);
-    			append_dev(div4, button1);
-    			append_dev(div4, t4);
-    			append_dev(div4, div0);
+    			insert_dev(target, div5, anchor);
+    			append_dev(div5, button0);
+    			append_dev(div5, t2);
+    			append_dev(div5, button1);
+    			append_dev(div5, t4);
+    			append_dev(div5, div0);
     			append_dev(div0, button2);
-    			append_dev(button2, t5);
-    			append_dev(button2, t6);
-    			append_dev(div0, t7);
+    			append_dev(div0, t6);
     			append_dev(div0, button3);
-    			append_dev(button3, t8);
-    			append_dev(button3, t9);
-    			append_dev(div4, t10);
-    			append_dev(div4, div1);
+    			append_dev(div5, t8);
+    			append_dev(div5, div1);
+    			append_dev(div1, button4);
+    			append_dev(button4, t9);
+    			append_dev(button4, t10);
     			append_dev(div1, t11);
-    			append_dev(div1, input0);
+    			append_dev(div1, button5);
+    			append_dev(button5, t12);
+    			append_dev(button5, t13);
+    			append_dev(div5, t14);
+    			append_dev(div5, div2);
+    			append_dev(div2, t15);
+    			append_dev(div2, input0);
     			set_input_value(input0, /*gridSize*/ ctx[2]);
-    			append_dev(div4, t12);
-    			append_dev(div4, div2);
-    			append_dev(div2, t13);
-    			append_dev(div2, input1);
+    			append_dev(div5, t16);
+    			append_dev(div5, div3);
+    			append_dev(div3, t17);
+    			append_dev(div3, input1);
     			set_input_value(input1, /*height*/ ctx[3]);
-    			append_dev(div4, t14);
-    			append_dev(div4, div3);
-    			append_dev(div3, t15);
-    			append_dev(div3, input2);
+    			append_dev(div5, t18);
+    			append_dev(div5, div4);
+    			append_dev(div4, t19);
+    			append_dev(div4, input2);
     			set_input_value(input2, /*width*/ ctx[4]);
-    			append_dev(div4, t16);
-    			append_dev(div4, label);
+    			append_dev(div5, t20);
+    			append_dev(div5, label);
     			append_dev(label, input3);
     			input3.checked = /*showGrid*/ ctx[7];
-    			append_dev(label, t17);
-    			insert_dev(target, t18, anchor);
-    			insert_dev(target, div11, anchor);
-    			append_dev(div11, div6);
-    			append_dev(div6, div5);
+    			append_dev(label, t21);
+    			insert_dev(target, t22, anchor);
+    			insert_dev(target, div12, anchor);
+    			append_dev(div12, div7);
+    			append_dev(div7, div6);
 
     			for (let i = 0; i < each_blocks_1.length; i += 1) {
-    				each_blocks_1[i].m(div5, null);
+    				each_blocks_1[i].m(div6, null);
     			}
 
-    			append_dev(div11, t19);
+    			append_dev(div12, t23);
+    			append_dev(div12, div11);
     			append_dev(div11, div10);
+    			append_dev(div10, t24);
     			append_dev(div10, div9);
-    			append_dev(div9, t20);
     			append_dev(div9, div8);
-    			append_dev(div8, div7);
-    			append_dev(div7, img);
-    			append_dev(div8, t21);
-    			if (if_block1) if_block1.m(div8, null);
-    			append_dev(div10, t22);
-    			append_dev(div10, svg);
+    			append_dev(div8, img);
+    			append_dev(div9, t25);
+    			if (if_block1) if_block1.m(div9, null);
+    			append_dev(div11, t26);
+    			append_dev(div11, svg);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].m(svg, null);
@@ -3002,18 +3073,20 @@ var app = (function () {
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(button0, "click", /*click_handler_2*/ ctx[29], false, false, false),
+    					listen_dev(button0, "click", /*click_handler_2*/ ctx[31], false, false, false),
     					listen_dev(button1, "click", /*reset*/ ctx[15], false, false, false),
-    					listen_dev(button2, "click", /*undo*/ ctx[19], false, false, false),
-    					listen_dev(button3, "click", /*redo*/ ctx[20], false, false, false),
-    					listen_dev(input0, "input", /*input0_input_handler*/ ctx[30]),
-    					listen_dev(input1, "input", /*input1_input_handler*/ ctx[31]),
-    					listen_dev(input2, "input", /*input2_input_handler*/ ctx[32]),
-    					listen_dev(input3, "change", /*input3_change_handler*/ ctx[33]),
+    					listen_dev(button2, "click", /*flipX*/ ctx[27], false, false, false),
+    					listen_dev(button3, "click", /*flipY*/ ctx[26], false, false, false),
+    					listen_dev(button4, "click", /*undo*/ ctx[19], false, false, false),
+    					listen_dev(button5, "click", /*redo*/ ctx[20], false, false, false),
+    					listen_dev(input0, "input", /*input0_input_handler*/ ctx[32]),
+    					listen_dev(input1, "input", /*input1_input_handler*/ ctx[33]),
+    					listen_dev(input2, "input", /*input2_input_handler*/ ctx[34]),
+    					listen_dev(input3, "change", /*input3_change_handler*/ ctx[35]),
     					listen_dev(svg, "mousedown", /*onSvgMouseDown*/ ctx[16], false, false, false),
     					listen_dev(svg, "mouseup", /*onSvgMouseUp*/ ctx[17], false, false, false),
-    					listen_dev(svg, "contextmenu", prevent_default(/*contextmenu_handler*/ ctx[26]), false, true, false),
-    					listen_dev(svg, "mousemove", /*mousemove_handler*/ ctx[35], false, false, false)
+    					listen_dev(svg, "contextmenu", prevent_default(/*contextmenu_handler*/ ctx[28]), false, true, false),
+    					listen_dev(svg, "mousemove", /*mousemove_handler*/ ctx[37], false, false, false)
     				];
 
     				mounted = true;
@@ -3033,16 +3106,16 @@ var app = (function () {
     				if_block0 = null;
     			}
 
-    			if (dirty[0] & /*undos*/ 32 && t6_value !== (t6_value = /*undos*/ ctx[5].length + "")) set_data_dev(t6, t6_value);
+    			if (dirty[0] & /*undos*/ 32 && t10_value !== (t10_value = /*undos*/ ctx[5].length + "")) set_data_dev(t10, t10_value);
 
-    			if (dirty[0] & /*undos*/ 32 && button2_disabled_value !== (button2_disabled_value = /*undos*/ ctx[5].length == 0)) {
-    				prop_dev(button2, "disabled", button2_disabled_value);
+    			if (dirty[0] & /*undos*/ 32 && button4_disabled_value !== (button4_disabled_value = /*undos*/ ctx[5].length == 0)) {
+    				prop_dev(button4, "disabled", button4_disabled_value);
     			}
 
-    			if (dirty[0] & /*redos*/ 64 && t9_value !== (t9_value = /*redos*/ ctx[6].length + "")) set_data_dev(t9, t9_value);
+    			if (dirty[0] & /*redos*/ 64 && t13_value !== (t13_value = /*redos*/ ctx[6].length + "")) set_data_dev(t13, t13_value);
 
-    			if (dirty[0] & /*redos*/ 64 && button3_disabled_value !== (button3_disabled_value = /*redos*/ ctx[6].length == 0)) {
-    				prop_dev(button3, "disabled", button3_disabled_value);
+    			if (dirty[0] & /*redos*/ 64 && button5_disabled_value !== (button5_disabled_value = /*redos*/ ctx[6].length == 0)) {
+    				prop_dev(button5, "disabled", button5_disabled_value);
     			}
 
     			if (dirty[0] & /*gridSize*/ 4 && to_number(input0.value) !== /*gridSize*/ ctx[2]) {
@@ -3074,7 +3147,7 @@ var app = (function () {
     					} else {
     						each_blocks_1[i] = create_each_block_4(child_ctx);
     						each_blocks_1[i].c();
-    						each_blocks_1[i].m(div5, null);
+    						each_blocks_1[i].m(div6, null);
     					}
     				}
 
@@ -3095,7 +3168,7 @@ var app = (function () {
     				} else {
     					if_block1 = create_if_block$3(ctx);
     					if_block1.c();
-    					if_block1.m(div8, null);
+    					if_block1.m(div9, null);
     				}
     			} else if (if_block1) {
     				if_block1.d(1);
@@ -3137,9 +3210,9 @@ var app = (function () {
     		d: function destroy(detaching) {
     			if (if_block0) if_block0.d(detaching);
     			if (detaching) detach_dev(t0);
-    			if (detaching) detach_dev(div4);
-    			if (detaching) detach_dev(t18);
-    			if (detaching) detach_dev(div11);
+    			if (detaching) detach_dev(div5);
+    			if (detaching) detach_dev(t22);
+    			if (detaching) detach_dev(div12);
     			destroy_each(each_blocks_1, detaching);
     			if (if_block1) if_block1.d();
     			destroy_each(each_blocks, detaching);
@@ -3193,7 +3266,7 @@ var app = (function () {
     		p: function update(ctx, dirty) {
     			const levelbuilderlayout_changes = {};
 
-    			if (dirty[0] & /*width, gridSize, height, rows, columns, data, showGrid, previewPNG, selectedColor, redos, undos, savedNames, loaded*/ 8191 | dirty[1] & /*$$scope*/ 268435456) {
+    			if (dirty[0] & /*width, gridSize, height, rows, columns, data, showGrid, previewPNG, selectedColor, redos, undos, savedNames, loaded*/ 8191 | dirty[1] & /*$$scope*/ 1073741824) {
     				levelbuilderlayout_changes.$$scope = { dirty, ctx };
     			}
 
@@ -3240,7 +3313,7 @@ var app = (function () {
     	let $artStore;
     	const artStore = LocalStorageStore("pixel-drawings", {});
     	validate_store(artStore, "artStore");
-    	component_subscribe($$self, artStore, value => $$invalidate(37, $artStore = value));
+    	component_subscribe($$self, artStore, value => $$invalidate(39, $artStore = value));
     	let loaded = null;
 
     	const colors = [
@@ -3444,6 +3517,14 @@ var app = (function () {
     		}
     	}
 
+    	function flipY() {
+    		$$invalidate(8, data = data.reverse());
+    	}
+
+    	function flipX() {
+    		$$invalidate(8, data = data.map(d => d.reverse()));
+    	}
+
     	const writable_props = [];
 
     	Object_1$2.keys($$props).forEach(key => {
@@ -3516,6 +3597,8 @@ var app = (function () {
     		deleteSave,
     		getCellColor,
     		onKeyUp,
+    		flipY,
+    		flipX,
     		savedNames,
     		$artStore,
     		previewPNG,
@@ -3550,7 +3633,7 @@ var app = (function () {
     	}
 
     	$$self.$$.update = () => {
-    		if ($$self.$$.dirty[1] & /*$artStore*/ 64) {
+    		if ($$self.$$.dirty[1] & /*$artStore*/ 256) {
     			 $$invalidate(9, savedNames = Object.keys($artStore));
     		}
 
@@ -3594,6 +3677,8 @@ var app = (function () {
     		load,
     		deleteSave,
     		onKeyUp,
+    		flipY,
+    		flipX,
     		contextmenu_handler,
     		click_handler,
     		click_handler_1,
@@ -3628,7 +3713,7 @@ var app = (function () {
 
     function get_each_context$2(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[7] = list[i];
+    	child_ctx[8] = list[i];
     	return child_ctx;
     }
 
@@ -3669,12 +3754,15 @@ var app = (function () {
     	let dispose;
 
     	art = new Art({
-    			props: { name: /*drawingName*/ ctx[7] },
+    			props: {
+    				name: /*drawingName*/ ctx[8],
+    				spin: /*spin*/ ctx[1]
+    			},
     			$$inline: true
     		});
 
     	function click_handler(...args) {
-    		return /*click_handler*/ ctx[5](/*drawingName*/ ctx[7], ...args);
+    		return /*click_handler*/ ctx[6](/*drawingName*/ ctx[8], ...args);
     	}
 
     	const block = {
@@ -3683,7 +3771,7 @@ var app = (function () {
     			create_component(art.$$.fragment);
     			t = space();
     			attr_dev(div, "class", "svelte-1u0b3hs");
-    			toggle_class(div, "active", /*value*/ ctx[0] == /*drawingName*/ ctx[7]);
+    			toggle_class(div, "active", /*value*/ ctx[0] == /*drawingName*/ ctx[8]);
     			add_location(div, file$3, 6, 3, 146);
     		},
     		m: function mount(target, anchor) {
@@ -3700,11 +3788,12 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
     			const art_changes = {};
-    			if (dirty & /*options*/ 2) art_changes.name = /*drawingName*/ ctx[7];
+    			if (dirty & /*options*/ 4) art_changes.name = /*drawingName*/ ctx[8];
+    			if (dirty & /*spin*/ 2) art_changes.spin = /*spin*/ ctx[1];
     			art.$set(art_changes);
 
-    			if (dirty & /*value, options*/ 3) {
-    				toggle_class(div, "active", /*value*/ ctx[0] == /*drawingName*/ ctx[7]);
+    			if (dirty & /*value, options*/ 5) {
+    				toggle_class(div, "active", /*value*/ ctx[0] == /*drawingName*/ ctx[8]);
     			}
     		},
     		i: function intro(local) {
@@ -3741,10 +3830,10 @@ var app = (function () {
     	let t;
     	let div0;
     	let current;
-    	const default_slot_template = /*$$slots*/ ctx[4].default;
-    	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[3], null);
+    	const default_slot_template = /*$$slots*/ ctx[5].default;
+    	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[4], null);
     	const default_slot_or_fallback = default_slot || fallback_block(ctx);
-    	let each_value = /*options*/ ctx[1];
+    	let each_value = /*options*/ ctx[2];
     	validate_each_argument(each_value);
     	let each_blocks = [];
 
@@ -3797,13 +3886,13 @@ var app = (function () {
     		},
     		p: function update(ctx, [dirty]) {
     			if (default_slot) {
-    				if (default_slot.p && dirty & /*$$scope*/ 8) {
-    					update_slot(default_slot, default_slot_template, ctx, /*$$scope*/ ctx[3], dirty, null, null);
+    				if (default_slot.p && dirty & /*$$scope*/ 16) {
+    					update_slot(default_slot, default_slot_template, ctx, /*$$scope*/ ctx[4], dirty, null, null);
     				}
     			}
 
-    			if (dirty & /*value, options*/ 3) {
-    				each_value = /*options*/ ctx[1];
+    			if (dirty & /*value, options, spin*/ 7) {
+    				each_value = /*options*/ ctx[2];
     				validate_each_argument(each_value);
     				let i;
 
@@ -3871,10 +3960,11 @@ var app = (function () {
     function instance$4($$self, $$props, $$invalidate) {
     	let $artStore;
     	validate_store(artStore, "artStore");
-    	component_subscribe($$self, artStore, $$value => $$invalidate(6, $artStore = $$value));
+    	component_subscribe($$self, artStore, $$value => $$invalidate(7, $artStore = $$value));
     	let { value = null } = $$props;
     	let { filter = null } = $$props;
-    	const writable_props = ["value", "filter"];
+    	let { spin = false } = $$props;
+    	const writable_props = ["value", "filter", "spin"];
 
     	Object_1$3.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<FieldGraphicPicker> was created with unknown prop '${key}'`);
@@ -3886,8 +3976,9 @@ var app = (function () {
 
     	$$self.$$set = $$props => {
     		if ("value" in $$props) $$invalidate(0, value = $$props.value);
-    		if ("filter" in $$props) $$invalidate(2, filter = $$props.filter);
-    		if ("$$scope" in $$props) $$invalidate(3, $$scope = $$props.$$scope);
+    		if ("filter" in $$props) $$invalidate(3, filter = $$props.filter);
+    		if ("spin" in $$props) $$invalidate(1, spin = $$props.spin);
+    		if ("$$scope" in $$props) $$invalidate(4, $$scope = $$props.$$scope);
     	};
 
     	$$self.$capture_state = () => ({
@@ -3895,14 +3986,16 @@ var app = (function () {
     		Art,
     		value,
     		filter,
+    		spin,
     		options,
     		$artStore
     	});
 
     	$$self.$inject_state = $$props => {
     		if ("value" in $$props) $$invalidate(0, value = $$props.value);
-    		if ("filter" in $$props) $$invalidate(2, filter = $$props.filter);
-    		if ("options" in $$props) $$invalidate(1, options = $$props.options);
+    		if ("filter" in $$props) $$invalidate(3, filter = $$props.filter);
+    		if ("spin" in $$props) $$invalidate(1, spin = $$props.spin);
+    		if ("options" in $$props) $$invalidate(2, options = $$props.options);
     	};
 
     	let options;
@@ -3912,18 +4005,18 @@ var app = (function () {
     	}
 
     	$$self.$$.update = () => {
-    		if ($$self.$$.dirty & /*$artStore, filter*/ 68) {
-    			 $$invalidate(1, options = Object.keys($artStore).filter(name => filter == null || filter($artStore[name])));
+    		if ($$self.$$.dirty & /*$artStore, filter*/ 136) {
+    			 $$invalidate(2, options = Object.keys($artStore).filter(name => filter == null || filter($artStore[name])));
     		}
     	};
 
-    	return [value, options, filter, $$scope, $$slots, click_handler];
+    	return [value, spin, options, filter, $$scope, $$slots, click_handler];
     }
 
     class FieldGraphicPicker extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$4, create_fragment$4, safe_not_equal, { value: 0, filter: 2 });
+    		init(this, options, instance$4, create_fragment$4, safe_not_equal, { value: 0, filter: 3, spin: 1 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
@@ -3946,6 +4039,14 @@ var app = (function () {
     	}
 
     	set filter(value) {
+    		throw new Error("<FieldGraphicPicker>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get spin() {
+    		throw new Error("<FieldGraphicPicker>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set spin(value) {
     		throw new Error("<FieldGraphicPicker>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
     }
@@ -5566,7 +5667,7 @@ var app = (function () {
     const file$a = "src\\pages\\LevelBuilder\\CharacterBuilder.svelte";
 
     // (17:2) <FieldText name="name" bind:value={input.name}>
-    function create_default_slot_9(ctx) {
+    function create_default_slot_10(ctx) {
     	let t;
 
     	const block = {
@@ -5583,7 +5684,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_9.name,
+    		id: create_default_slot_10.name,
     		type: "slot",
     		source: "(17:2) <FieldText name=\\\"name\\\" bind:value={input.name}>",
     		ctx
@@ -5593,7 +5694,7 @@ var app = (function () {
     }
 
     // (18:2) <FieldGraphicPicker bind:value={input.graphicStill} filter={b => b.width != 20 || b.height != 20}>
-    function create_default_slot_8(ctx) {
+    function create_default_slot_9(ctx) {
     	let t;
 
     	const block = {
@@ -5610,7 +5711,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_8.name,
+    		id: create_default_slot_9.name,
     		type: "slot",
     		source: "(18:2) <FieldGraphicPicker bind:value={input.graphicStill} filter={b => b.width != 20 || b.height != 20}>",
     		ctx
@@ -5619,7 +5720,34 @@ var app = (function () {
     	return block;
     }
 
-    // (22:2) <FieldNumber name="maxVelocity" min={0} bind:value={input.maxVelocity}>
+    // (19:2) <FieldGraphicPicker bind:value={input.graphicSpinning} filter={b => b.width != 20 || b.height != 20} spin>
+    function create_default_slot_8(ctx) {
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			t = text("Spinning graphic");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, t, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(t);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot_8.name,
+    		type: "slot",
+    		source: "(19:2) <FieldGraphicPicker bind:value={input.graphicSpinning} filter={b => b.width != 20 || b.height != 20} spin>",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (23:2) <FieldNumber name="maxVelocity" min={0} bind:value={input.maxVelocity}>
     function create_default_slot_7(ctx) {
     	let t;
 
@@ -5639,14 +5767,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_7.name,
     		type: "slot",
-    		source: "(22:2) <FieldNumber name=\\\"maxVelocity\\\" min={0} bind:value={input.maxVelocity}>",
+    		source: "(23:2) <FieldNumber name=\\\"maxVelocity\\\" min={0} bind:value={input.maxVelocity}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (23:2) <FieldNumber name="jumpVelocity" min={0} bind:value={input.jumpVelocity}>
+    // (24:2) <FieldNumber name="jumpVelocity" min={0} bind:value={input.jumpVelocity}>
     function create_default_slot_6$1(ctx) {
     	let t;
 
@@ -5666,14 +5794,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_6$1.name,
     		type: "slot",
-    		source: "(23:2) <FieldNumber name=\\\"jumpVelocity\\\" min={0} bind:value={input.jumpVelocity}>",
+    		source: "(24:2) <FieldNumber name=\\\"jumpVelocity\\\" min={0} bind:value={input.jumpVelocity}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (24:2) <FieldNumber name="gravityMultiplier" min={0} max={2} step={0.1} bind:value={input.gravityMultiplier}>
+    // (25:2) <FieldNumber name="gravityMultiplier" min={0} max={2} step={0.1} bind:value={input.gravityMultiplier}>
     function create_default_slot_5$1(ctx) {
     	let t;
 
@@ -5693,14 +5821,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_5$1.name,
     		type: "slot",
-    		source: "(24:2) <FieldNumber name=\\\"gravityMultiplier\\\" min={0} max={2} step={0.1} bind:value={input.gravityMultiplier}>",
+    		source: "(25:2) <FieldNumber name=\\\"gravityMultiplier\\\" min={0} max={2} step={0.1} bind:value={input.gravityMultiplier}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (25:2) <FieldNumber name="fallDamageMultiplier" min={0} max={1} step={0.1} bind:value={input.fallDamageMultiplier}>
+    // (26:2) <FieldNumber name="fallDamageMultiplier" min={0} max={1} step={0.1} bind:value={input.fallDamageMultiplier}>
     function create_default_slot_4$1(ctx) {
     	let t;
 
@@ -5720,14 +5848,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_4$1.name,
     		type: "slot",
-    		source: "(25:2) <FieldNumber name=\\\"fallDamageMultiplier\\\" min={0} max={1} step={0.1} bind:value={input.fallDamageMultiplier}>",
+    		source: "(26:2) <FieldNumber name=\\\"fallDamageMultiplier\\\" min={0} max={1} step={0.1} bind:value={input.fallDamageMultiplier}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (26:2) <FieldNumber name="maxHealth" bind:value={input.maxHealth}>
+    // (27:2) <FieldNumber name="maxHealth" bind:value={input.maxHealth}>
     function create_default_slot_3$1(ctx) {
     	let t;
 
@@ -5747,14 +5875,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_3$1.name,
     		type: "slot",
-    		source: "(26:2) <FieldNumber name=\\\"maxHealth\\\" bind:value={input.maxHealth}>",
+    		source: "(27:2) <FieldNumber name=\\\"maxHealth\\\" bind:value={input.maxHealth}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (27:2) <FieldNumber name="dps" bind:value={input.dps}>
+    // (28:2) <FieldNumber name="dps" bind:value={input.dps}>
     function create_default_slot_2$1(ctx) {
     	let t;
 
@@ -5774,14 +5902,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_2$1.name,
     		type: "slot",
-    		source: "(27:2) <FieldNumber name=\\\"dps\\\" bind:value={input.dps}>",
+    		source: "(28:2) <FieldNumber name=\\\"dps\\\" bind:value={input.dps}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (29:3) {#if !isAdding}
+    // (30:3) {#if !isAdding}
     function create_if_block$5(ctx) {
     	let button;
     	let mounted;
@@ -5793,13 +5921,13 @@ var app = (function () {
     			button.textContent = "Delete";
     			attr_dev(button, "type", "button");
     			attr_dev(button, "class", "btn btn-danger");
-    			add_location(button, file$a, 29, 4, 1983);
+    			add_location(button, file$a, 30, 4, 2130);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
 
     			if (!mounted) {
-    				dispose = listen_dev(button, "click", /*click_handler*/ ctx[14], false, false, false);
+    				dispose = listen_dev(button, "click", /*click_handler*/ ctx[15], false, false, false);
     				mounted = true;
     			}
     		},
@@ -5815,14 +5943,14 @@ var app = (function () {
     		block,
     		id: create_if_block$5.name,
     		type: "if",
-    		source: "(29:3) {#if !isAdding}",
+    		source: "(30:3) {#if !isAdding}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (28:2) <span slot="buttons">
+    // (29:2) <span slot="buttons">
     function create_buttons_slot$1(ctx) {
     	let span;
     	let if_block = !/*isAdding*/ ctx[1] && create_if_block$5(ctx);
@@ -5832,7 +5960,7 @@ var app = (function () {
     			span = element("span");
     			if (if_block) if_block.c();
     			attr_dev(span, "slot", "buttons");
-    			add_location(span, file$a, 27, 2, 1936);
+    			add_location(span, file$a, 28, 2, 2083);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -5862,7 +5990,7 @@ var app = (function () {
     		block,
     		id: create_buttons_slot$1.name,
     		type: "slot",
-    		source: "(28:2) <span slot=\\\"buttons\\\">",
+    		source: "(29:2) <span slot=\\\"buttons\\\">",
     		ctx
     	});
 
@@ -5874,27 +6002,30 @@ var app = (function () {
     	let fieldtext;
     	let updating_value;
     	let t0;
-    	let fieldgraphicpicker;
+    	let fieldgraphicpicker0;
     	let updating_value_1;
     	let t1;
-    	let fieldnumber0;
+    	let fieldgraphicpicker1;
     	let updating_value_2;
     	let t2;
-    	let fieldnumber1;
+    	let fieldnumber0;
     	let updating_value_3;
     	let t3;
-    	let fieldnumber2;
+    	let fieldnumber1;
     	let updating_value_4;
     	let t4;
-    	let fieldnumber3;
+    	let fieldnumber2;
     	let updating_value_5;
     	let t5;
-    	let fieldnumber4;
+    	let fieldnumber3;
     	let updating_value_6;
     	let t6;
-    	let fieldnumber5;
+    	let fieldnumber4;
     	let updating_value_7;
     	let t7;
+    	let fieldnumber5;
+    	let updating_value_8;
+    	let t8;
     	let current;
 
     	function fieldtext_value_binding(value) {
@@ -5903,7 +6034,7 @@ var app = (function () {
 
     	let fieldtext_props = {
     		name: "name",
-    		$$slots: { default: [create_default_slot_9] },
+    		$$slots: { default: [create_default_slot_10] },
     		$$scope: { ctx }
     	};
 
@@ -5914,29 +6045,51 @@ var app = (function () {
     	fieldtext = new FieldText({ props: fieldtext_props, $$inline: true });
     	binding_callbacks.push(() => bind(fieldtext, "value", fieldtext_value_binding));
 
-    	function fieldgraphicpicker_value_binding(value) {
-    		/*fieldgraphicpicker_value_binding*/ ctx[7].call(null, value);
+    	function fieldgraphicpicker0_value_binding(value) {
+    		/*fieldgraphicpicker0_value_binding*/ ctx[7].call(null, value);
     	}
 
-    	let fieldgraphicpicker_props = {
+    	let fieldgraphicpicker0_props = {
     		filter: func$1,
-    		$$slots: { default: [create_default_slot_8] },
+    		$$slots: { default: [create_default_slot_9] },
     		$$scope: { ctx }
     	};
 
     	if (/*input*/ ctx[0].graphicStill !== void 0) {
-    		fieldgraphicpicker_props.value = /*input*/ ctx[0].graphicStill;
+    		fieldgraphicpicker0_props.value = /*input*/ ctx[0].graphicStill;
     	}
 
-    	fieldgraphicpicker = new FieldGraphicPicker({
-    			props: fieldgraphicpicker_props,
+    	fieldgraphicpicker0 = new FieldGraphicPicker({
+    			props: fieldgraphicpicker0_props,
     			$$inline: true
     		});
 
-    	binding_callbacks.push(() => bind(fieldgraphicpicker, "value", fieldgraphicpicker_value_binding));
+    	binding_callbacks.push(() => bind(fieldgraphicpicker0, "value", fieldgraphicpicker0_value_binding));
+
+    	function fieldgraphicpicker1_value_binding(value) {
+    		/*fieldgraphicpicker1_value_binding*/ ctx[8].call(null, value);
+    	}
+
+    	let fieldgraphicpicker1_props = {
+    		filter: func_1,
+    		spin: true,
+    		$$slots: { default: [create_default_slot_8] },
+    		$$scope: { ctx }
+    	};
+
+    	if (/*input*/ ctx[0].graphicSpinning !== void 0) {
+    		fieldgraphicpicker1_props.value = /*input*/ ctx[0].graphicSpinning;
+    	}
+
+    	fieldgraphicpicker1 = new FieldGraphicPicker({
+    			props: fieldgraphicpicker1_props,
+    			$$inline: true
+    		});
+
+    	binding_callbacks.push(() => bind(fieldgraphicpicker1, "value", fieldgraphicpicker1_value_binding));
 
     	function fieldnumber0_value_binding(value) {
-    		/*fieldnumber0_value_binding*/ ctx[8].call(null, value);
+    		/*fieldnumber0_value_binding*/ ctx[9].call(null, value);
     	}
 
     	let fieldnumber0_props = {
@@ -5958,7 +6111,7 @@ var app = (function () {
     	binding_callbacks.push(() => bind(fieldnumber0, "value", fieldnumber0_value_binding));
 
     	function fieldnumber1_value_binding(value) {
-    		/*fieldnumber1_value_binding*/ ctx[9].call(null, value);
+    		/*fieldnumber1_value_binding*/ ctx[10].call(null, value);
     	}
 
     	let fieldnumber1_props = {
@@ -5980,7 +6133,7 @@ var app = (function () {
     	binding_callbacks.push(() => bind(fieldnumber1, "value", fieldnumber1_value_binding));
 
     	function fieldnumber2_value_binding(value) {
-    		/*fieldnumber2_value_binding*/ ctx[10].call(null, value);
+    		/*fieldnumber2_value_binding*/ ctx[11].call(null, value);
     	}
 
     	let fieldnumber2_props = {
@@ -6004,7 +6157,7 @@ var app = (function () {
     	binding_callbacks.push(() => bind(fieldnumber2, "value", fieldnumber2_value_binding));
 
     	function fieldnumber3_value_binding(value) {
-    		/*fieldnumber3_value_binding*/ ctx[11].call(null, value);
+    		/*fieldnumber3_value_binding*/ ctx[12].call(null, value);
     	}
 
     	let fieldnumber3_props = {
@@ -6028,7 +6181,7 @@ var app = (function () {
     	binding_callbacks.push(() => bind(fieldnumber3, "value", fieldnumber3_value_binding));
 
     	function fieldnumber4_value_binding(value) {
-    		/*fieldnumber4_value_binding*/ ctx[12].call(null, value);
+    		/*fieldnumber4_value_binding*/ ctx[13].call(null, value);
     	}
 
     	let fieldnumber4_props = {
@@ -6049,7 +6202,7 @@ var app = (function () {
     	binding_callbacks.push(() => bind(fieldnumber4, "value", fieldnumber4_value_binding));
 
     	function fieldnumber5_value_binding(value) {
-    		/*fieldnumber5_value_binding*/ ctx[13].call(null, value);
+    		/*fieldnumber5_value_binding*/ ctx[14].call(null, value);
     	}
 
     	let fieldnumber5_props = {
@@ -6073,44 +6226,48 @@ var app = (function () {
     		c: function create() {
     			create_component(fieldtext.$$.fragment);
     			t0 = space();
-    			create_component(fieldgraphicpicker.$$.fragment);
+    			create_component(fieldgraphicpicker0.$$.fragment);
     			t1 = space();
-    			create_component(fieldnumber0.$$.fragment);
+    			create_component(fieldgraphicpicker1.$$.fragment);
     			t2 = space();
-    			create_component(fieldnumber1.$$.fragment);
+    			create_component(fieldnumber0.$$.fragment);
     			t3 = space();
-    			create_component(fieldnumber2.$$.fragment);
+    			create_component(fieldnumber1.$$.fragment);
     			t4 = space();
-    			create_component(fieldnumber3.$$.fragment);
+    			create_component(fieldnumber2.$$.fragment);
     			t5 = space();
-    			create_component(fieldnumber4.$$.fragment);
+    			create_component(fieldnumber3.$$.fragment);
     			t6 = space();
-    			create_component(fieldnumber5.$$.fragment);
+    			create_component(fieldnumber4.$$.fragment);
     			t7 = space();
+    			create_component(fieldnumber5.$$.fragment);
+    			t8 = space();
     		},
     		m: function mount(target, anchor) {
     			mount_component(fieldtext, target, anchor);
     			insert_dev(target, t0, anchor);
-    			mount_component(fieldgraphicpicker, target, anchor);
+    			mount_component(fieldgraphicpicker0, target, anchor);
     			insert_dev(target, t1, anchor);
-    			mount_component(fieldnumber0, target, anchor);
+    			mount_component(fieldgraphicpicker1, target, anchor);
     			insert_dev(target, t2, anchor);
-    			mount_component(fieldnumber1, target, anchor);
+    			mount_component(fieldnumber0, target, anchor);
     			insert_dev(target, t3, anchor);
-    			mount_component(fieldnumber2, target, anchor);
+    			mount_component(fieldnumber1, target, anchor);
     			insert_dev(target, t4, anchor);
-    			mount_component(fieldnumber3, target, anchor);
+    			mount_component(fieldnumber2, target, anchor);
     			insert_dev(target, t5, anchor);
-    			mount_component(fieldnumber4, target, anchor);
+    			mount_component(fieldnumber3, target, anchor);
     			insert_dev(target, t6, anchor);
-    			mount_component(fieldnumber5, target, anchor);
+    			mount_component(fieldnumber4, target, anchor);
     			insert_dev(target, t7, anchor);
+    			mount_component(fieldnumber5, target, anchor);
+    			insert_dev(target, t8, anchor);
     			current = true;
     		},
     		p: function update(ctx, dirty) {
     			const fieldtext_changes = {};
 
-    			if (dirty & /*$$scope*/ 262144) {
+    			if (dirty & /*$$scope*/ 524288) {
     				fieldtext_changes.$$scope = { dirty, ctx };
     			}
 
@@ -6121,94 +6278,107 @@ var app = (function () {
     			}
 
     			fieldtext.$set(fieldtext_changes);
-    			const fieldgraphicpicker_changes = {};
+    			const fieldgraphicpicker0_changes = {};
 
-    			if (dirty & /*$$scope*/ 262144) {
-    				fieldgraphicpicker_changes.$$scope = { dirty, ctx };
+    			if (dirty & /*$$scope*/ 524288) {
+    				fieldgraphicpicker0_changes.$$scope = { dirty, ctx };
     			}
 
     			if (!updating_value_1 && dirty & /*input*/ 1) {
     				updating_value_1 = true;
-    				fieldgraphicpicker_changes.value = /*input*/ ctx[0].graphicStill;
+    				fieldgraphicpicker0_changes.value = /*input*/ ctx[0].graphicStill;
     				add_flush_callback(() => updating_value_1 = false);
     			}
 
-    			fieldgraphicpicker.$set(fieldgraphicpicker_changes);
-    			const fieldnumber0_changes = {};
+    			fieldgraphicpicker0.$set(fieldgraphicpicker0_changes);
+    			const fieldgraphicpicker1_changes = {};
 
-    			if (dirty & /*$$scope*/ 262144) {
-    				fieldnumber0_changes.$$scope = { dirty, ctx };
+    			if (dirty & /*$$scope*/ 524288) {
+    				fieldgraphicpicker1_changes.$$scope = { dirty, ctx };
     			}
 
     			if (!updating_value_2 && dirty & /*input*/ 1) {
     				updating_value_2 = true;
-    				fieldnumber0_changes.value = /*input*/ ctx[0].maxVelocity;
+    				fieldgraphicpicker1_changes.value = /*input*/ ctx[0].graphicSpinning;
     				add_flush_callback(() => updating_value_2 = false);
+    			}
+
+    			fieldgraphicpicker1.$set(fieldgraphicpicker1_changes);
+    			const fieldnumber0_changes = {};
+
+    			if (dirty & /*$$scope*/ 524288) {
+    				fieldnumber0_changes.$$scope = { dirty, ctx };
+    			}
+
+    			if (!updating_value_3 && dirty & /*input*/ 1) {
+    				updating_value_3 = true;
+    				fieldnumber0_changes.value = /*input*/ ctx[0].maxVelocity;
+    				add_flush_callback(() => updating_value_3 = false);
     			}
 
     			fieldnumber0.$set(fieldnumber0_changes);
     			const fieldnumber1_changes = {};
 
-    			if (dirty & /*$$scope*/ 262144) {
+    			if (dirty & /*$$scope*/ 524288) {
     				fieldnumber1_changes.$$scope = { dirty, ctx };
     			}
 
-    			if (!updating_value_3 && dirty & /*input*/ 1) {
-    				updating_value_3 = true;
+    			if (!updating_value_4 && dirty & /*input*/ 1) {
+    				updating_value_4 = true;
     				fieldnumber1_changes.value = /*input*/ ctx[0].jumpVelocity;
-    				add_flush_callback(() => updating_value_3 = false);
+    				add_flush_callback(() => updating_value_4 = false);
     			}
 
     			fieldnumber1.$set(fieldnumber1_changes);
     			const fieldnumber2_changes = {};
 
-    			if (dirty & /*$$scope*/ 262144) {
+    			if (dirty & /*$$scope*/ 524288) {
     				fieldnumber2_changes.$$scope = { dirty, ctx };
     			}
 
-    			if (!updating_value_4 && dirty & /*input*/ 1) {
-    				updating_value_4 = true;
+    			if (!updating_value_5 && dirty & /*input*/ 1) {
+    				updating_value_5 = true;
     				fieldnumber2_changes.value = /*input*/ ctx[0].gravityMultiplier;
-    				add_flush_callback(() => updating_value_4 = false);
+    				add_flush_callback(() => updating_value_5 = false);
     			}
 
     			fieldnumber2.$set(fieldnumber2_changes);
     			const fieldnumber3_changes = {};
 
-    			if (dirty & /*$$scope*/ 262144) {
+    			if (dirty & /*$$scope*/ 524288) {
     				fieldnumber3_changes.$$scope = { dirty, ctx };
     			}
 
-    			if (!updating_value_5 && dirty & /*input*/ 1) {
-    				updating_value_5 = true;
+    			if (!updating_value_6 && dirty & /*input*/ 1) {
+    				updating_value_6 = true;
     				fieldnumber3_changes.value = /*input*/ ctx[0].fallDamageMultiplier;
-    				add_flush_callback(() => updating_value_5 = false);
+    				add_flush_callback(() => updating_value_6 = false);
     			}
 
     			fieldnumber3.$set(fieldnumber3_changes);
     			const fieldnumber4_changes = {};
 
-    			if (dirty & /*$$scope*/ 262144) {
+    			if (dirty & /*$$scope*/ 524288) {
     				fieldnumber4_changes.$$scope = { dirty, ctx };
     			}
 
-    			if (!updating_value_6 && dirty & /*input*/ 1) {
-    				updating_value_6 = true;
+    			if (!updating_value_7 && dirty & /*input*/ 1) {
+    				updating_value_7 = true;
     				fieldnumber4_changes.value = /*input*/ ctx[0].maxHealth;
-    				add_flush_callback(() => updating_value_6 = false);
+    				add_flush_callback(() => updating_value_7 = false);
     			}
 
     			fieldnumber4.$set(fieldnumber4_changes);
     			const fieldnumber5_changes = {};
 
-    			if (dirty & /*$$scope*/ 262144) {
+    			if (dirty & /*$$scope*/ 524288) {
     				fieldnumber5_changes.$$scope = { dirty, ctx };
     			}
 
-    			if (!updating_value_7 && dirty & /*input*/ 1) {
-    				updating_value_7 = true;
+    			if (!updating_value_8 && dirty & /*input*/ 1) {
+    				updating_value_8 = true;
     				fieldnumber5_changes.value = /*input*/ ctx[0].dps;
-    				add_flush_callback(() => updating_value_7 = false);
+    				add_flush_callback(() => updating_value_8 = false);
     			}
 
     			fieldnumber5.$set(fieldnumber5_changes);
@@ -6216,7 +6386,8 @@ var app = (function () {
     		i: function intro(local) {
     			if (current) return;
     			transition_in(fieldtext.$$.fragment, local);
-    			transition_in(fieldgraphicpicker.$$.fragment, local);
+    			transition_in(fieldgraphicpicker0.$$.fragment, local);
+    			transition_in(fieldgraphicpicker1.$$.fragment, local);
     			transition_in(fieldnumber0.$$.fragment, local);
     			transition_in(fieldnumber1.$$.fragment, local);
     			transition_in(fieldnumber2.$$.fragment, local);
@@ -6227,7 +6398,8 @@ var app = (function () {
     		},
     		o: function outro(local) {
     			transition_out(fieldtext.$$.fragment, local);
-    			transition_out(fieldgraphicpicker.$$.fragment, local);
+    			transition_out(fieldgraphicpicker0.$$.fragment, local);
+    			transition_out(fieldgraphicpicker1.$$.fragment, local);
     			transition_out(fieldnumber0.$$.fragment, local);
     			transition_out(fieldnumber1.$$.fragment, local);
     			transition_out(fieldnumber2.$$.fragment, local);
@@ -6239,20 +6411,22 @@ var app = (function () {
     		d: function destroy(detaching) {
     			destroy_component(fieldtext, detaching);
     			if (detaching) detach_dev(t0);
-    			destroy_component(fieldgraphicpicker, detaching);
+    			destroy_component(fieldgraphicpicker0, detaching);
     			if (detaching) detach_dev(t1);
-    			destroy_component(fieldnumber0, detaching);
+    			destroy_component(fieldgraphicpicker1, detaching);
     			if (detaching) detach_dev(t2);
-    			destroy_component(fieldnumber1, detaching);
+    			destroy_component(fieldnumber0, detaching);
     			if (detaching) detach_dev(t3);
-    			destroy_component(fieldnumber2, detaching);
+    			destroy_component(fieldnumber1, detaching);
     			if (detaching) detach_dev(t4);
-    			destroy_component(fieldnumber3, detaching);
+    			destroy_component(fieldnumber2, detaching);
     			if (detaching) detach_dev(t5);
-    			destroy_component(fieldnumber4, detaching);
+    			destroy_component(fieldnumber3, detaching);
     			if (detaching) detach_dev(t6);
-    			destroy_component(fieldnumber5, detaching);
+    			destroy_component(fieldnumber4, detaching);
     			if (detaching) detach_dev(t7);
+    			destroy_component(fieldnumber5, detaching);
+    			if (detaching) detach_dev(t8);
     		}
     	};
 
@@ -6296,7 +6470,7 @@ var app = (function () {
     		p: function update(ctx, dirty) {
     			const form_changes = {};
 
-    			if (dirty & /*$$scope, input, isAdding*/ 262147) {
+    			if (dirty & /*$$scope, input, isAdding*/ 524291) {
     				form_changes.$$scope = { dirty, ctx };
     			}
 
@@ -6358,7 +6532,7 @@ var app = (function () {
     			if (dirty & /*input*/ 1) levelbuilderlayout_changes.activeName = /*input*/ ctx[0].name;
     			if (dirty & /*$characters*/ 4) levelbuilderlayout_changes.store = /*$characters*/ ctx[2];
 
-    			if (dirty & /*$$scope, input, isAdding*/ 262147) {
+    			if (dirty & /*$$scope, input, isAdding*/ 524291) {
     				levelbuilderlayout_changes.$$scope = { dirty, ctx };
     			}
 
@@ -6390,6 +6564,7 @@ var app = (function () {
     }
 
     const func$1 = b => b.width != 20 || b.height != 20;
+    const func_1 = b => b.width != 20 || b.height != 20;
 
     function instance$b($$self, $$props, $$invalidate) {
     	let $characters;
@@ -6410,6 +6585,7 @@ var app = (function () {
     	function create() {
     		$$invalidate(0, input = {
     			graphicStill: null,
+    			graphicSpinning: null,
     			name: "",
     			maxVelocity: 20,
     			jumpVelocity: 15,
@@ -6441,8 +6617,13 @@ var app = (function () {
     		$$invalidate(0, input);
     	}
 
-    	function fieldgraphicpicker_value_binding(value) {
+    	function fieldgraphicpicker0_value_binding(value) {
     		input.graphicStill = value;
+    		$$invalidate(0, input);
+    	}
+
+    	function fieldgraphicpicker1_value_binding(value) {
+    		input.graphicSpinning = value;
     		$$invalidate(0, input);
     	}
 
@@ -6505,7 +6686,7 @@ var app = (function () {
     	$$self.$inject_state = $$props => {
     		if ("params" in $$props) $$invalidate(5, params = $$props.params);
     		if ("input" in $$props) $$invalidate(0, input = $$props.input);
-    		if ("paramName" in $$props) $$invalidate(15, paramName = $$props.paramName);
+    		if ("paramName" in $$props) $$invalidate(16, paramName = $$props.paramName);
     		if ("isAdding" in $$props) $$invalidate(1, isAdding = $$props.isAdding);
     	};
 
@@ -6518,14 +6699,14 @@ var app = (function () {
 
     	$$self.$$.update = () => {
     		if ($$self.$$.dirty & /*params*/ 32) {
-    			 $$invalidate(15, paramName = decodeURIComponent(params.name) || "new");
+    			 $$invalidate(16, paramName = decodeURIComponent(params.name) || "new");
     		}
 
-    		if ($$self.$$.dirty & /*paramName*/ 32768) {
+    		if ($$self.$$.dirty & /*paramName*/ 65536) {
     			 paramName == "new" ? create() : edit(paramName);
     		}
 
-    		if ($$self.$$.dirty & /*paramName*/ 32768) {
+    		if ($$self.$$.dirty & /*paramName*/ 65536) {
     			 $$invalidate(1, isAdding = paramName == "new");
     		}
     	};
@@ -6538,7 +6719,8 @@ var app = (function () {
     		del,
     		params,
     		fieldtext_value_binding,
-    		fieldgraphicpicker_value_binding,
+    		fieldgraphicpicker0_value_binding,
+    		fieldgraphicpicker1_value_binding,
     		fieldnumber0_value_binding,
     		fieldnumber1_value_binding,
     		fieldnumber2_value_binding,
@@ -10819,11 +11001,11 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			img = element("img");
-    			attr_dev(img, "class", "graphic svelte-8td79i");
+    			attr_dev(img, "class", "graphic svelte-1kb5wuu");
     			if (img.src !== (img_src_value = /*graphic*/ ctx[6].png)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", /*name*/ ctx[0]);
-    			set_style(img, "width", /*graphic*/ ctx[6].width + "px");
-    			set_style(img, "height", /*graphic*/ ctx[6].height + "px");
+    			set_style(img, "width", /*graphic*/ ctx[6].width * artScale + "px");
+    			set_style(img, "height", /*graphic*/ ctx[6].height * artScale + "px");
     			set_style(img, "transform", "scaleX(" + /*direction*/ ctx[5] + ") rotate(" + /*rotate*/ ctx[7] + "deg)");
     			add_location(img, file$m, 3, 2, 121);
     		},
@@ -10840,11 +11022,11 @@ var app = (function () {
     			}
 
     			if (dirty & /*graphic*/ 64) {
-    				set_style(img, "width", /*graphic*/ ctx[6].width + "px");
+    				set_style(img, "width", /*graphic*/ ctx[6].width * artScale + "px");
     			}
 
     			if (dirty & /*graphic*/ 64) {
-    				set_style(img, "height", /*graphic*/ ctx[6].height + "px");
+    				set_style(img, "height", /*graphic*/ ctx[6].height * artScale + "px");
     			}
 
     			if (dirty & /*direction, rotate*/ 160) {
@@ -10889,7 +11071,7 @@ var app = (function () {
     			create_component(healthbar.$$.fragment);
     			t = space();
     			if (if_block) if_block.c();
-    			attr_dev(div, "class", "player svelte-8td79i");
+    			attr_dev(div, "class", "player svelte-1kb5wuu");
     			set_style(div, "left", /*x*/ ctx[3] + "px");
     			set_style(div, "bottom", /*y*/ ctx[2] + "px");
     			add_location(div, file$m, 0, 0, 0);
@@ -10958,13 +11140,16 @@ var app = (function () {
     	return block;
     }
 
+    const artScale = 2;
+
     function instance$o($$self, $$props, $$invalidate) {
     	let $artStore;
     	validate_store(artStore, "artStore");
-    	component_subscribe($$self, artStore, $$value => $$invalidate(14, $artStore = $$value));
+    	component_subscribe($$self, artStore, $$value => $$invalidate(15, $artStore = $$value));
     	let { name } = $$props;
     	let { maxHealth } = $$props;
     	let { graphicStill } = $$props;
+    	let { graphicSpinning } = $$props;
     	let { vx = 0 } = $$props;
     	let { vy = 0 } = $$props;
     	let { y = 0 } = $$props;
@@ -10979,6 +11164,7 @@ var app = (function () {
     		"name",
     		"maxHealth",
     		"graphicStill",
+    		"graphicSpinning",
     		"vx",
     		"vy",
     		"y",
@@ -10998,20 +11184,23 @@ var app = (function () {
     		if ("name" in $$props) $$invalidate(0, name = $$props.name);
     		if ("maxHealth" in $$props) $$invalidate(1, maxHealth = $$props.maxHealth);
     		if ("graphicStill" in $$props) $$invalidate(8, graphicStill = $$props.graphicStill);
-    		if ("vx" in $$props) $$invalidate(9, vx = $$props.vx);
-    		if ("vy" in $$props) $$invalidate(10, vy = $$props.vy);
+    		if ("graphicSpinning" in $$props) $$invalidate(9, graphicSpinning = $$props.graphicSpinning);
+    		if ("vx" in $$props) $$invalidate(10, vx = $$props.vx);
+    		if ("vy" in $$props) $$invalidate(11, vy = $$props.vy);
     		if ("y" in $$props) $$invalidate(2, y = $$props.y);
     		if ("x" in $$props) $$invalidate(3, x = $$props.x);
     		if ("health" in $$props) $$invalidate(4, health = $$props.health);
-    		if ("spinning" in $$props) $$invalidate(11, spinning = $$props.spinning);
+    		if ("spinning" in $$props) $$invalidate(12, spinning = $$props.spinning);
     	};
 
     	$$self.$capture_state = () => ({
     		artStore,
     		HealthBar,
+    		artScale,
     		name,
     		maxHealth,
     		graphicStill,
+    		graphicSpinning,
     		vx,
     		vy,
     		y,
@@ -11030,15 +11219,16 @@ var app = (function () {
     		if ("name" in $$props) $$invalidate(0, name = $$props.name);
     		if ("maxHealth" in $$props) $$invalidate(1, maxHealth = $$props.maxHealth);
     		if ("graphicStill" in $$props) $$invalidate(8, graphicStill = $$props.graphicStill);
-    		if ("vx" in $$props) $$invalidate(9, vx = $$props.vx);
-    		if ("vy" in $$props) $$invalidate(10, vy = $$props.vy);
+    		if ("graphicSpinning" in $$props) $$invalidate(9, graphicSpinning = $$props.graphicSpinning);
+    		if ("vx" in $$props) $$invalidate(10, vx = $$props.vx);
+    		if ("vy" in $$props) $$invalidate(11, vy = $$props.vy);
     		if ("y" in $$props) $$invalidate(2, y = $$props.y);
     		if ("x" in $$props) $$invalidate(3, x = $$props.x);
     		if ("health" in $$props) $$invalidate(4, health = $$props.health);
-    		if ("spinning" in $$props) $$invalidate(11, spinning = $$props.spinning);
+    		if ("spinning" in $$props) $$invalidate(12, spinning = $$props.spinning);
     		if ("direction" in $$props) $$invalidate(5, direction = $$props.direction);
-    		if ("spinningRotation" in $$props) $$invalidate(12, spinningRotation = $$props.spinningRotation);
-    		if ("spinTimeout" in $$props) $$invalidate(13, spinTimeout = $$props.spinTimeout);
+    		if ("spinningRotation" in $$props) $$invalidate(13, spinningRotation = $$props.spinningRotation);
+    		if ("spinTimeout" in $$props) $$invalidate(14, spinTimeout = $$props.spinTimeout);
     		if ("graphic" in $$props) $$invalidate(6, graphic = $$props.graphic);
     		if ("rotate" in $$props) $$invalidate(7, rotate = $$props.rotate);
     	};
@@ -11051,19 +11241,21 @@ var app = (function () {
     	}
 
     	$$self.$$.update = () => {
-    		if ($$self.$$.dirty & /*graphicStill, $artStore*/ 16640) {
-    			 $$invalidate(6, graphic = graphicStill != null ? $artStore[graphicStill] : null);
+    		if ($$self.$$.dirty & /*spinning, graphicSpinning, $artStore, graphicStill*/ 37632) {
+    			 $$invalidate(6, graphic = spinning && graphicSpinning != null
+    			? $artStore[graphicSpinning]
+    			: graphicStill != null ? $artStore[graphicStill] : null);
     		}
 
-    		if ($$self.$$.dirty & /*vx*/ 512) {
+    		if ($$self.$$.dirty & /*vx*/ 1024) {
     			 if (vx != 0) $$invalidate(5, direction = vx > 0 ? 1 : -1);
     		}
 
-    		if ($$self.$$.dirty & /*spinning, spinningRotation, spinTimeout*/ 14336) {
+    		if ($$self.$$.dirty & /*spinning, spinningRotation, spinTimeout*/ 28672) {
     			 if (spinning) {
-    				$$invalidate(13, spinTimeout = setTimeout(
+    				$$invalidate(14, spinTimeout = setTimeout(
     					() => {
-    						$$invalidate(12, spinningRotation += 30);
+    						$$invalidate(13, spinningRotation += 30);
     					},
     					25
     				));
@@ -11072,7 +11264,7 @@ var app = (function () {
     			}
     		}
 
-    		if ($$self.$$.dirty & /*spinning, spinningRotation, vy*/ 7168) {
+    		if ($$self.$$.dirty & /*spinning, spinningRotation, vy*/ 14336) {
     			 $$invalidate(7, rotate = spinning
     			? spinningRotation
     			: -1 * (5 + (vy > 0 ? vy * 3 : vy * 1.5)));
@@ -11089,6 +11281,7 @@ var app = (function () {
     		graphic,
     		rotate,
     		graphicStill,
+    		graphicSpinning,
     		vx,
     		vy,
     		spinning
@@ -11103,12 +11296,13 @@ var app = (function () {
     			name: 0,
     			maxHealth: 1,
     			graphicStill: 8,
-    			vx: 9,
-    			vy: 10,
+    			graphicSpinning: 9,
+    			vx: 10,
+    			vy: 11,
     			y: 2,
     			x: 3,
     			health: 4,
-    			spinning: 11
+    			spinning: 12
     		});
 
     		dispatch_dev("SvelteRegisterComponent", {
@@ -11131,6 +11325,10 @@ var app = (function () {
 
     		if (/*graphicStill*/ ctx[8] === undefined && !("graphicStill" in props)) {
     			console.warn("<Player> was created without expected prop 'graphicStill'");
+    		}
+
+    		if (/*graphicSpinning*/ ctx[9] === undefined && !("graphicSpinning" in props)) {
+    			console.warn("<Player> was created without expected prop 'graphicSpinning'");
     		}
 
     		if (/*health*/ ctx[4] === undefined && !("health" in props)) {
@@ -11159,6 +11357,14 @@ var app = (function () {
     	}
 
     	set graphicStill(value) {
+    		throw new Error("<Player>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get graphicSpinning() {
+    		throw new Error("<Player>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set graphicSpinning(value) {
     		throw new Error("<Player>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
 
@@ -11937,7 +12143,7 @@ var app = (function () {
     }
 
     const blockSize$1 = 25;
-    const artScale = 2;
+    const artScale$1 = 2;
 
     function instance$q($$self, $$props, $$invalidate) {
     	let $blockStore;
@@ -11998,8 +12204,8 @@ var app = (function () {
     			...character,
     			health: character.maxHealth,
     			tvx: character.maxVelocity,
-    			width: $artStore[character.graphicStill].width * artScale, // width of graphic
-    			height: $artStore[character.graphicStill].height * artScale, // height of graphic
+    			width: $artStore[character.graphicStill].width * artScale$1, // width of graphic
+    			height: $artStore[character.graphicStill].height * artScale$1, // height of graphic
     			// runtime stuff
     			x: blocks[0].x,
     			y: blocks[0].y + blocks[0].height + 100,
@@ -12260,7 +12466,7 @@ var app = (function () {
     		leftDown,
     		rightDown,
     		rightBound,
-    		artScale,
+    		artScale: artScale$1,
     		start,
     		gameLoop,
     		applyGravityAndVelocityAndLevelDamage,

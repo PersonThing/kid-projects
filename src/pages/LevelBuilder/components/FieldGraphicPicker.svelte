@@ -5,7 +5,7 @@
 	<div class="options">
 		{#each options as drawingName}
 			<div class:active={value == drawingName} on:click={() => (value = drawingName)}>
-				<Art name={drawingName} />
+				<Art name={drawingName} {spin} />
 			</div>
 		{/each}
 	</div>
@@ -16,6 +16,7 @@
 	import Art from './Art.svelte'
 	export let value = null
 	export let filter = null
+	export let spin = false
 
 	$: options = Object.keys($artStore).filter(name => filter == null || filter($artStore[name]))
 </script>

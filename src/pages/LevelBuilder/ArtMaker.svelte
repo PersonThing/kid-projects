@@ -22,6 +22,11 @@
 		<button type="button" class="btn btn-secondary btn-sm" on:click={reset}>Reset</button>
 
 		<div class="btn-group">
+			<button type="button" class="btn btn-secondary btn-sm" on:click={flipX}>Flip horizontal</button>
+			<button type="button" class="btn btn-secondary btn-sm" on:click={flipY}>Flip vertical</button>
+		</div>
+
+		<div class="btn-group">
 			<button type="button" disabled={undos.length == 0} class="btn btn-default btn-sm" on:click={undo}>Undo {undos.length}</button>
 			<button type="button" disabled={redos.length == 0} class="btn btn-default btn-sm" on:click={redo}>Redo {redos.length}</button>
 		</div>
@@ -329,6 +334,14 @@
 				if (e.ctrlKey) redo()
 				break
 		}
+	}
+
+	function flipY() {
+		data = data.reverse()
+	}
+
+	function flipX() {
+		data = data.map(d => d.reverse())
 	}
 </script>
 
