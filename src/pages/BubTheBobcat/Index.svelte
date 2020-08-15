@@ -1,6 +1,10 @@
 {#if levelName != null}
-	<button type="button" on:click={() => (levelName = null)} class="btn btn-info">&lt; Change level</button>
-	<a href="#/level-builder/levels/{encodeURIComponent(levelName)}" class="btn btn-warning" role="button">Edit level</a>
+	<div class="mb-2">
+		<button type="button" on:click={() => (levelName = null)} class="btn btn-info">&lt; Change level</button>
+		<a href="#/level-builder/levels/{encodeURIComponent(levelName)}" class="btn btn-secondary" role="button">Edit {levelName}</a>
+		<a href="#/level-builder/characters/{encodeURIComponent(characterName)}" class="btn btn-secondary" role="button">Edit {characterName}</a>
+	</div>
+
 	<Game level={$levels[levelName]} character={$characters[characterName]} />
 {:else}
 	<div class="list-group">

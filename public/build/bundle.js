@@ -12219,7 +12219,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (5:0) {:else}
+    // (9:0) {:else}
     function create_else_block$1(ctx) {
     	let div;
     	let current;
@@ -12244,7 +12244,7 @@ var app = (function () {
     			}
 
     			attr_dev(div, "class", "list-group");
-    			add_location(div, file$p, 5, 1, 340);
+    			add_location(div, file$p, 9, 1, 523);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -12312,7 +12312,7 @@ var app = (function () {
     		block,
     		id: create_else_block$1.name,
     		type: "else",
-    		source: "(5:0) {:else}",
+    		source: "(9:0) {:else}",
     		ctx
     	});
 
@@ -12321,12 +12321,19 @@ var app = (function () {
 
     // (1:0) {#if levelName != null}
     function create_if_block$b(ctx) {
+    	let div;
     	let button;
     	let t1;
-    	let a;
+    	let a0;
     	let t2;
-    	let a_href_value;
     	let t3;
+    	let a0_href_value;
+    	let t4;
+    	let a1;
+    	let t5;
+    	let t6;
+    	let a1_href_value;
+    	let t7;
     	let game;
     	let current;
     	let mounted;
@@ -12342,27 +12349,45 @@ var app = (function () {
 
     	const block = {
     		c: function create() {
+    			div = element("div");
     			button = element("button");
     			button.textContent = "< Change level";
     			t1 = space();
-    			a = element("a");
-    			t2 = text("Edit level");
-    			t3 = space();
+    			a0 = element("a");
+    			t2 = text("Edit ");
+    			t3 = text(/*levelName*/ ctx[2]);
+    			t4 = space();
+    			a1 = element("a");
+    			t5 = text("Edit ");
+    			t6 = text(/*characterName*/ ctx[3]);
+    			t7 = space();
     			create_component(game.$$.fragment);
     			attr_dev(button, "type", "button");
     			attr_dev(button, "class", "btn btn-info");
-    			add_location(button, file$p, 1, 1, 26);
-    			attr_dev(a, "href", a_href_value = "#/level-builder/levels/" + encodeURIComponent(/*levelName*/ ctx[2]));
-    			attr_dev(a, "class", "btn btn-warning");
-    			attr_dev(a, "role", "button");
-    			add_location(a, file$p, 2, 1, 134);
+    			add_location(button, file$p, 2, 2, 48);
+    			attr_dev(a0, "href", a0_href_value = "#/level-builder/levels/" + encodeURIComponent(/*levelName*/ ctx[2]));
+    			attr_dev(a0, "class", "btn btn-secondary");
+    			attr_dev(a0, "role", "button");
+    			add_location(a0, file$p, 3, 2, 157);
+    			attr_dev(a1, "href", a1_href_value = "#/level-builder/characters/" + encodeURIComponent(/*characterName*/ ctx[3]));
+    			attr_dev(a1, "class", "btn btn-secondary");
+    			attr_dev(a1, "role", "button");
+    			add_location(a1, file$p, 4, 2, 286);
+    			attr_dev(div, "class", "mb-2");
+    			add_location(div, file$p, 1, 1, 26);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, button, anchor);
-    			insert_dev(target, t1, anchor);
-    			insert_dev(target, a, anchor);
-    			append_dev(a, t2);
-    			insert_dev(target, t3, anchor);
+    			insert_dev(target, div, anchor);
+    			append_dev(div, button);
+    			append_dev(div, t1);
+    			append_dev(div, a0);
+    			append_dev(a0, t2);
+    			append_dev(a0, t3);
+    			append_dev(div, t4);
+    			append_dev(div, a1);
+    			append_dev(a1, t5);
+    			append_dev(a1, t6);
+    			insert_dev(target, t7, anchor);
     			mount_component(game, target, anchor);
     			current = true;
 
@@ -12372,8 +12397,16 @@ var app = (function () {
     			}
     		},
     		p: function update(ctx, dirty) {
-    			if (!current || dirty & /*levelName*/ 4 && a_href_value !== (a_href_value = "#/level-builder/levels/" + encodeURIComponent(/*levelName*/ ctx[2]))) {
-    				attr_dev(a, "href", a_href_value);
+    			if (!current || dirty & /*levelName*/ 4) set_data_dev(t3, /*levelName*/ ctx[2]);
+
+    			if (!current || dirty & /*levelName*/ 4 && a0_href_value !== (a0_href_value = "#/level-builder/levels/" + encodeURIComponent(/*levelName*/ ctx[2]))) {
+    				attr_dev(a0, "href", a0_href_value);
+    			}
+
+    			if (!current || dirty & /*characterName*/ 8) set_data_dev(t6, /*characterName*/ ctx[3]);
+
+    			if (!current || dirty & /*characterName*/ 8 && a1_href_value !== (a1_href_value = "#/level-builder/characters/" + encodeURIComponent(/*characterName*/ ctx[3]))) {
+    				attr_dev(a1, "href", a1_href_value);
     			}
 
     			const game_changes = {};
@@ -12391,10 +12424,8 @@ var app = (function () {
     			current = false;
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(button);
-    			if (detaching) detach_dev(t1);
-    			if (detaching) detach_dev(a);
-    			if (detaching) detach_dev(t3);
+    			if (detaching) detach_dev(div);
+    			if (detaching) detach_dev(t7);
     			destroy_component(game, detaching);
     			mounted = false;
     			dispose();
@@ -12412,7 +12443,7 @@ var app = (function () {
     	return block;
     }
 
-    // (8:3) {#each $levels[levelName].playableCharacters as characterName}
+    // (12:3) {#each $levels[levelName].playableCharacters as characterName}
     function create_each_block_1$2(ctx) {
     	let div;
     	let art;
@@ -12448,7 +12479,7 @@ var app = (function () {
     			t3 = text(t3_value);
     			t4 = space();
     			attr_dev(div, "class", "list-group-item list-group-item-action");
-    			add_location(div, file$p, 8, 4, 482);
+    			add_location(div, file$p, 12, 4, 665);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -12494,14 +12525,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1$2.name,
     		type: "each",
-    		source: "(8:3) {#each $levels[levelName].playableCharacters as characterName}",
+    		source: "(12:3) {#each $levels[levelName].playableCharacters as characterName}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (7:2) {#each Object.keys($levels) as levelName}
+    // (11:2) {#each Object.keys($levels) as levelName}
     function create_each_block$8(ctx) {
     	let each_1_anchor;
     	let current;
@@ -12590,7 +12621,7 @@ var app = (function () {
     		block,
     		id: create_each_block$8.name,
     		type: "each",
-    		source: "(7:2) {#each Object.keys($levels) as levelName}",
+    		source: "(11:2) {#each Object.keys($levels) as levelName}",
     		ctx
     	});
 
