@@ -4,7 +4,7 @@
 		class:active={items[activeName] == null}
 		href="#/"
 		on:click|preventDefault={() => dispatch('create')}>
-		Create new block
+		New
 	</div>
 	{#each Object.keys(items) as itemName}
 		<div class="list-group-item list-group-item-action" class:active={activeName == itemName} on:click={() => dispatch('edit', itemName)}>

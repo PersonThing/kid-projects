@@ -26,8 +26,6 @@
 	import FieldCheckbox from './components/FieldCheckbox.svelte'
 	import FieldNumber from './components/FieldNumber.svelte'
 	import Form from './components/Form.svelte'
-
-	import savedDrawings from '../../stores/pixel-art-store'
 	import StoreNav from './StoreNav.svelte'
 
 	let input
@@ -36,16 +34,8 @@
 
 	$: isAdding = $blocks[input.name] == null
 
-	$: if (input.graphic != null) {
-		// when graphic changes, set width and height to match it
-		// todo invert how art maker saves stuff
-		input.width = $savedDrawings[input.graphic].data[0].length
-		input.height = $savedDrawings[input.graphic].data.length
-	}
-
 	function save() {
 		$blocks[input.name] = JSON.parse(JSON.stringify(input))
-		// input = createDefaultInput()
 	}
 
 	function edit(blockName) {
@@ -57,13 +47,11 @@
 			name: '',
 			solid: true,
 			dps: 0,
-			// friction: 1,
-			// bounciness: 0,
 		}
 	}
 
 	function del(name) {
-		if (confirm(`Are you sure you want to delete block "${name}"?`)) delete $blocks[name]
+		if (confirm(`Are you sure you want to delete "${name}"?`)) delete $blocks[name]
 		$blocks = $blocks
 	}
 </script>

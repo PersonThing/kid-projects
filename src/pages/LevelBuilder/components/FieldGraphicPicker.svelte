@@ -15,5 +15,17 @@
 <script>
 	import savedDrawings from '../../../stores/pixel-art-store'
 	import CustomGraphic from './CustomGraphic.svelte'
+	import { onMount } from 'svelte'
 	export let value = null
+
+	onMount(() => {
+		// scroll to selected graphic
+	})
 </script>
+
+<style>
+	.list-group {
+		overflow: auto;
+		max-height: 250px;
+	}
+</style>

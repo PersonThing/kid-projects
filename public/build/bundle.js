@@ -2976,7 +2976,7 @@ var app = (function () {
 
     			attr_dev(label, "for", "graphic");
     			add_location(label, file$2, 1, 1, 27);
-    			attr_dev(div0, "class", "list-group");
+    			attr_dev(div0, "class", "list-group svelte-1ul1s81");
     			add_location(div0, file$2, 4, 1, 86);
     			attr_dev(div1, "class", "form-group");
     			add_location(div1, file$2, 0, 0, 0);
@@ -3079,6 +3079,11 @@ var app = (function () {
     	validate_store(savedDrawings$1, "savedDrawings");
     	component_subscribe($$self, savedDrawings$1, $$value => $$invalidate(1, $savedDrawings = $$value));
     	let { value = null } = $$props;
+
+    	onMount(() => {
+    		
+    	}); // scroll to selected graphic
+
     	const writable_props = ["value"];
 
     	Object_1$2.keys($$props).forEach(key => {
@@ -3097,6 +3102,7 @@ var app = (function () {
     	$$self.$capture_state = () => ({
     		savedDrawings: savedDrawings$1,
     		CustomGraphic,
+    		onMount,
     		value,
     		$savedDrawings
     	});
@@ -3988,7 +3994,7 @@ var app = (function () {
     			t1 = space();
     			attr_dev(div, "class", "list-group-item list-group-item-action");
     			toggle_class(div, "active", /*activeName*/ ctx[1] == /*itemName*/ ctx[5]);
-    			add_location(div, file$8, 9, 2, 267);
+    			add_location(div, file$8, 9, 2, 254);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -4044,7 +4050,7 @@ var app = (function () {
     		c: function create() {
     			div1 = element("div");
     			div0 = element("div");
-    			div0.textContent = "Create new block";
+    			div0.textContent = "New";
     			t1 = space();
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
@@ -4508,7 +4514,7 @@ var app = (function () {
     		p: function update(ctx, dirty) {
     			const fieldtext_changes = {};
 
-    			if (dirty & /*$$scope*/ 16384) {
+    			if (dirty & /*$$scope*/ 8192) {
     				fieldtext_changes.$$scope = { dirty, ctx };
     			}
 
@@ -4521,7 +4527,7 @@ var app = (function () {
     			fieldtext.$set(fieldtext_changes);
     			const fieldgraphicpicker_changes = {};
 
-    			if (dirty & /*$$scope*/ 16384) {
+    			if (dirty & /*$$scope*/ 8192) {
     				fieldgraphicpicker_changes.$$scope = { dirty, ctx };
     			}
 
@@ -4534,7 +4540,7 @@ var app = (function () {
     			fieldgraphicpicker.$set(fieldgraphicpicker_changes);
     			const fieldcheckbox_changes = {};
 
-    			if (dirty & /*$$scope*/ 16384) {
+    			if (dirty & /*$$scope*/ 8192) {
     				fieldcheckbox_changes.$$scope = { dirty, ctx };
     			}
 
@@ -4547,7 +4553,7 @@ var app = (function () {
     			fieldcheckbox.$set(fieldcheckbox_changes);
     			const fieldnumber_changes = {};
 
-    			if (dirty & /*$$scope*/ 16384) {
+    			if (dirty & /*$$scope*/ 8192) {
     				fieldnumber_changes.$$scope = { dirty, ctx };
     			}
 
@@ -4664,7 +4670,7 @@ var app = (function () {
     			storenav.$set(storenav_changes);
     			const form_changes = {};
 
-    			if (dirty & /*$$scope, input, isAdding*/ 16387) {
+    			if (dirty & /*$$scope, input, isAdding*/ 8195) {
     				form_changes.$$scope = { dirty, ctx };
     			}
 
@@ -4701,29 +4707,25 @@ var app = (function () {
 
     function instance$a($$self, $$props, $$invalidate) {
     	let $blocks;
-    	let $savedDrawings;
     	validate_store(savedDrawings, "blocks");
     	component_subscribe($$self, savedDrawings, $$value => $$invalidate(2, $blocks = $$value));
-    	validate_store(savedDrawings$1, "savedDrawings");
-    	component_subscribe($$self, savedDrawings$1, $$value => $$invalidate(13, $savedDrawings = $$value));
     	let input;
     	create();
 
     	function save() {
     		set_store_value(savedDrawings, $blocks[input.name] = JSON.parse(JSON.stringify(input)), $blocks);
-    	} // input = createDefaultInput()
+    	}
 
     	function edit(blockName) {
     		$$invalidate(0, input = { ...$blocks[blockName] });
     	}
 
     	function create() {
-    		$$invalidate(0, input = { name: "", solid: true, dps: 0 }); // friction: 1,
-    		// bounciness: 0,
+    		$$invalidate(0, input = { name: "", solid: true, dps: 0 });
     	}
 
     	function del(name) {
-    		if (confirm(`Are you sure you want to delete block "${name}"?`)) delete $blocks[name];
+    		if (confirm(`Are you sure you want to delete "${name}"?`)) delete $blocks[name];
     		savedDrawings.set($blocks);
     	}
 
@@ -4739,22 +4741,22 @@ var app = (function () {
 
     	function fieldtext_value_binding(value) {
     		input.name = value;
-    		($$invalidate(0, input), $$invalidate(13, $savedDrawings));
+    		$$invalidate(0, input);
     	}
 
     	function fieldgraphicpicker_value_binding(value) {
     		input.graphic = value;
-    		($$invalidate(0, input), $$invalidate(13, $savedDrawings));
+    		$$invalidate(0, input);
     	}
 
     	function fieldcheckbox_checked_binding(value) {
     		input.solid = value;
-    		($$invalidate(0, input), $$invalidate(13, $savedDrawings));
+    		$$invalidate(0, input);
     	}
 
     	function fieldnumber_value_binding(value) {
     		input.dpsToPlayers = value;
-    		($$invalidate(0, input), $$invalidate(13, $savedDrawings));
+    		$$invalidate(0, input);
     	}
 
     	const click_handler = () => del(input.name);
@@ -4766,7 +4768,6 @@ var app = (function () {
     		FieldCheckbox,
     		FieldNumber,
     		Form,
-    		savedDrawings: savedDrawings$1,
     		StoreNav,
     		input,
     		save,
@@ -4774,8 +4775,7 @@ var app = (function () {
     		create,
     		del,
     		isAdding,
-    		$blocks,
-    		$savedDrawings
+    		$blocks
     	});
 
     	$$self.$inject_state = $$props => {
@@ -4790,16 +4790,6 @@ var app = (function () {
     	}
 
     	$$self.$$.update = () => {
-    		if ($$self.$$.dirty & /*input, $savedDrawings*/ 8193) {
-    			 if (input.graphic != null) {
-    				// when graphic changes, set width and height to match it
-    				// todo invert how art maker saves stuff
-    				$$invalidate(0, input.width = $savedDrawings[input.graphic].data[0].length, input);
-
-    				$$invalidate(0, input.height = $savedDrawings[input.graphic].data.length, input);
-    			}
-    		}
-
     		if ($$self.$$.dirty & /*$blocks, input*/ 5) {
     			 $$invalidate(1, isAdding = $blocks[input.name] == null);
     		}
@@ -4836,126 +4826,797 @@ var app = (function () {
     	}
     }
 
-    /* src\pages\LevelBuilder\CharacterBuilder.svelte generated by Svelte v3.24.1 */
+    const savedDrawings$2 = LocalStorageStore('characters', {});
 
+    /* src\pages\LevelBuilder\CharacterBuilder.svelte generated by Svelte v3.24.1 */
     const file$a = "src\\pages\\LevelBuilder\\CharacterBuilder.svelte";
 
-    function create_fragment$b(ctx) {
-    	let t0;
-    	let ul;
-    	let li0;
-    	let t2;
-    	let li1;
-    	let t4;
-    	let li2;
-    	let t6;
-    	let li3;
-    	let t8;
-    	let li4;
-    	let t10;
-    	let li5;
-    	let t12;
-    	let li6;
-    	let t14;
-    	let li7;
-    	let t16;
-    	let li8;
-    	let t18;
-    	let li9;
-    	let t20;
-    	let li10;
-    	let t22;
-    	let li11;
+    // (21:3) <FieldText name="name" bind:value={input.name}>
+    function create_default_slot_8(ctx) {
+    	let t;
 
     	const block = {
     		c: function create() {
-    			t0 = text("Fields for each character:\r\n");
-    			ul = element("ul");
-    			li0 = element("li");
-    			li0.textContent = "Standing still graphic (import from pixel art maker)";
+    			t = text("Name");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, t, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(t);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot_8.name,
+    		type: "slot",
+    		source: "(21:3) <FieldText name=\\\"name\\\" bind:value={input.name}>",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (22:3) <FieldGraphicPicker bind:value={input.graphicStill}>
+    function create_default_slot_7(ctx) {
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			t = text("Standing still graphic");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, t, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(t);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot_7.name,
+    		type: "slot",
+    		source: "(22:3) <FieldGraphicPicker bind:value={input.graphicStill}>",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (26:3) <FieldNumber name="maxVelocity" min={0} bind:value={input.maxVelocity}>
+    function create_default_slot_6(ctx) {
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			t = text("Max velocity");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, t, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(t);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot_6.name,
+    		type: "slot",
+    		source: "(26:3) <FieldNumber name=\\\"maxVelocity\\\" min={0} bind:value={input.maxVelocity}>",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (27:3) <FieldNumber name="jumpVelocity" min={0} bind:value={input.jumpVelocity}>
+    function create_default_slot_5(ctx) {
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			t = text("Jump velocity");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, t, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(t);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot_5.name,
+    		type: "slot",
+    		source: "(27:3) <FieldNumber name=\\\"jumpVelocity\\\" min={0} bind:value={input.jumpVelocity}>",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (28:3) <FieldNumber name="gravityMultiplier" min={0} max={2} bind:value={input.gravityMultiplier}>
+    function create_default_slot_4$1(ctx) {
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			t = text("Gravity multiplier");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, t, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(t);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot_4$1.name,
+    		type: "slot",
+    		source: "(28:3) <FieldNumber name=\\\"gravityMultiplier\\\" min={0} max={2} bind:value={input.gravityMultiplier}>",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (29:3) <FieldNumber name="fallDamageMultiplier" min={0} max={1} bind:value={input.fallDamageMultiplier}>
+    function create_default_slot_3$1(ctx) {
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			t = text("Fall damage multiplier");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, t, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(t);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot_3$1.name,
+    		type: "slot",
+    		source: "(29:3) <FieldNumber name=\\\"fallDamageMultiplier\\\" min={0} max={1} bind:value={input.fallDamageMultiplier}>",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (30:3) <FieldNumber name="maxHealth" bind:value={input.maxHealth}>
+    function create_default_slot_2$1(ctx) {
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			t = text("Max health");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, t, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(t);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot_2$1.name,
+    		type: "slot",
+    		source: "(30:3) <FieldNumber name=\\\"maxHealth\\\" bind:value={input.maxHealth}>",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (31:3) <FieldNumber name="dps" bind:value={input.dpsToPlayers}>
+    function create_default_slot_1$1(ctx) {
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			t = text("DPS (when in contact with enemies - we will replace this with abilities later)");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, t, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(t);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot_1$1.name,
+    		type: "slot",
+    		source: "(31:3) <FieldNumber name=\\\"dps\\\" bind:value={input.dpsToPlayers}>",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (35:4) {#if !isAdding}
+    function create_if_block$4(ctx) {
+    	let button;
+    	let mounted;
+    	let dispose;
+
+    	const block = {
+    		c: function create() {
+    			button = element("button");
+    			button.textContent = "Delete";
+    			attr_dev(button, "class", "btn btn-danger");
+    			add_location(button, file$a, 35, 5, 2046);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, button, anchor);
+
+    			if (!mounted) {
+    				dispose = listen_dev(button, "click", /*click_handler*/ ctx[16], false, false, false);
+    				mounted = true;
+    			}
+    		},
+    		p: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(button);
+    			mounted = false;
+    			dispose();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block$4.name,
+    		type: "if",
+    		source: "(35:4) {#if !isAdding}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (34:3) <span slot="buttons">
+    function create_buttons_slot$1(ctx) {
+    	let span;
+    	let if_block = !/*isAdding*/ ctx[1] && create_if_block$4(ctx);
+
+    	const block = {
+    		c: function create() {
+    			span = element("span");
+    			if (if_block) if_block.c();
+    			attr_dev(span, "slot", "buttons");
+    			add_location(span, file$a, 33, 3, 1997);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, span, anchor);
+    			if (if_block) if_block.m(span, null);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (!/*isAdding*/ ctx[1]) {
+    				if (if_block) {
+    					if_block.p(ctx, dirty);
+    				} else {
+    					if_block = create_if_block$4(ctx);
+    					if_block.c();
+    					if_block.m(span, null);
+    				}
+    			} else if (if_block) {
+    				if_block.d(1);
+    				if_block = null;
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(span);
+    			if (if_block) if_block.d();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_buttons_slot$1.name,
+    		type: "slot",
+    		source: "(34:3) <span slot=\\\"buttons\\\">",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (20:2) <Form on:submit={save}>
+    function create_default_slot$1(ctx) {
+    	let fieldtext;
+    	let updating_value;
+    	let t0;
+    	let fieldgraphicpicker;
+    	let updating_value_1;
+    	let t1;
+    	let fieldnumber0;
+    	let updating_value_2;
+    	let t2;
+    	let fieldnumber1;
+    	let updating_value_3;
+    	let t3;
+    	let fieldnumber2;
+    	let updating_value_4;
+    	let t4;
+    	let fieldnumber3;
+    	let updating_value_5;
+    	let t5;
+    	let fieldnumber4;
+    	let updating_value_6;
+    	let t6;
+    	let fieldnumber5;
+    	let updating_value_7;
+    	let t7;
+    	let current;
+
+    	function fieldtext_value_binding(value) {
+    		/*fieldtext_value_binding*/ ctx[8].call(null, value);
+    	}
+
+    	let fieldtext_props = {
+    		name: "name",
+    		$$slots: { default: [create_default_slot_8] },
+    		$$scope: { ctx }
+    	};
+
+    	if (/*input*/ ctx[0].name !== void 0) {
+    		fieldtext_props.value = /*input*/ ctx[0].name;
+    	}
+
+    	fieldtext = new FieldText({ props: fieldtext_props, $$inline: true });
+    	binding_callbacks.push(() => bind(fieldtext, "value", fieldtext_value_binding));
+
+    	function fieldgraphicpicker_value_binding(value) {
+    		/*fieldgraphicpicker_value_binding*/ ctx[9].call(null, value);
+    	}
+
+    	let fieldgraphicpicker_props = {
+    		$$slots: { default: [create_default_slot_7] },
+    		$$scope: { ctx }
+    	};
+
+    	if (/*input*/ ctx[0].graphicStill !== void 0) {
+    		fieldgraphicpicker_props.value = /*input*/ ctx[0].graphicStill;
+    	}
+
+    	fieldgraphicpicker = new FieldGraphicPicker({
+    			props: fieldgraphicpicker_props,
+    			$$inline: true
+    		});
+
+    	binding_callbacks.push(() => bind(fieldgraphicpicker, "value", fieldgraphicpicker_value_binding));
+
+    	function fieldnumber0_value_binding(value) {
+    		/*fieldnumber0_value_binding*/ ctx[10].call(null, value);
+    	}
+
+    	let fieldnumber0_props = {
+    		name: "maxVelocity",
+    		min: 0,
+    		$$slots: { default: [create_default_slot_6] },
+    		$$scope: { ctx }
+    	};
+
+    	if (/*input*/ ctx[0].maxVelocity !== void 0) {
+    		fieldnumber0_props.value = /*input*/ ctx[0].maxVelocity;
+    	}
+
+    	fieldnumber0 = new FieldNumber({
+    			props: fieldnumber0_props,
+    			$$inline: true
+    		});
+
+    	binding_callbacks.push(() => bind(fieldnumber0, "value", fieldnumber0_value_binding));
+
+    	function fieldnumber1_value_binding(value) {
+    		/*fieldnumber1_value_binding*/ ctx[11].call(null, value);
+    	}
+
+    	let fieldnumber1_props = {
+    		name: "jumpVelocity",
+    		min: 0,
+    		$$slots: { default: [create_default_slot_5] },
+    		$$scope: { ctx }
+    	};
+
+    	if (/*input*/ ctx[0].jumpVelocity !== void 0) {
+    		fieldnumber1_props.value = /*input*/ ctx[0].jumpVelocity;
+    	}
+
+    	fieldnumber1 = new FieldNumber({
+    			props: fieldnumber1_props,
+    			$$inline: true
+    		});
+
+    	binding_callbacks.push(() => bind(fieldnumber1, "value", fieldnumber1_value_binding));
+
+    	function fieldnumber2_value_binding(value) {
+    		/*fieldnumber2_value_binding*/ ctx[12].call(null, value);
+    	}
+
+    	let fieldnumber2_props = {
+    		name: "gravityMultiplier",
+    		min: 0,
+    		max: 2,
+    		$$slots: { default: [create_default_slot_4$1] },
+    		$$scope: { ctx }
+    	};
+
+    	if (/*input*/ ctx[0].gravityMultiplier !== void 0) {
+    		fieldnumber2_props.value = /*input*/ ctx[0].gravityMultiplier;
+    	}
+
+    	fieldnumber2 = new FieldNumber({
+    			props: fieldnumber2_props,
+    			$$inline: true
+    		});
+
+    	binding_callbacks.push(() => bind(fieldnumber2, "value", fieldnumber2_value_binding));
+
+    	function fieldnumber3_value_binding(value) {
+    		/*fieldnumber3_value_binding*/ ctx[13].call(null, value);
+    	}
+
+    	let fieldnumber3_props = {
+    		name: "fallDamageMultiplier",
+    		min: 0,
+    		max: 1,
+    		$$slots: { default: [create_default_slot_3$1] },
+    		$$scope: { ctx }
+    	};
+
+    	if (/*input*/ ctx[0].fallDamageMultiplier !== void 0) {
+    		fieldnumber3_props.value = /*input*/ ctx[0].fallDamageMultiplier;
+    	}
+
+    	fieldnumber3 = new FieldNumber({
+    			props: fieldnumber3_props,
+    			$$inline: true
+    		});
+
+    	binding_callbacks.push(() => bind(fieldnumber3, "value", fieldnumber3_value_binding));
+
+    	function fieldnumber4_value_binding(value) {
+    		/*fieldnumber4_value_binding*/ ctx[14].call(null, value);
+    	}
+
+    	let fieldnumber4_props = {
+    		name: "maxHealth",
+    		$$slots: { default: [create_default_slot_2$1] },
+    		$$scope: { ctx }
+    	};
+
+    	if (/*input*/ ctx[0].maxHealth !== void 0) {
+    		fieldnumber4_props.value = /*input*/ ctx[0].maxHealth;
+    	}
+
+    	fieldnumber4 = new FieldNumber({
+    			props: fieldnumber4_props,
+    			$$inline: true
+    		});
+
+    	binding_callbacks.push(() => bind(fieldnumber4, "value", fieldnumber4_value_binding));
+
+    	function fieldnumber5_value_binding(value) {
+    		/*fieldnumber5_value_binding*/ ctx[15].call(null, value);
+    	}
+
+    	let fieldnumber5_props = {
+    		name: "dps",
+    		$$slots: { default: [create_default_slot_1$1] },
+    		$$scope: { ctx }
+    	};
+
+    	if (/*input*/ ctx[0].dpsToPlayers !== void 0) {
+    		fieldnumber5_props.value = /*input*/ ctx[0].dpsToPlayers;
+    	}
+
+    	fieldnumber5 = new FieldNumber({
+    			props: fieldnumber5_props,
+    			$$inline: true
+    		});
+
+    	binding_callbacks.push(() => bind(fieldnumber5, "value", fieldnumber5_value_binding));
+
+    	const block = {
+    		c: function create() {
+    			create_component(fieldtext.$$.fragment);
+    			t0 = space();
+    			create_component(fieldgraphicpicker.$$.fragment);
+    			t1 = space();
+    			create_component(fieldnumber0.$$.fragment);
     			t2 = space();
-    			li1 = element("li");
-    			li1.textContent = "(optional) Moving graphic 1";
+    			create_component(fieldnumber1.$$.fragment);
+    			t3 = space();
+    			create_component(fieldnumber2.$$.fragment);
     			t4 = space();
-    			li2 = element("li");
-    			li2.textContent = "(optional) Moving graphic 2";
+    			create_component(fieldnumber3.$$.fragment);
+    			t5 = space();
+    			create_component(fieldnumber4.$$.fragment);
     			t6 = space();
-    			li3 = element("li");
-    			li3.textContent = "(optional) Moving graphic 3";
-    			t8 = space();
-    			li4 = element("li");
-    			li4.textContent = "Maximum velocity on ground";
-    			t10 = space();
-    			li5 = element("li");
-    			li5.textContent = "Jump velocity";
-    			t12 = space();
-    			li6 = element("li");
-    			li6.textContent = "Gravity Modifier 0-1 (0 = don't fall at all (if 0, need to give a down key), 1 = normal falling speed)";
-    			t14 = space();
-    			li7 = element("li");
-    			li7.textContent = "Fall damage multiplier 0-1 (0 = no fall damage, 1 = normal fall damage)";
-    			t16 = space();
-    			li8 = element("li");
-    			li8.textContent = "Max health";
-    			t18 = space();
-    			li9 = element("li");
-    			li9.textContent = "Width (default to graphic width)";
-    			t20 = space();
-    			li10 = element("li");
-    			li10.textContent = "Height (default to graphic height)";
-    			t22 = space();
-    			li11 = element("li");
-    			li11.textContent = "Abilities... need scripts for them... come up with something pluggable?";
-    			add_location(li0, file$a, 2, 1, 35);
-    			add_location(li1, file$a, 3, 1, 99);
-    			add_location(li2, file$a, 4, 1, 138);
-    			add_location(li3, file$a, 5, 1, 177);
-    			add_location(li4, file$a, 6, 1, 216);
-    			add_location(li5, file$a, 7, 1, 254);
-    			add_location(li6, file$a, 8, 1, 279);
-    			add_location(li7, file$a, 9, 1, 393);
-    			add_location(li8, file$a, 10, 1, 476);
-    			add_location(li9, file$a, 11, 1, 498);
-    			add_location(li10, file$a, 12, 1, 542);
-    			add_location(li11, file$a, 13, 1, 588);
-    			add_location(ul, file$a, 1, 0, 28);
+    			create_component(fieldnumber5.$$.fragment);
+    			t7 = space();
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(fieldtext, target, anchor);
+    			insert_dev(target, t0, anchor);
+    			mount_component(fieldgraphicpicker, target, anchor);
+    			insert_dev(target, t1, anchor);
+    			mount_component(fieldnumber0, target, anchor);
+    			insert_dev(target, t2, anchor);
+    			mount_component(fieldnumber1, target, anchor);
+    			insert_dev(target, t3, anchor);
+    			mount_component(fieldnumber2, target, anchor);
+    			insert_dev(target, t4, anchor);
+    			mount_component(fieldnumber3, target, anchor);
+    			insert_dev(target, t5, anchor);
+    			mount_component(fieldnumber4, target, anchor);
+    			insert_dev(target, t6, anchor);
+    			mount_component(fieldnumber5, target, anchor);
+    			insert_dev(target, t7, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const fieldtext_changes = {};
+
+    			if (dirty & /*$$scope*/ 131072) {
+    				fieldtext_changes.$$scope = { dirty, ctx };
+    			}
+
+    			if (!updating_value && dirty & /*input*/ 1) {
+    				updating_value = true;
+    				fieldtext_changes.value = /*input*/ ctx[0].name;
+    				add_flush_callback(() => updating_value = false);
+    			}
+
+    			fieldtext.$set(fieldtext_changes);
+    			const fieldgraphicpicker_changes = {};
+
+    			if (dirty & /*$$scope*/ 131072) {
+    				fieldgraphicpicker_changes.$$scope = { dirty, ctx };
+    			}
+
+    			if (!updating_value_1 && dirty & /*input*/ 1) {
+    				updating_value_1 = true;
+    				fieldgraphicpicker_changes.value = /*input*/ ctx[0].graphicStill;
+    				add_flush_callback(() => updating_value_1 = false);
+    			}
+
+    			fieldgraphicpicker.$set(fieldgraphicpicker_changes);
+    			const fieldnumber0_changes = {};
+
+    			if (dirty & /*$$scope*/ 131072) {
+    				fieldnumber0_changes.$$scope = { dirty, ctx };
+    			}
+
+    			if (!updating_value_2 && dirty & /*input*/ 1) {
+    				updating_value_2 = true;
+    				fieldnumber0_changes.value = /*input*/ ctx[0].maxVelocity;
+    				add_flush_callback(() => updating_value_2 = false);
+    			}
+
+    			fieldnumber0.$set(fieldnumber0_changes);
+    			const fieldnumber1_changes = {};
+
+    			if (dirty & /*$$scope*/ 131072) {
+    				fieldnumber1_changes.$$scope = { dirty, ctx };
+    			}
+
+    			if (!updating_value_3 && dirty & /*input*/ 1) {
+    				updating_value_3 = true;
+    				fieldnumber1_changes.value = /*input*/ ctx[0].jumpVelocity;
+    				add_flush_callback(() => updating_value_3 = false);
+    			}
+
+    			fieldnumber1.$set(fieldnumber1_changes);
+    			const fieldnumber2_changes = {};
+
+    			if (dirty & /*$$scope*/ 131072) {
+    				fieldnumber2_changes.$$scope = { dirty, ctx };
+    			}
+
+    			if (!updating_value_4 && dirty & /*input*/ 1) {
+    				updating_value_4 = true;
+    				fieldnumber2_changes.value = /*input*/ ctx[0].gravityMultiplier;
+    				add_flush_callback(() => updating_value_4 = false);
+    			}
+
+    			fieldnumber2.$set(fieldnumber2_changes);
+    			const fieldnumber3_changes = {};
+
+    			if (dirty & /*$$scope*/ 131072) {
+    				fieldnumber3_changes.$$scope = { dirty, ctx };
+    			}
+
+    			if (!updating_value_5 && dirty & /*input*/ 1) {
+    				updating_value_5 = true;
+    				fieldnumber3_changes.value = /*input*/ ctx[0].fallDamageMultiplier;
+    				add_flush_callback(() => updating_value_5 = false);
+    			}
+
+    			fieldnumber3.$set(fieldnumber3_changes);
+    			const fieldnumber4_changes = {};
+
+    			if (dirty & /*$$scope*/ 131072) {
+    				fieldnumber4_changes.$$scope = { dirty, ctx };
+    			}
+
+    			if (!updating_value_6 && dirty & /*input*/ 1) {
+    				updating_value_6 = true;
+    				fieldnumber4_changes.value = /*input*/ ctx[0].maxHealth;
+    				add_flush_callback(() => updating_value_6 = false);
+    			}
+
+    			fieldnumber4.$set(fieldnumber4_changes);
+    			const fieldnumber5_changes = {};
+
+    			if (dirty & /*$$scope*/ 131072) {
+    				fieldnumber5_changes.$$scope = { dirty, ctx };
+    			}
+
+    			if (!updating_value_7 && dirty & /*input*/ 1) {
+    				updating_value_7 = true;
+    				fieldnumber5_changes.value = /*input*/ ctx[0].dpsToPlayers;
+    				add_flush_callback(() => updating_value_7 = false);
+    			}
+
+    			fieldnumber5.$set(fieldnumber5_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(fieldtext.$$.fragment, local);
+    			transition_in(fieldgraphicpicker.$$.fragment, local);
+    			transition_in(fieldnumber0.$$.fragment, local);
+    			transition_in(fieldnumber1.$$.fragment, local);
+    			transition_in(fieldnumber2.$$.fragment, local);
+    			transition_in(fieldnumber3.$$.fragment, local);
+    			transition_in(fieldnumber4.$$.fragment, local);
+    			transition_in(fieldnumber5.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(fieldtext.$$.fragment, local);
+    			transition_out(fieldgraphicpicker.$$.fragment, local);
+    			transition_out(fieldnumber0.$$.fragment, local);
+    			transition_out(fieldnumber1.$$.fragment, local);
+    			transition_out(fieldnumber2.$$.fragment, local);
+    			transition_out(fieldnumber3.$$.fragment, local);
+    			transition_out(fieldnumber4.$$.fragment, local);
+    			transition_out(fieldnumber5.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(fieldtext, detaching);
+    			if (detaching) detach_dev(t0);
+    			destroy_component(fieldgraphicpicker, detaching);
+    			if (detaching) detach_dev(t1);
+    			destroy_component(fieldnumber0, detaching);
+    			if (detaching) detach_dev(t2);
+    			destroy_component(fieldnumber1, detaching);
+    			if (detaching) detach_dev(t3);
+    			destroy_component(fieldnumber2, detaching);
+    			if (detaching) detach_dev(t4);
+    			destroy_component(fieldnumber3, detaching);
+    			if (detaching) detach_dev(t5);
+    			destroy_component(fieldnumber4, detaching);
+    			if (detaching) detach_dev(t6);
+    			destroy_component(fieldnumber5, detaching);
+    			if (detaching) detach_dev(t7);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot$1.name,
+    		type: "slot",
+    		source: "(20:2) <Form on:submit={save}>",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$b(ctx) {
+    	let div2;
+    	let div0;
+    	let storenav;
+    	let t;
+    	let div1;
+    	let form;
+    	let current;
+
+    	storenav = new StoreNav({
+    			props: {
+    				items: /*$characters*/ ctx[2],
+    				activeName: /*input*/ ctx[0].name
+    			},
+    			$$inline: true
+    		});
+
+    	storenav.$on("create", /*create*/ ctx[5]);
+    	storenav.$on("edit", /*edit_handler*/ ctx[7]);
+
+    	form = new Form({
+    			props: {
+    				$$slots: {
+    					default: [create_default_slot$1],
+    					buttons: [create_buttons_slot$1]
+    				},
+    				$$scope: { ctx }
+    			},
+    			$$inline: true
+    		});
+
+    	form.$on("submit", /*save*/ ctx[3]);
+
+    	const block = {
+    		c: function create() {
+    			div2 = element("div");
+    			div0 = element("div");
+    			create_component(storenav.$$.fragment);
+    			t = space();
+    			div1 = element("div");
+    			create_component(form.$$.fragment);
+    			attr_dev(div0, "class", "col-2");
+    			add_location(div0, file$a, 15, 1, 618);
+    			attr_dev(div1, "class", "col");
+    			add_location(div1, file$a, 18, 1, 758);
+    			attr_dev(div2, "class", "row");
+    			add_location(div2, file$a, 14, 0, 598);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, t0, anchor);
-    			insert_dev(target, ul, anchor);
-    			append_dev(ul, li0);
-    			append_dev(ul, t2);
-    			append_dev(ul, li1);
-    			append_dev(ul, t4);
-    			append_dev(ul, li2);
-    			append_dev(ul, t6);
-    			append_dev(ul, li3);
-    			append_dev(ul, t8);
-    			append_dev(ul, li4);
-    			append_dev(ul, t10);
-    			append_dev(ul, li5);
-    			append_dev(ul, t12);
-    			append_dev(ul, li6);
-    			append_dev(ul, t14);
-    			append_dev(ul, li7);
-    			append_dev(ul, t16);
-    			append_dev(ul, li8);
-    			append_dev(ul, t18);
-    			append_dev(ul, li9);
-    			append_dev(ul, t20);
-    			append_dev(ul, li10);
-    			append_dev(ul, t22);
-    			append_dev(ul, li11);
+    			insert_dev(target, div2, anchor);
+    			append_dev(div2, div0);
+    			mount_component(storenav, div0, null);
+    			append_dev(div2, t);
+    			append_dev(div2, div1);
+    			mount_component(form, div1, null);
+    			current = true;
     		},
-    		p: noop,
-    		i: noop,
-    		o: noop,
+    		p: function update(ctx, [dirty]) {
+    			const storenav_changes = {};
+    			if (dirty & /*$characters*/ 4) storenav_changes.items = /*$characters*/ ctx[2];
+    			if (dirty & /*input*/ 1) storenav_changes.activeName = /*input*/ ctx[0].name;
+    			storenav.$set(storenav_changes);
+    			const form_changes = {};
+
+    			if (dirty & /*$$scope, input, isAdding*/ 131075) {
+    				form_changes.$$scope = { dirty, ctx };
+    			}
+
+    			form.$set(form_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(storenav.$$.fragment, local);
+    			transition_in(form.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(storenav.$$.fragment, local);
+    			transition_out(form.$$.fragment, local);
+    			current = false;
+    		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(t0);
-    			if (detaching) detach_dev(ul);
+    			if (detaching) detach_dev(div2);
+    			destroy_component(storenav);
+    			destroy_component(form);
     		}
     	};
 
@@ -4970,7 +5631,38 @@ var app = (function () {
     	return block;
     }
 
-    function instance$b($$self, $$props) {
+    function instance$b($$self, $$props, $$invalidate) {
+    	let $characters;
+    	validate_store(savedDrawings$2, "characters");
+    	component_subscribe($$self, savedDrawings$2, $$value => $$invalidate(2, $characters = $$value));
+    	let input;
+    	create();
+
+    	function save() {
+    		set_store_value(savedDrawings$2, $characters[input.name] = JSON.parse(JSON.stringify(input)), $characters);
+    	}
+
+    	function edit(blockName) {
+    		$$invalidate(0, input = { ...$characters[blockName] });
+    	}
+
+    	function create() {
+    		$$invalidate(0, input = {
+    			graphicStill: null,
+    			name: "",
+    			maxVelocity: 20,
+    			jumpVelocity: 15,
+    			gravityMultiplier: 1,
+    			fallDamageMultiplier: 1,
+    			dps: 120
+    		});
+    	}
+
+    	function del(name) {
+    		if (confirm(`Are you sure you want to delete "${name}"?`)) delete $characters[name];
+    		savedDrawings$2.set($characters);
+    	}
+
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
@@ -4979,7 +5671,103 @@ var app = (function () {
 
     	let { $$slots = {}, $$scope } = $$props;
     	validate_slots("CharacterBuilder", $$slots, []);
-    	return [];
+    	const edit_handler = e => edit(e.detail);
+
+    	function fieldtext_value_binding(value) {
+    		input.name = value;
+    		$$invalidate(0, input);
+    	}
+
+    	function fieldgraphicpicker_value_binding(value) {
+    		input.graphicStill = value;
+    		$$invalidate(0, input);
+    	}
+
+    	function fieldnumber0_value_binding(value) {
+    		input.maxVelocity = value;
+    		$$invalidate(0, input);
+    	}
+
+    	function fieldnumber1_value_binding(value) {
+    		input.jumpVelocity = value;
+    		$$invalidate(0, input);
+    	}
+
+    	function fieldnumber2_value_binding(value) {
+    		input.gravityMultiplier = value;
+    		$$invalidate(0, input);
+    	}
+
+    	function fieldnumber3_value_binding(value) {
+    		input.fallDamageMultiplier = value;
+    		$$invalidate(0, input);
+    	}
+
+    	function fieldnumber4_value_binding(value) {
+    		input.maxHealth = value;
+    		$$invalidate(0, input);
+    	}
+
+    	function fieldnumber5_value_binding(value) {
+    		input.dpsToPlayers = value;
+    		$$invalidate(0, input);
+    	}
+
+    	const click_handler = () => del(input.name);
+
+    	$$self.$capture_state = () => ({
+    		characters: savedDrawings$2,
+    		FieldGraphicPicker,
+    		FieldText,
+    		FieldCheckbox,
+    		FieldNumber,
+    		Form,
+    		StoreNav,
+    		input,
+    		save,
+    		edit,
+    		create,
+    		del,
+    		isAdding,
+    		$characters
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ("input" in $$props) $$invalidate(0, input = $$props.input);
+    		if ("isAdding" in $$props) $$invalidate(1, isAdding = $$props.isAdding);
+    	};
+
+    	let isAdding;
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	$$self.$$.update = () => {
+    		if ($$self.$$.dirty & /*$characters, input*/ 5) {
+    			 $$invalidate(1, isAdding = $characters[input.name] == null);
+    		}
+    	};
+
+    	return [
+    		input,
+    		isAdding,
+    		$characters,
+    		save,
+    		edit,
+    		create,
+    		del,
+    		edit_handler,
+    		fieldtext_value_binding,
+    		fieldgraphicpicker_value_binding,
+    		fieldnumber0_value_binding,
+    		fieldnumber1_value_binding,
+    		fieldnumber2_value_binding,
+    		fieldnumber3_value_binding,
+    		fieldnumber4_value_binding,
+    		fieldnumber5_value_binding,
+    		click_handler
+    	];
     }
 
     class CharacterBuilder extends SvelteComponentDev {
@@ -7295,7 +8083,7 @@ var app = (function () {
     }
 
     // (7:1) {#if level != null && player != null}
-    function create_if_block$4(ctx) {
+    function create_if_block$5(ctx) {
     	let viewport_1;
     	let current;
 
@@ -7307,7 +8095,7 @@ var app = (function () {
     	];
 
     	let viewport_1_props = {
-    		$$slots: { default: [create_default_slot$1] },
+    		$$slots: { default: [create_default_slot$2] },
     		$$scope: { ctx }
     	};
 
@@ -7357,7 +8145,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block$4.name,
+    		id: create_if_block$5.name,
     		type: "if",
     		source: "(7:1) {#if level != null && player != null}",
     		ctx
@@ -7420,7 +8208,7 @@ var app = (function () {
     }
 
     // (8:2) <Viewport {...viewport} backgroundColor={level.backgroundColor}>
-    function create_default_slot$1(ctx) {
+    function create_default_slot$2(ctx) {
     	let level_1;
     	let t0;
     	let t1;
@@ -7555,7 +8343,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot$1.name,
+    		id: create_default_slot$2.name,
     		type: "slot",
     		source: "(8:2) <Viewport {...viewport} backgroundColor={level.backgroundColor}>",
     		ctx
@@ -7575,7 +8363,7 @@ var app = (function () {
     	let mounted;
     	let dispose;
     	let if_block0 = /*gameOver*/ ctx[8] && create_if_block_1(ctx);
-    	let if_block1 = /*level*/ ctx[0] != null && /*player*/ ctx[6] != null && create_if_block$4(ctx);
+    	let if_block1 = /*level*/ ctx[0] != null && /*player*/ ctx[6] != null && create_if_block$5(ctx);
 
     	status = new Status({
     			props: {
@@ -7656,7 +8444,7 @@ var app = (function () {
     						transition_in(if_block1, 1);
     					}
     				} else {
-    					if_block1 = create_if_block$4(ctx);
+    					if_block1 = create_if_block$5(ctx);
     					if_block1.c();
     					transition_in(if_block1, 1);
     					if_block1.m(div, t1);
