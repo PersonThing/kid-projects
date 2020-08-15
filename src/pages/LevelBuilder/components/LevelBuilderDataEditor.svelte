@@ -46,13 +46,12 @@
 	let selectedEnemy = null
 	let mouseDown = false
 
-	// make level viewer at least 100px higher and wider than any block is placed
-	$: highestBlockY = Math.max(...blocks.map(b => b.y + b.height))
-	$: height = 400 //highestBlockY > 400 ? highestBlockY + 100 : 400
-	// $: console.log(height)
+	$: highestYUsed = blocks.length > 0 ? Math.max(...blocks.map(b => b.y + b.height)) : 0
+	$: height = 400 //Math.max(400, highestYUsed)
 
-	$: highestBlockX = Math.max(...blocks.map(b => b.x + b.width))
-	$: width = 800 // blocks.length > 0 ? highestBlockX + 100 : 400
+	$: highestXUsed = blocks.length > 0 ? Math.max(...blocks.map(b => b.x + b.width)) : 0
+	$: width = 800 //Math.max(800, highestXUsed)
+	$: console.log(width, highestXUsed)
 
 	function selectBlock(name) {
 		selectedEnemy = null
@@ -91,6 +90,7 @@
 	}
 
 	function getEventBlockPosition(e) {
+		console.log(e.target, e.offsetX, e.offsetY, e.target.closest('.level-container').className)
 		return {
 			x: Math.floor(e.offsetX / blockSize) * blockSize,
 			y: Math.floor(e.offsetY / blockSize) * blockSize,
@@ -98,10 +98,7 @@
 	}
 
 	function placeBlock(x, y) {
-		if (selectedBlock == null) {
-			eraseBlock(x, y)
-			return
-		}
+		if (selectedBlock == null) return eraseBlock(x, y)
 
 		const block = {
 			x,
@@ -113,14 +110,14 @@
 		}
 		// add this block, filtering out any block that used to be at the same position
 		// todo: sort blocks by x asc, y desc
-		blocks = [...getBlocksNotAtPosition(x, y), block]
+		blocks = [...filterBlockAtPosition(x, y), block]
 	}
 
 	function eraseBlock(x, y) {
-		blocks = getBlocksNotAtPosition(x, y)
+		blocks = filterBlockAtPosition(x, y)
 	}
 
-	function getBlocksNotAtPosition(x, y) {
+	function filterBlockAtPosition(x, y) {
 		return blocks.filter(b => b.x != x || b.y != y)
 	}
 </script>
@@ -143,10 +140,10 @@
 		left: 0;
 		right: 0;
 		z-index: 100;
-		/* border: 1px solid blue; */
+		border: 1px solid blue;
 	}
 
 	:global(canvas) {
-		/* border: 1px solid red; */
+		border: 1px solid red;
 	}
 </style>

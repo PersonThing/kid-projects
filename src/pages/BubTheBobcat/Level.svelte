@@ -11,7 +11,7 @@
 
 	const imageCache = {}
 
-	$: if (blocks != null && canvas != null) {
+	$: if (blocks != null && canvas != null && width > 0 && height > 0) {
 		let ctx = canvas.getContext('2d')
 
 		// erase any blocks that are drawn that aren't in the new array
@@ -34,13 +34,13 @@
 			} else {
 				// temporarily supporting old data format with colors instead of pngs
 				ctx.beginPath()
-				ctx.rect(b.x, b.y, b.width, b.height)
+				ctx.rect(b.x, height - b.y - b.height, b.width, b.height)
 				ctx.fillStyle = b.color
 				ctx.fill()
 				// draw a line on top
 				ctx.beginPath()
-				ctx.moveTo(b.x, b.y + b.height)
-				ctx.lineTo(b.x + b.width, b.y + b.height)
+				ctx.moveTo(b.x, height - b.y - b.height)
+				ctx.lineTo(b.x + b.width, height - b.y - b.height)
 				ctx.strokeStyle = 'black'
 				ctx.stroke()
 			}
