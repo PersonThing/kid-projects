@@ -5,20 +5,20 @@
 	<div class="options">
 		{#each options as drawingName}
 			<div class:active={value == drawingName} on:click={() => (value = drawingName)}>
-				<CustomGraphic graphic={$savedDrawings[drawingName]} name={drawingName} />
+				<CustomGraphic graphic={$artStore[drawingName]} />
 			</div>
 		{/each}
 	</div>
 </div>
 
 <script>
-	import savedDrawings from '../../../stores/art-store'
+	import artStore from '../../../stores/art-store'
 	import CustomGraphic from './CustomGraphic.svelte'
 	import { onMount } from 'svelte'
 	export let value = null
 	export let filter = null
 
-	$: options = Object.keys($savedDrawings).filter(name => filter == null || filter($savedDrawings[name]))
+	$: options = Object.keys($artStore).filter(name => filter == null || filter($artStore[name]))
 </script>
 
 <style>

@@ -10,5 +10,6 @@ div.svelte-18s0d67{position:absolute;font-size:30px;top:10px;left:10px;color:#33
 .color-picker.svelte-1a4yczt button.svelte-1a4yczt{display:block;width:40px;height:25px;margin-bottom:0;border:none;border:1px solid #eee}.color-picker.svelte-1a4yczt button.svelte-1a4yczt:focus{outline:none;border:1px solid #eee}.color-picker.svelte-1a4yczt button.active.svelte-1a4yczt{width:50px}svg.svelte-1a4yczt.svelte-1a4yczt{fill:#fff;padding:5px}.flex.svelte-1a4yczt input[type='number'].svelte-1a4yczt{width:50px}.preview-bg.svelte-1a4yczt.svelte-1a4yczt{background:rgb(135, 206, 235)}
 .level-grid.svelte-115z112{background:rgb(135, 206, 235)}
 .options.svelte-1u0b3hs.svelte-1u0b3hs{overflow:auto}.options.svelte-1u0b3hs>div.svelte-1u0b3hs{padding:10px;float:left;border-radius:0.25rem}.options.svelte-1u0b3hs>div.active.svelte-1u0b3hs{background:#007bff}
+.tool-picker.svelte-1kr1on8 .btn.svelte-1kr1on8{margin-right:0.5rem}.level-container.svelte-1kr1on8.svelte-1kr1on8{position:relative;height:400px;overflow:auto}.level-overlay.svelte-1kr1on8.svelte-1kr1on8{position:absolute;top:0;bottom:0;left:0;right:0;z-index:100}canvas{}
 
 /*# sourceMappingURL=bundle.css.map */

@@ -89,8 +89,8 @@
 	import LocalStorageStore from '../../stores/local-storage-store'
 	import toPNG from './to-png'
 
-	const savedDrawings = LocalStorageStore('pixel-drawings', {})
-	$: savedNames = Object.keys($savedDrawings)
+	const artStore = LocalStorageStore('pixel-drawings', {})
+	$: savedNames = Object.keys($artStore)
 
 	$: previewPNG = toPNG(data, width, height)
 
@@ -262,7 +262,7 @@
 		const name = prompt('Give us a name', loaded || '')
 		if (name == null || name.trim().length == 0) return
 
-		$savedDrawings[name] = {
+		$artStore[name] = {
 			name,
 			gridSize,
 			width,
@@ -275,7 +275,7 @@
 	}
 
 	function load(name) {
-		let savedDrawing = JSON.parse(JSON.stringify($savedDrawings[name]))
+		let savedDrawing = JSON.parse(JSON.stringify($artStore[name]))
 
 		data = savedDrawing.data
 		gridSize = savedDrawing.gridSize
@@ -290,9 +290,9 @@
 	function deleteSave(name) {
 		if (!confirm(`Are you sure you want to delete ${name}?`)) return
 
-		if ($savedDrawings.hasOwnProperty(name)) {
-			delete $savedDrawings[name]
-			$savedDrawings = $savedDrawings
+		if ($artStore.hasOwnProperty(name)) {
+			delete $artStore[name]
+			$artStore = $artStore
 		}
 	}
 

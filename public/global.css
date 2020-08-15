@@ -30,6 +30,9 @@ label {
 	display: block;
 	font-weight: 500;
 }
+strong {
+	font-weight: 500;
+}
 
 input,
 button,
