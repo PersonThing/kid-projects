@@ -39,7 +39,7 @@
 	}
 
 	function edit(name) {
-		input = { ...$blocks[name] }
+		input = JSON.parse(JSON.stringify($blocks[name]))
 	}
 
 	function create() {

@@ -1,22 +1,6 @@
-<!-- <ul>
-	<li>Choose which characters can play this level</li>
-</ul>
-
 <div class="row">
 	<div class="col-2">
-		Placeable items here. Click an item, then click on the grid to place it in the level
-		<ul>
-			<li>all saved blocks</li>
-			<li>all saved enemies</li>
-		</ul>
-	</div>
-
-	<div class="col">GRID HERE</div>
-</div> -->
-
-<div class="row">
-	<div class="col-2">
-		<StoreNav items={$levels} activeName={input.name} on:create={create} on:edit={e => edit(e.detail)} />
+		<StoreNav href="#/level-builder/levels" items={$levels} activeName={input.name} on:create={create} on:edit={e => edit(e.detail)} />
 	</div>
 	<div class="col">
 		<Form on:submit={save}>
@@ -32,7 +16,7 @@
 
 			<span slot="buttons">
 				{#if !isAdding}
-					<button class="btn btn-danger" on:click={() => del(input.name)}>Delete</button>
+					<button class="btn btn-danger" on:click={del}>Delete</button>
 				{/if}
 			</span>
 		</Form>
@@ -51,19 +35,21 @@
 	import characters from '../../stores/character-store'
 	import levels from '../../stores/level-store'
 	import LevelBuilderDataEditor from './components/LevelBuilderDataEditor.svelte'
+	import { push } from 'svelte-spa-router'
 
+	export let params = {}
 	let input
-
-	create()
-
-	$: isAdding = $levels[input.name] == null
+	$: paramName = decodeURIComponent(params.name) || 'new'
+	$: paramName == 'new' ? create() : edit(paramName)
+	$: isAdding = paramName == 'new'
 
 	function save() {
 		$levels[input.name] = JSON.parse(JSON.stringify(input))
 	}
 
 	function edit(name) {
-		input = { ...$levels[name] }
+		console.log('editing ', name, $levels[name])
+		input = JSON.parse(JSON.stringify($levels[name]))
 	}
 
 	function create() {
@@ -76,8 +62,13 @@
 		}
 	}
 
-	function del(name) {
-		if (confirm(`Are you sure you want to delete "${name}"?`)) delete $levels[name]
-		$levels = $levels
+	function del() {
+		if (confirm(`Are you sure you want to delete "${input.name}"?`)) {
+			const copy = JSON.parse(JSON.stringify($levels))
+			delete copy[input.name]
+			$levels = copy
+			console.log(Object.keys($levels))
+			push('/level-builder/levels/new')
+		}
 	}
 </script>

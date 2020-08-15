@@ -57,7 +57,7 @@
 	}
 
 	function edit(name) {
-		input = { ...$enemies[name] }
+		input = JSON.parse(JSON.stringify($enemies[name]))
 	}
 
 	function create() {

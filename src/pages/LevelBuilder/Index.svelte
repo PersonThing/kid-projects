@@ -2,10 +2,10 @@
 	<div class="col-2">
 		<div class="list-group">
 			<a class="list-group-item list-group-item-action" class:active={tab == 'art'} href="#/level-builder">Art</a>
-			<a class="list-group-item list-group-item-action" class:active={tab == 'blocks'} href="#/level-builder/blocks">Blocks</a>
-			<a class="list-group-item list-group-item-action" class:active={tab == 'characters'} href="#/level-builder/characters">Characters</a>
-			<a class="list-group-item list-group-item-action" class:active={tab == 'enemies'} href="#/level-builder/enemies">Enemies</a>
-			<a class="list-group-item list-group-item-action" class:active={tab == 'levels'} href="#/level-builder/levels">Levels</a>
+			<a class="list-group-item list-group-item-action" class:active={tab == 'blocks'} href="#/level-builder/blocks/new">Blocks</a>
+			<a class="list-group-item list-group-item-action" class:active={tab == 'characters'} href="#/level-builder/characters/new">Characters</a>
+			<a class="list-group-item list-group-item-action" class:active={tab == 'enemies'} href="#/level-builder/enemies/new">Enemies</a>
+			<a class="list-group-item list-group-item-action" class:active={tab == 'levels'} href="#/level-builder/levels/new">Levels</a>
 		</div>
 	</div>
 	<div class="col">
@@ -26,9 +26,9 @@
 	const prefix = '/level-builder'
 	const routes = {
 		'/': ArtMaker,
-		'/blocks': BlockBuilder,
-		'/characters': CharacterBuilder,
-		'/enemies': EnemyBuilder,
-		'/levels': LevelBuilder,
+		'/blocks/:name?': BlockBuilder,
+		'/characters/:name?': CharacterBuilder,
+		'/enemies/:name?': EnemyBuilder,
+		'/levels/:name?': LevelBuilder,
 	}
 </script>

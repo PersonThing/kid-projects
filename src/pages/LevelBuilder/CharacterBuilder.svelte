@@ -60,7 +60,7 @@
 	}
 
 	function edit(name) {
-		input = { ...$characters[name] }
+		input = JSON.parse(JSON.stringify($characters[name]))
 	}
 
 	function create() {

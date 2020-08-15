@@ -1,15 +1,7 @@
 <div class="list-group">
-	<div
-		class="list-group-item list-group-item-action"
-		class:active={items[activeName] == null}
-		href="#/"
-		on:click|preventDefault={() => dispatch('create')}>
-		New
-	</div>
+	<a href="{href}/new" class="list-group-item list-group-item-action" class:list-group-item-success={items[activeName] == null}>New</a>
 	{#each Object.keys(items) as itemName}
-		<div class="list-group-item list-group-item-action" class:active={activeName == itemName} on:click={() => dispatch('edit', itemName)}>
-			{itemName}
-		</div>
+		<a class="list-group-item list-group-item-action" class:active={activeName == itemName} href="{href}/{itemName}">{itemName}</a>
 	{/each}
 </div>
 
@@ -17,5 +9,6 @@
 	import { createEventDispatcher } from 'svelte'
 	export let items = {}
 	export let activeName = null
+	export let href = ''
 	const dispatch = createEventDispatcher()
 </script>

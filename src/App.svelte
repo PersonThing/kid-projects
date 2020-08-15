@@ -19,7 +19,7 @@
 	import NotFound from './pages/NotFound.svelte'
 
 	const routes = {
-		'/level-builder/:tab?': LevelBuilder,
+		'/level-builder/:tab?/:name?': LevelBuilder,
 		'/bub-the-bobcat': BubTheBobcat,
 		'*': NotFound,
 	}

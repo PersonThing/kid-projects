@@ -4027,54 +4027,43 @@ var app = (function () {
 
     function get_each_context$2(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[5] = list[i];
+    	child_ctx[4] = list[i];
     	return child_ctx;
     }
 
-    // (9:1) {#each Object.keys(items) as itemName}
+    // (3:1) {#each Object.keys(items) as itemName}
     function create_each_block$2(ctx) {
-    	let div;
-    	let t0_value = /*itemName*/ ctx[5] + "";
-    	let t0;
-    	let t1;
-    	let mounted;
-    	let dispose;
-
-    	function click_handler_1(...args) {
-    		return /*click_handler_1*/ ctx[4](/*itemName*/ ctx[5], ...args);
-    	}
+    	let a;
+    	let t_value = /*itemName*/ ctx[4] + "";
+    	let t;
+    	let a_href_value;
 
     	const block = {
     		c: function create() {
-    			div = element("div");
-    			t0 = text(t0_value);
-    			t1 = space();
-    			attr_dev(div, "class", "list-group-item list-group-item-action");
-    			toggle_class(div, "active", /*activeName*/ ctx[1] == /*itemName*/ ctx[5]);
-    			add_location(div, file$8, 9, 2, 254);
+    			a = element("a");
+    			t = text(t_value);
+    			attr_dev(a, "class", "list-group-item list-group-item-action");
+    			attr_dev(a, "href", a_href_value = "" + (/*href*/ ctx[2] + "/" + /*itemName*/ ctx[4]));
+    			toggle_class(a, "active", /*activeName*/ ctx[1] == /*itemName*/ ctx[4]);
+    			add_location(a, file$8, 3, 2, 205);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div, anchor);
-    			append_dev(div, t0);
-    			append_dev(div, t1);
-
-    			if (!mounted) {
-    				dispose = listen_dev(div, "click", click_handler_1, false, false, false);
-    				mounted = true;
-    			}
+    			insert_dev(target, a, anchor);
+    			append_dev(a, t);
     		},
-    		p: function update(new_ctx, dirty) {
-    			ctx = new_ctx;
-    			if (dirty & /*items*/ 1 && t0_value !== (t0_value = /*itemName*/ ctx[5] + "")) set_data_dev(t0, t0_value);
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*items*/ 1 && t_value !== (t_value = /*itemName*/ ctx[4] + "")) set_data_dev(t, t_value);
+
+    			if (dirty & /*href, items*/ 5 && a_href_value !== (a_href_value = "" + (/*href*/ ctx[2] + "/" + /*itemName*/ ctx[4]))) {
+    				attr_dev(a, "href", a_href_value);
+    			}
 
     			if (dirty & /*activeName, Object, items*/ 3) {
-    				toggle_class(div, "active", /*activeName*/ ctx[1] == /*itemName*/ ctx[5]);
+    				toggle_class(a, "active", /*activeName*/ ctx[1] == /*itemName*/ ctx[4]);
     			}
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div);
-    			mounted = false;
-    			dispose();
+    			if (detaching) detach_dev(a);
     		}
     	};
 
@@ -4082,7 +4071,7 @@ var app = (function () {
     		block,
     		id: create_each_block$2.name,
     		type: "each",
-    		source: "(9:1) {#each Object.keys(items) as itemName}",
+    		source: "(3:1) {#each Object.keys(items) as itemName}",
     		ctx
     	});
 
@@ -4090,11 +4079,11 @@ var app = (function () {
     }
 
     function create_fragment$9(ctx) {
-    	let div1;
-    	let div0;
+    	let div;
+    	let a;
+    	let t0;
+    	let a_href_value;
     	let t1;
-    	let mounted;
-    	let dispose;
     	let each_value = Object.keys(/*items*/ ctx[0]);
     	validate_each_argument(each_value);
     	let each_blocks = [];
@@ -4105,45 +4094,45 @@ var app = (function () {
 
     	const block = {
     		c: function create() {
-    			div1 = element("div");
-    			div0 = element("div");
-    			div0.textContent = "New";
+    			div = element("div");
+    			a = element("a");
+    			t0 = text("New");
     			t1 = space();
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
 
-    			attr_dev(div0, "class", "list-group-item list-group-item-action");
-    			attr_dev(div0, "href", "#/");
-    			toggle_class(div0, "active", /*items*/ ctx[0][/*activeName*/ ctx[1]] == null);
-    			add_location(div0, file$8, 1, 1, 27);
-    			attr_dev(div1, "class", "list-group");
-    			add_location(div1, file$8, 0, 0, 0);
+    			attr_dev(a, "href", a_href_value = "" + (/*href*/ ctx[2] + "/new"));
+    			attr_dev(a, "class", "list-group-item list-group-item-action");
+    			toggle_class(a, "list-group-item-success", /*items*/ ctx[0][/*activeName*/ ctx[1]] == null);
+    			add_location(a, file$8, 1, 1, 27);
+    			attr_dev(div, "class", "list-group");
+    			add_location(div, file$8, 0, 0, 0);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div1, anchor);
-    			append_dev(div1, div0);
-    			append_dev(div1, t1);
+    			insert_dev(target, div, anchor);
+    			append_dev(div, a);
+    			append_dev(a, t0);
+    			append_dev(div, t1);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
-    				each_blocks[i].m(div1, null);
-    			}
-
-    			if (!mounted) {
-    				dispose = listen_dev(div0, "click", prevent_default(/*click_handler*/ ctx[3]), false, true, false);
-    				mounted = true;
+    				each_blocks[i].m(div, null);
     			}
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*items, activeName*/ 3) {
-    				toggle_class(div0, "active", /*items*/ ctx[0][/*activeName*/ ctx[1]] == null);
+    			if (dirty & /*href*/ 4 && a_href_value !== (a_href_value = "" + (/*href*/ ctx[2] + "/new"))) {
+    				attr_dev(a, "href", a_href_value);
     			}
 
-    			if (dirty & /*activeName, Object, items, dispatch*/ 7) {
+    			if (dirty & /*items, activeName*/ 3) {
+    				toggle_class(a, "list-group-item-success", /*items*/ ctx[0][/*activeName*/ ctx[1]] == null);
+    			}
+
+    			if (dirty & /*href, Object, items, activeName*/ 7) {
     				each_value = Object.keys(/*items*/ ctx[0]);
     				validate_each_argument(each_value);
     				let i;
@@ -4156,7 +4145,7 @@ var app = (function () {
     					} else {
     						each_blocks[i] = create_each_block$2(child_ctx);
     						each_blocks[i].c();
-    						each_blocks[i].m(div1, null);
+    						each_blocks[i].m(div, null);
     					}
     				}
 
@@ -4170,10 +4159,8 @@ var app = (function () {
     		i: noop,
     		o: noop,
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div1);
+    			if (detaching) detach_dev(div);
     			destroy_each(each_blocks, detaching);
-    			mounted = false;
-    			dispose();
     		}
     	};
 
@@ -4191,8 +4178,9 @@ var app = (function () {
     function instance$9($$self, $$props, $$invalidate) {
     	let { items = {} } = $$props;
     	let { activeName = null } = $$props;
+    	let { href = "" } = $$props;
     	const dispatch = createEventDispatcher();
-    	const writable_props = ["items", "activeName"];
+    	const writable_props = ["items", "activeName", "href"];
 
     	Object_1$3.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<StoreNav> was created with unknown prop '${key}'`);
@@ -4200,37 +4188,38 @@ var app = (function () {
 
     	let { $$slots = {}, $$scope } = $$props;
     	validate_slots("StoreNav", $$slots, []);
-    	const click_handler = () => dispatch("create");
-    	const click_handler_1 = itemName => dispatch("edit", itemName);
 
     	$$self.$$set = $$props => {
     		if ("items" in $$props) $$invalidate(0, items = $$props.items);
     		if ("activeName" in $$props) $$invalidate(1, activeName = $$props.activeName);
+    		if ("href" in $$props) $$invalidate(2, href = $$props.href);
     	};
 
     	$$self.$capture_state = () => ({
     		createEventDispatcher,
     		items,
     		activeName,
+    		href,
     		dispatch
     	});
 
     	$$self.$inject_state = $$props => {
     		if ("items" in $$props) $$invalidate(0, items = $$props.items);
     		if ("activeName" in $$props) $$invalidate(1, activeName = $$props.activeName);
+    		if ("href" in $$props) $$invalidate(2, href = $$props.href);
     	};
 
     	if ($$props && "$$inject" in $$props) {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [items, activeName, dispatch, click_handler, click_handler_1];
+    	return [items, activeName, href];
     }
 
     class StoreNav extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$9, create_fragment$9, safe_not_equal, { items: 0, activeName: 1 });
+    		init(this, options, instance$9, create_fragment$9, safe_not_equal, { items: 0, activeName: 1, href: 2 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
@@ -4253,6 +4242,14 @@ var app = (function () {
     	}
 
     	set activeName(value) {
+    		throw new Error("<StoreNav>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get href() {
+    		throw new Error("<StoreNav>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set href(value) {
     		throw new Error("<StoreNav>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
     }
@@ -4777,7 +4774,7 @@ var app = (function () {
     	}
 
     	function edit(name) {
-    		$$invalidate(0, input = { ...$blocks[name] });
+    		$$invalidate(0, input = JSON.parse(JSON.stringify($blocks[name])));
     	}
 
     	function create() {
@@ -5708,7 +5705,7 @@ var app = (function () {
     	}
 
     	function edit(name) {
-    		$$invalidate(0, input = { ...$characters[name] });
+    		$$invalidate(0, input = JSON.parse(JSON.stringify($characters[name])));
     	}
 
     	function create() {
@@ -6671,7 +6668,7 @@ var app = (function () {
     	}
 
     	function edit(name) {
-    		$$invalidate(0, input = { ...$enemies[name] });
+    		$$invalidate(0, input = JSON.parse(JSON.stringify($enemies[name])));
     	}
 
     	function create() {
@@ -7087,7 +7084,7 @@ var app = (function () {
     	}
     }
 
-    const store$4 = LocalStorageStore('level-store', {});
+    const store$4 = LocalStorageStore('levels', {});
 
     /* src\pages\BubTheBobcat\Level.svelte generated by Svelte v3.24.1 */
 
@@ -8335,10 +8332,10 @@ var app = (function () {
 
     /* src\pages\LevelBuilder\LevelBuilder.svelte generated by Svelte v3.24.1 */
 
-    const { Object: Object_1$5 } = globals;
+    const { Object: Object_1$5, console: console_1$3 } = globals;
     const file$h = "src\\pages\\LevelBuilder\\LevelBuilder.svelte";
 
-    // (23:3) <FieldText name="name" bind:value={input.name}>
+    // (7:3) <FieldText name="name" bind:value={input.name}>
     function create_default_slot_3$3(ctx) {
     	let t;
 
@@ -8358,14 +8355,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_3$3.name,
     		type: "slot",
-    		source: "(23:3) <FieldText name=\\\"name\\\" bind:value={input.name}>",
+    		source: "(7:3) <FieldText name=\\\"name\\\" bind:value={input.name}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (25:3) <FieldMultiSelect name="playableCharacters" bind:value={input.playableCharacters} options={Object.keys($characters)}>
+    // (9:3) <FieldMultiSelect name="playableCharacters" bind:value={input.playableCharacters} options={Object.keys($characters)}>
     function create_default_slot_2$3(ctx) {
     	let t;
 
@@ -8385,14 +8382,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_2$3.name,
     		type: "slot",
-    		source: "(25:3) <FieldMultiSelect name=\\\"playableCharacters\\\" bind:value={input.playableCharacters} options={Object.keys($characters)}>",
+    		source: "(9:3) <FieldMultiSelect name=\\\"playableCharacters\\\" bind:value={input.playableCharacters} options={Object.keys($characters)}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (29:3) <FieldText name="background" bind:value={input.background}>
+    // (13:3) <FieldText name="background" bind:value={input.background}>
     function create_default_slot_1$3(ctx) {
     	let t;
 
@@ -8412,14 +8409,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_1$3.name,
     		type: "slot",
-    		source: "(29:3) <FieldText name=\\\"background\\\" bind:value={input.background}>",
+    		source: "(13:3) <FieldText name=\\\"background\\\" bind:value={input.background}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (34:4) {#if !isAdding}
+    // (18:4) {#if !isAdding}
     function create_if_block$6(ctx) {
     	let button;
     	let mounted;
@@ -8430,13 +8427,13 @@ var app = (function () {
     			button = element("button");
     			button.textContent = "Delete";
     			attr_dev(button, "class", "btn btn-danger");
-    			add_location(button, file$h, 34, 5, 1091);
+    			add_location(button, file$h, 18, 5, 779);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
 
     			if (!mounted) {
-    				dispose = listen_dev(button, "click", /*click_handler*/ ctx[14], false, false, false);
+    				dispose = listen_dev(button, "click", /*del*/ ctx[7], false, false, false);
     				mounted = true;
     			}
     		},
@@ -8452,14 +8449,14 @@ var app = (function () {
     		block,
     		id: create_if_block$6.name,
     		type: "if",
-    		source: "(34:4) {#if !isAdding}",
+    		source: "(18:4) {#if !isAdding}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (33:3) <span slot="buttons">
+    // (17:3) <span slot="buttons">
     function create_buttons_slot$3(ctx) {
     	let span;
     	let if_block = !/*isAdding*/ ctx[1] && create_if_block$6(ctx);
@@ -8469,7 +8466,7 @@ var app = (function () {
     			span = element("span");
     			if (if_block) if_block.c();
     			attr_dev(span, "slot", "buttons");
-    			add_location(span, file$h, 32, 3, 1042);
+    			add_location(span, file$h, 16, 3, 730);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -8499,14 +8496,14 @@ var app = (function () {
     		block,
     		id: create_buttons_slot$3.name,
     		type: "slot",
-    		source: "(33:3) <span slot=\\\"buttons\\\">",
+    		source: "(17:3) <span slot=\\\"buttons\\\">",
     		ctx
     	});
 
     	return block;
     }
 
-    // (22:2) <Form on:submit={save}>
+    // (6:2) <Form on:submit={save}>
     function create_default_slot$3(ctx) {
     	let fieldtext0;
     	let updating_value;
@@ -8524,7 +8521,7 @@ var app = (function () {
     	let current;
 
     	function fieldtext0_value_binding(value) {
-    		/*fieldtext0_value_binding*/ ctx[9].call(null, value);
+    		/*fieldtext0_value_binding*/ ctx[10].call(null, value);
     	}
 
     	let fieldtext0_props = {
@@ -8541,7 +8538,7 @@ var app = (function () {
     	binding_callbacks.push(() => bind(fieldtext0, "value", fieldtext0_value_binding));
 
     	function fieldmultiselect_value_binding(value) {
-    		/*fieldmultiselect_value_binding*/ ctx[10].call(null, value);
+    		/*fieldmultiselect_value_binding*/ ctx[11].call(null, value);
     	}
 
     	let fieldmultiselect_props = {
@@ -8563,7 +8560,7 @@ var app = (function () {
     	binding_callbacks.push(() => bind(fieldmultiselect, "value", fieldmultiselect_value_binding));
 
     	function fieldtext1_value_binding(value) {
-    		/*fieldtext1_value_binding*/ ctx[11].call(null, value);
+    		/*fieldtext1_value_binding*/ ctx[12].call(null, value);
     	}
 
     	let fieldtext1_props = {
@@ -8580,11 +8577,11 @@ var app = (function () {
     	binding_callbacks.push(() => bind(fieldtext1, "value", fieldtext1_value_binding));
 
     	function levelbuilderdataeditor_blocks_binding(value) {
-    		/*levelbuilderdataeditor_blocks_binding*/ ctx[12].call(null, value);
+    		/*levelbuilderdataeditor_blocks_binding*/ ctx[13].call(null, value);
     	}
 
     	function levelbuilderdataeditor_enemies_binding(value) {
-    		/*levelbuilderdataeditor_enemies_binding*/ ctx[13].call(null, value);
+    		/*levelbuilderdataeditor_enemies_binding*/ ctx[14].call(null, value);
     	}
 
     	let levelbuilderdataeditor_props = { background: /*input*/ ctx[0].background };
@@ -8630,7 +8627,7 @@ var app = (function () {
     		p: function update(ctx, dirty) {
     			const fieldtext0_changes = {};
 
-    			if (dirty & /*$$scope*/ 32768) {
+    			if (dirty & /*$$scope*/ 65536) {
     				fieldtext0_changes.$$scope = { dirty, ctx };
     			}
 
@@ -8644,7 +8641,7 @@ var app = (function () {
     			const fieldmultiselect_changes = {};
     			if (dirty & /*$characters*/ 8) fieldmultiselect_changes.options = Object.keys(/*$characters*/ ctx[3]);
 
-    			if (dirty & /*$$scope*/ 32768) {
+    			if (dirty & /*$$scope*/ 65536) {
     				fieldmultiselect_changes.$$scope = { dirty, ctx };
     			}
 
@@ -8657,7 +8654,7 @@ var app = (function () {
     			fieldmultiselect.$set(fieldmultiselect_changes);
     			const fieldtext1_changes = {};
 
-    			if (dirty & /*$$scope*/ 32768) {
+    			if (dirty & /*$$scope*/ 65536) {
     				fieldtext1_changes.$$scope = { dirty, ctx };
     			}
 
@@ -8716,7 +8713,7 @@ var app = (function () {
     		block,
     		id: create_default_slot$3.name,
     		type: "slot",
-    		source: "(22:2) <Form on:submit={save}>",
+    		source: "(6:2) <Form on:submit={save}>",
     		ctx
     	});
 
@@ -8734,6 +8731,7 @@ var app = (function () {
 
     	storenav = new StoreNav({
     			props: {
+    				href: "#/level-builder/levels",
     				items: /*$levels*/ ctx[2],
     				activeName: /*input*/ ctx[0].name
     			},
@@ -8741,7 +8739,7 @@ var app = (function () {
     		});
 
     	storenav.$on("create", /*create*/ ctx[6]);
-    	storenav.$on("edit", /*edit_handler*/ ctx[8]);
+    	storenav.$on("edit", /*edit_handler*/ ctx[9]);
 
     	form = new Form({
     			props: {
@@ -8765,11 +8763,11 @@ var app = (function () {
     			div1 = element("div");
     			create_component(form.$$.fragment);
     			attr_dev(div0, "class", "col-2");
-    			add_location(div0, file$h, 17, 1, 362);
+    			add_location(div0, file$h, 1, 1, 20);
     			attr_dev(div1, "class", "col");
-    			add_location(div1, file$h, 20, 1, 498);
+    			add_location(div1, file$h, 4, 1, 186);
     			attr_dev(div2, "class", "row");
-    			add_location(div2, file$h, 16, 0, 342);
+    			add_location(div2, file$h, 0, 0, 0);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -8790,7 +8788,7 @@ var app = (function () {
     			storenav.$set(storenav_changes);
     			const form_changes = {};
 
-    			if (dirty & /*$$scope, input, isAdding, $characters*/ 32779) {
+    			if (dirty & /*$$scope, isAdding, input, $characters*/ 65547) {
     				form_changes.$$scope = { dirty, ctx };
     			}
 
@@ -8832,15 +8830,16 @@ var app = (function () {
     	component_subscribe($$self, store$4, $$value => $$invalidate(2, $levels = $$value));
     	validate_store(store$2, "characters");
     	component_subscribe($$self, store$2, $$value => $$invalidate(3, $characters = $$value));
+    	let { params = {} } = $$props;
     	let input;
-    	create();
 
     	function save() {
     		set_store_value(store$4, $levels[input.name] = JSON.parse(JSON.stringify(input)), $levels);
     	}
 
     	function edit(name) {
-    		$$invalidate(0, input = { ...$levels[name] });
+    		console.log("editing ", name, $levels[name]);
+    		$$invalidate(0, input = JSON.parse(JSON.stringify($levels[name])));
     	}
 
     	function create() {
@@ -8853,15 +8852,20 @@ var app = (function () {
     		});
     	}
 
-    	function del(name) {
-    		if (confirm(`Are you sure you want to delete "${name}"?`)) delete $levels[name];
-    		store$4.set($levels);
+    	function del() {
+    		if (confirm(`Are you sure you want to delete "${input.name}"?`)) {
+    			const copy = JSON.parse(JSON.stringify($levels));
+    			delete copy[input.name];
+    			set_store_value(store$4, $levels = copy);
+    			console.log(Object.keys($levels));
+    			push("/level-builder/levels/new");
+    		}
     	}
 
-    	const writable_props = [];
+    	const writable_props = ["params"];
 
     	Object_1$5.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<LevelBuilder> was created with unknown prop '${key}'`);
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console_1$3.warn(`<LevelBuilder> was created with unknown prop '${key}'`);
     	});
 
     	let { $$slots = {}, $$scope } = $$props;
@@ -8893,7 +8897,9 @@ var app = (function () {
     		$$invalidate(0, input);
     	}
 
-    	const click_handler = () => del(input.name);
+    	$$self.$$set = $$props => {
+    		if ("params" in $$props) $$invalidate(8, params = $$props.params);
+    	};
 
     	$$self.$capture_state = () => ({
     		FieldGraphicPicker,
@@ -8906,21 +8912,27 @@ var app = (function () {
     		characters: store$2,
     		levels: store$4,
     		LevelBuilderDataEditor,
+    		push,
+    		params,
     		input,
     		save,
     		edit,
     		create,
     		del,
+    		paramName,
     		isAdding,
     		$levels,
     		$characters
     	});
 
     	$$self.$inject_state = $$props => {
+    		if ("params" in $$props) $$invalidate(8, params = $$props.params);
     		if ("input" in $$props) $$invalidate(0, input = $$props.input);
+    		if ("paramName" in $$props) $$invalidate(15, paramName = $$props.paramName);
     		if ("isAdding" in $$props) $$invalidate(1, isAdding = $$props.isAdding);
     	};
 
+    	let paramName;
     	let isAdding;
 
     	if ($$props && "$$inject" in $$props) {
@@ -8928,8 +8940,16 @@ var app = (function () {
     	}
 
     	$$self.$$.update = () => {
-    		if ($$self.$$.dirty & /*$levels, input*/ 5) {
-    			 $$invalidate(1, isAdding = $levels[input.name] == null);
+    		if ($$self.$$.dirty & /*params*/ 256) {
+    			 $$invalidate(15, paramName = decodeURIComponent(params.name) || "new");
+    		}
+
+    		if ($$self.$$.dirty & /*paramName*/ 32768) {
+    			 paramName == "new" ? create() : edit(paramName);
+    		}
+
+    		if ($$self.$$.dirty & /*paramName*/ 32768) {
+    			 $$invalidate(1, isAdding = paramName == "new");
     		}
     	};
 
@@ -8942,20 +8962,20 @@ var app = (function () {
     		edit,
     		create,
     		del,
+    		params,
     		edit_handler,
     		fieldtext0_value_binding,
     		fieldmultiselect_value_binding,
     		fieldtext1_value_binding,
     		levelbuilderdataeditor_blocks_binding,
-    		levelbuilderdataeditor_enemies_binding,
-    		click_handler
+    		levelbuilderdataeditor_enemies_binding
     	];
     }
 
     class LevelBuilder extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$i, create_fragment$i, safe_not_equal, {});
+    		init(this, options, instance$i, create_fragment$i, safe_not_equal, { params: 8 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
@@ -8963,6 +8983,14 @@ var app = (function () {
     			options,
     			id: create_fragment$i.name
     		});
+    	}
+
+    	get params() {
+    		throw new Error("<LevelBuilder>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set params(value) {
+    		throw new Error("<LevelBuilder>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
     }
 
@@ -9019,27 +9047,27 @@ var app = (function () {
     			toggle_class(a0, "active", /*tab*/ ctx[0] == "art");
     			add_location(a0, file$i, 3, 3, 72);
     			attr_dev(a1, "class", "list-group-item list-group-item-action");
-    			attr_dev(a1, "href", "#/level-builder/blocks");
+    			attr_dev(a1, "href", "#/level-builder/blocks/new");
     			toggle_class(a1, "active", /*tab*/ ctx[0] == "blocks");
     			add_location(a1, file$i, 4, 3, 185);
     			attr_dev(a2, "class", "list-group-item list-group-item-action");
-    			attr_dev(a2, "href", "#/level-builder/characters");
+    			attr_dev(a2, "href", "#/level-builder/characters/new");
     			toggle_class(a2, "active", /*tab*/ ctx[0] == "characters");
-    			add_location(a2, file$i, 5, 3, 311);
+    			add_location(a2, file$i, 5, 3, 315);
     			attr_dev(a3, "class", "list-group-item list-group-item-action");
-    			attr_dev(a3, "href", "#/level-builder/enemies");
+    			attr_dev(a3, "href", "#/level-builder/enemies/new");
     			toggle_class(a3, "active", /*tab*/ ctx[0] == "enemies");
-    			add_location(a3, file$i, 6, 3, 449);
+    			add_location(a3, file$i, 6, 3, 457);
     			attr_dev(a4, "class", "list-group-item list-group-item-action");
-    			attr_dev(a4, "href", "#/level-builder/levels");
+    			attr_dev(a4, "href", "#/level-builder/levels/new");
     			toggle_class(a4, "active", /*tab*/ ctx[0] == "levels");
-    			add_location(a4, file$i, 7, 3, 578);
+    			add_location(a4, file$i, 7, 3, 590);
     			attr_dev(div0, "class", "list-group");
     			add_location(div0, file$i, 2, 2, 43);
     			attr_dev(div1, "class", "col-2");
     			add_location(div1, file$i, 1, 1, 20);
     			attr_dev(div2, "class", "col");
-    			add_location(div2, file$i, 10, 1, 721);
+    			add_location(div2, file$i, 10, 1, 737);
     			attr_dev(div3, "class", "row");
     			add_location(div3, file$i, 0, 0, 0);
     		},
@@ -9118,10 +9146,10 @@ var app = (function () {
 
     	const routes = {
     		"/": ArtMaker,
-    		"/blocks": BlockBuilder,
-    		"/characters": CharacterBuilder,
-    		"/enemies": EnemyBuilder,
-    		"/levels": LevelBuilder
+    		"/blocks/:name?": BlockBuilder,
+    		"/characters/:name?": CharacterBuilder,
+    		"/enemies/:name?": EnemyBuilder,
+    		"/levels/:name?": LevelBuilder
     	};
 
     	const writable_props = ["params"];
@@ -9192,63 +9220,11 @@ var app = (function () {
     	}
     }
 
-    /* src\pages\BubTheBobcat\LevelBuilder.svelte generated by Svelte v3.24.1 */
-
-    function create_fragment$k(ctx) {
-    	const block = {
-    		c: noop,
-    		l: function claim(nodes) {
-    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
-    		},
-    		m: noop,
-    		p: noop,
-    		i: noop,
-    		o: noop,
-    		d: noop
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_fragment$k.name,
-    		type: "component",
-    		source: "",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    function instance$k($$self, $$props) {
-    	const writable_props = [];
-
-    	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<LevelBuilder> was created with unknown prop '${key}'`);
-    	});
-
-    	let { $$slots = {}, $$scope } = $$props;
-    	validate_slots("LevelBuilder", $$slots, []);
-    	return [];
-    }
-
-    class LevelBuilder$1 extends SvelteComponentDev {
-    	constructor(options) {
-    		super(options);
-    		init(this, options, instance$k, create_fragment$k, safe_not_equal, {});
-
-    		dispatch_dev("SvelteRegisterComponent", {
-    			component: this,
-    			tagName: "LevelBuilder",
-    			options,
-    			id: create_fragment$k.name
-    		});
-    	}
-    }
-
     /* src\pages\BubTheBobcat\Status.svelte generated by Svelte v3.24.1 */
 
     const file$j = "src\\pages\\BubTheBobcat\\Status.svelte";
 
-    function create_fragment$l(ctx) {
+    function create_fragment$k(ctx) {
     	let div;
     	let p0;
     	let t0;
@@ -9302,7 +9278,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$l.name,
+    		id: create_fragment$k.name,
     		type: "component",
     		source: "",
     		ctx
@@ -9311,7 +9287,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$l($$self, $$props, $$invalidate) {
+    function instance$k($$self, $$props, $$invalidate) {
     	let { level = {} } = $$props;
     	let { score = 0 } = $$props;
     	const writable_props = ["level", "score"];
@@ -9345,13 +9321,13 @@ var app = (function () {
     class Status extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$l, create_fragment$l, safe_not_equal, { level: 0, score: 1 });
+    		init(this, options, instance$k, create_fragment$k, safe_not_equal, { level: 0, score: 1 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "Status",
     			options,
-    			id: create_fragment$l.name
+    			id: create_fragment$k.name
     		});
     	}
 
@@ -9438,7 +9414,7 @@ var app = (function () {
     	return block;
     }
 
-    function create_fragment$m(ctx) {
+    function create_fragment$l(ctx) {
     	let div;
     	let table;
     	let each_value = /*keyBinds*/ ctx[0];
@@ -9509,7 +9485,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$m.name,
+    		id: create_fragment$l.name,
     		type: "component",
     		source: "",
     		ctx
@@ -9518,7 +9494,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$m($$self, $$props, $$invalidate) {
+    function instance$l($$self, $$props, $$invalidate) {
     	const keyBinds = [
     		{
     			key: "Left + Right Arrow",
@@ -9545,13 +9521,13 @@ var app = (function () {
     class Instructions extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$m, create_fragment$m, safe_not_equal, {});
+    		init(this, options, instance$l, create_fragment$l, safe_not_equal, {});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "Instructions",
     			options,
-    			id: create_fragment$m.name
+    			id: create_fragment$l.name
     		});
     	}
     }
@@ -9560,7 +9536,7 @@ var app = (function () {
 
     const file$l = "src\\pages\\BubTheBobcat\\Viewport.svelte";
 
-    function create_fragment$n(ctx) {
+    function create_fragment$m(ctx) {
     	let div1;
     	let div0;
     	let current;
@@ -9644,7 +9620,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$n.name,
+    		id: create_fragment$m.name,
     		type: "component",
     		source: "",
     		ctx
@@ -9653,7 +9629,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$n($$self, $$props, $$invalidate) {
+    function instance$m($$self, $$props, $$invalidate) {
     	let { x = 0 } = $$props;
     	let { y = 0 } = $$props;
     	let { width = 0 } = $$props;
@@ -9698,7 +9674,7 @@ var app = (function () {
     	constructor(options) {
     		super(options);
 
-    		init(this, options, instance$n, create_fragment$n, safe_not_equal, {
+    		init(this, options, instance$m, create_fragment$m, safe_not_equal, {
     			x: 0,
     			y: 1,
     			width: 2,
@@ -9710,7 +9686,7 @@ var app = (function () {
     			component: this,
     			tagName: "Viewport",
     			options,
-    			id: create_fragment$n.name
+    			id: create_fragment$m.name
     		});
     	}
 
@@ -9758,7 +9734,7 @@ var app = (function () {
     /* src\pages\BubTheBobcat\Player.svelte generated by Svelte v3.24.1 */
     const file$m = "src\\pages\\BubTheBobcat\\Player.svelte";
 
-    function create_fragment$o(ctx) {
+    function create_fragment$n(ctx) {
     	let div;
     	let healthbar;
     	let t;
@@ -9845,7 +9821,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$o.name,
+    		id: create_fragment$n.name,
     		type: "component",
     		source: "",
     		ctx
@@ -9854,7 +9830,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$o($$self, $$props, $$invalidate) {
+    function instance$n($$self, $$props, $$invalidate) {
     	let { vx = 0 } = $$props;
     	let { vy = 0 } = $$props;
     	let { y = 0 } = $$props;
@@ -9959,7 +9935,7 @@ var app = (function () {
     	constructor(options) {
     		super(options);
 
-    		init(this, options, instance$o, create_fragment$o, safe_not_equal, {
+    		init(this, options, instance$n, create_fragment$n, safe_not_equal, {
     			vx: 8,
     			vy: 9,
     			y: 0,
@@ -9975,7 +9951,7 @@ var app = (function () {
     			component: this,
     			tagName: "Player",
     			options,
-    			id: create_fragment$o.name
+    			id: create_fragment$n.name
     		});
     	}
 
@@ -10056,7 +10032,7 @@ var app = (function () {
 
     const file$n = "src\\pages\\BubTheBobcat\\GameOver.svelte";
 
-    function create_fragment$p(ctx) {
+    function create_fragment$o(ctx) {
     	let div;
     	let h10;
     	let t1;
@@ -10112,7 +10088,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$p.name,
+    		id: create_fragment$o.name,
     		type: "component",
     		source: "",
     		ctx
@@ -10121,7 +10097,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$p($$self, $$props, $$invalidate) {
+    function instance$o($$self, $$props, $$invalidate) {
     	let { score = 0 } = $$props;
     	const writable_props = ["score"];
 
@@ -10152,13 +10128,13 @@ var app = (function () {
     class GameOver extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$p, create_fragment$p, safe_not_equal, { score: 0 });
+    		init(this, options, instance$o, create_fragment$o, safe_not_equal, { score: 0 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "GameOver",
     			options,
-    			id: create_fragment$p.name
+    			id: create_fragment$o.name
     		});
     	}
 
@@ -10288,7 +10264,7 @@ var app = (function () {
 
     /* src\pages\BubTheBobcat\Game.svelte generated by Svelte v3.24.1 */
 
-    const { console: console_1$3, window: window_1 } = globals;
+    const { console: console_1$4, window: window_1 } = globals;
     const file$o = "src\\pages\\BubTheBobcat\\Game.svelte";
 
     function get_each_context$6(ctx, list, i) {
@@ -10615,7 +10591,7 @@ var app = (function () {
     	return block;
     }
 
-    function create_fragment$q(ctx) {
+    function create_fragment$p(ctx) {
     	let div;
     	let t0;
     	let t1;
@@ -10756,7 +10732,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$q.name,
+    		id: create_fragment$p.name,
     		type: "component",
     		source: "",
     		ctx
@@ -10767,7 +10743,7 @@ var app = (function () {
 
     const blockSize$1 = 25;
 
-    function instance$q($$self, $$props, $$invalidate) {
+    function instance$p($$self, $$props, $$invalidate) {
     	let { level = null } = $$props;
     	let blocks;
     	let levelWidth = 0;
@@ -10994,7 +10970,7 @@ var app = (function () {
     	const writable_props = ["level"];
 
     	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console_1$3.warn(`<Game> was created with unknown prop '${key}'`);
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console_1$4.warn(`<Game> was created with unknown prop '${key}'`);
     	});
 
     	let { $$slots = {}, $$scope } = $$props;
@@ -11092,13 +11068,13 @@ var app = (function () {
     class Game extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$q, create_fragment$q, safe_not_equal, { level: 0 });
+    		init(this, options, instance$p, create_fragment$p, safe_not_equal, { level: 0 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "Game",
     			options,
-    			id: create_fragment$q.name
+    			id: create_fragment$p.name
     		});
     	}
 
@@ -11113,7 +11089,7 @@ var app = (function () {
 
     /* src\pages\BubTheBobcat\Index.svelte generated by Svelte v3.24.1 */
 
-    function create_fragment$r(ctx) {
+    function create_fragment$q(ctx) {
     	let game;
     	let current;
 
@@ -11150,7 +11126,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$r.name,
+    		id: create_fragment$q.name,
     		type: "component",
     		source: "",
     		ctx
@@ -11159,7 +11135,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$r($$self, $$props, $$invalidate) {
+    function instance$q($$self, $$props, $$invalidate) {
     	let level = null;
 
     	let levels = [
@@ -20779,7 +20755,7 @@ var app = (function () {
 
     	let { $$slots = {}, $$scope } = $$props;
     	validate_slots("Index", $$slots, []);
-    	$$self.$capture_state = () => ({ LevelBuilder: LevelBuilder$1, Game, level, levels });
+    	$$self.$capture_state = () => ({ Game, level, levels });
 
     	$$self.$inject_state = $$props => {
     		if ("level" in $$props) level = $$props.level;
@@ -20796,13 +20772,13 @@ var app = (function () {
     class Index$1 extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$r, create_fragment$r, safe_not_equal, {});
+    		init(this, options, instance$q, create_fragment$q, safe_not_equal, {});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "Index",
     			options,
-    			id: create_fragment$r.name
+    			id: create_fragment$q.name
     		});
     	}
     }
@@ -20811,7 +20787,7 @@ var app = (function () {
 
     const file$p = "src\\pages\\NotFound.svelte";
 
-    function create_fragment$s(ctx) {
+    function create_fragment$r(ctx) {
     	let h1;
 
     	const block = {
@@ -20836,7 +20812,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$s.name,
+    		id: create_fragment$r.name,
     		type: "component",
     		source: "",
     		ctx
@@ -20845,7 +20821,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$s($$self, $$props) {
+    function instance$r($$self, $$props) {
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
@@ -20860,13 +20836,13 @@ var app = (function () {
     class NotFound extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$s, create_fragment$s, safe_not_equal, {});
+    		init(this, options, instance$r, create_fragment$r, safe_not_equal, {});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "NotFound",
     			options,
-    			id: create_fragment$s.name
+    			id: create_fragment$r.name
     		});
     	}
     }
@@ -20874,7 +20850,7 @@ var app = (function () {
     /* src\App.svelte generated by Svelte v3.24.1 */
     const file$q = "src\\App.svelte";
 
-    function create_fragment$t(ctx) {
+    function create_fragment$s(ctx) {
     	let ul;
     	let li0;
     	let a0;
@@ -20954,7 +20930,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$t.name,
+    		id: create_fragment$s.name,
     		type: "component",
     		source: "",
     		ctx
@@ -20963,9 +20939,9 @@ var app = (function () {
     	return block;
     }
 
-    function instance$t($$self, $$props, $$invalidate) {
+    function instance$s($$self, $$props, $$invalidate) {
     	const routes = {
-    		"/level-builder/:tab?": Index,
+    		"/level-builder/:tab?/:name?": Index,
     		"/bub-the-bobcat": Index$1,
     		"*": NotFound
     	};
@@ -20993,13 +20969,13 @@ var app = (function () {
     class App extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$t, create_fragment$t, safe_not_equal, {});
+    		init(this, options, instance$s, create_fragment$s, safe_not_equal, {});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "App",
     			options,
-    			id: create_fragment$t.name
+    			id: create_fragment$s.name
     		});
     	}
     }

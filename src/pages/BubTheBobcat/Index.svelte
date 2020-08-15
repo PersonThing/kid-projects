@@ -1,7 +1,6 @@
 <Game level={levels[0]} />
 
 <script>
-	import LevelBuilder from './LevelBuilder.svelte'
 	import Game from './Game.svelte'
 
 	// import LocalStorageStore from '../../stores/local-storage-store'
