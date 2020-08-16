@@ -27,7 +27,7 @@
 	import Enemy from './Enemy.svelte'
 	import HealthBar from './HealthBar.svelte'
 	import GameOver from './GameOver.svelte'
-	import { doObjectsIntersect, isAAboveB } from './spatial-functions'
+	import { doObjectsIntersect, isAAboveB, doObjectsIntersectY, doObjectsIntersectYExclusive } from './spatial-functions'
 	import { BossEnemy, SimpleEnemy } from './enemies'
 
 	import artStore from '../../stores/art-store'
@@ -36,7 +36,10 @@
 	export let level = null
 	export let character = null
 
-	const blockSize = 25
+	const artScale = 2
+	const startOfLevel = 0
+	let endOfLevel
+	const blockSize = 40
 	let blocks
 	let damageBlocks
 	let levelWidth = 0
@@ -81,6 +84,8 @@
 				throwOnTouch: $blockStore[b.name].throwOnTouch,
 			}))
 
+		endOfLevel = Math.max(...blocks.map(b => b.x + b.width))
+
 		damageBlocks = blocks.filter(b => b.dps > 0)
 
 		levelWidth = Math.max(...blocks.map(b => b.x + b.width))
@@ -93,8 +98,6 @@
 		window.cancelAnimationFrame(lastRequestedFrame)
 	})
 
-	let rightBound
-	const artScale = 2
 	function start() {
 		score = 0
 		player = {
@@ -140,12 +143,11 @@
 	function gameLoop() {
 		if (!gameOver) {
 			// visibleBlocks = blocks.filter(b => doObjectsIntersect(viewport, b))
-			player = applyGravityAndVelocityAndLevelDamage(player, true)
+			player = applyWorldToSprite(player, true)
 
 			// handle movement / attack abilities
 			player.tick()
 
-			rightBound = blockSize * level.length
 			const halfViewportWidth = viewport.width / 2
 			const halfViewportHeight = viewport.height / 2
 
@@ -155,9 +157,9 @@
 					? // viewport all the way to the left
 					  0
 					: // player is at end of level
-					player.x > rightBound - halfViewportWidth
+					player.x > endOfLevel - halfViewportWidth
 					? // viewport all the way to the right
-					  rightBound - viewport.width
+					  endOfLevel - viewport.width
 					: // player is in middle of level, viewport centered on player
 					  player.x - halfViewportWidth
 
@@ -170,18 +172,18 @@
 					  player.y - halfViewportHeight
 
 			// todo: levels should add mobs, not auto spawn
-			if (!enemies.some(e => e.health > 0)) {
-				if (enemies.length < 5) {
-					enemies = enemies.concat([1, 2, 3, 4, 5].map(x => new SimpleEnemy(player.x + 200 * x, player.y + 200)))
-				} else {
-					enemies = [new BossEnemy(player.x + 200, player.y + 200)]
-				}
-			}
+			// if (!enemies.some(e => e.health > 0)) {
+			// 	if (enemies.length < 5) {
+			// 		enemies = enemies.concat([1, 2, 3, 4, 5].map(x => new SimpleEnemy(player.x + 200 * x, player.y + 200)))
+			// 	} else {
+			// 		enemies = [new BossEnemy(player.x + 200, player.y + 200)]
+			// 	}
+			// }
 
 			// for every live enemy intersecting the player, one or the other should take damage
 			for (let i = 0; i < enemies.length; i++) {
 				if (enemies[i].alive) {
-					enemies[i] = applyGravityAndVelocityAndLevelDamage(enemies[i])
+					enemies[i] = applyWorldToSprite(enemies[i])
 					enemies[i].tick(player)
 					if (doObjectsIntersect(player, enemies[i])) {
 						if (player.spinning) {
@@ -206,7 +208,7 @@
 		if (gameAlive) lastRequestedFrame = window.requestAnimationFrame(gameLoop)
 	}
 
-	function applyGravityAndVelocityAndLevelDamage(sprite, isPlayerControlled = false) {
+	function applyWorldToSprite(sprite, isPlayerControlled = false) {
 		const surfacesBelowSprite = blocks.filter(b => b.solid && isAAboveB(sprite, b)).map(b => b.y + b.height)
 		const surfaceY = surfacesBelowSprite.length > 0 ? Math.max(...surfacesBelowSprite) : -500 // some number off screen
 
@@ -234,12 +236,35 @@
 		// x velocity
 		if (sprite.vx != 0) {
 			if (sprite.vx > 0) {
-				const targetX = sprite.x + sprite.vx
-				sprite.x = targetX > rightBound ? rightBound : targetX
-			} else {
-				const leftBound = 0
-				const targetX = sprite.x + sprite.vx
-				sprite.x = targetX < leftBound ? leftBound : targetX
+				// moving right
+				let targetX = sprite.x + sprite.vx
+				// any block that would prevent us from reaching our target?
+				const blockToRight = blocks.find(b => {
+					// sprite x + width <= box x
+					// target x + width > box x
+					const txw = targetX + sprite.width
+					const sxw = sprite.x + sprite.width
+					return txw > b.x && sxw <= b.x && doObjectsIntersectYExclusive(b, sprite)
+				})
+				if (blockToRight != null) targetX = blockToRight.x - sprite.width
+				// don't let them go past end of level
+				else if (targetX > endOfLevel) targetX = endOfLevel
+				sprite.x = targetX
+			} else if (sprite.vx < 0) {
+				// moving left
+				let targetX = sprite.x + sprite.vx
+				// any block that would prevent us from reaching target?
+				const blockToLeft = blocks.find(b => {
+					// sprite x >= box x + width
+					// target x < box x + width
+					const bxw = b.x + b.width
+					return sprite.x >= bxw && targetX < bxw && doObjectsIntersectYExclusive(b, sprite)
+				})
+				if (blockToLeft != null) targetX = blockToLeft.x + blockToLeft.width
+				// don't let them go past start of level
+				else if (targetX < 0) targetX = 0
+
+				sprite.x = targetX < startOfLevel ? startOfLevel : targetX
 			}
 		}
 

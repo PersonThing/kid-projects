@@ -11004,7 +11004,7 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			img = element("img");
-    			attr_dev(img, "class", "graphic svelte-1kb5wuu");
+    			attr_dev(img, "class", "graphic");
     			if (img.src !== (img_src_value = /*graphic*/ ctx[6].png)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", /*name*/ ctx[0]);
     			set_style(img, "width", /*graphic*/ ctx[6].width * artScale + "px");
@@ -11074,7 +11074,7 @@ var app = (function () {
     			create_component(healthbar.$$.fragment);
     			t = space();
     			if (if_block) if_block.c();
-    			attr_dev(div, "class", "player svelte-1kb5wuu");
+    			attr_dev(div, "class", "player svelte-wdnc19");
     			set_style(div, "left", /*x*/ ctx[3] + "px");
     			set_style(div, "bottom", /*y*/ ctx[2] + "px");
     			add_location(div, file$m, 0, 0, 0);
@@ -11613,6 +11613,7 @@ var app = (function () {
     const doObjectsIntersect = (a, b) => doObjectsIntersectX(a, b) && doObjectsIntersectY(a, b);
     const doObjectsIntersectX = (a, b) => a.x < b.x + b.width && a.x + a.width > b.x;
     const doObjectsIntersectY = (a, b) => a.y + a.height >= b.y && a.y <= b.y + b.height;
+    const doObjectsIntersectYExclusive = (a, b) => a.y + a.height > b.y && a.y < b.y + b.height;
     const isAAboveB = (a, b) => a.y >= b.y + b.height && doObjectsIntersectX(a, b);
 
     class SimpleEnemy {
@@ -12147,8 +12148,9 @@ var app = (function () {
     	return block;
     }
 
-    const blockSize$1 = 25;
     const artScale$1 = 2;
+    const startOfLevel = 0;
+    const blockSize$1 = 40;
 
     function instance$q($$self, $$props, $$invalidate) {
     	let $blockStore;
@@ -12159,6 +12161,7 @@ var app = (function () {
     	component_subscribe($$self, artStore, $$value => $$invalidate(21, $artStore = $$value));
     	let { level = null } = $$props;
     	let { character = null } = $$props;
+    	let endOfLevel;
     	let blocks;
     	let damageBlocks;
     	let levelWidth = 0;
@@ -12189,6 +12192,7 @@ var app = (function () {
     			throwOnTouch: $blockStore[b.name].throwOnTouch
     		})));
 
+    		endOfLevel = Math.max(...blocks.map(b => b.x + b.width));
     		damageBlocks = blocks.filter(b => b.dps > 0);
     		$$invalidate(2, levelWidth = Math.max(...blocks.map(b => b.x + b.width)));
     		$$invalidate(3, levelHeight = 800); //Math.max(...blocks.map(b => b.y + b.height))
@@ -12199,8 +12203,6 @@ var app = (function () {
     		gameAlive = false;
     		window.cancelAnimationFrame(lastRequestedFrame);
     	});
-
-    	let rightBound;
 
     	function start() {
     		$$invalidate(4, score = 0);
@@ -12242,12 +12244,11 @@ var app = (function () {
     	function gameLoop() {
     		if (!gameOver) {
     			// visibleBlocks = blocks.filter(b => doObjectsIntersect(viewport, b))
-    			$$invalidate(6, player = applyGravityAndVelocityAndLevelDamage(player, true));
+    			$$invalidate(6, player = applyWorldToSprite(player, true));
 
     			// handle movement / attack abilities
     			player.tick();
 
-    			rightBound = blockSize$1 * level.length;
     			const halfViewportWidth = viewport.width / 2;
     			const halfViewportHeight = viewport.height / 2;
 
@@ -12258,9 +12259,9 @@ var app = (function () {
     				? // viewport all the way to the left
     					0
     				: // player is at end of level
-    					player.x > rightBound - halfViewportWidth
+    					player.x > endOfLevel - halfViewportWidth
     					? // viewport all the way to the right
-    						rightBound - viewport.width
+    						endOfLevel - viewport.width
     					: // player is in middle of level, viewport centered on player
     						player.x - halfViewportWidth,
     				viewport
@@ -12278,18 +12279,17 @@ var app = (function () {
     			);
 
     			// todo: levels should add mobs, not auto spawn
-    			if (!enemies.some(e => e.health > 0)) {
-    				if (enemies.length < 5) {
-    					$$invalidate(7, enemies = enemies.concat([1, 2, 3, 4, 5].map(x => new SimpleEnemy(player.x + 200 * x, player.y + 200))));
-    				} else {
-    					$$invalidate(7, enemies = [new BossEnemy(player.x + 200, player.y + 200)]);
-    				}
-    			}
-
+    			// if (!enemies.some(e => e.health > 0)) {
+    			// 	if (enemies.length < 5) {
+    			// 		enemies = enemies.concat([1, 2, 3, 4, 5].map(x => new SimpleEnemy(player.x + 200 * x, player.y + 200)))
+    			// 	} else {
+    			// 		enemies = [new BossEnemy(player.x + 200, player.y + 200)]
+    			// 	}
+    			// }
     			// for every live enemy intersecting the player, one or the other should take damage
     			for (let i = 0; i < enemies.length; i++) {
     				if (enemies[i].alive) {
-    					$$invalidate(7, enemies[i] = applyGravityAndVelocityAndLevelDamage(enemies[i]), enemies);
+    					$$invalidate(7, enemies[i] = applyWorldToSprite(enemies[i]), enemies);
     					enemies[i].tick(player);
 
     					if (doObjectsIntersect(player, enemies[i])) {
@@ -12316,7 +12316,7 @@ var app = (function () {
     		if (gameAlive) lastRequestedFrame = window.requestAnimationFrame(gameLoop);
     	}
 
-    	function applyGravityAndVelocityAndLevelDamage(sprite, isPlayerControlled = false) {
+    	function applyWorldToSprite(sprite, isPlayerControlled = false) {
     		const surfacesBelowSprite = blocks.filter(b => b.solid && isAAboveB(sprite, b)).map(b => b.y + b.height);
 
     		const surfaceY = surfacesBelowSprite.length > 0
@@ -12347,12 +12347,40 @@ var app = (function () {
     		// x velocity
     		if (sprite.vx != 0) {
     			if (sprite.vx > 0) {
-    				const targetX = sprite.x + sprite.vx;
-    				sprite.x = targetX > rightBound ? rightBound : targetX;
-    			} else {
-    				const leftBound = 0;
-    				const targetX = sprite.x + sprite.vx;
-    				sprite.x = targetX < leftBound ? leftBound : targetX;
+    				// moving right
+    				let targetX = sprite.x + sprite.vx;
+
+    				// any block that would prevent us from reaching our target?
+    				const blockToRight = blocks.find(b => {
+    					// sprite x + width <= box x
+    					// target x + width > box x
+    					const txw = targetX + sprite.width;
+
+    					const sxw = sprite.x + sprite.width;
+    					return txw > b.x && sxw <= b.x && doObjectsIntersectYExclusive(b, sprite);
+    				});
+
+    				if (blockToRight != null) targetX = blockToRight.x - sprite.width; else // don't let them go past end of level
+    				if (targetX > endOfLevel) targetX = endOfLevel;
+
+    				sprite.x = targetX;
+    			} else if (sprite.vx < 0) {
+    				// moving left
+    				let targetX = sprite.x + sprite.vx;
+
+    				// any block that would prevent us from reaching target?
+    				const blockToLeft = blocks.find(b => {
+    					// sprite x >= box x + width
+    					// target x < box x + width
+    					const bxw = b.x + b.width;
+
+    					return sprite.x >= bxw && targetX < bxw && doObjectsIntersectYExclusive(b, sprite);
+    				});
+
+    				if (blockToLeft != null) targetX = blockToLeft.x + blockToLeft.width; else // don't let them go past start of level
+    				if (targetX < 0) targetX = 0;
+
+    				sprite.x = targetX < startOfLevel ? startOfLevel : targetX;
     			}
     		}
 
@@ -12450,12 +12478,17 @@ var app = (function () {
     		GameOver,
     		doObjectsIntersect,
     		isAAboveB,
+    		doObjectsIntersectY,
+    		doObjectsIntersectYExclusive,
     		BossEnemy,
     		SimpleEnemy,
     		artStore,
     		blockStore,
     		level,
     		character,
+    		artScale: artScale$1,
+    		startOfLevel,
+    		endOfLevel,
     		blockSize: blockSize$1,
     		blocks,
     		damageBlocks,
@@ -12472,11 +12505,9 @@ var app = (function () {
     		viewport,
     		leftDown,
     		rightDown,
-    		rightBound,
-    		artScale: artScale$1,
     		start,
     		gameLoop,
-    		applyGravityAndVelocityAndLevelDamage,
+    		applyWorldToSprite,
     		onKeyDown,
     		onKeyUp,
     		$blockStore,
@@ -12486,6 +12517,7 @@ var app = (function () {
     	$$self.$inject_state = $$props => {
     		if ("level" in $$props) $$invalidate(0, level = $$props.level);
     		if ("character" in $$props) $$invalidate(12, character = $$props.character);
+    		if ("endOfLevel" in $$props) endOfLevel = $$props.endOfLevel;
     		if ("blocks" in $$props) $$invalidate(1, blocks = $$props.blocks);
     		if ("damageBlocks" in $$props) damageBlocks = $$props.damageBlocks;
     		if ("levelWidth" in $$props) $$invalidate(2, levelWidth = $$props.levelWidth);
@@ -12501,7 +12533,6 @@ var app = (function () {
     		if ("viewport" in $$props) $$invalidate(9, viewport = $$props.viewport);
     		if ("leftDown" in $$props) leftDown = $$props.leftDown;
     		if ("rightDown" in $$props) rightDown = $$props.rightDown;
-    		if ("rightBound" in $$props) rightBound = $$props.rightBound;
     	};
 
     	if ($$props && "$$inject" in $$props) {
