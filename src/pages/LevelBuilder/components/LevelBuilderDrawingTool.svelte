@@ -47,6 +47,14 @@
 	export let blocks = []
 	// export let enemies = []
 
+	// migrate old format to new
+	$: if (blocks != null && blocks.some(b => b.png != null)) {
+		blocks = blocks.map(b => {
+			const { png, ...otherProps } = b
+			return otherProps
+		})
+	}
+
 	const blockSize = 40
 
 	let selectedBlock = null
@@ -107,13 +115,13 @@
 		if (selectedBlock == null) return eraseBlock(x, y)
 
 		const template = $blockStore[selectedBlock]
+		// array for smaller storage
 		const block = {
+			name: selectedBlock,
 			x,
 			y,
 			width: blockSize,
 			height: blockSize,
-			name: selectedBlock,
-			png: $artStore[template.graphic].png,
 		}
 		// add this block, filtering out any block that used to be at the same position
 		// todo: sort blocks by x asc, y desc

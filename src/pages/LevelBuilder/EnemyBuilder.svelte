@@ -52,6 +52,7 @@
 	}
 
 	function edit(name) {
+		if (!$enemies.hasOwnProperty(name)) return
 		input = JSON.parse(JSON.stringify($enemies[name]))
 	}
 

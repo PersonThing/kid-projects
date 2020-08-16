@@ -37,6 +37,7 @@
 	}
 
 	function edit(name) {
+		if (!$blocks.hasOwnProperty(name)) return
 		input = JSON.parse(JSON.stringify($blocks[name]))
 	}
 

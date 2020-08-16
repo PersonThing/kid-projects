@@ -56,6 +56,7 @@
 	}
 
 	function edit(name) {
+		if (!$characters.hasOwnProperty(name)) return
 		input = JSON.parse(JSON.stringify($characters[name]))
 	}
 

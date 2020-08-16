@@ -43,6 +43,7 @@
 	}
 
 	async function edit(name) {
+		if (!$levels.hasOwnProperty(name)) return
 		input = null
 		await tick()
 		input = JSON.parse(JSON.stringify($levels[name]))
