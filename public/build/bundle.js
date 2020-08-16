@@ -8391,7 +8391,7 @@ var app = (function () {
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, canvas_1, anchor);
-    			/*canvas_1_binding*/ ctx[4](canvas_1);
+    			/*canvas_1_binding*/ ctx[5](canvas_1);
     		},
     		p: function update(ctx, [dirty]) {
     			if (dirty & /*width*/ 1) {
@@ -8406,7 +8406,7 @@ var app = (function () {
     		o: noop,
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(canvas_1);
-    			/*canvas_1_binding*/ ctx[4](null);
+    			/*canvas_1_binding*/ ctx[5](null);
     		}
     	};
 
@@ -8425,17 +8425,18 @@ var app = (function () {
     	let $artStore;
     	let $blockStore;
     	validate_store(artStore, "artStore");
-    	component_subscribe($$self, artStore, $$value => $$invalidate(7, $artStore = $$value));
+    	component_subscribe($$self, artStore, $$value => $$invalidate(8, $artStore = $$value));
     	validate_store(blockStore, "blockStore");
-    	component_subscribe($$self, blockStore, $$value => $$invalidate(8, $blockStore = $$value));
+    	component_subscribe($$self, blockStore, $$value => $$invalidate(9, $blockStore = $$value));
     	let { width = 0 } = $$props;
     	let { height = 0 } = $$props;
     	let { blocks = [] } = $$props;
+    	let { playing = false } = $$props;
     	const imageCache = {};
     	let canvas;
     	let context;
     	let drawnBlocks = [];
-    	const writable_props = ["width", "height", "blocks"];
+    	const writable_props = ["width", "height", "blocks", "playing"];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<Level> was created with unknown prop '${key}'`);
@@ -8455,6 +8456,7 @@ var app = (function () {
     		if ("width" in $$props) $$invalidate(0, width = $$props.width);
     		if ("height" in $$props) $$invalidate(1, height = $$props.height);
     		if ("blocks" in $$props) $$invalidate(3, blocks = $$props.blocks);
+    		if ("playing" in $$props) $$invalidate(4, playing = $$props.playing);
     	};
 
     	$$self.$capture_state = () => ({
@@ -8463,6 +8465,7 @@ var app = (function () {
     		width,
     		height,
     		blocks,
+    		playing,
     		imageCache,
     		canvas,
     		context,
@@ -8475,8 +8478,9 @@ var app = (function () {
     		if ("width" in $$props) $$invalidate(0, width = $$props.width);
     		if ("height" in $$props) $$invalidate(1, height = $$props.height);
     		if ("blocks" in $$props) $$invalidate(3, blocks = $$props.blocks);
+    		if ("playing" in $$props) $$invalidate(4, playing = $$props.playing);
     		if ("canvas" in $$props) $$invalidate(2, canvas = $$props.canvas);
-    		if ("context" in $$props) $$invalidate(6, context = $$props.context);
+    		if ("context" in $$props) $$invalidate(7, context = $$props.context);
     		if ("drawnBlocks" in $$props) drawnBlocks = $$props.drawnBlocks;
     	};
 
@@ -8486,21 +8490,25 @@ var app = (function () {
 
     	$$self.$$.update = () => {
     		if ($$self.$$.dirty & /*canvas*/ 4) {
-    			 if (canvas != null) $$invalidate(6, context = canvas.getContext("2d"));
+    			 if (canvas != null) $$invalidate(7, context = canvas.getContext("2d"));
     		}
 
-    		if ($$self.$$.dirty & /*blocks, width, height, context, imageCache, $artStore, $blockStore*/ 491) {
+    		if ($$self.$$.dirty & /*blocks, width, height, context, imageCache, playing, $artStore, $blockStore*/ 987) {
     			 if (blocks != null && width != null && height != null && context != null) {
     				context.clearRect(0, 0, width, height);
 
     				blocks.forEach(b => {
     					let drawing = imageCache[b.name];
-    					const drawThisImage = () => context.drawImage(drawing, b.x, height - b.y - b.height);
+
+    					const drawThisImage = () => {
+    						const draw = () => context.drawImage(drawing, b.x, height - b.y - b.height);
+    						if (playing) setTimeout(draw, 100); else draw();
+    					};
 
     					if (drawing == null) {
     						drawing = new Image();
     						drawing.src = $artStore[$blockStore[b.name].graphic].png;
-    						$$invalidate(5, imageCache[b.name] = drawing, imageCache);
+    						$$invalidate(6, imageCache[b.name] = drawing, imageCache);
     					}
 
     					if (drawing.complete) {
@@ -8509,8 +8517,8 @@ var app = (function () {
     						const oldOnLoad = drawing.onload;
 
     						drawing.onload = () => {
-    							oldOnLoad();
     							drawThisImage();
+    							oldOnLoad();
     						};
     					}
     				});
@@ -8518,13 +8526,19 @@ var app = (function () {
     		}
     	};
 
-    	return [width, height, canvas, blocks, canvas_1_binding];
+    	return [width, height, canvas, blocks, playing, canvas_1_binding];
     }
 
     class Level extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$f, create_fragment$f, safe_not_equal, { width: 0, height: 1, blocks: 3 });
+
+    		init(this, options, instance$f, create_fragment$f, safe_not_equal, {
+    			width: 0,
+    			height: 1,
+    			blocks: 3,
+    			playing: 4
+    		});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
@@ -8555,6 +8569,14 @@ var app = (function () {
     	}
 
     	set blocks(value) {
+    		throw new Error("<Level>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get playing() {
+    		throw new Error("<Level>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set playing(value) {
     		throw new Error("<Level>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
     }
@@ -11841,7 +11863,8 @@ var app = (function () {
     			props: {
     				blocks: /*blocks*/ ctx[1],
     				width: /*levelWidth*/ ctx[2],
-    				height: /*levelHeight*/ ctx[3]
+    				height: /*levelHeight*/ ctx[3],
+    				playing: true
     			},
     			$$inline: true
     		});
@@ -12199,6 +12222,12 @@ var app = (function () {
     				// x axis controls
     				if (player.grounded) {
     					if (leftDown && !rightDown) $$invalidate(6, player.vx = -player.tvx, player); else if (rightDown && !leftDown) $$invalidate(6, player.vx = player.tvx, player); else $$invalidate(6, player.vx = 0, player);
+    				} else {
+    					// let them control direction a little in the air, but not as much
+    					if (leftDown && !rightDown) $$invalidate(6, player.vx -= 1, player); else if (rightDown && !leftDown) $$invalidate(6, player.vx += 1, player);
+
+    					// don't let them break top speed though
+    					if (Math.abs(player.vx) > player.tvx) $$invalidate(6, player.vx = player.tvx * (player.vx < 0 ? -1 : 1), player);
     				}
     			}
     		});

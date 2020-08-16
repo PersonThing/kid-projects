@@ -6,7 +6,7 @@
 	{/if}
 	{#if level != null && player != null}
 		<Viewport {...viewport} background={level.background}>
-			<Level {blocks} width={levelWidth} height={levelHeight} />
+			<Level {blocks} width={levelWidth} height={levelHeight} playing />
 			{#each enemies as enemy}
 				<Enemy {...enemy} />
 			{/each}
@@ -120,6 +120,13 @@
 					if (leftDown && !rightDown) player.vx = -player.tvx
 					else if (rightDown && !leftDown) player.vx = player.tvx
 					else player.vx = 0
+				} else {
+					// let them control direction a little in the air, but not as much
+					if (leftDown && !rightDown) player.vx -= 1
+					else if (rightDown && !leftDown) player.vx += 1
+
+					// don't let them break top speed though
+					if (Math.abs(player.vx) > player.tvx) player.vx = player.tvx * (player.vx < 0 ? -1 : 1)
 				}
 			},
 		}
