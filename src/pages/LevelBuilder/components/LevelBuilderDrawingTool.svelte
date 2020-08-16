@@ -33,12 +33,12 @@
 </div>
 
 <script>
-	import Level from '../../BubTheBobcat/Level.svelte'
+	import Level from '../../Play/Level.svelte'
 
 	import artStore from '../../../stores/art-store'
 	import blockStore from '../../../stores/block-store'
 	import enemyStore from '../../../stores/enemy-store'
-	import Enemy from '../../BubTheBobcat/Enemy.svelte'
+	import Enemy from '../../Play/Enemy.svelte'
 	import Art from './Art.svelte'
 
 	export let background = null
