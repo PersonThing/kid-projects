@@ -53,6 +53,7 @@
 	let selectedEnemy = null
 	let mouseDown = false
 
+	// todo let them draw higher, use wasd or arrows to navigate around level rather than scrolling
 	// $: highestYUsed = blocks.length > 0 ? Math.max(...blocks.map(b => b.y + b.height)) : 0
 	$: height = 800 //Math.max(400, highestYUsed + 300)
 
@@ -113,7 +114,6 @@
 			width: blockSize,
 			height: blockSize,
 			name: selectedBlock,
-			png: $artStore[template.graphic].png,
 		}
 		// add this block, filtering out any block that used to be at the same position
 		// todo: sort blocks by x asc, y desc
