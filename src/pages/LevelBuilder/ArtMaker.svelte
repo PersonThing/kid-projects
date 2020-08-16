@@ -337,11 +337,11 @@
 	}
 
 	function flipY() {
-		data = data.reverse()
+		data = data.slice(0, height).reverse()
 	}
 
 	function flipX() {
-		data = data.map(d => d.reverse())
+		data = data.map(d => d.slice(0, width).reverse())
 	}
 </script>
 

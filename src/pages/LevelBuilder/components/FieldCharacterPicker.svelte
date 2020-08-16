@@ -21,7 +21,7 @@
 	$: options = Object.keys($artStore).filter(name => filter == null || filter($artStore[name]))
 
 	function toggle(name) {
-		value = value.indexOf(name) > -1 ? value.filter(v => v != name) : [...value, name]
+		value = value.indexOf(name) > -1 ? value.filter(v => v != name) : [...value, name].sort()
 	}
 </script>
 

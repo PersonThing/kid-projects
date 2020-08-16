@@ -8,7 +8,7 @@
 	<Game level={$levels[levelName]} character={$characters[characterName]} />
 {:else}
 	<div class="list-group">
-		{#each Object.keys($levels) as levelName}
+		{#each sortedLevelNames as levelName}
 			{#each $levels[levelName].playableCharacters as characterName}
 				<div class="list-group-item list-group-item-action" on:click={() => selectLevel(levelName, characterName)}>
 					<Art name={$characters[characterName].graphicStill} />
@@ -27,6 +27,8 @@
 
 	let levelName
 	let characterName
+
+	$: sortedLevelNames = Object.keys($levels).sort()
 
 	function selectLevel(l, c) {
 		levelName = l

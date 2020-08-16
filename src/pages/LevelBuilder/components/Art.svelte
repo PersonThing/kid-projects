@@ -1,4 +1,4 @@
-{#if graphic?.png != null}
+{#if graphic != null && graphic.png != null}
 	<img src={graphic.png} alt={graphic.name} title={graphic.name} style="transform: rotate({rotation}deg)" />
 {/if}
 

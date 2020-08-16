@@ -14,6 +14,7 @@ export class SimpleEnemy {
 		this.fallDamageMultiplier = 2
 		this.score = 1
 		this.dps = 10
+		this.gravityMultiplier = 1
 
 		// todo replace w/ graphic states
 		this.isBoss = false

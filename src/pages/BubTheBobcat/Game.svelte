@@ -221,7 +221,7 @@
 			sprite.health = 0
 		} else {
 			// we're in the air, accelerate downward
-			sprite.vy--
+			sprite.vy -= 1
 		}
 
 		// x velocity
@@ -275,10 +275,6 @@
 	}
 
 	function onKeyUp(e) {
-		if (gameOver) {
-			start()
-			return
-		}
 		switch (e.code) {
 			case 'ArrowLeft':
 				leftDown = false
@@ -287,6 +283,7 @@
 				rightDown = false
 				break
 			case 'Space':
+				if (gameOver) start()
 				break
 			case 'KeyR':
 				player.spinning = false
