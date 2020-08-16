@@ -1,10 +1,12 @@
 <ul class="nav">
 	<li class="nav-item">
-		<a class="nav-link" href="#/bub-the-bobcat">Play!</a>
-	</li>
-	<li class="nav-item">
 		<a class="nav-link" href="#/level-builder">Level Builder</a>
 	</li>
+	{#if canPlay}
+		<li class="nav-item">
+			<a class="nav-link" href="#/play">Play!</a>
+		</li>
+	{/if}
 </ul>
 
 <main>
@@ -15,12 +17,16 @@
 	// svelte-spa-router for hash routing since this is just going to be hosted on github pages
 	import Router from 'svelte-spa-router'
 	import LevelBuilder from './pages/LevelBuilder/Index.svelte'
-	import BubTheBobcat from './pages/BubTheBobcat/Index.svelte'
+	import Play from './pages/Play/Index.svelte'
 	import NotFound from './pages/NotFound.svelte'
+
+	import levelStore from './stores/level-store'
+
+	$: canPlay = Object.keys($levelStore).length > 0
 
 	const routes = {
 		'/level-builder/:tab?/:name?': LevelBuilder,
-		'/bub-the-bobcat': BubTheBobcat,
+		'/play': Play,
 		'*': NotFound,
 	}
 </script>
