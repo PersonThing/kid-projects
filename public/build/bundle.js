@@ -5657,7 +5657,7 @@ var app = (function () {
     const file$a = "src\\pages\\LevelBuilder\\CharacterBuilder.svelte";
 
     // (17:2) <FieldText name="name" bind:value={input.name}>
-    function create_default_slot_10(ctx) {
+    function create_default_slot_11(ctx) {
     	let t;
 
     	const block = {
@@ -5674,7 +5674,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_10.name,
+    		id: create_default_slot_11.name,
     		type: "slot",
     		source: "(17:2) <FieldText name=\\\"name\\\" bind:value={input.name}>",
     		ctx
@@ -5684,7 +5684,7 @@ var app = (function () {
     }
 
     // (18:2) <FieldGraphicPicker bind:value={input.graphicStill} filter={b => b.width != 20 || b.height != 20}>
-    function create_default_slot_9(ctx) {
+    function create_default_slot_10(ctx) {
     	let t;
 
     	const block = {
@@ -5701,7 +5701,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_9.name,
+    		id: create_default_slot_10.name,
     		type: "slot",
     		source: "(18:2) <FieldGraphicPicker bind:value={input.graphicStill} filter={b => b.width != 20 || b.height != 20}>",
     		ctx
@@ -5711,7 +5711,7 @@ var app = (function () {
     }
 
     // (19:2) <FieldGraphicPicker bind:value={input.graphicSpinning} filter={b => b.width != 20 || b.height != 20} spin>
-    function create_default_slot_8(ctx) {
+    function create_default_slot_9(ctx) {
     	let t;
 
     	const block = {
@@ -5728,7 +5728,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_8.name,
+    		id: create_default_slot_9.name,
     		type: "slot",
     		source: "(19:2) <FieldGraphicPicker bind:value={input.graphicSpinning} filter={b => b.width != 20 || b.height != 20} spin>",
     		ctx
@@ -5738,7 +5738,7 @@ var app = (function () {
     }
 
     // (23:2) <FieldNumber name="maxVelocity" min={0} bind:value={input.maxVelocity}>
-    function create_default_slot_7(ctx) {
+    function create_default_slot_8(ctx) {
     	let t;
 
     	const block = {
@@ -5755,7 +5755,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_7.name,
+    		id: create_default_slot_8.name,
     		type: "slot",
     		source: "(23:2) <FieldNumber name=\\\"maxVelocity\\\" min={0} bind:value={input.maxVelocity}>",
     		ctx
@@ -5765,7 +5765,7 @@ var app = (function () {
     }
 
     // (24:2) <FieldNumber name="jumpVelocity" min={0} bind:value={input.jumpVelocity}>
-    function create_default_slot_6$1(ctx) {
+    function create_default_slot_7(ctx) {
     	let t;
 
     	const block = {
@@ -5782,7 +5782,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_6$1.name,
+    		id: create_default_slot_7.name,
     		type: "slot",
     		source: "(24:2) <FieldNumber name=\\\"jumpVelocity\\\" min={0} bind:value={input.jumpVelocity}>",
     		ctx
@@ -5792,7 +5792,7 @@ var app = (function () {
     }
 
     // (25:2) <FieldNumber name="gravityMultiplier" min={0} max={2} step={0.1} bind:value={input.gravityMultiplier}>
-    function create_default_slot_5$1(ctx) {
+    function create_default_slot_6$1(ctx) {
     	let t;
 
     	const block = {
@@ -5809,7 +5809,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_5$1.name,
+    		id: create_default_slot_6$1.name,
     		type: "slot",
     		source: "(25:2) <FieldNumber name=\\\"gravityMultiplier\\\" min={0} max={2} step={0.1} bind:value={input.gravityMultiplier}>",
     		ctx
@@ -5819,7 +5819,7 @@ var app = (function () {
     }
 
     // (26:2) <FieldNumber name="fallDamageMultiplier" min={0} max={1} step={0.1} bind:value={input.fallDamageMultiplier}>
-    function create_default_slot_4$1(ctx) {
+    function create_default_slot_5$1(ctx) {
     	let t;
 
     	const block = {
@@ -5836,7 +5836,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_4$1.name,
+    		id: create_default_slot_5$1.name,
     		type: "slot",
     		source: "(26:2) <FieldNumber name=\\\"fallDamageMultiplier\\\" min={0} max={1} step={0.1} bind:value={input.fallDamageMultiplier}>",
     		ctx
@@ -5846,7 +5846,7 @@ var app = (function () {
     }
 
     // (27:2) <FieldNumber name="maxHealth" bind:value={input.maxHealth}>
-    function create_default_slot_3$1(ctx) {
+    function create_default_slot_4$1(ctx) {
     	let t;
 
     	const block = {
@@ -5863,7 +5863,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_3$1.name,
+    		id: create_default_slot_4$1.name,
     		type: "slot",
     		source: "(27:2) <FieldNumber name=\\\"maxHealth\\\" bind:value={input.maxHealth}>",
     		ctx
@@ -5873,7 +5873,7 @@ var app = (function () {
     }
 
     // (28:2) <FieldNumber name="dps" bind:value={input.dps}>
-    function create_default_slot_2$1(ctx) {
+    function create_default_slot_3$1(ctx) {
     	let t;
 
     	const block = {
@@ -5890,7 +5890,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_2$1.name,
+    		id: create_default_slot_3$1.name,
     		type: "slot",
     		source: "(28:2) <FieldNumber name=\\\"dps\\\" bind:value={input.dps}>",
     		ctx
@@ -5899,7 +5899,34 @@ var app = (function () {
     	return block;
     }
 
-    // (30:3) {#if !isAdding}
+    // (29:2) <FieldCheckbox name="canFly" bind:checked={input.canFly}>
+    function create_default_slot_2$1(ctx) {
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			t = text("Can fly?");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, t, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(t);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot_2$1.name,
+    		type: "slot",
+    		source: "(29:2) <FieldCheckbox name=\\\"canFly\\\" bind:checked={input.canFly}>",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (31:3) {#if !isAdding}
     function create_if_block$5(ctx) {
     	let button;
     	let mounted;
@@ -5911,13 +5938,13 @@ var app = (function () {
     			button.textContent = "Delete";
     			attr_dev(button, "type", "button");
     			attr_dev(button, "class", "btn btn-danger");
-    			add_location(button, file$a, 30, 4, 2130);
+    			add_location(button, file$a, 31, 4, 2215);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
 
     			if (!mounted) {
-    				dispose = listen_dev(button, "click", /*click_handler*/ ctx[15], false, false, false);
+    				dispose = listen_dev(button, "click", /*click_handler*/ ctx[16], false, false, false);
     				mounted = true;
     			}
     		},
@@ -5933,14 +5960,14 @@ var app = (function () {
     		block,
     		id: create_if_block$5.name,
     		type: "if",
-    		source: "(30:3) {#if !isAdding}",
+    		source: "(31:3) {#if !isAdding}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (29:2) <span slot="buttons">
+    // (30:2) <span slot="buttons">
     function create_buttons_slot$1(ctx) {
     	let span;
     	let if_block = !/*isAdding*/ ctx[1] && create_if_block$5(ctx);
@@ -5950,7 +5977,7 @@ var app = (function () {
     			span = element("span");
     			if (if_block) if_block.c();
     			attr_dev(span, "slot", "buttons");
-    			add_location(span, file$a, 28, 2, 2083);
+    			add_location(span, file$a, 29, 2, 2168);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -5980,7 +6007,7 @@ var app = (function () {
     		block,
     		id: create_buttons_slot$1.name,
     		type: "slot",
-    		source: "(29:2) <span slot=\\\"buttons\\\">",
+    		source: "(30:2) <span slot=\\\"buttons\\\">",
     		ctx
     	});
 
@@ -6016,6 +6043,9 @@ var app = (function () {
     	let fieldnumber5;
     	let updating_value_8;
     	let t8;
+    	let fieldcheckbox;
+    	let updating_checked;
+    	let t9;
     	let current;
 
     	function fieldtext_value_binding(value) {
@@ -6024,7 +6054,7 @@ var app = (function () {
 
     	let fieldtext_props = {
     		name: "name",
-    		$$slots: { default: [create_default_slot_10] },
+    		$$slots: { default: [create_default_slot_11] },
     		$$scope: { ctx }
     	};
 
@@ -6041,7 +6071,7 @@ var app = (function () {
 
     	let fieldgraphicpicker0_props = {
     		filter: func$1,
-    		$$slots: { default: [create_default_slot_9] },
+    		$$slots: { default: [create_default_slot_10] },
     		$$scope: { ctx }
     	};
 
@@ -6063,7 +6093,7 @@ var app = (function () {
     	let fieldgraphicpicker1_props = {
     		filter: func_1,
     		spin: true,
-    		$$slots: { default: [create_default_slot_8] },
+    		$$slots: { default: [create_default_slot_9] },
     		$$scope: { ctx }
     	};
 
@@ -6085,7 +6115,7 @@ var app = (function () {
     	let fieldnumber0_props = {
     		name: "maxVelocity",
     		min: 0,
-    		$$slots: { default: [create_default_slot_7] },
+    		$$slots: { default: [create_default_slot_8] },
     		$$scope: { ctx }
     	};
 
@@ -6107,7 +6137,7 @@ var app = (function () {
     	let fieldnumber1_props = {
     		name: "jumpVelocity",
     		min: 0,
-    		$$slots: { default: [create_default_slot_6$1] },
+    		$$slots: { default: [create_default_slot_7] },
     		$$scope: { ctx }
     	};
 
@@ -6131,7 +6161,7 @@ var app = (function () {
     		min: 0,
     		max: 2,
     		step: 0.1,
-    		$$slots: { default: [create_default_slot_5$1] },
+    		$$slots: { default: [create_default_slot_6$1] },
     		$$scope: { ctx }
     	};
 
@@ -6155,7 +6185,7 @@ var app = (function () {
     		min: 0,
     		max: 1,
     		step: 0.1,
-    		$$slots: { default: [create_default_slot_4$1] },
+    		$$slots: { default: [create_default_slot_5$1] },
     		$$scope: { ctx }
     	};
 
@@ -6176,7 +6206,7 @@ var app = (function () {
 
     	let fieldnumber4_props = {
     		name: "maxHealth",
-    		$$slots: { default: [create_default_slot_3$1] },
+    		$$slots: { default: [create_default_slot_4$1] },
     		$$scope: { ctx }
     	};
 
@@ -6197,7 +6227,7 @@ var app = (function () {
 
     	let fieldnumber5_props = {
     		name: "dps",
-    		$$slots: { default: [create_default_slot_2$1] },
+    		$$slots: { default: [create_default_slot_3$1] },
     		$$scope: { ctx }
     	};
 
@@ -6211,6 +6241,27 @@ var app = (function () {
     		});
 
     	binding_callbacks.push(() => bind(fieldnumber5, "value", fieldnumber5_value_binding));
+
+    	function fieldcheckbox_checked_binding(value) {
+    		/*fieldcheckbox_checked_binding*/ ctx[15].call(null, value);
+    	}
+
+    	let fieldcheckbox_props = {
+    		name: "canFly",
+    		$$slots: { default: [create_default_slot_2$1] },
+    		$$scope: { ctx }
+    	};
+
+    	if (/*input*/ ctx[0].canFly !== void 0) {
+    		fieldcheckbox_props.checked = /*input*/ ctx[0].canFly;
+    	}
+
+    	fieldcheckbox = new FieldCheckbox({
+    			props: fieldcheckbox_props,
+    			$$inline: true
+    		});
+
+    	binding_callbacks.push(() => bind(fieldcheckbox, "checked", fieldcheckbox_checked_binding));
 
     	const block = {
     		c: function create() {
@@ -6232,6 +6283,8 @@ var app = (function () {
     			t7 = space();
     			create_component(fieldnumber5.$$.fragment);
     			t8 = space();
+    			create_component(fieldcheckbox.$$.fragment);
+    			t9 = space();
     		},
     		m: function mount(target, anchor) {
     			mount_component(fieldtext, target, anchor);
@@ -6252,12 +6305,14 @@ var app = (function () {
     			insert_dev(target, t7, anchor);
     			mount_component(fieldnumber5, target, anchor);
     			insert_dev(target, t8, anchor);
+    			mount_component(fieldcheckbox, target, anchor);
+    			insert_dev(target, t9, anchor);
     			current = true;
     		},
     		p: function update(ctx, dirty) {
     			const fieldtext_changes = {};
 
-    			if (dirty & /*$$scope*/ 524288) {
+    			if (dirty & /*$$scope*/ 1048576) {
     				fieldtext_changes.$$scope = { dirty, ctx };
     			}
 
@@ -6270,7 +6325,7 @@ var app = (function () {
     			fieldtext.$set(fieldtext_changes);
     			const fieldgraphicpicker0_changes = {};
 
-    			if (dirty & /*$$scope*/ 524288) {
+    			if (dirty & /*$$scope*/ 1048576) {
     				fieldgraphicpicker0_changes.$$scope = { dirty, ctx };
     			}
 
@@ -6283,7 +6338,7 @@ var app = (function () {
     			fieldgraphicpicker0.$set(fieldgraphicpicker0_changes);
     			const fieldgraphicpicker1_changes = {};
 
-    			if (dirty & /*$$scope*/ 524288) {
+    			if (dirty & /*$$scope*/ 1048576) {
     				fieldgraphicpicker1_changes.$$scope = { dirty, ctx };
     			}
 
@@ -6296,7 +6351,7 @@ var app = (function () {
     			fieldgraphicpicker1.$set(fieldgraphicpicker1_changes);
     			const fieldnumber0_changes = {};
 
-    			if (dirty & /*$$scope*/ 524288) {
+    			if (dirty & /*$$scope*/ 1048576) {
     				fieldnumber0_changes.$$scope = { dirty, ctx };
     			}
 
@@ -6309,7 +6364,7 @@ var app = (function () {
     			fieldnumber0.$set(fieldnumber0_changes);
     			const fieldnumber1_changes = {};
 
-    			if (dirty & /*$$scope*/ 524288) {
+    			if (dirty & /*$$scope*/ 1048576) {
     				fieldnumber1_changes.$$scope = { dirty, ctx };
     			}
 
@@ -6322,7 +6377,7 @@ var app = (function () {
     			fieldnumber1.$set(fieldnumber1_changes);
     			const fieldnumber2_changes = {};
 
-    			if (dirty & /*$$scope*/ 524288) {
+    			if (dirty & /*$$scope*/ 1048576) {
     				fieldnumber2_changes.$$scope = { dirty, ctx };
     			}
 
@@ -6335,7 +6390,7 @@ var app = (function () {
     			fieldnumber2.$set(fieldnumber2_changes);
     			const fieldnumber3_changes = {};
 
-    			if (dirty & /*$$scope*/ 524288) {
+    			if (dirty & /*$$scope*/ 1048576) {
     				fieldnumber3_changes.$$scope = { dirty, ctx };
     			}
 
@@ -6348,7 +6403,7 @@ var app = (function () {
     			fieldnumber3.$set(fieldnumber3_changes);
     			const fieldnumber4_changes = {};
 
-    			if (dirty & /*$$scope*/ 524288) {
+    			if (dirty & /*$$scope*/ 1048576) {
     				fieldnumber4_changes.$$scope = { dirty, ctx };
     			}
 
@@ -6361,7 +6416,7 @@ var app = (function () {
     			fieldnumber4.$set(fieldnumber4_changes);
     			const fieldnumber5_changes = {};
 
-    			if (dirty & /*$$scope*/ 524288) {
+    			if (dirty & /*$$scope*/ 1048576) {
     				fieldnumber5_changes.$$scope = { dirty, ctx };
     			}
 
@@ -6372,6 +6427,19 @@ var app = (function () {
     			}
 
     			fieldnumber5.$set(fieldnumber5_changes);
+    			const fieldcheckbox_changes = {};
+
+    			if (dirty & /*$$scope*/ 1048576) {
+    				fieldcheckbox_changes.$$scope = { dirty, ctx };
+    			}
+
+    			if (!updating_checked && dirty & /*input*/ 1) {
+    				updating_checked = true;
+    				fieldcheckbox_changes.checked = /*input*/ ctx[0].canFly;
+    				add_flush_callback(() => updating_checked = false);
+    			}
+
+    			fieldcheckbox.$set(fieldcheckbox_changes);
     		},
     		i: function intro(local) {
     			if (current) return;
@@ -6384,6 +6452,7 @@ var app = (function () {
     			transition_in(fieldnumber3.$$.fragment, local);
     			transition_in(fieldnumber4.$$.fragment, local);
     			transition_in(fieldnumber5.$$.fragment, local);
+    			transition_in(fieldcheckbox.$$.fragment, local);
     			current = true;
     		},
     		o: function outro(local) {
@@ -6396,6 +6465,7 @@ var app = (function () {
     			transition_out(fieldnumber3.$$.fragment, local);
     			transition_out(fieldnumber4.$$.fragment, local);
     			transition_out(fieldnumber5.$$.fragment, local);
+    			transition_out(fieldcheckbox.$$.fragment, local);
     			current = false;
     		},
     		d: function destroy(detaching) {
@@ -6417,6 +6487,8 @@ var app = (function () {
     			if (detaching) detach_dev(t7);
     			destroy_component(fieldnumber5, detaching);
     			if (detaching) detach_dev(t8);
+    			destroy_component(fieldcheckbox, detaching);
+    			if (detaching) detach_dev(t9);
     		}
     	};
 
@@ -6460,7 +6532,7 @@ var app = (function () {
     		p: function update(ctx, dirty) {
     			const form_changes = {};
 
-    			if (dirty & /*$$scope, input, isAdding*/ 524291) {
+    			if (dirty & /*$$scope, input, isAdding*/ 1048579) {
     				form_changes.$$scope = { dirty, ctx };
     			}
 
@@ -6522,7 +6594,7 @@ var app = (function () {
     			if (dirty & /*input*/ 1) levelbuilderlayout_changes.activeName = /*input*/ ctx[0].name;
     			if (dirty & /*$characters*/ 4) levelbuilderlayout_changes.store = /*$characters*/ ctx[2];
 
-    			if (dirty & /*$$scope, input, isAdding*/ 524291) {
+    			if (dirty & /*$$scope, input, isAdding*/ 1048579) {
     				levelbuilderlayout_changes.$$scope = { dirty, ctx };
     			}
 
@@ -6647,6 +6719,11 @@ var app = (function () {
     		$$invalidate(0, input);
     	}
 
+    	function fieldcheckbox_checked_binding(value) {
+    		input.canFly = value;
+    		$$invalidate(0, input);
+    	}
+
     	const click_handler = () => del(input.name);
 
     	$$self.$$set = $$props => {
@@ -6676,7 +6753,7 @@ var app = (function () {
     	$$self.$inject_state = $$props => {
     		if ("params" in $$props) $$invalidate(5, params = $$props.params);
     		if ("input" in $$props) $$invalidate(0, input = $$props.input);
-    		if ("paramName" in $$props) $$invalidate(16, paramName = $$props.paramName);
+    		if ("paramName" in $$props) $$invalidate(17, paramName = $$props.paramName);
     		if ("isAdding" in $$props) $$invalidate(1, isAdding = $$props.isAdding);
     	};
 
@@ -6689,14 +6766,14 @@ var app = (function () {
 
     	$$self.$$.update = () => {
     		if ($$self.$$.dirty & /*params*/ 32) {
-    			 $$invalidate(16, paramName = decodeURIComponent(params.name) || "new");
+    			 $$invalidate(17, paramName = decodeURIComponent(params.name) || "new");
     		}
 
-    		if ($$self.$$.dirty & /*paramName*/ 65536) {
+    		if ($$self.$$.dirty & /*paramName*/ 131072) {
     			 paramName == "new" ? create() : edit(paramName);
     		}
 
-    		if ($$self.$$.dirty & /*paramName*/ 65536) {
+    		if ($$self.$$.dirty & /*paramName*/ 131072) {
     			 $$invalidate(1, isAdding = paramName == "new");
     		}
     	};
@@ -6717,6 +6794,7 @@ var app = (function () {
     		fieldnumber3_value_binding,
     		fieldnumber4_value_binding,
     		fieldnumber5_value_binding,
+    		fieldcheckbox_checked_binding,
     		click_handler
     	];
     }
@@ -12226,7 +12304,7 @@ var app = (function () {
     					if (leftDown && !rightDown) $$invalidate(6, player.vx = -player.tvx, player); else if (rightDown && !leftDown) $$invalidate(6, player.vx = player.tvx, player); else $$invalidate(6, player.vx = 0, player);
     				} else {
     					// let them control direction a little in the air, but not as much
-    					if (leftDown && !rightDown) $$invalidate(6, player.vx -= 1, player); else if (rightDown && !leftDown) $$invalidate(6, player.vx += 1, player);
+    					if (leftDown && !rightDown) $$invalidate(6, player.vx -= player.tvx / 10, player); else if (rightDown && !leftDown) $$invalidate(6, player.vx += player.tvx / 10, player);
 
     					// don't let them break top speed though
     					if (Math.abs(player.vx) > player.tvx) $$invalidate(6, player.vx = player.tvx * (player.vx < 0 ? -1 : 1), player);
@@ -12279,13 +12357,14 @@ var app = (function () {
     			);
 
     			// todo: levels should add mobs, not auto spawn
-    			// if (!enemies.some(e => e.health > 0)) {
-    			// 	if (enemies.length < 5) {
-    			// 		enemies = enemies.concat([1, 2, 3, 4, 5].map(x => new SimpleEnemy(player.x + 200 * x, player.y + 200)))
-    			// 	} else {
-    			// 		enemies = [new BossEnemy(player.x + 200, player.y + 200)]
-    			// 	}
-    			// }
+    			if (!enemies.some(e => e.health > 0)) {
+    				if (enemies.length < 5) {
+    					$$invalidate(7, enemies = enemies.concat([1, 2, 3, 4, 5].map(x => new SimpleEnemy(player.x + 200 * x, player.y + 200))));
+    				} else {
+    					$$invalidate(7, enemies = [new BossEnemy(player.x + 200, player.y + 200)]);
+    				}
+    			}
+
     			// for every live enemy intersecting the player, one or the other should take damage
     			for (let i = 0; i < enemies.length; i++) {
     				if (enemies[i].alive) {
@@ -12410,7 +12489,7 @@ var app = (function () {
     				rightDown = true;
     				break;
     			case "Space":
-    				if (player.grounded) $$invalidate(6, player.vy = player.jumpVelocity, player);
+    				if (player.grounded || player.canFly) $$invalidate(6, player.vy = player.jumpVelocity, player);
     				break;
     			case "KeyR":
     				$$invalidate(6, player.spinning = true, player);

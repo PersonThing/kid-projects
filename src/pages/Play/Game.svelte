@@ -125,8 +125,8 @@
 					else player.vx = 0
 				} else {
 					// let them control direction a little in the air, but not as much
-					if (leftDown && !rightDown) player.vx -= 1
-					else if (rightDown && !leftDown) player.vx += 1
+					if (leftDown && !rightDown) player.vx -= player.tvx / 10
+					else if (rightDown && !leftDown) player.vx += player.tvx / 10
 
 					// don't let them break top speed though
 					if (Math.abs(player.vx) > player.tvx) player.vx = player.tvx * (player.vx < 0 ? -1 : 1)
@@ -172,13 +172,13 @@
 					  player.y - halfViewportHeight
 
 			// todo: levels should add mobs, not auto spawn
-			// if (!enemies.some(e => e.health > 0)) {
-			// 	if (enemies.length < 5) {
-			// 		enemies = enemies.concat([1, 2, 3, 4, 5].map(x => new SimpleEnemy(player.x + 200 * x, player.y + 200)))
-			// 	} else {
-			// 		enemies = [new BossEnemy(player.x + 200, player.y + 200)]
-			// 	}
-			// }
+			if (!enemies.some(e => e.health > 0)) {
+				if (enemies.length < 5) {
+					enemies = enemies.concat([1, 2, 3, 4, 5].map(x => new SimpleEnemy(player.x + 200 * x, player.y + 200)))
+				} else {
+					enemies = [new BossEnemy(player.x + 200, player.y + 200)]
+				}
+			}
 
 			// for every live enemy intersecting the player, one or the other should take damage
 			for (let i = 0; i < enemies.length; i++) {
@@ -293,7 +293,7 @@
 				rightDown = true
 				break
 			case 'Space':
-				if (player.grounded) player.vy = player.jumpVelocity
+				if (player.grounded || player.canFly) player.vy = player.jumpVelocity
 				break
 			case 'KeyR':
 				player.spinning = true
