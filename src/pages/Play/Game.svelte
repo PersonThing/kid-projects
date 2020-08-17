@@ -8,9 +8,9 @@
 		<Viewport {...viewport} background={level.background}>
 			<Level {blocks} width={levelWidth} height={levelHeight} playing />
 			{#each enemies as enemy}
-				<Enemy {...enemy} />
+				<LivingSprite {...enemy} />
 			{/each}
-			<Player {...player} />
+			<LivingSprite {...player} />
 		</Viewport>
 	{/if}
 	<Status {level} {score} />
@@ -23,8 +23,7 @@
 	import Level from './Level.svelte'
 	import Instructions from './Instructions.svelte'
 	import Viewport from './Viewport.svelte'
-	import Player from './Player.svelte'
-	import Enemy from './Enemy.svelte'
+	import LivingSprite from './LivingSprite.svelte'
 	import HealthBar from './HealthBar.svelte'
 	import GameOver from './GameOver.svelte'
 	import { doObjectsIntersect, isAAboveB, doObjectsIntersectY, doObjectsIntersectYExclusive } from './spatial-functions'
