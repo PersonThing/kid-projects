@@ -70,6 +70,7 @@
 			graphicStill: null,
 			graphicSpinning: null,
 			name: '',
+			maxHealth: 100,
 			maxVelocity: 20,
 			jumpVelocity: 15,
 			gravityMultiplier: 1,

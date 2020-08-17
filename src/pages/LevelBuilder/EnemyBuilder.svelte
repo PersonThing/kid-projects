@@ -21,6 +21,7 @@
 		<FieldNumber name="gravityMultiplier" min={0} max={2} step={0.1} bind:value={input.gravityMultiplier}>Gravity multiplier</FieldNumber>
 		<FieldNumber name="fallDamageMultiplier" min={0} max={1} step={0.1} bind:value={input.fallDamageMultiplier}>Fall damage multiplier</FieldNumber>
 		<FieldNumber name="maxHealth" bind:value={input.maxHealth}>Max health</FieldNumber>
+		<FieldNumber name="score" bind:value={input.score}>Score (How many points you get when this enemy dies)</FieldNumber>
 		<FieldNumber name="dps" bind:value={input.dps}>DPS (when in contact with player - we will replace this with abilities later)</FieldNumber>
 		<span slot="buttons">
 			{#if !isAdding}
@@ -60,11 +61,13 @@
 		input = {
 			graphicStill: null,
 			name: '',
+			maxHealth: 100,
 			maxVelocity: 20,
 			jumpVelocity: 15,
 			gravityMultiplier: 1,
 			fallDamageMultiplier: 1,
 			dps: 120,
+			score: 1,
 		}
 	}
 
