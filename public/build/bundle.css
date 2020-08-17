@@ -4,13 +4,11 @@ main.svelte-1ten5ne{padding:1em;max-width:240px;margin:0 auto}@media(min-width: 
 .options.svelte-1u0b3hs.svelte-1u0b3hs{overflow:auto}.options.svelte-1u0b3hs>div.svelte-1u0b3hs{padding:10px;float:left;border-radius:0.25rem}.options.svelte-1u0b3hs>div.active.svelte-1u0b3hs{background:#007bff}
 .drawing-tool.svelte-1l9uq66.svelte-1l9uq66{position:relative;width:1400px}.tool-picker.svelte-1l9uq66.svelte-1l9uq66{margin:5px 0;display:flex;flex-direction:row;align-items:top}.tool-picker.svelte-1l9uq66>div.svelte-1l9uq66{display:flex;flex-direction:column}.tool-picker.svelte-1l9uq66 .btn-group.svelte-1l9uq66{margin-right:5px}.tool-picker.svelte-1l9uq66 .btn.svelte-1l9uq66{height:60px;overflow:hidden}.level-container.svelte-1l9uq66.svelte-1l9uq66{overflow-x:auto;max-width:100%}
 .sub-nav.svelte-1711lkh.svelte-1711lkh{margin-left:20px}.sub-nav.svelte-1711lkh .list-group-item.svelte-1711lkh{padding:6px 12px}
-.enemy.svelte-1x7nj5j{position:absolute;text-align:center}.graphic.svelte-1x7nj5j{margin-top:10px;position:relative}
 .game-window.svelte-1ihy09s{width:100%;height:90vh;min-height:600px;display:flex;flex-direction:column;overflow:hidden;position:relative}
 .game-over.svelte-1ogvx1s{position:absolute;width:100%;height:100%;background:rgba(0, 0, 0, 0.5);text-align:center;z-index:10;padding-top:150px}h1.svelte-1ogvx1s{margin-top:25x;color:#fff;font-size:50px;font-weight:100}p.svelte-1ogvx1s{color:#eee}
 .health-bar.svelte-1frudy7{height:18px;background:rgba(0, 0, 0, 0.5);position:relative;border-radius:5px;overflow:hidden;min-width:75px}.filled.svelte-1frudy7{height:100%;position:absolute;top:0;left:0}.text.svelte-1frudy7{position:absolute;width:100%;height:100%;text-align:center;color:#ccc;font-size:12px}
 .instructions.svelte-1d0wu93.svelte-1d0wu93{padding:10px}table.svelte-1d0wu93 td.svelte-1d0wu93{font-size:12px}table.svelte-1d0wu93 tr td.svelte-1d0wu93:first-child{text-align:right}table.svelte-1d0wu93 tr td.svelte-1d0wu93:last-child{text-align:left}
 img.svelte-10ex0b8{cursor:grab}.grabbing.svelte-10ex0b8{cursor:grabbing}
-.player.svelte-wdnc19{position:absolute}
 .player.svelte-wdnc19{position:absolute}
 div.svelte-18s0d67{position:absolute;font-size:30px;top:10px;left:10px;color:#333}p.svelte-18s0d67{margin:0;padding:0}
 .viewport.svelte-cjx02{position:relative;overflow:hidden}
