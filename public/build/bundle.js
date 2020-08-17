@@ -8655,18 +8655,18 @@ var app = (function () {
     		c: function create() {
     			img = element("img");
     			attr_dev(img, "class", "graphic");
-    			if (img.src !== (img_src_value = /*graphic*/ ctx[6].png)) attr_dev(img, "src", img_src_value);
+    			if (img.src !== (img_src_value = /*graphic*/ ctx[7].png)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", /*name*/ ctx[0]);
-    			set_style(img, "width", /*graphic*/ ctx[6].width * artScale + "px");
-    			set_style(img, "height", /*graphic*/ ctx[6].height * artScale + "px");
-    			set_style(img, "transform", "scaleX(" + /*direction*/ ctx[5] + ") rotate(" + /*rotate*/ ctx[7] + "deg)");
-    			add_location(img, file$f, 3, 2, 121);
+    			set_style(img, "width", /*graphic*/ ctx[7].width * artScale + "px");
+    			set_style(img, "height", /*graphic*/ ctx[7].height * artScale + "px");
+    			set_style(img, "transform", "scaleX(" + /*direction*/ ctx[6] + ") rotate(" + /*rotate*/ ctx[8] + "deg)");
+    			add_location(img, file$f, 3, 2, 166);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, img, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*graphic*/ 64 && img.src !== (img_src_value = /*graphic*/ ctx[6].png)) {
+    			if (dirty & /*graphic*/ 128 && img.src !== (img_src_value = /*graphic*/ ctx[7].png)) {
     				attr_dev(img, "src", img_src_value);
     			}
 
@@ -8674,16 +8674,16 @@ var app = (function () {
     				attr_dev(img, "alt", /*name*/ ctx[0]);
     			}
 
-    			if (dirty & /*graphic*/ 64) {
-    				set_style(img, "width", /*graphic*/ ctx[6].width * artScale + "px");
+    			if (dirty & /*graphic*/ 128) {
+    				set_style(img, "width", /*graphic*/ ctx[7].width * artScale + "px");
     			}
 
-    			if (dirty & /*graphic*/ 64) {
-    				set_style(img, "height", /*graphic*/ ctx[6].height * artScale + "px");
+    			if (dirty & /*graphic*/ 128) {
+    				set_style(img, "height", /*graphic*/ ctx[7].height * artScale + "px");
     			}
 
-    			if (dirty & /*direction, rotate*/ 160) {
-    				set_style(img, "transform", "scaleX(" + /*direction*/ ctx[5] + ") rotate(" + /*rotate*/ ctx[7] + "deg)");
+    			if (dirty & /*direction, rotate*/ 320) {
+    				set_style(img, "transform", "scaleX(" + /*direction*/ ctx[6] + ") rotate(" + /*rotate*/ ctx[8] + "deg)");
     			}
     		},
     		d: function destroy(detaching) {
@@ -8706,17 +8706,18 @@ var app = (function () {
     	let div;
     	let healthbar;
     	let t;
+    	let div_style_value;
     	let current;
 
     	healthbar = new HealthBar({
     			props: {
-    				health: /*health*/ ctx[4],
+    				health: /*health*/ ctx[5],
     				maxHealth: /*maxHealth*/ ctx[1]
     			},
     			$$inline: true
     		});
 
-    	let if_block = /*graphic*/ ctx[6] != null && create_if_block$7(ctx);
+    	let if_block = /*graphic*/ ctx[7] != null && create_if_block$7(ctx);
 
     	const block = {
     		c: function create() {
@@ -8725,8 +8726,11 @@ var app = (function () {
     			t = space();
     			if (if_block) if_block.c();
     			attr_dev(div, "class", "player svelte-wdnc19");
-    			set_style(div, "left", /*x*/ ctx[3] + "px");
-    			set_style(div, "bottom", /*y*/ ctx[2] + "px");
+
+    			attr_dev(div, "style", div_style_value = "left: " + /*x*/ ctx[3] + "px; bottom: " + /*y*/ ctx[2] + "px; " + (/*zIndex*/ ctx[4] != null
+    			? "z-index: " + /*zIndex*/ ctx[4]
+    			: ""));
+
     			add_location(div, file$f, 0, 0, 0);
     		},
     		l: function claim(nodes) {
@@ -8741,11 +8745,11 @@ var app = (function () {
     		},
     		p: function update(ctx, [dirty]) {
     			const healthbar_changes = {};
-    			if (dirty & /*health*/ 16) healthbar_changes.health = /*health*/ ctx[4];
+    			if (dirty & /*health*/ 32) healthbar_changes.health = /*health*/ ctx[5];
     			if (dirty & /*maxHealth*/ 2) healthbar_changes.maxHealth = /*maxHealth*/ ctx[1];
     			healthbar.$set(healthbar_changes);
 
-    			if (/*graphic*/ ctx[6] != null) {
+    			if (/*graphic*/ ctx[7] != null) {
     				if (if_block) {
     					if_block.p(ctx, dirty);
     				} else {
@@ -8758,12 +8762,10 @@ var app = (function () {
     				if_block = null;
     			}
 
-    			if (!current || dirty & /*x*/ 8) {
-    				set_style(div, "left", /*x*/ ctx[3] + "px");
-    			}
-
-    			if (!current || dirty & /*y*/ 4) {
-    				set_style(div, "bottom", /*y*/ ctx[2] + "px");
+    			if (!current || dirty & /*x, y, zIndex*/ 28 && div_style_value !== (div_style_value = "left: " + /*x*/ ctx[3] + "px; bottom: " + /*y*/ ctx[2] + "px; " + (/*zIndex*/ ctx[4] != null
+    			? "z-index: " + /*zIndex*/ ctx[4]
+    			: ""))) {
+    				attr_dev(div, "style", div_style_value);
     			}
     		},
     		i: function intro(local) {
@@ -8798,7 +8800,7 @@ var app = (function () {
     function instance$g($$self, $$props, $$invalidate) {
     	let $artStore;
     	validate_store(artStore, "artStore");
-    	component_subscribe($$self, artStore, $$value => $$invalidate(15, $artStore = $$value));
+    	component_subscribe($$self, artStore, $$value => $$invalidate(16, $artStore = $$value));
     	let { name } = $$props;
     	let { maxHealth } = $$props;
     	let { graphicStill } = $$props;
@@ -8807,6 +8809,7 @@ var app = (function () {
     	let { vy = 0 } = $$props;
     	let { y = 0 } = $$props;
     	let { x = 0 } = $$props;
+    	let { zIndex } = $$props; // for level builder only
     	let { health } = $$props;
     	let { spinning = false } = $$props;
     	let direction = 1;
@@ -8822,6 +8825,7 @@ var app = (function () {
     		"vy",
     		"y",
     		"x",
+    		"zIndex",
     		"health",
     		"spinning"
     	];
@@ -8836,14 +8840,15 @@ var app = (function () {
     	$$self.$$set = $$props => {
     		if ("name" in $$props) $$invalidate(0, name = $$props.name);
     		if ("maxHealth" in $$props) $$invalidate(1, maxHealth = $$props.maxHealth);
-    		if ("graphicStill" in $$props) $$invalidate(8, graphicStill = $$props.graphicStill);
-    		if ("graphicSpinning" in $$props) $$invalidate(9, graphicSpinning = $$props.graphicSpinning);
-    		if ("vx" in $$props) $$invalidate(10, vx = $$props.vx);
-    		if ("vy" in $$props) $$invalidate(11, vy = $$props.vy);
+    		if ("graphicStill" in $$props) $$invalidate(9, graphicStill = $$props.graphicStill);
+    		if ("graphicSpinning" in $$props) $$invalidate(10, graphicSpinning = $$props.graphicSpinning);
+    		if ("vx" in $$props) $$invalidate(11, vx = $$props.vx);
+    		if ("vy" in $$props) $$invalidate(12, vy = $$props.vy);
     		if ("y" in $$props) $$invalidate(2, y = $$props.y);
     		if ("x" in $$props) $$invalidate(3, x = $$props.x);
-    		if ("health" in $$props) $$invalidate(4, health = $$props.health);
-    		if ("spinning" in $$props) $$invalidate(12, spinning = $$props.spinning);
+    		if ("zIndex" in $$props) $$invalidate(4, zIndex = $$props.zIndex);
+    		if ("health" in $$props) $$invalidate(5, health = $$props.health);
+    		if ("spinning" in $$props) $$invalidate(13, spinning = $$props.spinning);
     	};
 
     	$$self.$capture_state = () => ({
@@ -8858,6 +8863,7 @@ var app = (function () {
     		vy,
     		y,
     		x,
+    		zIndex,
     		health,
     		spinning,
     		direction,
@@ -8871,19 +8877,20 @@ var app = (function () {
     	$$self.$inject_state = $$props => {
     		if ("name" in $$props) $$invalidate(0, name = $$props.name);
     		if ("maxHealth" in $$props) $$invalidate(1, maxHealth = $$props.maxHealth);
-    		if ("graphicStill" in $$props) $$invalidate(8, graphicStill = $$props.graphicStill);
-    		if ("graphicSpinning" in $$props) $$invalidate(9, graphicSpinning = $$props.graphicSpinning);
-    		if ("vx" in $$props) $$invalidate(10, vx = $$props.vx);
-    		if ("vy" in $$props) $$invalidate(11, vy = $$props.vy);
+    		if ("graphicStill" in $$props) $$invalidate(9, graphicStill = $$props.graphicStill);
+    		if ("graphicSpinning" in $$props) $$invalidate(10, graphicSpinning = $$props.graphicSpinning);
+    		if ("vx" in $$props) $$invalidate(11, vx = $$props.vx);
+    		if ("vy" in $$props) $$invalidate(12, vy = $$props.vy);
     		if ("y" in $$props) $$invalidate(2, y = $$props.y);
     		if ("x" in $$props) $$invalidate(3, x = $$props.x);
-    		if ("health" in $$props) $$invalidate(4, health = $$props.health);
-    		if ("spinning" in $$props) $$invalidate(12, spinning = $$props.spinning);
-    		if ("direction" in $$props) $$invalidate(5, direction = $$props.direction);
-    		if ("spinningRotation" in $$props) $$invalidate(13, spinningRotation = $$props.spinningRotation);
-    		if ("spinTimeout" in $$props) $$invalidate(14, spinTimeout = $$props.spinTimeout);
-    		if ("graphic" in $$props) $$invalidate(6, graphic = $$props.graphic);
-    		if ("rotate" in $$props) $$invalidate(7, rotate = $$props.rotate);
+    		if ("zIndex" in $$props) $$invalidate(4, zIndex = $$props.zIndex);
+    		if ("health" in $$props) $$invalidate(5, health = $$props.health);
+    		if ("spinning" in $$props) $$invalidate(13, spinning = $$props.spinning);
+    		if ("direction" in $$props) $$invalidate(6, direction = $$props.direction);
+    		if ("spinningRotation" in $$props) $$invalidate(14, spinningRotation = $$props.spinningRotation);
+    		if ("spinTimeout" in $$props) $$invalidate(15, spinTimeout = $$props.spinTimeout);
+    		if ("graphic" in $$props) $$invalidate(7, graphic = $$props.graphic);
+    		if ("rotate" in $$props) $$invalidate(8, rotate = $$props.rotate);
     	};
 
     	let graphic;
@@ -8894,21 +8901,21 @@ var app = (function () {
     	}
 
     	$$self.$$.update = () => {
-    		if ($$self.$$.dirty & /*spinning, graphicSpinning, $artStore, graphicStill*/ 37632) {
-    			 $$invalidate(6, graphic = spinning && graphicSpinning != null
+    		if ($$self.$$.dirty & /*spinning, graphicSpinning, $artStore, graphicStill*/ 75264) {
+    			 $$invalidate(7, graphic = spinning && graphicSpinning != null
     			? $artStore[graphicSpinning]
     			: graphicStill != null ? $artStore[graphicStill] : null);
     		}
 
-    		if ($$self.$$.dirty & /*vx*/ 1024) {
-    			 if (vx != 0) $$invalidate(5, direction = vx > 0 ? 1 : -1);
+    		if ($$self.$$.dirty & /*vx*/ 2048) {
+    			 if (vx != 0) $$invalidate(6, direction = vx > 0 ? 1 : -1);
     		}
 
-    		if ($$self.$$.dirty & /*spinning, spinningRotation, spinTimeout*/ 28672) {
+    		if ($$self.$$.dirty & /*spinning, spinningRotation, spinTimeout*/ 57344) {
     			 if (spinning) {
-    				$$invalidate(14, spinTimeout = setTimeout(
+    				$$invalidate(15, spinTimeout = setTimeout(
     					() => {
-    						$$invalidate(13, spinningRotation += 30);
+    						$$invalidate(14, spinningRotation += 30);
     					},
     					25
     				));
@@ -8917,8 +8924,8 @@ var app = (function () {
     			}
     		}
 
-    		if ($$self.$$.dirty & /*spinning, spinningRotation, vy*/ 14336) {
-    			 $$invalidate(7, rotate = spinning
+    		if ($$self.$$.dirty & /*spinning, spinningRotation, vy*/ 28672) {
+    			 $$invalidate(8, rotate = spinning
     			? spinningRotation
     			: -1 * (5 + (vy > 0 ? vy * 3 : vy * 1.5)));
     		}
@@ -8929,6 +8936,7 @@ var app = (function () {
     		maxHealth,
     		y,
     		x,
+    		zIndex,
     		health,
     		direction,
     		graphic,
@@ -8948,14 +8956,15 @@ var app = (function () {
     		init(this, options, instance$g, create_fragment$g, safe_not_equal, {
     			name: 0,
     			maxHealth: 1,
-    			graphicStill: 8,
-    			graphicSpinning: 9,
-    			vx: 10,
-    			vy: 11,
+    			graphicStill: 9,
+    			graphicSpinning: 10,
+    			vx: 11,
+    			vy: 12,
     			y: 2,
     			x: 3,
-    			health: 4,
-    			spinning: 12
+    			zIndex: 4,
+    			health: 5,
+    			spinning: 13
     		});
 
     		dispatch_dev("SvelteRegisterComponent", {
@@ -8976,15 +8985,19 @@ var app = (function () {
     			console.warn("<LivingSprite> was created without expected prop 'maxHealth'");
     		}
 
-    		if (/*graphicStill*/ ctx[8] === undefined && !("graphicStill" in props)) {
+    		if (/*graphicStill*/ ctx[9] === undefined && !("graphicStill" in props)) {
     			console.warn("<LivingSprite> was created without expected prop 'graphicStill'");
     		}
 
-    		if (/*graphicSpinning*/ ctx[9] === undefined && !("graphicSpinning" in props)) {
+    		if (/*graphicSpinning*/ ctx[10] === undefined && !("graphicSpinning" in props)) {
     			console.warn("<LivingSprite> was created without expected prop 'graphicSpinning'");
     		}
 
-    		if (/*health*/ ctx[4] === undefined && !("health" in props)) {
+    		if (/*zIndex*/ ctx[4] === undefined && !("zIndex" in props)) {
+    			console.warn("<LivingSprite> was created without expected prop 'zIndex'");
+    		}
+
+    		if (/*health*/ ctx[5] === undefined && !("health" in props)) {
     			console.warn("<LivingSprite> was created without expected prop 'health'");
     		}
     	}
@@ -9050,6 +9063,14 @@ var app = (function () {
     	}
 
     	set x(value) {
+    		throw new Error("<LivingSprite>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get zIndex() {
+    		throw new Error("<LivingSprite>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set zIndex(value) {
     		throw new Error("<LivingSprite>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
 
@@ -9678,11 +9699,11 @@ var app = (function () {
     	return block;
     }
 
-    // (38:2) {#each enemies as enemy}
+    // (35:2) {#each enemies as enemy}
     function create_each_block$5(ctx) {
     	let livingsprite;
     	let current;
-    	const livingsprite_spread_levels = [/*hydrateEnemy*/ ctx[18](/*enemy*/ ctx[31])];
+    	const livingsprite_spread_levels = [/*hydrateEnemy*/ ctx[18](/*enemy*/ ctx[31]), { zIndex: 0 }];
     	let livingsprite_props = {};
 
     	for (let i = 0; i < livingsprite_spread_levels.length; i += 1) {
@@ -9704,7 +9725,10 @@ var app = (function () {
     		},
     		p: function update(ctx, dirty) {
     			const livingsprite_changes = (dirty[0] & /*hydrateEnemy, enemies*/ 262148)
-    			? get_spread_update(livingsprite_spread_levels, [get_spread_object(/*hydrateEnemy*/ ctx[18](/*enemy*/ ctx[31]))])
+    			? get_spread_update(livingsprite_spread_levels, [
+    					get_spread_object(/*hydrateEnemy*/ ctx[18](/*enemy*/ ctx[31])),
+    					livingsprite_spread_levels[1]
+    				])
     			: {};
 
     			livingsprite.$set(livingsprite_changes);
@@ -9727,7 +9751,7 @@ var app = (function () {
     		block,
     		id: create_each_block$5.name,
     		type: "each",
-    		source: "(38:2) {#each enemies as enemy}",
+    		source: "(35:2) {#each enemies as enemy}",
     		ctx
     	});
 
@@ -9735,7 +9759,7 @@ var app = (function () {
     }
 
     function create_fragment$j(ctx) {
-    	let div6;
+    	let div7;
     	let levelpreview;
     	let t0;
     	let div4;
@@ -9747,9 +9771,10 @@ var app = (function () {
     	let t3;
     	let div2;
     	let t4;
+    	let div6;
+    	let t5;
     	let div5;
     	let level;
-    	let t5;
     	let current;
     	let mounted;
     	let dispose;
@@ -9789,16 +9814,6 @@ var app = (function () {
     		each_blocks_1[i] = null;
     	});
 
-    	level = new Level({
-    			props: {
-    				blocks: /*blocks*/ ctx[1],
-    				width: /*width*/ ctx[7],
-    				height: /*height*/ ctx[8]
-    			},
-    			$$inline: true
-    		});
-
-    	level.$on("draw", /*onLevelDraw*/ ctx[11]);
     	let each_value = /*enemies*/ ctx[2];
     	validate_each_argument(each_value);
     	let each_blocks = [];
@@ -9811,9 +9826,20 @@ var app = (function () {
     		each_blocks[i] = null;
     	});
 
+    	level = new Level({
+    			props: {
+    				blocks: /*blocks*/ ctx[1],
+    				width: /*width*/ ctx[7],
+    				height: /*height*/ ctx[8]
+    			},
+    			$$inline: true
+    		});
+
+    	level.$on("draw", /*onLevelDraw*/ ctx[11]);
+
     	const block = {
     		c: function create() {
-    			div6 = element("div");
+    			div7 = element("div");
     			create_component(levelpreview.$$.fragment);
     			t0 = space();
     			div4 = element("div");
@@ -9835,14 +9861,15 @@ var app = (function () {
     			}
 
     			t4 = space();
-    			div5 = element("div");
-    			create_component(level.$$.fragment);
-    			t5 = space();
+    			div6 = element("div");
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
 
+    			t5 = space();
+    			div5 = element("div");
+    			create_component(level.$$.fragment);
     			attr_dev(div0, "class", "btn-group svelte-1l9uq66");
     			add_location(div0, file$i, 5, 3, 154);
     			attr_dev(div1, "class", "svelte-1l9uq66");
@@ -9853,21 +9880,24 @@ var app = (function () {
     			add_location(div3, file$i, 13, 2, 451);
     			attr_dev(div4, "class", "tool-picker svelte-1l9uq66");
     			add_location(div4, file$i, 2, 1, 104);
-    			attr_dev(div5, "class", "level-container svelte-1l9uq66");
-    			set_style(div5, "background", /*background*/ ctx[3]);
-    			set_style(div5, "height", /*height*/ ctx[8] + 25 + "px");
-    			add_location(div5, file$i, 25, 1, 787);
-    			attr_dev(div6, "class", "drawing-tool svelte-1l9uq66");
-    			add_location(div6, file$i, 0, 0, 0);
+    			set_style(div5, "position", "relative");
+    			set_style(div5, "z-index", "10");
+    			add_location(div5, file$i, 39, 2, 1187);
+    			attr_dev(div6, "class", "level-container svelte-1l9uq66");
+    			set_style(div6, "background", /*background*/ ctx[3]);
+    			set_style(div6, "height", /*height*/ ctx[8] + 25 + "px");
+    			add_location(div6, file$i, 25, 1, 787);
+    			attr_dev(div7, "class", "drawing-tool svelte-1l9uq66");
+    			add_location(div7, file$i, 0, 0, 0);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div6, anchor);
-    			mount_component(levelpreview, div6, null);
-    			append_dev(div6, t0);
-    			append_dev(div6, div4);
+    			insert_dev(target, div7, anchor);
+    			mount_component(levelpreview, div7, null);
+    			append_dev(div7, t0);
+    			append_dev(div7, div4);
     			append_dev(div4, div1);
     			append_dev(div1, t1);
     			append_dev(div1, div0);
@@ -9885,24 +9915,25 @@ var app = (function () {
     				each_blocks_1[i].m(div2, null);
     			}
 
-    			append_dev(div6, t4);
-    			append_dev(div6, div5);
-    			mount_component(level, div5, null);
-    			append_dev(div5, t5);
+    			append_dev(div7, t4);
+    			append_dev(div7, div6);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
-    				each_blocks[i].m(div5, null);
+    				each_blocks[i].m(div6, null);
     			}
 
-    			/*div5_binding*/ ctx[22](div5);
+    			append_dev(div6, t5);
+    			append_dev(div6, div5);
+    			mount_component(level, div5, null);
+    			/*div6_binding*/ ctx[22](div6);
     			current = true;
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(div5, "mousedown", /*onMouseDown*/ ctx[15], false, false, false),
-    					listen_dev(div5, "mouseup", /*onMouseUp*/ ctx[17], false, false, false),
-    					listen_dev(div5, "mousemove", /*onMouseMove*/ ctx[16], false, false, false),
-    					listen_dev(div5, "contextmenu", prevent_default(/*contextmenu_handler*/ ctx[19]), false, true, false)
+    					listen_dev(div6, "mousedown", /*onMouseDown*/ ctx[15], false, false, false),
+    					listen_dev(div6, "mouseup", /*onMouseUp*/ ctx[17], false, false, false),
+    					listen_dev(div6, "mousemove", /*onMouseMove*/ ctx[16], false, false, false),
+    					listen_dev(div6, "contextmenu", prevent_default(/*contextmenu_handler*/ ctx[19]), false, true, false)
     				];
 
     				mounted = true;
@@ -9974,12 +10005,6 @@ var app = (function () {
     				check_outros();
     			}
 
-    			const level_changes = {};
-    			if (dirty[0] & /*blocks*/ 2) level_changes.blocks = /*blocks*/ ctx[1];
-    			if (dirty[0] & /*width*/ 128) level_changes.width = /*width*/ ctx[7];
-    			if (dirty[0] & /*height*/ 256) level_changes.height = /*height*/ ctx[8];
-    			level.$set(level_changes);
-
     			if (dirty[0] & /*hydrateEnemy, enemies*/ 262148) {
     				each_value = /*enemies*/ ctx[2];
     				validate_each_argument(each_value);
@@ -9995,7 +10020,7 @@ var app = (function () {
     						each_blocks[i] = create_each_block$5(child_ctx);
     						each_blocks[i].c();
     						transition_in(each_blocks[i], 1);
-    						each_blocks[i].m(div5, null);
+    						each_blocks[i].m(div6, t5);
     					}
     				}
 
@@ -10008,12 +10033,18 @@ var app = (function () {
     				check_outros();
     			}
 
+    			const level_changes = {};
+    			if (dirty[0] & /*blocks*/ 2) level_changes.blocks = /*blocks*/ ctx[1];
+    			if (dirty[0] & /*width*/ 128) level_changes.width = /*width*/ ctx[7];
+    			if (dirty[0] & /*height*/ 256) level_changes.height = /*height*/ ctx[8];
+    			level.$set(level_changes);
+
     			if (!current || dirty[0] & /*background*/ 8) {
-    				set_style(div5, "background", /*background*/ ctx[3]);
+    				set_style(div6, "background", /*background*/ ctx[3]);
     			}
 
     			if (!current || dirty[0] & /*height*/ 256) {
-    				set_style(div5, "height", /*height*/ ctx[8] + 25 + "px");
+    				set_style(div6, "height", /*height*/ ctx[8] + 25 + "px");
     			}
     		},
     		i: function intro(local) {
@@ -10028,12 +10059,11 @@ var app = (function () {
     				transition_in(each_blocks_1[i]);
     			}
 
-    			transition_in(level.$$.fragment, local);
-
     			for (let i = 0; i < each_value.length; i += 1) {
     				transition_in(each_blocks[i]);
     			}
 
+    			transition_in(level.$$.fragment, local);
     			current = true;
     		},
     		o: function outro(local) {
@@ -10050,23 +10080,23 @@ var app = (function () {
     				transition_out(each_blocks_1[i]);
     			}
 
-    			transition_out(level.$$.fragment, local);
     			each_blocks = each_blocks.filter(Boolean);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				transition_out(each_blocks[i]);
     			}
 
+    			transition_out(level.$$.fragment, local);
     			current = false;
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div6);
+    			if (detaching) detach_dev(div7);
     			destroy_component(levelpreview);
     			destroy_each(each_blocks_2, detaching);
     			destroy_each(each_blocks_1, detaching);
-    			destroy_component(level);
     			destroy_each(each_blocks, detaching);
-    			/*div5_binding*/ ctx[22](null);
+    			destroy_component(level);
+    			/*div6_binding*/ ctx[22](null);
     			mounted = false;
     			run_all(dispose);
     		}
@@ -10232,7 +10262,7 @@ var app = (function () {
     	const click_handler = name => selectBlock(name);
     	const click_handler_1 = name => selectEnemy(name);
 
-    	function div5_binding($$value) {
+    	function div6_binding($$value) {
     		binding_callbacks[$$value ? "unshift" : "push"](() => {
     			levelContainer = $$value;
     			$$invalidate(6, levelContainer);
@@ -10355,7 +10385,7 @@ var app = (function () {
     		contextmenu_handler,
     		click_handler,
     		click_handler_1,
-    		div5_binding
+    		div6_binding
     	];
     }
 
