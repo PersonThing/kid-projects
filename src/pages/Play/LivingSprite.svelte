@@ -1,4 +1,4 @@
-<div class="player" style="left: {x}px; bottom: {y}px; {zIndex != null ? 'z-index: ' + zIndex : ''}">
+<div class="player" style="left: {x}px; bottom: {y}px;">
 	<HealthBar {health} {maxHealth} />
 	{#if graphic != null}
 		<img
@@ -24,8 +24,6 @@
 	export let vy = 0
 	export let y = 0
 	export let x = 0
-
-	export let zIndex // for level builder only
 
 	export let health
 

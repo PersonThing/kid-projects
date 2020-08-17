@@ -15,11 +15,13 @@
 <LevelBuilderLayout tab="characters" activeName={input.name} store={$characters}>
 	<Form on:submit={save}>
 		<FieldText name="name" bind:value={input.name}>Name</FieldText>
-		<FieldGraphicPicker bind:value={input.graphicStill} filter={b => b.width != 20 || b.height != 20}>Standing still graphic</FieldGraphicPicker>
-		<FieldGraphicPicker bind:value={input.graphicSpinning} filter={b => b.width != 20 || b.height != 20} spin>Spinning graphic</FieldGraphicPicker>
-		<!-- <FieldGraphicPicker bind:value={input.graphicMoving1}>Moving graphic 1</FieldGraphicPicker>
-		<FieldGraphicPicker bind:value={input.graphicMoving2}>Moving graphic 2</FieldGraphicPicker>
-		<FieldGraphicPicker bind:value={input.graphicMoving3}>Moving graphic 3</FieldGraphicPicker> -->
+		<FieldGraphicPicker bind:value={input.graphicStill} filter={notBlockFilter}>Standing still graphic</FieldGraphicPicker>
+		<FieldGraphicPicker bind:value={input.graphicSpinning} filter={notBlockFilter} spin>Spinning graphic</FieldGraphicPicker>
+		<!--
+			todo, let them select up to 3 moving graphics to cycle through
+			sprite will sit on each graphic for X # of frames?
+			<FieldGraphicPicker bind:value={input.graphicMoving1} filter={notBlockFilter}>Moving graphics</FieldGraphicPicker>
+		-->
 		<FieldNumber name="maxVelocity" min={0} bind:value={input.maxVelocity}>Max velocity</FieldNumber>
 		<FieldNumber name="jumpVelocity" min={0} bind:value={input.jumpVelocity}>Jump velocity</FieldNumber>
 		<FieldNumber name="gravityMultiplier" min={0} max={2} step={0.1} bind:value={input.gravityMultiplier}>Gravity multiplier</FieldNumber>
@@ -44,6 +46,8 @@
 	import FieldText from './components/FieldText.svelte'
 	import Form from './components/Form.svelte'
 	import LevelBuilderLayout from './components/LevelBuilderLayout.svelte'
+
+	const notBlockFilter = b => b.width != 20 || b.height != 20
 
 	export let params = {}
 	let input

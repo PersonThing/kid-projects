@@ -5684,7 +5684,7 @@ var app = (function () {
     	return block;
     }
 
-    // (18:2) <FieldGraphicPicker bind:value={input.graphicStill} filter={b => b.width != 20 || b.height != 20}>
+    // (18:2) <FieldGraphicPicker bind:value={input.graphicStill} filter={notBlockFilter}>
     function create_default_slot_10(ctx) {
     	let t;
 
@@ -5704,14 +5704,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_10.name,
     		type: "slot",
-    		source: "(18:2) <FieldGraphicPicker bind:value={input.graphicStill} filter={b => b.width != 20 || b.height != 20}>",
+    		source: "(18:2) <FieldGraphicPicker bind:value={input.graphicStill} filter={notBlockFilter}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (19:2) <FieldGraphicPicker bind:value={input.graphicSpinning} filter={b => b.width != 20 || b.height != 20} spin>
+    // (19:2) <FieldGraphicPicker bind:value={input.graphicSpinning} filter={notBlockFilter} spin>
     function create_default_slot_9(ctx) {
     	let t;
 
@@ -5731,14 +5731,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_9.name,
     		type: "slot",
-    		source: "(19:2) <FieldGraphicPicker bind:value={input.graphicSpinning} filter={b => b.width != 20 || b.height != 20} spin>",
+    		source: "(19:2) <FieldGraphicPicker bind:value={input.graphicSpinning} filter={notBlockFilter} spin>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (23:2) <FieldNumber name="maxVelocity" min={0} bind:value={input.maxVelocity}>
+    // (25:2) <FieldNumber name="maxVelocity" min={0} bind:value={input.maxVelocity}>
     function create_default_slot_8(ctx) {
     	let t;
 
@@ -5758,14 +5758,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_8.name,
     		type: "slot",
-    		source: "(23:2) <FieldNumber name=\\\"maxVelocity\\\" min={0} bind:value={input.maxVelocity}>",
+    		source: "(25:2) <FieldNumber name=\\\"maxVelocity\\\" min={0} bind:value={input.maxVelocity}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (24:2) <FieldNumber name="jumpVelocity" min={0} bind:value={input.jumpVelocity}>
+    // (26:2) <FieldNumber name="jumpVelocity" min={0} bind:value={input.jumpVelocity}>
     function create_default_slot_7(ctx) {
     	let t;
 
@@ -5785,14 +5785,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_7.name,
     		type: "slot",
-    		source: "(24:2) <FieldNumber name=\\\"jumpVelocity\\\" min={0} bind:value={input.jumpVelocity}>",
+    		source: "(26:2) <FieldNumber name=\\\"jumpVelocity\\\" min={0} bind:value={input.jumpVelocity}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (25:2) <FieldNumber name="gravityMultiplier" min={0} max={2} step={0.1} bind:value={input.gravityMultiplier}>
+    // (27:2) <FieldNumber name="gravityMultiplier" min={0} max={2} step={0.1} bind:value={input.gravityMultiplier}>
     function create_default_slot_6$1(ctx) {
     	let t;
 
@@ -5812,14 +5812,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_6$1.name,
     		type: "slot",
-    		source: "(25:2) <FieldNumber name=\\\"gravityMultiplier\\\" min={0} max={2} step={0.1} bind:value={input.gravityMultiplier}>",
+    		source: "(27:2) <FieldNumber name=\\\"gravityMultiplier\\\" min={0} max={2} step={0.1} bind:value={input.gravityMultiplier}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (26:2) <FieldNumber name="fallDamageMultiplier" min={0} max={1} step={0.1} bind:value={input.fallDamageMultiplier}>
+    // (28:2) <FieldNumber name="fallDamageMultiplier" min={0} max={1} step={0.1} bind:value={input.fallDamageMultiplier}>
     function create_default_slot_5$1(ctx) {
     	let t;
 
@@ -5839,14 +5839,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_5$1.name,
     		type: "slot",
-    		source: "(26:2) <FieldNumber name=\\\"fallDamageMultiplier\\\" min={0} max={1} step={0.1} bind:value={input.fallDamageMultiplier}>",
+    		source: "(28:2) <FieldNumber name=\\\"fallDamageMultiplier\\\" min={0} max={1} step={0.1} bind:value={input.fallDamageMultiplier}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (27:2) <FieldNumber name="maxHealth" bind:value={input.maxHealth}>
+    // (29:2) <FieldNumber name="maxHealth" bind:value={input.maxHealth}>
     function create_default_slot_4$1(ctx) {
     	let t;
 
@@ -5866,14 +5866,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_4$1.name,
     		type: "slot",
-    		source: "(27:2) <FieldNumber name=\\\"maxHealth\\\" bind:value={input.maxHealth}>",
+    		source: "(29:2) <FieldNumber name=\\\"maxHealth\\\" bind:value={input.maxHealth}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (28:2) <FieldNumber name="dps" bind:value={input.dps}>
+    // (30:2) <FieldNumber name="dps" bind:value={input.dps}>
     function create_default_slot_3$1(ctx) {
     	let t;
 
@@ -5893,14 +5893,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_3$1.name,
     		type: "slot",
-    		source: "(28:2) <FieldNumber name=\\\"dps\\\" bind:value={input.dps}>",
+    		source: "(30:2) <FieldNumber name=\\\"dps\\\" bind:value={input.dps}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (29:2) <FieldCheckbox name="canFly" bind:checked={input.canFly}>
+    // (31:2) <FieldCheckbox name="canFly" bind:checked={input.canFly}>
     function create_default_slot_2$1(ctx) {
     	let t;
 
@@ -5920,14 +5920,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_2$1.name,
     		type: "slot",
-    		source: "(29:2) <FieldCheckbox name=\\\"canFly\\\" bind:checked={input.canFly}>",
+    		source: "(31:2) <FieldCheckbox name=\\\"canFly\\\" bind:checked={input.canFly}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (31:3) {#if !isAdding}
+    // (33:3) {#if !isAdding}
     function create_if_block$5(ctx) {
     	let button;
     	let mounted;
@@ -5939,13 +5939,13 @@ var app = (function () {
     			button.textContent = "Delete";
     			attr_dev(button, "type", "button");
     			attr_dev(button, "class", "btn btn-danger");
-    			add_location(button, file$a, 31, 4, 2215);
+    			add_location(button, file$a, 33, 4, 2133);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
 
     			if (!mounted) {
-    				dispose = listen_dev(button, "click", /*click_handler*/ ctx[16], false, false, false);
+    				dispose = listen_dev(button, "click", /*click_handler*/ ctx[17], false, false, false);
     				mounted = true;
     			}
     		},
@@ -5961,14 +5961,14 @@ var app = (function () {
     		block,
     		id: create_if_block$5.name,
     		type: "if",
-    		source: "(31:3) {#if !isAdding}",
+    		source: "(33:3) {#if !isAdding}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (30:2) <span slot="buttons">
+    // (32:2) <span slot="buttons">
     function create_buttons_slot$1(ctx) {
     	let span;
     	let if_block = !/*isAdding*/ ctx[1] && create_if_block$5(ctx);
@@ -5978,7 +5978,7 @@ var app = (function () {
     			span = element("span");
     			if (if_block) if_block.c();
     			attr_dev(span, "slot", "buttons");
-    			add_location(span, file$a, 29, 2, 2168);
+    			add_location(span, file$a, 31, 2, 2086);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -6008,7 +6008,7 @@ var app = (function () {
     		block,
     		id: create_buttons_slot$1.name,
     		type: "slot",
-    		source: "(30:2) <span slot=\\\"buttons\\\">",
+    		source: "(32:2) <span slot=\\\"buttons\\\">",
     		ctx
     	});
 
@@ -6050,7 +6050,7 @@ var app = (function () {
     	let current;
 
     	function fieldtext_value_binding(value) {
-    		/*fieldtext_value_binding*/ ctx[6].call(null, value);
+    		/*fieldtext_value_binding*/ ctx[7].call(null, value);
     	}
 
     	let fieldtext_props = {
@@ -6067,11 +6067,11 @@ var app = (function () {
     	binding_callbacks.push(() => bind(fieldtext, "value", fieldtext_value_binding));
 
     	function fieldgraphicpicker0_value_binding(value) {
-    		/*fieldgraphicpicker0_value_binding*/ ctx[7].call(null, value);
+    		/*fieldgraphicpicker0_value_binding*/ ctx[8].call(null, value);
     	}
 
     	let fieldgraphicpicker0_props = {
-    		filter: func$1,
+    		filter: /*notBlockFilter*/ ctx[3],
     		$$slots: { default: [create_default_slot_10] },
     		$$scope: { ctx }
     	};
@@ -6088,11 +6088,11 @@ var app = (function () {
     	binding_callbacks.push(() => bind(fieldgraphicpicker0, "value", fieldgraphicpicker0_value_binding));
 
     	function fieldgraphicpicker1_value_binding(value) {
-    		/*fieldgraphicpicker1_value_binding*/ ctx[8].call(null, value);
+    		/*fieldgraphicpicker1_value_binding*/ ctx[9].call(null, value);
     	}
 
     	let fieldgraphicpicker1_props = {
-    		filter: func_1,
+    		filter: /*notBlockFilter*/ ctx[3],
     		spin: true,
     		$$slots: { default: [create_default_slot_9] },
     		$$scope: { ctx }
@@ -6110,7 +6110,7 @@ var app = (function () {
     	binding_callbacks.push(() => bind(fieldgraphicpicker1, "value", fieldgraphicpicker1_value_binding));
 
     	function fieldnumber0_value_binding(value) {
-    		/*fieldnumber0_value_binding*/ ctx[9].call(null, value);
+    		/*fieldnumber0_value_binding*/ ctx[10].call(null, value);
     	}
 
     	let fieldnumber0_props = {
@@ -6132,7 +6132,7 @@ var app = (function () {
     	binding_callbacks.push(() => bind(fieldnumber0, "value", fieldnumber0_value_binding));
 
     	function fieldnumber1_value_binding(value) {
-    		/*fieldnumber1_value_binding*/ ctx[10].call(null, value);
+    		/*fieldnumber1_value_binding*/ ctx[11].call(null, value);
     	}
 
     	let fieldnumber1_props = {
@@ -6154,7 +6154,7 @@ var app = (function () {
     	binding_callbacks.push(() => bind(fieldnumber1, "value", fieldnumber1_value_binding));
 
     	function fieldnumber2_value_binding(value) {
-    		/*fieldnumber2_value_binding*/ ctx[11].call(null, value);
+    		/*fieldnumber2_value_binding*/ ctx[12].call(null, value);
     	}
 
     	let fieldnumber2_props = {
@@ -6178,7 +6178,7 @@ var app = (function () {
     	binding_callbacks.push(() => bind(fieldnumber2, "value", fieldnumber2_value_binding));
 
     	function fieldnumber3_value_binding(value) {
-    		/*fieldnumber3_value_binding*/ ctx[12].call(null, value);
+    		/*fieldnumber3_value_binding*/ ctx[13].call(null, value);
     	}
 
     	let fieldnumber3_props = {
@@ -6202,7 +6202,7 @@ var app = (function () {
     	binding_callbacks.push(() => bind(fieldnumber3, "value", fieldnumber3_value_binding));
 
     	function fieldnumber4_value_binding(value) {
-    		/*fieldnumber4_value_binding*/ ctx[13].call(null, value);
+    		/*fieldnumber4_value_binding*/ ctx[14].call(null, value);
     	}
 
     	let fieldnumber4_props = {
@@ -6223,7 +6223,7 @@ var app = (function () {
     	binding_callbacks.push(() => bind(fieldnumber4, "value", fieldnumber4_value_binding));
 
     	function fieldnumber5_value_binding(value) {
-    		/*fieldnumber5_value_binding*/ ctx[14].call(null, value);
+    		/*fieldnumber5_value_binding*/ ctx[15].call(null, value);
     	}
 
     	let fieldnumber5_props = {
@@ -6244,7 +6244,7 @@ var app = (function () {
     	binding_callbacks.push(() => bind(fieldnumber5, "value", fieldnumber5_value_binding));
 
     	function fieldcheckbox_checked_binding(value) {
-    		/*fieldcheckbox_checked_binding*/ ctx[15].call(null, value);
+    		/*fieldcheckbox_checked_binding*/ ctx[16].call(null, value);
     	}
 
     	let fieldcheckbox_props = {
@@ -6313,7 +6313,7 @@ var app = (function () {
     		p: function update(ctx, dirty) {
     			const fieldtext_changes = {};
 
-    			if (dirty & /*$$scope*/ 1048576) {
+    			if (dirty & /*$$scope*/ 2097152) {
     				fieldtext_changes.$$scope = { dirty, ctx };
     			}
 
@@ -6326,7 +6326,7 @@ var app = (function () {
     			fieldtext.$set(fieldtext_changes);
     			const fieldgraphicpicker0_changes = {};
 
-    			if (dirty & /*$$scope*/ 1048576) {
+    			if (dirty & /*$$scope*/ 2097152) {
     				fieldgraphicpicker0_changes.$$scope = { dirty, ctx };
     			}
 
@@ -6339,7 +6339,7 @@ var app = (function () {
     			fieldgraphicpicker0.$set(fieldgraphicpicker0_changes);
     			const fieldgraphicpicker1_changes = {};
 
-    			if (dirty & /*$$scope*/ 1048576) {
+    			if (dirty & /*$$scope*/ 2097152) {
     				fieldgraphicpicker1_changes.$$scope = { dirty, ctx };
     			}
 
@@ -6352,7 +6352,7 @@ var app = (function () {
     			fieldgraphicpicker1.$set(fieldgraphicpicker1_changes);
     			const fieldnumber0_changes = {};
 
-    			if (dirty & /*$$scope*/ 1048576) {
+    			if (dirty & /*$$scope*/ 2097152) {
     				fieldnumber0_changes.$$scope = { dirty, ctx };
     			}
 
@@ -6365,7 +6365,7 @@ var app = (function () {
     			fieldnumber0.$set(fieldnumber0_changes);
     			const fieldnumber1_changes = {};
 
-    			if (dirty & /*$$scope*/ 1048576) {
+    			if (dirty & /*$$scope*/ 2097152) {
     				fieldnumber1_changes.$$scope = { dirty, ctx };
     			}
 
@@ -6378,7 +6378,7 @@ var app = (function () {
     			fieldnumber1.$set(fieldnumber1_changes);
     			const fieldnumber2_changes = {};
 
-    			if (dirty & /*$$scope*/ 1048576) {
+    			if (dirty & /*$$scope*/ 2097152) {
     				fieldnumber2_changes.$$scope = { dirty, ctx };
     			}
 
@@ -6391,7 +6391,7 @@ var app = (function () {
     			fieldnumber2.$set(fieldnumber2_changes);
     			const fieldnumber3_changes = {};
 
-    			if (dirty & /*$$scope*/ 1048576) {
+    			if (dirty & /*$$scope*/ 2097152) {
     				fieldnumber3_changes.$$scope = { dirty, ctx };
     			}
 
@@ -6404,7 +6404,7 @@ var app = (function () {
     			fieldnumber3.$set(fieldnumber3_changes);
     			const fieldnumber4_changes = {};
 
-    			if (dirty & /*$$scope*/ 1048576) {
+    			if (dirty & /*$$scope*/ 2097152) {
     				fieldnumber4_changes.$$scope = { dirty, ctx };
     			}
 
@@ -6417,7 +6417,7 @@ var app = (function () {
     			fieldnumber4.$set(fieldnumber4_changes);
     			const fieldnumber5_changes = {};
 
-    			if (dirty & /*$$scope*/ 1048576) {
+    			if (dirty & /*$$scope*/ 2097152) {
     				fieldnumber5_changes.$$scope = { dirty, ctx };
     			}
 
@@ -6430,7 +6430,7 @@ var app = (function () {
     			fieldnumber5.$set(fieldnumber5_changes);
     			const fieldcheckbox_changes = {};
 
-    			if (dirty & /*$$scope*/ 1048576) {
+    			if (dirty & /*$$scope*/ 2097152) {
     				fieldcheckbox_changes.$$scope = { dirty, ctx };
     			}
 
@@ -6520,7 +6520,7 @@ var app = (function () {
     			$$inline: true
     		});
 
-    	form.$on("submit", /*save*/ ctx[3]);
+    	form.$on("submit", /*save*/ ctx[4]);
 
     	const block = {
     		c: function create() {
@@ -6533,7 +6533,7 @@ var app = (function () {
     		p: function update(ctx, dirty) {
     			const form_changes = {};
 
-    			if (dirty & /*$$scope, input, isAdding*/ 1048579) {
+    			if (dirty & /*$$scope, input, isAdding*/ 2097155) {
     				form_changes.$$scope = { dirty, ctx };
     			}
 
@@ -6595,7 +6595,7 @@ var app = (function () {
     			if (dirty & /*input*/ 1) levelbuilderlayout_changes.activeName = /*input*/ ctx[0].name;
     			if (dirty & /*$characters*/ 4) levelbuilderlayout_changes.store = /*$characters*/ ctx[2];
 
-    			if (dirty & /*$$scope, input, isAdding*/ 1048579) {
+    			if (dirty & /*$$scope, input, isAdding*/ 2097155) {
     				levelbuilderlayout_changes.$$scope = { dirty, ctx };
     			}
 
@@ -6626,13 +6626,11 @@ var app = (function () {
     	return block;
     }
 
-    const func$1 = b => b.width != 20 || b.height != 20;
-    const func_1 = b => b.width != 20 || b.height != 20;
-
     function instance$b($$self, $$props, $$invalidate) {
     	let $characters;
     	validate_store(characters, "characters");
     	component_subscribe($$self, characters, $$value => $$invalidate(2, $characters = $$value));
+    	const notBlockFilter = b => b.width != 20 || b.height != 20;
     	let { params = {} } = $$props;
     	let input;
 
@@ -6729,7 +6727,7 @@ var app = (function () {
     	const click_handler = () => del(input.name);
 
     	$$self.$$set = $$props => {
-    		if ("params" in $$props) $$invalidate(5, params = $$props.params);
+    		if ("params" in $$props) $$invalidate(6, params = $$props.params);
     	};
 
     	$$self.$capture_state = () => ({
@@ -6741,6 +6739,7 @@ var app = (function () {
     		FieldText,
     		Form,
     		LevelBuilderLayout,
+    		notBlockFilter,
     		params,
     		input,
     		save,
@@ -6753,9 +6752,9 @@ var app = (function () {
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ("params" in $$props) $$invalidate(5, params = $$props.params);
+    		if ("params" in $$props) $$invalidate(6, params = $$props.params);
     		if ("input" in $$props) $$invalidate(0, input = $$props.input);
-    		if ("paramName" in $$props) $$invalidate(17, paramName = $$props.paramName);
+    		if ("paramName" in $$props) $$invalidate(18, paramName = $$props.paramName);
     		if ("isAdding" in $$props) $$invalidate(1, isAdding = $$props.isAdding);
     	};
 
@@ -6767,15 +6766,15 @@ var app = (function () {
     	}
 
     	$$self.$$.update = () => {
-    		if ($$self.$$.dirty & /*params*/ 32) {
-    			 $$invalidate(17, paramName = decodeURIComponent(params.name) || "new");
+    		if ($$self.$$.dirty & /*params*/ 64) {
+    			 $$invalidate(18, paramName = decodeURIComponent(params.name) || "new");
     		}
 
-    		if ($$self.$$.dirty & /*paramName*/ 131072) {
+    		if ($$self.$$.dirty & /*paramName*/ 262144) {
     			 paramName == "new" ? create() : edit(paramName);
     		}
 
-    		if ($$self.$$.dirty & /*paramName*/ 131072) {
+    		if ($$self.$$.dirty & /*paramName*/ 262144) {
     			 $$invalidate(1, isAdding = paramName == "new");
     		}
     	};
@@ -6784,6 +6783,7 @@ var app = (function () {
     		input,
     		isAdding,
     		$characters,
+    		notBlockFilter,
     		save,
     		del,
     		params,
@@ -6804,7 +6804,7 @@ var app = (function () {
     class CharacterBuilder extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$b, create_fragment$b, safe_not_equal, { params: 5 });
+    		init(this, options, instance$b, create_fragment$b, safe_not_equal, { params: 6 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
@@ -7182,7 +7182,7 @@ var app = (function () {
     	}
 
     	let fieldgraphicpicker_props = {
-    		filter: func$2,
+    		filter: func$1,
     		$$slots: { default: [create_default_slot_8$1] },
     		$$scope: { ctx }
     	};
@@ -7652,7 +7652,7 @@ var app = (function () {
     	return block;
     }
 
-    const func$2 = b => b.width != 20 || b.height != 20;
+    const func$1 = b => b.width != 20 || b.height != 20;
 
     function instance$c($$self, $$props, $$invalidate) {
     	let $enemies;
@@ -8655,18 +8655,18 @@ var app = (function () {
     		c: function create() {
     			img = element("img");
     			attr_dev(img, "class", "graphic");
-    			if (img.src !== (img_src_value = /*graphic*/ ctx[7].png)) attr_dev(img, "src", img_src_value);
+    			if (img.src !== (img_src_value = /*graphic*/ ctx[6].png)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", /*name*/ ctx[0]);
-    			set_style(img, "width", /*graphic*/ ctx[7].width * artScale + "px");
-    			set_style(img, "height", /*graphic*/ ctx[7].height * artScale + "px");
-    			set_style(img, "transform", "scaleX(" + /*direction*/ ctx[6] + ") rotate(" + /*rotate*/ ctx[8] + "deg)");
-    			add_location(img, file$f, 3, 2, 166);
+    			set_style(img, "width", /*graphic*/ ctx[6].width * artScale + "px");
+    			set_style(img, "height", /*graphic*/ ctx[6].height * artScale + "px");
+    			set_style(img, "transform", "scaleX(" + /*direction*/ ctx[5] + ") rotate(" + /*rotate*/ ctx[7] + "deg)");
+    			add_location(img, file$f, 3, 2, 121);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, img, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*graphic*/ 128 && img.src !== (img_src_value = /*graphic*/ ctx[7].png)) {
+    			if (dirty & /*graphic*/ 64 && img.src !== (img_src_value = /*graphic*/ ctx[6].png)) {
     				attr_dev(img, "src", img_src_value);
     			}
 
@@ -8674,16 +8674,16 @@ var app = (function () {
     				attr_dev(img, "alt", /*name*/ ctx[0]);
     			}
 
-    			if (dirty & /*graphic*/ 128) {
-    				set_style(img, "width", /*graphic*/ ctx[7].width * artScale + "px");
+    			if (dirty & /*graphic*/ 64) {
+    				set_style(img, "width", /*graphic*/ ctx[6].width * artScale + "px");
     			}
 
-    			if (dirty & /*graphic*/ 128) {
-    				set_style(img, "height", /*graphic*/ ctx[7].height * artScale + "px");
+    			if (dirty & /*graphic*/ 64) {
+    				set_style(img, "height", /*graphic*/ ctx[6].height * artScale + "px");
     			}
 
-    			if (dirty & /*direction, rotate*/ 320) {
-    				set_style(img, "transform", "scaleX(" + /*direction*/ ctx[6] + ") rotate(" + /*rotate*/ ctx[8] + "deg)");
+    			if (dirty & /*direction, rotate*/ 160) {
+    				set_style(img, "transform", "scaleX(" + /*direction*/ ctx[5] + ") rotate(" + /*rotate*/ ctx[7] + "deg)");
     			}
     		},
     		d: function destroy(detaching) {
@@ -8706,18 +8706,17 @@ var app = (function () {
     	let div;
     	let healthbar;
     	let t;
-    	let div_style_value;
     	let current;
 
     	healthbar = new HealthBar({
     			props: {
-    				health: /*health*/ ctx[5],
+    				health: /*health*/ ctx[4],
     				maxHealth: /*maxHealth*/ ctx[1]
     			},
     			$$inline: true
     		});
 
-    	let if_block = /*graphic*/ ctx[7] != null && create_if_block$7(ctx);
+    	let if_block = /*graphic*/ ctx[6] != null && create_if_block$7(ctx);
 
     	const block = {
     		c: function create() {
@@ -8726,11 +8725,8 @@ var app = (function () {
     			t = space();
     			if (if_block) if_block.c();
     			attr_dev(div, "class", "player svelte-wdnc19");
-
-    			attr_dev(div, "style", div_style_value = "left: " + /*x*/ ctx[3] + "px; bottom: " + /*y*/ ctx[2] + "px; " + (/*zIndex*/ ctx[4] != null
-    			? "z-index: " + /*zIndex*/ ctx[4]
-    			: ""));
-
+    			set_style(div, "left", /*x*/ ctx[3] + "px");
+    			set_style(div, "bottom", /*y*/ ctx[2] + "px");
     			add_location(div, file$f, 0, 0, 0);
     		},
     		l: function claim(nodes) {
@@ -8745,11 +8741,11 @@ var app = (function () {
     		},
     		p: function update(ctx, [dirty]) {
     			const healthbar_changes = {};
-    			if (dirty & /*health*/ 32) healthbar_changes.health = /*health*/ ctx[5];
+    			if (dirty & /*health*/ 16) healthbar_changes.health = /*health*/ ctx[4];
     			if (dirty & /*maxHealth*/ 2) healthbar_changes.maxHealth = /*maxHealth*/ ctx[1];
     			healthbar.$set(healthbar_changes);
 
-    			if (/*graphic*/ ctx[7] != null) {
+    			if (/*graphic*/ ctx[6] != null) {
     				if (if_block) {
     					if_block.p(ctx, dirty);
     				} else {
@@ -8762,10 +8758,12 @@ var app = (function () {
     				if_block = null;
     			}
 
-    			if (!current || dirty & /*x, y, zIndex*/ 28 && div_style_value !== (div_style_value = "left: " + /*x*/ ctx[3] + "px; bottom: " + /*y*/ ctx[2] + "px; " + (/*zIndex*/ ctx[4] != null
-    			? "z-index: " + /*zIndex*/ ctx[4]
-    			: ""))) {
-    				attr_dev(div, "style", div_style_value);
+    			if (!current || dirty & /*x*/ 8) {
+    				set_style(div, "left", /*x*/ ctx[3] + "px");
+    			}
+
+    			if (!current || dirty & /*y*/ 4) {
+    				set_style(div, "bottom", /*y*/ ctx[2] + "px");
     			}
     		},
     		i: function intro(local) {
@@ -8800,7 +8798,7 @@ var app = (function () {
     function instance$g($$self, $$props, $$invalidate) {
     	let $artStore;
     	validate_store(artStore, "artStore");
-    	component_subscribe($$self, artStore, $$value => $$invalidate(16, $artStore = $$value));
+    	component_subscribe($$self, artStore, $$value => $$invalidate(15, $artStore = $$value));
     	let { name } = $$props;
     	let { maxHealth } = $$props;
     	let { graphicStill } = $$props;
@@ -8809,7 +8807,6 @@ var app = (function () {
     	let { vy = 0 } = $$props;
     	let { y = 0 } = $$props;
     	let { x = 0 } = $$props;
-    	let { zIndex } = $$props; // for level builder only
     	let { health } = $$props;
     	let { spinning = false } = $$props;
     	let direction = 1;
@@ -8825,7 +8822,6 @@ var app = (function () {
     		"vy",
     		"y",
     		"x",
-    		"zIndex",
     		"health",
     		"spinning"
     	];
@@ -8840,15 +8836,14 @@ var app = (function () {
     	$$self.$$set = $$props => {
     		if ("name" in $$props) $$invalidate(0, name = $$props.name);
     		if ("maxHealth" in $$props) $$invalidate(1, maxHealth = $$props.maxHealth);
-    		if ("graphicStill" in $$props) $$invalidate(9, graphicStill = $$props.graphicStill);
-    		if ("graphicSpinning" in $$props) $$invalidate(10, graphicSpinning = $$props.graphicSpinning);
-    		if ("vx" in $$props) $$invalidate(11, vx = $$props.vx);
-    		if ("vy" in $$props) $$invalidate(12, vy = $$props.vy);
+    		if ("graphicStill" in $$props) $$invalidate(8, graphicStill = $$props.graphicStill);
+    		if ("graphicSpinning" in $$props) $$invalidate(9, graphicSpinning = $$props.graphicSpinning);
+    		if ("vx" in $$props) $$invalidate(10, vx = $$props.vx);
+    		if ("vy" in $$props) $$invalidate(11, vy = $$props.vy);
     		if ("y" in $$props) $$invalidate(2, y = $$props.y);
     		if ("x" in $$props) $$invalidate(3, x = $$props.x);
-    		if ("zIndex" in $$props) $$invalidate(4, zIndex = $$props.zIndex);
-    		if ("health" in $$props) $$invalidate(5, health = $$props.health);
-    		if ("spinning" in $$props) $$invalidate(13, spinning = $$props.spinning);
+    		if ("health" in $$props) $$invalidate(4, health = $$props.health);
+    		if ("spinning" in $$props) $$invalidate(12, spinning = $$props.spinning);
     	};
 
     	$$self.$capture_state = () => ({
@@ -8863,7 +8858,6 @@ var app = (function () {
     		vy,
     		y,
     		x,
-    		zIndex,
     		health,
     		spinning,
     		direction,
@@ -8877,20 +8871,19 @@ var app = (function () {
     	$$self.$inject_state = $$props => {
     		if ("name" in $$props) $$invalidate(0, name = $$props.name);
     		if ("maxHealth" in $$props) $$invalidate(1, maxHealth = $$props.maxHealth);
-    		if ("graphicStill" in $$props) $$invalidate(9, graphicStill = $$props.graphicStill);
-    		if ("graphicSpinning" in $$props) $$invalidate(10, graphicSpinning = $$props.graphicSpinning);
-    		if ("vx" in $$props) $$invalidate(11, vx = $$props.vx);
-    		if ("vy" in $$props) $$invalidate(12, vy = $$props.vy);
+    		if ("graphicStill" in $$props) $$invalidate(8, graphicStill = $$props.graphicStill);
+    		if ("graphicSpinning" in $$props) $$invalidate(9, graphicSpinning = $$props.graphicSpinning);
+    		if ("vx" in $$props) $$invalidate(10, vx = $$props.vx);
+    		if ("vy" in $$props) $$invalidate(11, vy = $$props.vy);
     		if ("y" in $$props) $$invalidate(2, y = $$props.y);
     		if ("x" in $$props) $$invalidate(3, x = $$props.x);
-    		if ("zIndex" in $$props) $$invalidate(4, zIndex = $$props.zIndex);
-    		if ("health" in $$props) $$invalidate(5, health = $$props.health);
-    		if ("spinning" in $$props) $$invalidate(13, spinning = $$props.spinning);
-    		if ("direction" in $$props) $$invalidate(6, direction = $$props.direction);
-    		if ("spinningRotation" in $$props) $$invalidate(14, spinningRotation = $$props.spinningRotation);
-    		if ("spinTimeout" in $$props) $$invalidate(15, spinTimeout = $$props.spinTimeout);
-    		if ("graphic" in $$props) $$invalidate(7, graphic = $$props.graphic);
-    		if ("rotate" in $$props) $$invalidate(8, rotate = $$props.rotate);
+    		if ("health" in $$props) $$invalidate(4, health = $$props.health);
+    		if ("spinning" in $$props) $$invalidate(12, spinning = $$props.spinning);
+    		if ("direction" in $$props) $$invalidate(5, direction = $$props.direction);
+    		if ("spinningRotation" in $$props) $$invalidate(13, spinningRotation = $$props.spinningRotation);
+    		if ("spinTimeout" in $$props) $$invalidate(14, spinTimeout = $$props.spinTimeout);
+    		if ("graphic" in $$props) $$invalidate(6, graphic = $$props.graphic);
+    		if ("rotate" in $$props) $$invalidate(7, rotate = $$props.rotate);
     	};
 
     	let graphic;
@@ -8901,21 +8894,21 @@ var app = (function () {
     	}
 
     	$$self.$$.update = () => {
-    		if ($$self.$$.dirty & /*spinning, graphicSpinning, $artStore, graphicStill*/ 75264) {
-    			 $$invalidate(7, graphic = spinning && graphicSpinning != null
+    		if ($$self.$$.dirty & /*spinning, graphicSpinning, $artStore, graphicStill*/ 37632) {
+    			 $$invalidate(6, graphic = spinning && graphicSpinning != null
     			? $artStore[graphicSpinning]
     			: graphicStill != null ? $artStore[graphicStill] : null);
     		}
 
-    		if ($$self.$$.dirty & /*vx*/ 2048) {
-    			 if (vx != 0) $$invalidate(6, direction = vx > 0 ? 1 : -1);
+    		if ($$self.$$.dirty & /*vx*/ 1024) {
+    			 if (vx != 0) $$invalidate(5, direction = vx > 0 ? 1 : -1);
     		}
 
-    		if ($$self.$$.dirty & /*spinning, spinningRotation, spinTimeout*/ 57344) {
+    		if ($$self.$$.dirty & /*spinning, spinningRotation, spinTimeout*/ 28672) {
     			 if (spinning) {
-    				$$invalidate(15, spinTimeout = setTimeout(
+    				$$invalidate(14, spinTimeout = setTimeout(
     					() => {
-    						$$invalidate(14, spinningRotation += 30);
+    						$$invalidate(13, spinningRotation += 30);
     					},
     					25
     				));
@@ -8924,8 +8917,8 @@ var app = (function () {
     			}
     		}
 
-    		if ($$self.$$.dirty & /*spinning, spinningRotation, vy*/ 28672) {
-    			 $$invalidate(8, rotate = spinning
+    		if ($$self.$$.dirty & /*spinning, spinningRotation, vy*/ 14336) {
+    			 $$invalidate(7, rotate = spinning
     			? spinningRotation
     			: -1 * (5 + (vy > 0 ? vy * 3 : vy * 1.5)));
     		}
@@ -8936,7 +8929,6 @@ var app = (function () {
     		maxHealth,
     		y,
     		x,
-    		zIndex,
     		health,
     		direction,
     		graphic,
@@ -8956,15 +8948,14 @@ var app = (function () {
     		init(this, options, instance$g, create_fragment$g, safe_not_equal, {
     			name: 0,
     			maxHealth: 1,
-    			graphicStill: 9,
-    			graphicSpinning: 10,
-    			vx: 11,
-    			vy: 12,
+    			graphicStill: 8,
+    			graphicSpinning: 9,
+    			vx: 10,
+    			vy: 11,
     			y: 2,
     			x: 3,
-    			zIndex: 4,
-    			health: 5,
-    			spinning: 13
+    			health: 4,
+    			spinning: 12
     		});
 
     		dispatch_dev("SvelteRegisterComponent", {
@@ -8985,19 +8976,15 @@ var app = (function () {
     			console.warn("<LivingSprite> was created without expected prop 'maxHealth'");
     		}
 
-    		if (/*graphicStill*/ ctx[9] === undefined && !("graphicStill" in props)) {
+    		if (/*graphicStill*/ ctx[8] === undefined && !("graphicStill" in props)) {
     			console.warn("<LivingSprite> was created without expected prop 'graphicStill'");
     		}
 
-    		if (/*graphicSpinning*/ ctx[10] === undefined && !("graphicSpinning" in props)) {
+    		if (/*graphicSpinning*/ ctx[9] === undefined && !("graphicSpinning" in props)) {
     			console.warn("<LivingSprite> was created without expected prop 'graphicSpinning'");
     		}
 
-    		if (/*zIndex*/ ctx[4] === undefined && !("zIndex" in props)) {
-    			console.warn("<LivingSprite> was created without expected prop 'zIndex'");
-    		}
-
-    		if (/*health*/ ctx[5] === undefined && !("health" in props)) {
+    		if (/*health*/ ctx[4] === undefined && !("health" in props)) {
     			console.warn("<LivingSprite> was created without expected prop 'health'");
     		}
     	}
@@ -9066,14 +9053,6 @@ var app = (function () {
     		throw new Error("<LivingSprite>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
 
-    	get zIndex() {
-    		throw new Error("<LivingSprite>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	set zIndex(value) {
-    		throw new Error("<LivingSprite>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
     	get health() {
     		throw new Error("<LivingSprite>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
@@ -9109,7 +9088,7 @@ var app = (function () {
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, canvas_1, anchor);
-    			/*canvas_1_binding*/ ctx[5](canvas_1);
+    			/*canvas_1_binding*/ ctx[6](canvas_1);
     		},
     		p: function update(ctx, [dirty]) {
     			if (dirty & /*width*/ 1) {
@@ -9124,7 +9103,7 @@ var app = (function () {
     		o: noop,
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(canvas_1);
-    			/*canvas_1_binding*/ ctx[5](null);
+    			/*canvas_1_binding*/ ctx[6](null);
     		}
     	};
 
@@ -9139,22 +9118,57 @@ var app = (function () {
     	return block;
     }
 
+    const artScale$1 = 2;
+
     function instance$h($$self, $$props, $$invalidate) {
-    	let $artStore;
     	let $blockStore;
-    	validate_store(artStore, "artStore");
-    	component_subscribe($$self, artStore, $$value => $$invalidate(8, $artStore = $$value));
+    	let $enemyStore;
+    	let $artStore;
     	validate_store(blockStore, "blockStore");
     	component_subscribe($$self, blockStore, $$value => $$invalidate(9, $blockStore = $$value));
+    	validate_store(enemyStore, "enemyStore");
+    	component_subscribe($$self, enemyStore, $$value => $$invalidate(10, $enemyStore = $$value));
+    	validate_store(artStore, "artStore");
+    	component_subscribe($$self, artStore, $$value => $$invalidate(11, $artStore = $$value));
     	let { width = 0 } = $$props;
     	let { height = 0 } = $$props;
     	let { blocks = [] } = $$props;
+    	let { enemies = null } = $$props;
     	let { playing = false } = $$props;
     	const dispatch = createEventDispatcher();
     	const imageCache = {};
     	let canvas;
     	let context;
-    	const writable_props = ["width", "height", "blocks", "playing"];
+
+    	function drawOnCanvas(artName, x, y) {
+    		let art = $artStore[artName];
+    		let src = art.png;
+    		let drawing = imageCache[artName];
+
+    		const drawThisImage = () => {
+    			const draw = () => context.drawImage(drawing, x, height - y - art.height * artScale$1);
+    			if (playing) setTimeout(draw, 100); else draw();
+    		};
+
+    		if (drawing == null) {
+    			drawing = new Image();
+    			drawing.src = src;
+    			imageCache[artName] = drawing;
+    		}
+
+    		if (drawing.complete) {
+    			drawThisImage();
+    		} else {
+    			const oldOnload = drawing.onload;
+
+    			drawing.onload = () => {
+    				drawThisImage();
+    				oldOnload();
+    			};
+    		}
+    	}
+
+    	const writable_props = ["width", "height", "blocks", "enemies", "playing"];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<Level> was created with unknown prop '${key}'`);
@@ -9174,32 +9188,39 @@ var app = (function () {
     		if ("width" in $$props) $$invalidate(0, width = $$props.width);
     		if ("height" in $$props) $$invalidate(1, height = $$props.height);
     		if ("blocks" in $$props) $$invalidate(3, blocks = $$props.blocks);
-    		if ("playing" in $$props) $$invalidate(4, playing = $$props.playing);
+    		if ("enemies" in $$props) $$invalidate(4, enemies = $$props.enemies);
+    		if ("playing" in $$props) $$invalidate(5, playing = $$props.playing);
     	};
 
     	$$self.$capture_state = () => ({
     		createEventDispatcher,
     		blockStore,
+    		enemyStore,
     		artStore,
     		width,
     		height,
     		blocks,
+    		enemies,
     		playing,
+    		artScale: artScale$1,
     		dispatch,
     		imageCache,
     		canvas,
     		context,
-    		$artStore,
-    		$blockStore
+    		drawOnCanvas,
+    		$blockStore,
+    		$enemyStore,
+    		$artStore
     	});
 
     	$$self.$inject_state = $$props => {
     		if ("width" in $$props) $$invalidate(0, width = $$props.width);
     		if ("height" in $$props) $$invalidate(1, height = $$props.height);
     		if ("blocks" in $$props) $$invalidate(3, blocks = $$props.blocks);
-    		if ("playing" in $$props) $$invalidate(4, playing = $$props.playing);
+    		if ("enemies" in $$props) $$invalidate(4, enemies = $$props.enemies);
+    		if ("playing" in $$props) $$invalidate(5, playing = $$props.playing);
     		if ("canvas" in $$props) $$invalidate(2, canvas = $$props.canvas);
-    		if ("context" in $$props) $$invalidate(7, context = $$props.context);
+    		if ("context" in $$props) $$invalidate(8, context = $$props.context);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -9208,45 +9229,24 @@ var app = (function () {
 
     	$$self.$$.update = () => {
     		if ($$self.$$.dirty & /*canvas*/ 4) {
-    			 if (canvas != null) $$invalidate(7, context = canvas.getContext("2d"));
+    			 if (canvas != null) $$invalidate(8, context = canvas.getContext("2d"));
     		}
 
-    		if ($$self.$$.dirty & /*blocks, width, height, context, imageCache, playing, $artStore, $blockStore, canvas*/ 991) {
+    		if ($$self.$$.dirty & /*blocks, width, height, context, $blockStore, enemies, $enemyStore, canvas*/ 1823) {
     			 if (blocks != null && width != null && height != null && context != null) {
     				context.clearRect(0, 0, width, height);
+    				blocks.forEach(b => drawOnCanvas($blockStore[b.name].graphic, b.x, b.y));
 
-    				blocks.forEach(b => {
-    					let drawing = imageCache[b.name];
-
-    					const drawThisImage = () => {
-    						const draw = () => context.drawImage(drawing, b.x, height - b.y - b.height);
-    						if (playing) setTimeout(draw, 100); else draw();
-    					};
-
-    					if (drawing == null) {
-    						drawing = new Image();
-    						drawing.src = $artStore[$blockStore[b.name].graphic].png;
-    						$$invalidate(6, imageCache[b.name] = drawing, imageCache);
-    					}
-
-    					if (drawing.complete) {
-    						drawThisImage();
-    					} else {
-    						const oldOnload = drawing.onload;
-
-    						drawing.onload = () => {
-    							drawThisImage();
-    							oldOnload();
-    						};
-    					}
-    				});
+    				if (enemies != null) {
+    					enemies.forEach(e => drawOnCanvas($enemyStore[e.name].graphicStill, e.x, e.y));
+    				}
 
     				dispatch("draw", canvas);
     			}
     		}
     	};
 
-    	return [width, height, canvas, blocks, playing, canvas_1_binding];
+    	return [width, height, canvas, blocks, enemies, playing, canvas_1_binding];
     }
 
     class Level extends SvelteComponentDev {
@@ -9257,7 +9257,8 @@ var app = (function () {
     			width: 0,
     			height: 1,
     			blocks: 3,
-    			playing: 4
+    			enemies: 4,
+    			playing: 5
     		});
 
     		dispatch_dev("SvelteRegisterComponent", {
@@ -9289,6 +9290,14 @@ var app = (function () {
     	}
 
     	set blocks(value) {
+    		throw new Error("<Level>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get enemies() {
+    		throw new Error("<Level>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set enemies(value) {
     		throw new Error("<Level>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
 
@@ -9519,18 +9528,12 @@ var app = (function () {
 
     function get_each_context_1$2(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[34] = list[i];
-    	return child_ctx;
-    }
-
-    function get_each_context_2$1(ctx, list, i) {
-    	const child_ctx = ctx.slice();
-    	child_ctx[34] = list[i];
+    	child_ctx[31] = list[i];
     	return child_ctx;
     }
 
     // (7:4) {#each Object.keys($blockStore) as name}
-    function create_each_block_2$1(ctx) {
+    function create_each_block_1$2(ctx) {
     	let button;
     	let art;
     	let t;
@@ -9541,13 +9544,13 @@ var app = (function () {
 
     	art = new Art({
     			props: {
-    				name: /*$blockStore*/ ctx[9][/*name*/ ctx[34]].graphic
+    				name: /*$blockStore*/ ctx[9][/*name*/ ctx[31]].graphic
     			},
     			$$inline: true
     		});
 
     	function click_handler(...args) {
-    		return /*click_handler*/ ctx[20](/*name*/ ctx[34], ...args);
+    		return /*click_handler*/ ctx[19](/*name*/ ctx[31], ...args);
     	}
 
     	const block = {
@@ -9557,7 +9560,7 @@ var app = (function () {
     			t = space();
     			attr_dev(button, "type", "button");
 
-    			attr_dev(button, "class", button_class_value = "btn btn-" + (/*name*/ ctx[34] == /*selectedBlock*/ ctx[4]
+    			attr_dev(button, "class", button_class_value = "btn btn-" + (/*name*/ ctx[31] == /*selectedBlock*/ ctx[4]
     			? "primary"
     			: "light") + " svelte-1l9uq66");
 
@@ -9577,10 +9580,10 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
     			const art_changes = {};
-    			if (dirty[0] & /*$blockStore*/ 512) art_changes.name = /*$blockStore*/ ctx[9][/*name*/ ctx[34]].graphic;
+    			if (dirty[0] & /*$blockStore*/ 512) art_changes.name = /*$blockStore*/ ctx[9][/*name*/ ctx[31]].graphic;
     			art.$set(art_changes);
 
-    			if (!current || dirty[0] & /*$blockStore, selectedBlock*/ 528 && button_class_value !== (button_class_value = "btn btn-" + (/*name*/ ctx[34] == /*selectedBlock*/ ctx[4]
+    			if (!current || dirty[0] & /*$blockStore, selectedBlock*/ 528 && button_class_value !== (button_class_value = "btn btn-" + (/*name*/ ctx[31] == /*selectedBlock*/ ctx[4]
     			? "primary"
     			: "light") + " svelte-1l9uq66")) {
     				attr_dev(button, "class", button_class_value);
@@ -9605,7 +9608,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_each_block_2$1.name,
+    		id: create_each_block_1$2.name,
     		type: "each",
     		source: "(7:4) {#each Object.keys($blockStore) as name}",
     		ctx
@@ -9615,7 +9618,7 @@ var app = (function () {
     }
 
     // (17:4) {#each Object.keys($enemyStore) as name}
-    function create_each_block_1$2(ctx) {
+    function create_each_block$5(ctx) {
     	let button;
     	let art;
     	let t;
@@ -9626,13 +9629,13 @@ var app = (function () {
 
     	art = new Art({
     			props: {
-    				name: /*$enemyStore*/ ctx[10][/*name*/ ctx[34]].graphicStill
+    				name: /*$enemyStore*/ ctx[10][/*name*/ ctx[31]].graphicStill
     			},
     			$$inline: true
     		});
 
     	function click_handler_1(...args) {
-    		return /*click_handler_1*/ ctx[21](/*name*/ ctx[34], ...args);
+    		return /*click_handler_1*/ ctx[20](/*name*/ ctx[31], ...args);
     	}
 
     	const block = {
@@ -9642,7 +9645,7 @@ var app = (function () {
     			t = space();
     			attr_dev(button, "type", "button");
 
-    			attr_dev(button, "class", button_class_value = "btn btn-" + (/*name*/ ctx[34] == /*selectedEnemy*/ ctx[5]
+    			attr_dev(button, "class", button_class_value = "btn btn-" + (/*name*/ ctx[31] == /*selectedEnemy*/ ctx[5]
     			? "primary"
     			: "default") + " svelte-1l9uq66");
 
@@ -9662,10 +9665,10 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
     			const art_changes = {};
-    			if (dirty[0] & /*$enemyStore*/ 1024) art_changes.name = /*$enemyStore*/ ctx[10][/*name*/ ctx[34]].graphicStill;
+    			if (dirty[0] & /*$enemyStore*/ 1024) art_changes.name = /*$enemyStore*/ ctx[10][/*name*/ ctx[31]].graphicStill;
     			art.$set(art_changes);
 
-    			if (!current || dirty[0] & /*$enemyStore, selectedEnemy*/ 1056 && button_class_value !== (button_class_value = "btn btn-" + (/*name*/ ctx[34] == /*selectedEnemy*/ ctx[5]
+    			if (!current || dirty[0] & /*$enemyStore, selectedEnemy*/ 1056 && button_class_value !== (button_class_value = "btn btn-" + (/*name*/ ctx[31] == /*selectedEnemy*/ ctx[5]
     			? "primary"
     			: "default") + " svelte-1l9uq66")) {
     				attr_dev(button, "class", button_class_value);
@@ -9690,7 +9693,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_each_block_1$2.name,
+    		id: create_each_block$5.name,
     		type: "each",
     		source: "(17:4) {#each Object.keys($enemyStore) as name}",
     		ctx
@@ -9699,67 +9702,8 @@ var app = (function () {
     	return block;
     }
 
-    // (35:2) {#each enemies as enemy}
-    function create_each_block$5(ctx) {
-    	let livingsprite;
-    	let current;
-    	const livingsprite_spread_levels = [/*hydrateEnemy*/ ctx[18](/*enemy*/ ctx[31]), { zIndex: 0 }];
-    	let livingsprite_props = {};
-
-    	for (let i = 0; i < livingsprite_spread_levels.length; i += 1) {
-    		livingsprite_props = assign(livingsprite_props, livingsprite_spread_levels[i]);
-    	}
-
-    	livingsprite = new LivingSprite({
-    			props: livingsprite_props,
-    			$$inline: true
-    		});
-
-    	const block = {
-    		c: function create() {
-    			create_component(livingsprite.$$.fragment);
-    		},
-    		m: function mount(target, anchor) {
-    			mount_component(livingsprite, target, anchor);
-    			current = true;
-    		},
-    		p: function update(ctx, dirty) {
-    			const livingsprite_changes = (dirty[0] & /*hydrateEnemy, enemies*/ 262148)
-    			? get_spread_update(livingsprite_spread_levels, [
-    					get_spread_object(/*hydrateEnemy*/ ctx[18](/*enemy*/ ctx[31])),
-    					livingsprite_spread_levels[1]
-    				])
-    			: {};
-
-    			livingsprite.$set(livingsprite_changes);
-    		},
-    		i: function intro(local) {
-    			if (current) return;
-    			transition_in(livingsprite.$$.fragment, local);
-    			current = true;
-    		},
-    		o: function outro(local) {
-    			transition_out(livingsprite.$$.fragment, local);
-    			current = false;
-    		},
-    		d: function destroy(detaching) {
-    			destroy_component(livingsprite, detaching);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_each_block$5.name,
-    		type: "each",
-    		source: "(35:2) {#each enemies as enemy}",
-    		ctx
-    	});
-
-    	return block;
-    }
-
     function create_fragment$j(ctx) {
-    	let div7;
+    	let div6;
     	let levelpreview;
     	let t0;
     	let div4;
@@ -9771,8 +9715,6 @@ var app = (function () {
     	let t3;
     	let div2;
     	let t4;
-    	let div6;
-    	let t5;
     	let div5;
     	let level;
     	let current;
@@ -9790,19 +9732,7 @@ var app = (function () {
     		});
 
     	levelpreview.$on("pan", /*onPreviewPan*/ ctx[14]);
-    	let each_value_2 = Object.keys(/*$blockStore*/ ctx[9]);
-    	validate_each_argument(each_value_2);
-    	let each_blocks_2 = [];
-
-    	for (let i = 0; i < each_value_2.length; i += 1) {
-    		each_blocks_2[i] = create_each_block_2$1(get_each_context_2$1(ctx, each_value_2, i));
-    	}
-
-    	const out = i => transition_out(each_blocks_2[i], 1, 1, () => {
-    		each_blocks_2[i] = null;
-    	});
-
-    	let each_value_1 = Object.keys(/*$enemyStore*/ ctx[10]);
+    	let each_value_1 = Object.keys(/*$blockStore*/ ctx[9]);
     	validate_each_argument(each_value_1);
     	let each_blocks_1 = [];
 
@@ -9810,11 +9740,11 @@ var app = (function () {
     		each_blocks_1[i] = create_each_block_1$2(get_each_context_1$2(ctx, each_value_1, i));
     	}
 
-    	const out_1 = i => transition_out(each_blocks_1[i], 1, 1, () => {
+    	const out = i => transition_out(each_blocks_1[i], 1, 1, () => {
     		each_blocks_1[i] = null;
     	});
 
-    	let each_value = /*enemies*/ ctx[2];
+    	let each_value = Object.keys(/*$enemyStore*/ ctx[10]);
     	validate_each_argument(each_value);
     	let each_blocks = [];
 
@@ -9822,13 +9752,14 @@ var app = (function () {
     		each_blocks[i] = create_each_block$5(get_each_context$5(ctx, each_value, i));
     	}
 
-    	const out_2 = i => transition_out(each_blocks[i], 1, 1, () => {
+    	const out_1 = i => transition_out(each_blocks[i], 1, 1, () => {
     		each_blocks[i] = null;
     	});
 
     	level = new Level({
     			props: {
     				blocks: /*blocks*/ ctx[1],
+    				enemies: /*enemies*/ ctx[2],
     				width: /*width*/ ctx[7],
     				height: /*height*/ ctx[8]
     			},
@@ -9839,7 +9770,7 @@ var app = (function () {
 
     	const block = {
     		c: function create() {
-    			div7 = element("div");
+    			div6 = element("div");
     			create_component(levelpreview.$$.fragment);
     			t0 = space();
     			div4 = element("div");
@@ -9847,8 +9778,8 @@ var app = (function () {
     			t1 = text("Blocks\r\n\t\t\t");
     			div0 = element("div");
 
-    			for (let i = 0; i < each_blocks_2.length; i += 1) {
-    				each_blocks_2[i].c();
+    			for (let i = 0; i < each_blocks_1.length; i += 1) {
+    				each_blocks_1[i].c();
     			}
 
     			t2 = space();
@@ -9856,18 +9787,11 @@ var app = (function () {
     			t3 = text("Enemies\r\n\t\t\t");
     			div2 = element("div");
 
-    			for (let i = 0; i < each_blocks_1.length; i += 1) {
-    				each_blocks_1[i].c();
-    			}
-
-    			t4 = space();
-    			div6 = element("div");
-
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
 
-    			t5 = space();
+    			t4 = space();
     			div5 = element("div");
     			create_component(level.$$.fragment);
     			attr_dev(div0, "class", "btn-group svelte-1l9uq66");
@@ -9880,30 +9804,27 @@ var app = (function () {
     			add_location(div3, file$i, 13, 2, 451);
     			attr_dev(div4, "class", "tool-picker svelte-1l9uq66");
     			add_location(div4, file$i, 2, 1, 104);
-    			set_style(div5, "position", "relative");
-    			set_style(div5, "z-index", "10");
-    			add_location(div5, file$i, 39, 2, 1187);
-    			attr_dev(div6, "class", "level-container svelte-1l9uq66");
-    			set_style(div6, "background", /*background*/ ctx[3]);
-    			set_style(div6, "height", /*height*/ ctx[8] + 25 + "px");
-    			add_location(div6, file$i, 25, 1, 787);
-    			attr_dev(div7, "class", "drawing-tool svelte-1l9uq66");
-    			add_location(div7, file$i, 0, 0, 0);
+    			attr_dev(div5, "class", "level-container svelte-1l9uq66");
+    			set_style(div5, "background", /*background*/ ctx[3]);
+    			set_style(div5, "height", /*height*/ ctx[8] + 25 + "px");
+    			add_location(div5, file$i, 25, 1, 787);
+    			attr_dev(div6, "class", "drawing-tool svelte-1l9uq66");
+    			add_location(div6, file$i, 0, 0, 0);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div7, anchor);
-    			mount_component(levelpreview, div7, null);
-    			append_dev(div7, t0);
-    			append_dev(div7, div4);
+    			insert_dev(target, div6, anchor);
+    			mount_component(levelpreview, div6, null);
+    			append_dev(div6, t0);
+    			append_dev(div6, div4);
     			append_dev(div4, div1);
     			append_dev(div1, t1);
     			append_dev(div1, div0);
 
-    			for (let i = 0; i < each_blocks_2.length; i += 1) {
-    				each_blocks_2[i].m(div0, null);
+    			for (let i = 0; i < each_blocks_1.length; i += 1) {
+    				each_blocks_1[i].m(div0, null);
     			}
 
     			append_dev(div4, t2);
@@ -9911,29 +9832,22 @@ var app = (function () {
     			append_dev(div3, t3);
     			append_dev(div3, div2);
 
-    			for (let i = 0; i < each_blocks_1.length; i += 1) {
-    				each_blocks_1[i].m(div2, null);
-    			}
-
-    			append_dev(div7, t4);
-    			append_dev(div7, div6);
-
     			for (let i = 0; i < each_blocks.length; i += 1) {
-    				each_blocks[i].m(div6, null);
+    				each_blocks[i].m(div2, null);
     			}
 
-    			append_dev(div6, t5);
+    			append_dev(div6, t4);
     			append_dev(div6, div5);
     			mount_component(level, div5, null);
-    			/*div6_binding*/ ctx[22](div6);
+    			/*div5_binding*/ ctx[21](div5);
     			current = true;
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(div6, "mousedown", /*onMouseDown*/ ctx[15], false, false, false),
-    					listen_dev(div6, "mouseup", /*onMouseUp*/ ctx[17], false, false, false),
-    					listen_dev(div6, "mousemove", /*onMouseMove*/ ctx[16], false, false, false),
-    					listen_dev(div6, "contextmenu", prevent_default(/*contextmenu_handler*/ ctx[19]), false, true, false)
+    					listen_dev(div5, "mousedown", /*onMouseDown*/ ctx[15], false, false, false),
+    					listen_dev(div5, "mouseup", /*onMouseUp*/ ctx[17], false, false, false),
+    					listen_dev(div5, "mousemove", /*onMouseMove*/ ctx[16], false, false, false),
+    					listen_dev(div5, "contextmenu", prevent_default(/*contextmenu_handler*/ ctx[18]), false, true, false)
     				];
 
     				mounted = true;
@@ -9950,35 +9864,7 @@ var app = (function () {
     			levelpreview.$set(levelpreview_changes);
 
     			if (dirty[0] & /*$blockStore, selectedBlock, selectBlock*/ 4624) {
-    				each_value_2 = Object.keys(/*$blockStore*/ ctx[9]);
-    				validate_each_argument(each_value_2);
-    				let i;
-
-    				for (i = 0; i < each_value_2.length; i += 1) {
-    					const child_ctx = get_each_context_2$1(ctx, each_value_2, i);
-
-    					if (each_blocks_2[i]) {
-    						each_blocks_2[i].p(child_ctx, dirty);
-    						transition_in(each_blocks_2[i], 1);
-    					} else {
-    						each_blocks_2[i] = create_each_block_2$1(child_ctx);
-    						each_blocks_2[i].c();
-    						transition_in(each_blocks_2[i], 1);
-    						each_blocks_2[i].m(div0, null);
-    					}
-    				}
-
-    				group_outros();
-
-    				for (i = each_value_2.length; i < each_blocks_2.length; i += 1) {
-    					out(i);
-    				}
-
-    				check_outros();
-    			}
-
-    			if (dirty[0] & /*$enemyStore, selectedEnemy, selectEnemy*/ 9248) {
-    				each_value_1 = Object.keys(/*$enemyStore*/ ctx[10]);
+    				each_value_1 = Object.keys(/*$blockStore*/ ctx[9]);
     				validate_each_argument(each_value_1);
     				let i;
 
@@ -9992,21 +9878,21 @@ var app = (function () {
     						each_blocks_1[i] = create_each_block_1$2(child_ctx);
     						each_blocks_1[i].c();
     						transition_in(each_blocks_1[i], 1);
-    						each_blocks_1[i].m(div2, null);
+    						each_blocks_1[i].m(div0, null);
     					}
     				}
 
     				group_outros();
 
     				for (i = each_value_1.length; i < each_blocks_1.length; i += 1) {
-    					out_1(i);
+    					out(i);
     				}
 
     				check_outros();
     			}
 
-    			if (dirty[0] & /*hydrateEnemy, enemies*/ 262148) {
-    				each_value = /*enemies*/ ctx[2];
+    			if (dirty[0] & /*$enemyStore, selectedEnemy, selectEnemy*/ 9248) {
+    				each_value = Object.keys(/*$enemyStore*/ ctx[10]);
     				validate_each_argument(each_value);
     				let i;
 
@@ -10020,14 +9906,14 @@ var app = (function () {
     						each_blocks[i] = create_each_block$5(child_ctx);
     						each_blocks[i].c();
     						transition_in(each_blocks[i], 1);
-    						each_blocks[i].m(div6, t5);
+    						each_blocks[i].m(div2, null);
     					}
     				}
 
     				group_outros();
 
     				for (i = each_value.length; i < each_blocks.length; i += 1) {
-    					out_2(i);
+    					out_1(i);
     				}
 
     				check_outros();
@@ -10035,25 +9921,22 @@ var app = (function () {
 
     			const level_changes = {};
     			if (dirty[0] & /*blocks*/ 2) level_changes.blocks = /*blocks*/ ctx[1];
+    			if (dirty[0] & /*enemies*/ 4) level_changes.enemies = /*enemies*/ ctx[2];
     			if (dirty[0] & /*width*/ 128) level_changes.width = /*width*/ ctx[7];
     			if (dirty[0] & /*height*/ 256) level_changes.height = /*height*/ ctx[8];
     			level.$set(level_changes);
 
     			if (!current || dirty[0] & /*background*/ 8) {
-    				set_style(div6, "background", /*background*/ ctx[3]);
+    				set_style(div5, "background", /*background*/ ctx[3]);
     			}
 
     			if (!current || dirty[0] & /*height*/ 256) {
-    				set_style(div6, "height", /*height*/ ctx[8] + 25 + "px");
+    				set_style(div5, "height", /*height*/ ctx[8] + 25 + "px");
     			}
     		},
     		i: function intro(local) {
     			if (current) return;
     			transition_in(levelpreview.$$.fragment, local);
-
-    			for (let i = 0; i < each_value_2.length; i += 1) {
-    				transition_in(each_blocks_2[i]);
-    			}
 
     			for (let i = 0; i < each_value_1.length; i += 1) {
     				transition_in(each_blocks_1[i]);
@@ -10068,12 +9951,6 @@ var app = (function () {
     		},
     		o: function outro(local) {
     			transition_out(levelpreview.$$.fragment, local);
-    			each_blocks_2 = each_blocks_2.filter(Boolean);
-
-    			for (let i = 0; i < each_blocks_2.length; i += 1) {
-    				transition_out(each_blocks_2[i]);
-    			}
-
     			each_blocks_1 = each_blocks_1.filter(Boolean);
 
     			for (let i = 0; i < each_blocks_1.length; i += 1) {
@@ -10090,13 +9967,12 @@ var app = (function () {
     			current = false;
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div7);
+    			if (detaching) detach_dev(div6);
     			destroy_component(levelpreview);
-    			destroy_each(each_blocks_2, detaching);
     			destroy_each(each_blocks_1, detaching);
     			destroy_each(each_blocks, detaching);
     			destroy_component(level);
-    			/*div6_binding*/ ctx[22](null);
+    			/*div5_binding*/ ctx[21](null);
     			mounted = false;
     			run_all(dispose);
     		}
@@ -10237,13 +10113,7 @@ var app = (function () {
 
     	function hydrateEnemy(enemy) {
     		const template = $enemyStore[enemy.name];
-
-    		return {
-    			...template,
-    			...enemy,
-    			y: enemy.y + 25, // for scrollbar offset
-    			
-    		};
+    		return { ...template, ...enemy };
     	}
 
     	const writable_props = ["background", "thumbnail", "blocks", "enemies"];
@@ -10262,7 +10132,7 @@ var app = (function () {
     	const click_handler = name => selectBlock(name);
     	const click_handler_1 = name => selectEnemy(name);
 
-    	function div6_binding($$value) {
+    	function div5_binding($$value) {
     		binding_callbacks[$$value ? "unshift" : "push"](() => {
     			levelContainer = $$value;
     			$$invalidate(6, levelContainer);
@@ -10328,7 +10198,7 @@ var app = (function () {
     		if ("canvas" in $$props) canvas = $$props.canvas;
     		if ("width" in $$props) $$invalidate(7, width = $$props.width);
     		if ("height" in $$props) $$invalidate(8, height = $$props.height);
-    		if ("highestXUsed" in $$props) $$invalidate(24, highestXUsed = $$props.highestXUsed);
+    		if ("highestXUsed" in $$props) $$invalidate(23, highestXUsed = $$props.highestXUsed);
     	};
 
     	let height;
@@ -10350,12 +10220,12 @@ var app = (function () {
     		}
 
     		if ($$self.$$.dirty[0] & /*blocks*/ 2) {
-    			 $$invalidate(24, highestXUsed = blocks.length > 0
+    			 $$invalidate(23, highestXUsed = blocks.length > 0
     			? Math.max(...blocks.map(b => b.x + b.width))
     			: 0);
     		}
 
-    		if ($$self.$$.dirty[0] & /*highestXUsed*/ 16777216) {
+    		if ($$self.$$.dirty[0] & /*highestXUsed*/ 8388608) {
     			 $$invalidate(7, width = Math.max(800, highestXUsed + 500));
     		}
     	};
@@ -10381,11 +10251,10 @@ var app = (function () {
     		onMouseDown,
     		onMouseMove,
     		onMouseUp,
-    		hydrateEnemy,
     		contextmenu_handler,
     		click_handler,
     		click_handler_1,
-    		div6_binding
+    		div5_binding
     	];
     }
 
@@ -12060,59 +11929,50 @@ var app = (function () {
     const doObjectsIntersectYExclusive = (a, b) => a.y + a.height > b.y && a.y < b.y + b.height;
     const isAAboveB = (a, b) => a.y >= b.y + b.height && doObjectsIntersectX(a, b);
 
-    class SimpleEnemy {
-    	constructor(x, y) {
-    		this.alive = true;
-    		this.tvx = 2;
-    		this.width = 100;
-    		this.height = 50;
-    		this.x = x;
-    		this.y = y;
-    		this.vx = 0;
-    		this.vy = 0;
-    		this.health = 100;
-    		this.maxHealth = 100;
-    		this.jumpVelocity = 20;
-    		this.fallDamageMultiplier = 2;
-    		this.score = 1;
-    		this.dps = 10;
-    		this.gravityMultiplier = 1;
+    // todo configurable per enemy
+    const leashRange = 400; // in pixels
 
-    		// todo replace w/ graphic states
-    		this.isBoss = false;
+    function CreateEnemy(template, config, width, height) {
+    	return {
+    		...template,
+    		...config,
 
-    		this.grounded = false;
-    	}
-    	q
-    	tick(player) {
-    		// default enemy just moves toward player
-    		if (this.grounded) {
-    			// x axis
-    			if (player.x == this.x) this.vx = 0;
-    			else if (player.x < this.x) this.vx = -this.tvx;
-    			else this.vx = this.tvx;
+    		width,
+    		height,
 
-    			// y axis
-    			if (player.y > this.y + this.height) {
-    				this.vy = this.jumpVelocity;
-    				this.y += 1;
+    		health: template.maxHealth,
+    		tvx: template.maxVelocity,
+    		vx: 0,
+    		vy: 0,
+    		grounded: false,
+    		alive: true,
+
+    		tick(me, player) {
+    			if (!me.grounded) return
+
+    			// is player in leash range?
+    			if (Math.abs(player.x - me.x) < leashRange) {
+    				// move toward them
+
+    				// x axis
+    				if (player.x == me.x) me.vx = 0;
+    				else if (player.x < me.x) me.vx = -me.tvx;
+    				else me.vx = me.tvx;
+
+    				// y axis
+    				if (player.y > me.y + me.height) {
+    					me.vy = me.jumpVelocity;
+    					me.y += 1;
+    				}
+    			} else {
+    				// stop moving
+    				me.vx = 0;
     			}
-    		}
-    	}
+    		},
 
-    	onDeath() {}
-    }
-
-    class BossEnemy extends SimpleEnemy {
-    	constructor(x, y) {
-    		super(x, y);
-    		this.health = 400;
-    		this.maxHealth = 400;
-    		this.score = 5;
-    		this.width = 400;
-    		this.height = 300;
-    		this.isBoss = true;
-    		this.dps = 50;
+    		onDeath() {
+    			// nothing yet
+    		},
     	}
     }
 
@@ -12123,7 +11983,7 @@ var app = (function () {
 
     function get_each_context$7(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[26] = list[i];
+    	child_ctx[27] = list[i];
     	return child_ctx;
     }
 
@@ -12212,7 +12072,7 @@ var app = (function () {
     				])
     			: {};
 
-    			if (dirty & /*$$scope, player, enemies, blocks, levelWidth, levelHeight*/ 536871118) {
+    			if (dirty & /*$$scope, player, enemies, blocks, levelWidth, levelHeight*/ 1073742030) {
     				viewport_1_changes.$$scope = { dirty, ctx };
     			}
 
@@ -12247,7 +12107,7 @@ var app = (function () {
     function create_each_block$7(ctx) {
     	let livingsprite;
     	let current;
-    	const livingsprite_spread_levels = [/*enemy*/ ctx[26]];
+    	const livingsprite_spread_levels = [/*enemy*/ ctx[27]];
     	let livingsprite_props = {};
 
     	for (let i = 0; i < livingsprite_spread_levels.length; i += 1) {
@@ -12269,7 +12129,7 @@ var app = (function () {
     		},
     		p: function update(ctx, dirty) {
     			const livingsprite_changes = (dirty & /*enemies*/ 128)
-    			? get_spread_update(livingsprite_spread_levels, [get_spread_object(/*enemy*/ ctx[26])])
+    			? get_spread_update(livingsprite_spread_levels, [get_spread_object(/*enemy*/ ctx[27])])
     			: {};
 
     			livingsprite.$set(livingsprite_changes);
@@ -12598,17 +12458,20 @@ var app = (function () {
     	return block;
     }
 
-    const artScale$1 = 2;
+    const artScale$2 = 2;
     const startOfLevel = 0;
     const blockSize$1 = 40;
 
     function instance$q($$self, $$props, $$invalidate) {
     	let $blockStore;
     	let $artStore;
+    	let $enemyStore;
     	validate_store(blockStore, "blockStore");
     	component_subscribe($$self, blockStore, $$value => $$invalidate(20, $blockStore = $$value));
     	validate_store(artStore, "artStore");
     	component_subscribe($$self, artStore, $$value => $$invalidate(21, $artStore = $$value));
+    	validate_store(enemyStore, "enemyStore");
+    	component_subscribe($$self, enemyStore, $$value => $$invalidate(22, $enemyStore = $$value));
     	let { level = null } = $$props;
     	let { character = null } = $$props;
     	let endOfLevel;
@@ -12661,8 +12524,8 @@ var app = (function () {
     			...character,
     			health: character.maxHealth,
     			tvx: character.maxVelocity,
-    			width: $artStore[character.graphicStill].width * artScale$1, // width of graphic
-    			height: $artStore[character.graphicStill].height * artScale$1, // height of graphic
+    			width: $artStore[character.graphicStill].width * artScale$2, // width of graphic
+    			height: $artStore[character.graphicStill].height * artScale$2, // height of graphic
     			// runtime stuff
     			x: blocks[0].x,
     			y: blocks[0].y + blocks[0].height + 100,
@@ -12684,7 +12547,13 @@ var app = (function () {
     			}
     		});
 
-    		$$invalidate(7, enemies = []);
+    		$$invalidate(7, enemies = level.enemies.map(e => {
+    			const template = $enemyStore[e.name];
+    			const w = $artStore[template.graphicStill].width * artScale$2; // width of graphic
+    			const h = $artStore[template.graphicStill].height * artScale$2; // height of graphic
+    			return CreateEnemy(template, e, w, h);
+    		}));
+
     		$$invalidate(8, gameOver = false);
 
     		// only start game loop if it's not already going
@@ -12728,20 +12597,11 @@ var app = (function () {
     				viewport
     			);
 
-    			// todo: levels should add mobs, not auto spawn
-    			if (!enemies.some(e => e.health > 0)) {
-    				if (enemies.length < 5) {
-    					$$invalidate(7, enemies = enemies.concat([1, 2, 3, 4, 5].map(x => new SimpleEnemy(player.x + 200 * x, player.y + 200))));
-    				} else {
-    					$$invalidate(7, enemies = [new BossEnemy(player.x + 200, player.y + 200)]);
-    				}
-    			}
-
     			// for every live enemy intersecting the player, one or the other should take damage
     			for (let i = 0; i < enemies.length; i++) {
     				if (enemies[i].alive) {
     					$$invalidate(7, enemies[i] = applyWorldToSprite(enemies[i]), enemies);
-    					enemies[i].tick(player);
+    					enemies[i].tick(enemies[i], player);
 
     					if (doObjectsIntersect(player, enemies[i])) {
     						if (player.spinning) {
@@ -12930,13 +12790,13 @@ var app = (function () {
     		isAAboveB,
     		doObjectsIntersectY,
     		doObjectsIntersectYExclusive,
-    		BossEnemy,
-    		SimpleEnemy,
+    		CreateEnemy,
     		artStore,
     		blockStore,
+    		enemyStore,
     		level,
     		character,
-    		artScale: artScale$1,
+    		artScale: artScale$2,
     		startOfLevel,
     		endOfLevel,
     		blockSize: blockSize$1,
@@ -12961,7 +12821,8 @@ var app = (function () {
     		onKeyDown,
     		onKeyUp,
     		$blockStore,
-    		$artStore
+    		$artStore,
+    		$enemyStore
     	});
 
     	$$self.$inject_state = $$props => {

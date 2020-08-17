@@ -1,55 +1,49 @@
-export class SimpleEnemy {
-	constructor(x, y) {
-		this.alive = true
-		this.tvx = 2
-		this.width = 100
-		this.height = 50
-		this.x = x
-		this.y = y
-		this.vx = 0
-		this.vy = 0
-		this.health = 100
-		this.maxHealth = 100
-		this.jumpVelocity = 20
-		this.fallDamageMultiplier = 2
-		this.score = 1
-		this.dps = 10
-		this.gravityMultiplier = 1
+import enemyStore from '../../stores/enemy-store'
+const artScale = 2
 
-		// todo replace w/ graphic states
-		this.isBoss = false
+// todo configurable per enemy
+const leashRange = 400 // in pixels
 
-		this.grounded = false
-	}
-	q
-	tick(player) {
-		// default enemy just moves toward player
-		if (this.grounded) {
-			// x axis
-			if (player.x == this.x) this.vx = 0
-			else if (player.x < this.x) this.vx = -this.tvx
-			else this.vx = this.tvx
+export default function CreateEnemy(template, config, width, height) {
+	return {
+		...template,
+		...config,
 
-			// y axis
-			if (player.y > this.y + this.height) {
-				this.vy = this.jumpVelocity
-				this.y += 1
+		width,
+		height,
+
+		health: template.maxHealth,
+		tvx: template.maxVelocity,
+		vx: 0,
+		vy: 0,
+		grounded: false,
+		alive: true,
+
+		tick(me, player) {
+			if (!me.grounded) return
+
+			// is player in leash range?
+			if (Math.abs(player.x - me.x) < leashRange) {
+				// move toward them
+
+				// x axis
+				if (player.x == me.x) me.vx = 0
+				else if (player.x < me.x) me.vx = -me.tvx
+				else me.vx = me.tvx
+
+				// y axis
+				if (player.y > me.y + me.height) {
+					me.vy = me.jumpVelocity
+					me.y += 1
+				}
+			} else {
+				// stop moving
+				me.vx = 0
 			}
-		}
-	}
+		},
 
-	onDeath() {}
-}
-
-export class BossEnemy extends SimpleEnemy {
-	constructor(x, y) {
-		super(x, y)
-		this.health = 400
-		this.maxHealth = 400
-		this.score = 5
-		this.width = 400
-		this.height = 300
-		this.isBoss = true
-		this.dps = 50
+		onDeath() {
+			// nothing yet
+		},
 	}
 }

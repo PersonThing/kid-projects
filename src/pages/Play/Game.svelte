@@ -27,10 +27,11 @@
 	import HealthBar from './HealthBar.svelte'
 	import GameOver from './GameOver.svelte'
 	import { doObjectsIntersect, isAAboveB, doObjectsIntersectY, doObjectsIntersectYExclusive } from './spatial-functions'
-	import { BossEnemy, SimpleEnemy } from './enemies'
+	import CreateEnemy from './enemies'
 
 	import artStore from '../../stores/art-store'
 	import blockStore from '../../stores/block-store'
+	import enemyStore from '../../stores/enemy-store'
 
 	export let level = null
 	export let character = null
@@ -132,7 +133,12 @@
 				if (Math.abs(player.vx) > player.tvx) player.vx = player.tvx * (player.vx < 0 ? -1 : 1)
 			},
 		}
-		enemies = []
+		enemies = level.enemies.map(e => {
+			const template = $enemyStore[e.name]
+			const w = $artStore[template.graphicStill].width * artScale // width of graphic
+			const h = $artStore[template.graphicStill].height * artScale // height of graphic
+			return CreateEnemy(template, e, w, h)
+		})
 		gameOver = false
 
 		// only start game loop if it's not already going
@@ -170,20 +176,11 @@
 					: // player above half viewport height, center on player
 					  player.y - halfViewportHeight
 
-			// todo: levels should add mobs, not auto spawn
-			if (!enemies.some(e => e.health > 0)) {
-				if (enemies.length < 5) {
-					enemies = enemies.concat([1, 2, 3, 4, 5].map(x => new SimpleEnemy(player.x + 200 * x, player.y + 200)))
-				} else {
-					enemies = [new BossEnemy(player.x + 200, player.y + 200)]
-				}
-			}
-
 			// for every live enemy intersecting the player, one or the other should take damage
 			for (let i = 0; i < enemies.length; i++) {
 				if (enemies[i].alive) {
 					enemies[i] = applyWorldToSprite(enemies[i])
-					enemies[i].tick(player)
+					enemies[i].tick(enemies[i], player)
 					if (doObjectsIntersect(player, enemies[i])) {
 						if (player.spinning) {
 							enemies[i].gettingHit = true

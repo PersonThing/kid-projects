@@ -31,15 +31,7 @@
 		on:mouseup={onMouseUp}
 		on:mousemove={onMouseMove}
 		on:contextmenu|preventDefault>
-
-		{#each enemies as enemy}
-			<LivingSprite {...hydrateEnemy(enemy)} zIndex={0} />
-		{/each}
-
-		<!-- same level component as actual game uses -->
-		<div style="position: relative; z-index: 10;">
-			<Level {blocks} {width} {height} on:draw={onLevelDraw} />
-		</div>
+		<Level {blocks} {enemies} {width} {height} on:draw={onLevelDraw} />
 	</div>
 </div>
 
@@ -186,8 +178,6 @@
 		return {
 			...template,
 			...enemy,
-
-			y: enemy.y + 25, // for scrollbar offset
 		}
 	}
 </script>
