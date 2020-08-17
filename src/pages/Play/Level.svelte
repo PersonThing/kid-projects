@@ -7,6 +7,7 @@
 	export let width = 0
 	export let height = 0
 	export let blocks = []
+	export let playing = false
 
 	const imageCache = {}
 
@@ -18,7 +19,11 @@
 		context.clearRect(0, 0, width, height)
 		blocks.forEach(b => {
 			let drawing = imageCache[b.name]
-			const drawThisBlock = () => context.drawImage(drawing, b.x, height - b.y - b.height)
+			const drawThisImage = () => {
+				const draw = () => context.drawImage(drawing, b.x, height - b.y - b.height)
+				if (playing) setTimeout(draw, 100)
+				else draw()
+			}
 			if (drawing == null) {
 				drawing = new Image()
 				drawing.src = $artStore[$blockStore[b.name].graphic].png
@@ -26,12 +31,12 @@
 			}
 
 			if (drawing.complete) {
-				drawThisBlock()
+				drawThisImage()
 			} else {
 				const oldOnLoad = drawing.onload
 				drawing.onload = () => {
+					drawThisImage()
 					oldOnLoad()
-					drawThisBlock()
 				}
 			}
 		})
