@@ -6,7 +6,11 @@
 				Which characters can play this level?
 			</FieldCharacterPicker>
 			<FieldText name="background" bind:value={input.background}>Background (any css background value)</FieldText>
-			<LevelBuilderDrawingTool background={input.background} bind:blocks={input.blocks} bind:enemies={input.enemies} />
+			<LevelBuilderDrawingTool
+				background={input.background}
+				bind:thumbnail={input.thumbnail}
+				bind:blocks={input.blocks}
+				bind:enemies={input.enemies} />
 			<span slot="buttons">
 				{#if !isAdding}
 					<button type="button" class="btn btn-danger" on:click={del}>Delete</button>

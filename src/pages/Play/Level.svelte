@@ -1,6 +1,7 @@
 <canvas bind:this={canvas} {width} {height} />
 
 <script>
+	import { createEventDispatcher } from 'svelte'
 	import blockStore from '../../stores/block-store'
 	import artStore from '../../stores/art-store'
 
@@ -9,6 +10,7 @@
 	export let blocks = []
 	export let playing = false
 
+	const dispatch = createEventDispatcher()
 	const imageCache = {}
 
 	let canvas
@@ -33,12 +35,14 @@
 			if (drawing.complete) {
 				drawThisImage()
 			} else {
-				const oldOnLoad = drawing.onload
+				const oldOnload = drawing.onload
 				drawing.onload = () => {
 					drawThisImage()
-					oldOnLoad()
+					oldOnload()
 				}
 			}
 		})
+
+		dispatch('draw', canvas)
 	}
 </script>

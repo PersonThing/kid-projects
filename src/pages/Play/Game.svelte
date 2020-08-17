@@ -120,17 +120,17 @@
 			tick() {
 				// x axis controls
 				if (player.grounded) {
-					if (leftDown && !rightDown) player.vx = -player.tvx
-					else if (rightDown && !leftDown) player.vx = player.tvx
+					if (leftDown && !rightDown) player.vx -= player.tvx / 5
+					else if (rightDown && !leftDown) player.vx += player.tvx / 5
 					else player.vx = 0
 				} else {
 					// let them control direction a little in the air, but not as much
 					if (leftDown && !rightDown) player.vx -= player.tvx / 10
 					else if (rightDown && !leftDown) player.vx += player.tvx / 10
-
-					// don't let them break top speed though
-					if (Math.abs(player.vx) > player.tvx) player.vx = player.tvx * (player.vx < 0 ? -1 : 1)
 				}
+
+				// don't let them break top speed though
+				if (Math.abs(player.vx) > player.tvx) player.vx = player.tvx * (player.vx < 0 ? -1 : 1)
 			},
 		}
 		enemies = []
@@ -244,7 +244,7 @@
 					// target x + width > box x
 					const txw = targetX + sprite.width
 					const sxw = sprite.x + sprite.width
-					return txw > b.x && sxw <= b.x && doObjectsIntersectYExclusive(b, sprite)
+					return b.solid && txw > b.x && sxw <= b.x && doObjectsIntersectYExclusive(b, sprite)
 				})
 				if (blockToRight != null) targetX = blockToRight.x - sprite.width
 				// don't let them go past end of level
@@ -258,7 +258,7 @@
 					// sprite x >= box x + width
 					// target x < box x + width
 					const bxw = b.x + b.width
-					return sprite.x >= bxw && targetX < bxw && doObjectsIntersectYExclusive(b, sprite)
+					return b.solid && sprite.x >= bxw && targetX < bxw && doObjectsIntersectYExclusive(b, sprite)
 				})
 				if (blockToLeft != null) targetX = blockToLeft.x + blockToLeft.width
 				// don't let them go past start of level

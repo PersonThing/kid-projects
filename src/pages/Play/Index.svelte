@@ -9,12 +9,18 @@
 {:else}
 	<div class="list-group">
 		{#each sortedLevelNames as levelName}
-			{#each $levels[levelName].playableCharacters as characterName}
-				<div class="list-group-item list-group-item-action" on:click={() => selectLevel(levelName, characterName)}>
-					<Art name={$characters[characterName].graphicStill} />
-					{levelName} as {characterName}
+			<div class="list-group-item">
+				<h4 class="mb-0">{levelName}</h4>
+				<LevelPreview level={$levels[levelName]} />
+				<div class="flex-row">
+					{#each $levels[levelName].playableCharacters as characterName}
+						<button class="btn btn-secondary mr-1" on:click={() => selectLevel(levelName, characterName)}>
+							<Art name={$characters[characterName].graphicStill} />
+							{characterName}
+						</button>
+					{/each}
 				</div>
-			{/each}
+			</div>
 		{/each}
 	</div>
 {/if}
@@ -24,6 +30,7 @@
 	import Game from './Game.svelte'
 	import levels from '../../stores/level-store'
 	import characters from '../../stores/character-store'
+	import LevelPreview from './LevelPreview.svelte'
 
 	let levelName
 	let characterName

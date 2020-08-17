@@ -1,4 +1,5 @@
 <div class="drawing-tool">
+	<img src={thumbnail} alt="preview" />
 	<div class="tool-picker">
 		<strong>Blocks</strong>
 		{#each Object.keys($blockStore) as name}
@@ -24,7 +25,7 @@
 		on:mousemove={onMouseMove}
 		on:contextmenu|preventDefault>
 		<!-- same level component as actual game uses -->
-		<Level {blocks} {width} {height} />
+		<Level {blocks} {width} {height} on:draw={onLevelDraw} />
 
 		<!-- {#each enemies as enemy}
 				<Enemy {...enemy} />
@@ -33,21 +34,21 @@
 </div>
 
 <script>
-	import Level from '../../Play/Level.svelte'
-
+	import Art from './Art.svelte'
 	import artStore from '../../../stores/art-store'
 	import blockStore from '../../../stores/block-store'
-	import enemyStore from '../../../stores/enemy-store'
 	import Enemy from '../../Play/Enemy.svelte'
-	import Art from './Art.svelte'
+	import enemyStore from '../../../stores/enemy-store'
+	import Level from '../../Play/Level.svelte'
+	import makeThumbnail from '../make-thumbnail'
 
 	export let background = null
 
 	// each block passed to <Level> needs x, y, width, height, png
+	export let thumbnail
 	export let blocks = []
 	// export let enemies = []
 
-	// migrate old format to new
 	$: if (blocks != null && blocks.some(b => b.png != null)) {
 		blocks = blocks.map(b => {
 			const { png, ...otherProps } = b
@@ -60,6 +61,12 @@
 	let selectedBlock = null
 	let selectedEnemy = null
 	let mouseDown = false
+
+	let canvas
+	function onLevelDraw(e) {
+		const canvas = e.detail
+		thumbnail = makeThumbnail(canvas, width / 8, height / 8)
+	}
 
 	// todo let them draw higher, use wasd or arrows to navigate around level rather than scrolling
 	// $: highestYUsed = blocks.length > 0 ? Math.max(...blocks.map(b => b.y + b.height)) : 0
