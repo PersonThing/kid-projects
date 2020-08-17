@@ -13,7 +13,7 @@
 			<LivingSprite {...player} />
 		</Viewport>
 	{/if}
-	<Status {level} {score} />
+	<Status {level} {score} enemyCount={(enemies || []).filter(e => e.alive).length} />
 	<Instructions />
 </div>
 
