@@ -1,12 +1,13 @@
 <div class="drawing-tool">
-	<img src={thumbnail} alt="preview" />
+	<LevelPreview level={{ background, thumbnail }} on:pan={onPreviewPan} />
 	<div class="tool-picker">
-		<strong>Blocks</strong>
-		{#each Object.keys($blockStore) as name}
-			<button type="button" class="btn btn-{name == selectedBlock ? 'primary' : 'default'}" on:click={() => selectBlock(name)}>
-				<Art name={$blockStore[name].graphic} />
-			</button>
-		{/each}
+		<div class="btn-group">
+			{#each Object.keys($blockStore) as name}
+				<button type="button" class="btn btn-{name == selectedBlock ? 'primary' : 'light'}" on:click={() => selectBlock(name)}>
+					<Art name={$blockStore[name].graphic} />
+				</button>
+			{/each}
+		</div>
 		<!-- <div class="mt-2">
 			<strong>Enemies</strong>
 			{#each Object.keys($enemyStore) as name}
@@ -19,7 +20,8 @@
 
 	<div
 		class="level-container"
-		style="background: {background}; height: {height}px;"
+		style="background: {background}; height: {height + 20}px;"
+		bind:this={levelContainer}
 		on:mousedown={onMouseDown}
 		on:mouseup={onMouseUp}
 		on:mousemove={onMouseMove}
@@ -41,6 +43,7 @@
 	import enemyStore from '../../../stores/enemy-store'
 	import Level from '../../Play/Level.svelte'
 	import makeThumbnail from '../make-thumbnail'
+	import LevelPreview from '../../Play/LevelPreview.svelte'
 
 	export let background = null
 
@@ -62,15 +65,17 @@
 	let selectedEnemy = null
 	let mouseDown = false
 
+	let levelContainer
 	let canvas
+	const thumbnailScale = 8
 	function onLevelDraw(e) {
 		const canvas = e.detail
-		thumbnail = makeThumbnail(canvas, width / 8, height / 8)
+		thumbnail = makeThumbnail(canvas, width / thumbnailScale, height / thumbnailScale)
 	}
 
 	// todo let them draw higher, use wasd or arrows to navigate around level rather than scrolling
 	// $: highestYUsed = blocks.length > 0 ? Math.max(...blocks.map(b => b.y + b.height)) : 0
-	$: height = 800 //Math.max(400, highestYUsed + 300)
+	$: height = 600 //Math.max(400, highestYUsed + 300)
 
 	$: highestXUsed = blocks.length > 0 ? Math.max(...blocks.map(b => b.x + b.width)) : 0
 	$: width = Math.max(800, highestXUsed + 500)
@@ -83,6 +88,12 @@
 	function selectEnemy(name) {
 		selectedBlock = null
 		selectedEnemy = name
+	}
+
+	function onPreviewPan(e) {
+		const centerTargetX = e.detail * thumbnailScale
+		const leftTargetX = Math.max(centerTargetX - levelContainer.clientWidth / 2, 0)
+		levelContainer.scroll(leftTargetX, 0)
 	}
 
 	function onMouseDown(e) {
@@ -148,19 +159,19 @@
 <style>
 	.drawing-tool {
 		position: relative;
+		width: 1400px;
 	}
 
 	.tool-picker {
-		position: sticky;
-		top: 0;
-		left: 0;
+		margin: 5px 0;
 	}
 
-	.tool-picker .btn {
-		margin-right: 0.5rem;
+	.tool-picker .btn-group {
+		margin-right: 5px;
 	}
 
 	.level-container {
 		overflow-x: auto;
+		max-width: 100%;
 	}
 </style>

@@ -11,7 +11,7 @@
 		{#each sortedLevelNames as levelName}
 			<div class="list-group-item">
 				<h4 class="mb-0">{levelName}</h4>
-				<LevelPreview level={$levels[levelName]} />
+				<img src={$levels[levelName].thumbnail} style="background: {$levels[levelName].background}" />
 				<div class="flex-row">
 					{#each $levels[levelName].playableCharacters as characterName}
 						<button class="btn btn-secondary mr-1" on:click={() => selectLevel(levelName, characterName)}>

@@ -34,6 +34,7 @@
 	import LevelBuilderLayout from './components/LevelBuilderLayout.svelte'
 	import levels from '../../stores/level-store'
 	import { tick } from 'svelte'
+	import LevelPreview from '../Play/LevelPreview.svelte'
 
 	export let params = {}
 	let input

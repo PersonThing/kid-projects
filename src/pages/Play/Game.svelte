@@ -58,7 +58,7 @@
 	let visibleBlocks
 	let viewport = {
 		width: window.innerWidth,
-		height: 800,
+		height: 600,
 	}
 
 	let leftDown = false
@@ -89,7 +89,7 @@
 		damageBlocks = blocks.filter(b => b.dps > 0)
 
 		levelWidth = Math.max(...blocks.map(b => b.x + b.width))
-		levelHeight = 800 //Math.max(...blocks.map(b => b.y + b.height))
+		levelHeight = 600 //Math.max(...blocks.map(b => b.y + b.height))
 		start()
 	})
 
