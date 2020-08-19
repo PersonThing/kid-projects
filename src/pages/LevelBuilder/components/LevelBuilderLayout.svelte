@@ -1,5 +1,5 @@
 <div class="flex align-top">
-	<div class="sub-nav">
+	<div class="sub-nav nav-column">
 		{#each tabs as t}
 			<a class="sub-nav-item" class:active={tab == t.name} href="{baseUrl}/{t.name}/new">{t.name}</a>
 			{#if t.name == tab}
@@ -46,11 +46,16 @@
 <style lang="scss">
 	@import '../../../css/variables';
 
+	.nav-column {
+		width: 250px;
+	}
+
 	.sub-nav .sub-nav {
 		padding-left: 5px;
 		margin-left: 15px;
 		max-height: 60vh;
-		overflow: auto;
+		overflow-x: hidden;
+		overflow-y: auto;
 		border-left: 1px solid #eee;
 
 		.sub-nav-item {
