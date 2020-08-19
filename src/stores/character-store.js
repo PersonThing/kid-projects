@@ -1,2 +1,37 @@
 import LocalStorageStore from './local-storage-store'
-export default LocalStorageStore('characters', {})
+export default LocalStorageStore('characters', {
+	'mr squiggles': {
+		graphicStill: 'mr squiggles',
+		name: 'mr squiggles',
+		maxVelocity: 5,
+		jumpVelocity: 15,
+		gravityMultiplier: 1,
+		fallDamageMultiplier: 1,
+		dps: 25,
+		dpsToPlayers: 5,
+		maxHealth: 200,
+	},
+	sonic: {
+		graphicStill: 'sonic',
+		name: 'sonic',
+		maxVelocity: 10,
+		jumpVelocity: 15,
+		gravityMultiplier: 1,
+		fallDamageMultiplier: 0,
+		dps: 200,
+		dpsToPlayers: 120,
+		maxHealth: 200,
+		graphicSpinning: 'sonic spinning',
+	},
+	'mr littles': {
+		graphicStill: 'original enemy black',
+		graphicSpinning: 'original enemy green',
+		name: 'mr littles',
+		maxVelocity: 8,
+		jumpVelocity: 15,
+		gravityMultiplier: 1,
+		fallDamageMultiplier: 1,
+		dps: 120,
+		maxHealth: 100,
+	},
+})

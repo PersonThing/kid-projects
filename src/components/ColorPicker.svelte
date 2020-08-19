@@ -112,7 +112,6 @@
 			padding: 2px 15px;
 			z-index: 9;
 			color: #fff;
-			text-shadow: 2px 2px rgba(255, 255, 255, 0.3);
 
 			&:hover,
 			&.selected {

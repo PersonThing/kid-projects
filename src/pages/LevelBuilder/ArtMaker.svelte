@@ -112,10 +112,10 @@
 	import FieldText from './components/FieldText.svelte'
 	import Form from './components/Form.svelte'
 	import LevelBuilderLayout from './components/LevelBuilderLayout.svelte'
-	import LocalStorageStore from '../../stores/local-storage-store'
 	import toPNG from '../../services/to-png'
 	import validator from '../../services/validator'
 	import Icon from 'svelte-awesome'
+	import artStore from '../../stores/art-store'
 	import {
 		arrowLeft as arrowLeftIcon,
 		arrowRight as arrowRightIcon,
@@ -126,8 +126,6 @@
 	} from 'svelte-awesome/icons'
 	import { faFillDrip as fillIcon, faPaintBrush as paintIcon, faExchangeAlt as flipIcon } from '@fortawesome/free-solid-svg-icons'
 	import { null_to_empty } from 'svelte/internal'
-
-	const artStore = LocalStorageStore('pixel-drawings', {})
 
 	export let params = {}
 	let input
@@ -257,7 +255,7 @@
 	function getColorAtEvent(e) {
 		// could probably get this directly from canvas / getPixel stuff
 		const { x, y } = getEventCellIndexes(e)
-		return input.data[y][x]
+		return input.data[y][x] || 'transparent'
 	}
 
 	function addUndoState() {
@@ -300,6 +298,8 @@
 
 		if (mode == 'fill') {
 			// recursively loop around this pixel setting pixels that were the same color this one used to be to the new color
+			// needs revision
+			// right now it works well for filling outlines, but overfills through outlines that only touch on corners
 			for (let yn = y - 1; yn <= y + 1; yn++) {
 				for (let xn = x - 1; xn <= x + 1; xn++) {
 					if (yn < 0 || yn > input.height - 1 || xn < 0 || xn > input.width - 1) continue
@@ -370,11 +370,9 @@
 			// add empty rows
 			const rowsNeeded = input.height - input.data.length
 			input.data = input.data.concat(buildData(rowsNeeded, input.width))
-			console.log('adding rows')
-		} else if (input.height < input.data.length) {
-			// crop unnecessary rows
-			console.log('chopping off some rows')
-			input.data.slice(0, input.height)
+			// } else if (input.height < input.data.length) {
+			// 	// crop unnecessary rows
+			// 	input.data.slice(0, input.height)
 		}
 
 		// make sure all rows are the right length
@@ -382,10 +380,8 @@
 			if (input.width > row.length) {
 				const colsNeeded = input.width - row.length
 				row = row.concat(buildColumns(colsNeeded))
-				console.log('adding cols')
-			} else if (input.width < row.length) {
-				console.log('chopping off some cols')
-				row.slice(0, input.width)
+				// } else if (input.width < row.length) {
+				// 	row.slice(0, input.width)
 			}
 			return row
 		})
