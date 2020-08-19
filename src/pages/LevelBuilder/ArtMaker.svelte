@@ -430,9 +430,9 @@
 	}
 
 	.paint-cursor {
-		cursor: url(/paint-icon.png) 0 20, auto;
+		cursor: url(/paint-icon.png) 0 20, url(/kid-projects/public/paint-icon.png) 0 20, auto;
 	}
 	.fill-cursor {
-		cursor: url(/fill-icon.png) 20 20, auto;
+		cursor: url(/fill-icon.png) 20 20, url(/kid-projects/public/fill-icon.png) 20 20, auto;
 	}
 </style>
