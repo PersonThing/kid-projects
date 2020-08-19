@@ -2,7 +2,9 @@
 
 <div class="game-window" bind:this={mainEl}>
 	{#if gameOver}
-		<GameOver {score} {player} />
+		<GameOver {score} {player} won={gameWon} {level} />
+	{:else if paused}
+		<Paused />
 	{/if}
 	{#if level != null && player != null}
 		<Viewport {...viewport} background={level.background}>
@@ -26,6 +28,7 @@
 	import LivingSprite from './LivingSprite.svelte'
 	import HealthBar from './HealthBar.svelte'
 	import GameOver from './GameOver.svelte'
+	import Paused from './Paused.svelte'
 	import { doObjectsIntersect, isAAboveB, doObjectsIntersectY, doObjectsIntersectYExclusive } from './spatial-functions'
 	import CreateEnemy from './enemies'
 
@@ -51,6 +54,7 @@
 	let player
 	let enemies
 	let gameOver = false
+	let gameWon = false
 	let paused = false
 
 	let gameAlive = true
@@ -200,7 +204,15 @@
 			}
 
 			// game is over if player dies
-			if (player.health <= 0) gameOver = true
+			if (player.health <= 0) {
+				gameWon = false
+				gameOver = true
+			}
+			// game is won if no enemies left
+			else if (!enemies.some(e => e.alive)) {
+				gameWon = true
+				gameOver = true
+			}
 		}
 
 		if (gameAlive) lastRequestedFrame = window.requestAnimationFrame(gameLoop)
@@ -283,6 +295,7 @@
 
 	function onKeyDown(e) {
 		if (gameOver) return
+		if (paused) return
 		switch (e.code) {
 			case 'ArrowLeft':
 				leftDown = true
