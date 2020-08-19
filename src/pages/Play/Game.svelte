@@ -41,7 +41,7 @@
 	let endOfLevel
 	const blockSize = 40
 	let blocks
-	let damageBlocks
+	let effectBlocks
 	let levelWidth = 0
 	let levelHeight = 0
 
@@ -87,7 +87,7 @@
 
 		endOfLevel = Math.max(...blocks.map(b => b.x + b.width))
 
-		damageBlocks = blocks.filter(b => b.dps > 0)
+		effectBlocks = blocks.filter(b => b.dps > 0 || b.throwOnTouch)
 
 		levelWidth = Math.max(...blocks.map(b => b.x + b.width))
 		levelHeight = 600 //Math.max(...blocks.map(b => b.y + b.height))
@@ -268,16 +268,15 @@
 		}
 
 		// blocks that do damage
-		for (let i = 0; i < damageBlocks.length; i++) {
-			if (doObjectsIntersect(sprite, damageBlocks[i])) {
-				sprite.health -= damageBlocks[i].dps / 60 // damage per frame
+		effectBlocks
+			.filter(b => doObjectsIntersect(sprite, b))
+			.forEach(b => {
+				// if block does damage, reduce health
+				if (b.dps > 0) sprite.health -= b.dps / 60 // damage per frame
 
 				// does the block also throw?
-				if (damageBlocks[i].throwOnTouch) {
-					sprite.vy = 20
-				}
-			}
-		}
+				if (b.throwOnTouch) sprite.vy = 20
+			})
 
 		return sprite
 	}
