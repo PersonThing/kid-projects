@@ -1,323 +1,314 @@
 <svelte:window on:keyup={onKeyUp} />
 
-<LevelBuilderLayout tab="art">
-	{#if savedNames.length}
-		<div>
-			{#each savedNames as savedDrawingName}
-				<div class="btn-group mr-1 mb-1">
-					<button
-						type="button"
-						class="btn btn-sm btn-{savedDrawingName == loaded ? 'primary active' : 'secondary'}"
-						on:click={() => load(savedDrawingName)}>
-						{savedDrawingName}
-					</button>
-					<button type="button" class="btn btn-sm btn-secondary" on:click={() => deleteSave(savedDrawingName)}>x</button>
-				</div>
-			{/each}
-		</div>
-	{/if}
+<LevelBuilderLayout tab="art" store={$artStore}>
+	<Form on:submit={save} {hasChanges}>
+		<span slot="buttons" class="flex">
+			<input type="text" class="form-control width-auto" id="name" name="name" bind:value={input.name} bind:this={nameField} />
 
-	<div class="flex my-3">
-		<button type="button" class="btn btn-success btn-sm mr-2" on:click={() => save()}>Save</button>
-		<button type="button" class="btn btn-secondary btn-sm" on:click={reset}>Reset</button>
+			{#if !isAdding}
+				<button type="button" class="btn btn-danger" on:click={() => del(input.name)}>Delete</button>
+			{/if}
+		</span>
 
-		<div class="btn-group">
-			<button type="button" class="btn btn-secondary btn-sm" on:click={flipX}>Flip horizontal</button>
-			<button type="button" class="btn btn-secondary btn-sm" on:click={flipY}>Flip vertical</button>
-		</div>
-
-		<div class="btn-group">
-			<button type="button" disabled={undos.length == 0} class="btn btn-default btn-sm" on:click={undo}>Undo {undos.length}</button>
-			<button type="button" disabled={redos.length == 0} class="btn btn-default btn-sm" on:click={redo}>Redo {redos.length}</button>
-		</div>
-
-		<div>
-			Grid size
-			<input type="number" bind:value={gridSize} min="15" max="50" step="5" />
-		</div>
-		<div>
-			Height
-			<input type="number" bind:value={height} placeholder="Height" />
-		</div>
-		<div>
-			Width
-			<input type="number" bind:value={width} placeholder="Width" />
-		</div>
-		<label>
-			<input type="checkbox" bind:checked={showGrid} />
-			Show grid
-		</label>
-	</div>
-
-	<div class="flex align-top">
-		<div class="controls">
-			<div class="color-picker">
-				{#each colors as color}
-					<button
-						type="button"
-						style="background: {color != 'transparent' ? color : 'linear-gradient(110deg, rgba(200,200,200,1) 45%, rgba(255,255,255,1) 55%, rgba(255,255,255,1) 100%)'}"
-						class:active={color == selectedColor}
-						on:click={() => selectColor(color)} />
-				{/each}
+		<div class="toolbar flex align-center">
+			<div class="btn-group">
+				<ColorPicker bind:value={selectedColor} />
+				<button type="button" class="btn btn-sm btn-{mode == 'paint' ? 'primary' : 'light'}" on:click={() => (mode = 'paint')}>
+					<Icon data={paintIcon} />
+				</button>
+				<button type="button" class="btn btn-sm btn-{mode == 'fill' ? 'primary' : 'light'}" on:click={() => (mode = 'fill')}>
+					<Icon data={fillIcon} />
+				</button>
 			</div>
+
+			<button type="button" class="btn btn-light btn-sm" on:click={reset}>Start over</button>
+
+			<div class="btn-group">
+				<button type="button" disabled={undos.length == 0} class="btn btn-default btn-sm" on:click={undo}>
+					<Icon data={undoIcon} />
+					{undos.length > 0 ? undos.length : ''}
+				</button>
+				<button type="button" disabled={redos.length == 0} class="btn btn-default btn-sm" on:click={redo}>
+					<Icon data={undoIcon} flip="horizontal" />
+					{redos.length > 0 ? redos.length : ''}
+				</button>
+			</div>
+
+			<div class="btn-group">
+				<button type="button" class="btn btn-light btn-sm" on:click={flipX} title="Flip horizontal">
+					<Icon data={arrowRightIcon} />
+					<Icon data={arrowLeftIcon} />
+				</button>
+				<button type="button" class="btn btn-light btn-sm" on:click={flipY} title="Flip vertical">
+					<Icon data={arrowUpIcon} />
+					<Icon data={arrowDownIcon} />
+				</button>
+			</div>
+
+			<div class="btn-group">
+				<button type="button" class="btn btn-light btn-sm" on:click={moveLeft} title="Move left">
+					<Icon data={arrowLeftIcon} />
+				</button>
+				<button type="button" class="btn btn-light btn-sm" on:click={moveRight} title="Move right">
+					<Icon data={arrowRightIcon} />
+				</button>
+				<button type="button" class="btn btn-light btn-sm" on:click={moveUp} title="Move up">
+					<Icon data={arrowUpIcon} />
+				</button>
+				<button type="button" class="btn btn-light btn-sm" on:click={moveDown} title="Move down">
+					<Icon data={arrowDownIcon} />
+				</button>
+			</div>
+
+			<div class="flex-column">
+				Height
+				<input type="number" bind:value={input.height} placeholder="Height" />
+			</div>
+			<div class="flex-column">
+				Width
+				<input type="number" bind:value={input.width} placeholder="Width" />
+			</div>
+			<label>
+				<input type="checkbox" bind:checked={showGrid} />
+				Show grid
+			</label>
 		</div>
-		<div class="flex-grow ">
-			<div class="my-1">
-				Preview at in-game size / repeated next to same graphic:
-				<div class="p-3 preview-bg flex">
-					<div>
-						<img src={previewPNG} alt="preview" />
+
+		<div class="flex my-3 align-top">
+			<canvas
+				class:paint-cursor={mode == 'paint'}
+				class:fill-cursor={mode == 'fill'}
+				bind:this={drawCanvas}
+				width={input.width * gridSize}
+				height={input.height * gridSize}
+				on:mousedown|preventDefault={onDrawMouseDown}
+				on:mouseup|preventDefault={onDrawMouseUp}
+				on:mousemove|preventDefault={onDrawMouseMove}
+				on:contextmenu|preventDefault />
+			<div class="preview flex">
+				<div>
+					<img src={previewPNG} alt="preview" class="drop-shadow" />
+				</div>
+
+				<!-- if block size, show repeated in x and y-->
+				{#if input.width == 20 && input.height == 20}
+					<div class="ml-2">
+						{#each [0, 0] as r}
+							<div>
+								{#each [0, 0, 0] as margin}
+									<img src={previewPNG} alt="block repeating preview" />
+								{/each}
+							</div>
+						{/each}
 					</div>
-
-					<!-- if block size, show repeated in x and y-->
-					{#if width == 20 && height == 20}
-						<div class="ml-3">
-							{#each [0, 0] as r}
-								<div>
-									{#each [0, 0, 0, 0] as margin}
-										<img src={previewPNG} alt="block repeating preview" />
-									{/each}
-								</div>
-							{/each}
-						</div>
-					{/if}
-				</div>
+				{/if}
 			</div>
-			<svg
-				class="preview-bg"
-				width={width * (gridSize + 1)}
-				height={height * (gridSize + 1)}
-				on:mousedown={onSvgMouseDown}
-				on:mouseup={onSvgMouseUp}
-				on:contextmenu|preventDefault
-				on:mousemove={e => onSvgMouseMove(e.target)}>
-				{#each rows as row}
-					{#each columns as column}
-						<rect
-							y={row * gridSize}
-							x={column * gridSize}
-							style="fill: {getCellColor(data, row, column)}"
-							width={gridSize}
-							height={gridSize}
-							data-row={row}
-							data-column={column}
-							stroke={showGrid ? '#eee' : null} />
-					{/each}
-				{/each}
-			</svg>
 		</div>
-	</div>
+	</Form>
 
 </LevelBuilderLayout>
 
 <script>
+	import { push } from 'svelte-spa-router'
+	import ColorPicker from '../../components/ColorPicker.svelte'
+	import FieldText from './components/FieldText.svelte'
+	import Form from './components/Form.svelte'
 	import LevelBuilderLayout from './components/LevelBuilderLayout.svelte'
 	import LocalStorageStore from '../../stores/local-storage-store'
-	import toPNG from './to-png'
+	import toPNG from '../../services/to-png'
+	import validator from '../../services/validator'
+	import Icon from 'svelte-awesome'
+	import {
+		arrowLeft as arrowLeftIcon,
+		arrowRight as arrowRightIcon,
+		arrowUp as arrowUpIcon,
+		arrowDown as arrowDownIcon,
+		undo as undoIcon,
+		paintBrush as paintBrushIcon,
+	} from 'svelte-awesome/icons'
+	import { faFillDrip as fillIcon, faPaintBrush as paintIcon } from '@fortawesome/free-solid-svg-icons'
+	import { null_to_empty } from 'svelte/internal'
 
 	const artStore = LocalStorageStore('pixel-drawings', {})
-	$: savedNames = Object.keys($artStore)
 
-	$: previewPNG = toPNG(data, width, height)
+	export let params = {}
+	let input
+	create()
 
-	let loaded = null
-	const colors = [
-		'transparent',
-		'white',
-		'rgb(204, 204, 204)',
-		'rgb(160, 164, 160)',
-		'rgb(102, 102, 102)',
-		'rgb(51, 51, 51)',
-		'black',
-		'rgb(119, 59, 11)',
-		'blue',
-		'pink',
-		'yellow',
-		'orange',
-		'red',
-		'purple',
-		'teal',
-		'green',
-		'rgb(40, 40, 184)',
-		'rgb(40, 80, 224)',
-		'rgb(80, 80, 248)',
-		'rgb(120, 124, 248)',
-		'rgb(160, 0, 16)',
-		'rgb(248, 0, 32)',
-		'rgb(208, 124, 96)',
-		'rgb(248, 208, 176)',
-
-		'red',
-		// bub colors
-		'rgb(253, 240, 232)',
-		'rgb(245, 222, 208)',
-		'rgb(220, 201, 187)',
-		'rgb(197, 179, 167)',
-		'rgb(186, 167, 153)',
-		'rgb(146, 129, 119)',
-		'rgb(120, 107, 99)',
-		'rgb(80, 68, 68)',
-
-		// eyes
-		'rgb(122, 80, 55)',
-		'rgb(178, 105, 58)',
-		'rgb(203, 140, 97)',
-		'rgb(238, 187, 155)',
-
-		// ears & nose
-		'rgb(75, 53, 39)',
-
-		// 'white',
-		// '#ccc',
-		// '#A0A4A0',
-		// '#666',
-		// '#333',
-		// 'black',
-		// '#773b0b',
-		// 'blue',
-		// 'pink',
-		// 'yellow',
-		// 'orange',
-		// 'red',
-		// 'purple',
-		// 'teal',
-		// 'green',
-		// '#2828B8',
-		// '#2850E0',
-		// '#5050F8',
-		// '#787CF8',
-		// '#A00010',
-		// '#F80020',
-		// '#D07C60',
-		// '#F8D0B0',
-	]
-	let selectedColor = 'black'
-	let gridSize = 25
-	let height = 20
-	let width = 20
+	let mode = 'paint'
+	let drawCanvas
 	let undos = []
 	let redos = []
-	let showGrid = true
-
-	$: rows = [...Array(height)].map((_, i) => i)
-	$: columns = [...Array(width)].map((_, i) => i)
-
-	let data = []
 	let mouseDown = false
+	let showGrid = true
+	let gridSize = 25
+	let drawContext
+	let nameField
+	let savedInput
+	let selectedColor = 'black'
 
-	reset(false)
+	$: paramName = decodeURIComponent(params.name) || 'new'
+	$: paramName == 'new' ? create() : edit(paramName)
+	$: isAdding = paramName == 'new'
+	$: previewPNG = toPNG(input.data, input.width, input.height)
+	$: drawResult = draw(input.data, input.width, input.height)
+	$: if (input.width != 0 && input.height != 0 && showGrid) redraw()
+	$: hasChanges = !validator.equals(input, $artStore[input.name])
+
+	function create() {
+		input = {
+			name: '',
+			width: 20,
+			height: 20,
+			data: buildData(20, 20),
+		}
+		setTimeout(() => {
+			nameField.focus()
+		}, 100)
+	}
+
+	function edit(name) {
+		if (!$artStore.hasOwnProperty(name)) return
+
+		undos = []
+		redos = []
+
+		input = JSON.parse(JSON.stringify($artStore[name]))
+		input.width = input.width || input.data[0].length
+		input.height = input.height || input.data.length
+
+		redraw()
+	}
+
+	function save() {
+		if (validator.empty(input.name)) {
+			document.getElementById('name').focus()
+			return
+		}
+
+		input.png = toPNG(input.data, input.width, input.height)
+
+		$artStore[input.name] = JSON.parse(JSON.stringify(input))
+		push(`/level-builder/art/${encodeURIComponent(input.name)}`)
+	}
+
+	function del(name) {
+		if (confirm(`Are you sure you want to delete "${name}"?`)) {
+			delete $artStore[name]
+			$artStore = $artStore
+			push('/level-builder/art/new')
+		}
+	}
 
 	function reset(undoable = true) {
 		if (undoable) addUndoState()
-		data = buildRows(height)
-		loaded = null
+		input.data = buildData(input.height, input.width)
 	}
 
-	function onSvgMouseDown(e) {
+	function draw(d, w, h) {
+		if (d == null || drawCanvas == null) return
+		if (drawContext == null) drawContext = drawCanvas.getContext('2d')
+
+		drawContext.clearRect(0, 0, w * gridSize, h * gridSize)
+		for (let y = 0; y < h; y++) {
+			for (let x = 0; x < w; x++) {
+				drawContext.beginPath()
+				drawContext.rect(x * gridSize, y * gridSize, gridSize, gridSize)
+				drawContext.fillStyle = getCellColor(d, y, x)
+				drawContext.fill()
+				if (showGrid) {
+					drawContext.strokeStyle = '#eee'
+					drawContext.stroke()
+				}
+			}
+		}
+	}
+
+	function redraw() {
+		setTimeout(() => draw(input.data, input.width, input.height, gridSize), 10)
+	}
+
+	function onDrawMouseDown(e) {
+		const color = getColorAtEvent(e)
 		if (e.altKey || e.button !== 0) {
-			selectedColor = e.target.style.fill
+			selectedColor = color
 		} else {
 			addUndoState()
 			mouseDown = true
-			onSvgMouseMove(e.target)
+			onDrawMouseMove(e)
 		}
 	}
 
-	function onSvgMouseUp(e) {
+	function onDrawMouseUp(e) {
 		mouseDown = false
 	}
 
-	function onSvgMouseMove(target) {
+	function onDrawMouseMove(e) {
 		if (!mouseDown) return
+		const { x, y } = getEventCellIndexes(e)
+		if (y != null && x != null) setColor(y, x, selectedColor)
+	}
 
-		const row = target.dataset.row
-		const column = target.dataset.column
-		if (row != null && column != null) {
-			setColor(row, column)
+	function getEventCellIndexes(e) {
+		return {
+			x: Math.floor(e.offsetX / gridSize),
+			y: Math.floor(e.offsetY / gridSize),
 		}
 	}
 
+	function getColorAtEvent(e) {
+		// could probably get this directly from canvas / getPixel stuff
+		const { x, y } = getEventCellIndexes(e)
+		return input.data[y][x]
+	}
+
 	function addUndoState() {
-		undos = [...undos.slice(Math.max(undos.length - 20, 0)), JSON.stringify(data)]
+		undos = [...undos.slice(Math.max(undos.length - 20, 0)), JSON.stringify(input.data)]
 
 		// if we're adding a new undo state, empty redos
 		redos = []
 	}
 
-	function buildRows(num) {
-		return [...Array(num)].map(r => buildColumns(width))
+	function buildData(height, width) {
+		return [...Array(height)].map(r => buildColumns(width))
 	}
 
-	function buildColumns(num) {
-		return [...Array(num)].map(c => 'transparent')
+	function buildColumns(width) {
+		return [...Array(width)].map(c => 'transparent')
 	}
 
 	function undo() {
 		if (undos.length == 0) return
 
-		redos = [...redos, JSON.stringify(data)]
-		data = JSON.parse(undos.pop())
+		redos = [...redos, JSON.stringify(input.data)]
+		input.data = JSON.parse(undos.pop())
 		undos = undos
 	}
 
 	function redo() {
 		if (redos.length == 0) return
 
-		undos = [...undos, JSON.stringify(data)]
-		data = JSON.parse(redos.pop())
+		undos = [...undos, JSON.stringify(input.data)]
+		input.data = JSON.parse(redos.pop())
 		redos = redos
 	}
 
-	function setColor(row, column, color = selectedColor) {
-		// make sure we have enough rows in data to fit the value
-		if (row > data.length) {
-			const rowsNeeded = height - data.length
-			data = data.concat(buildRows(rowsNeeded))
-		}
+	function setColor(y, x, color) {
+		syncDataToSize()
 
 		// don't need to worry about columns.. they get auto-filled with null
-		data[row][column] = color
-	}
+		const oldColor = input.data[y][x] || 'transparent'
+		input.data[y][x] = color
 
-	function selectColor(color) {
-		selectedColor = color
-	}
-
-	function save() {
-		const name = prompt('Give us a name', loaded || '')
-		if (name == null || name.trim().length == 0) return
-
-		$artStore[name] = {
-			name,
-			gridSize,
-			width,
-			height,
-			data,
-			showGrid,
-			png: toPNG(data, width, height),
-		}
-		loaded = name
-	}
-
-	function load(name) {
-		let savedDrawing = JSON.parse(JSON.stringify($artStore[name]))
-
-		data = savedDrawing.data
-		gridSize = savedDrawing.gridSize
-		width = savedDrawing.width || savedDrawing.data[0].length
-		height = savedDrawing.height || savedDrawing.data.length
-		showGrid = savedDrawing.showGrid || showGrid
-		undos = []
-		redos = []
-		loaded = name
-	}
-
-	function deleteSave(name) {
-		if (!confirm(`Are you sure you want to delete ${name}?`)) return
-
-		if ($artStore.hasOwnProperty(name)) {
-			delete $artStore[name]
-			$artStore = $artStore
+		if (mode == 'fill') {
+			// recursively loop around this pixel setting pixels that were the same color this one used to be to the new color
+			for (let yn = y - 1; yn <= y + 1; yn++) {
+				for (let xn = x - 1; xn <= x + 1; xn++) {
+					if (yn < 0 || yn > input.height - 1 || xn < 0 || xn > input.width - 1) continue
+					const currentColor = input.data[yn][xn] || 'transparent'
+					if (currentColor == oldColor) setColor(yn, xn, color)
+				}
+			}
 		}
 	}
 
@@ -337,42 +328,117 @@
 	}
 
 	function flipY() {
-		data = data.slice(0, height).reverse()
+		input.data = input.data.slice(0, input.height).reverse()
 	}
 
 	function flipX() {
-		data = data.map(d => d.slice(0, width).reverse())
+		input.data = input.data.map(d => d.slice(0, input.width).reverse())
+	}
+
+	function moveLeft() {
+		addUndoState()
+		syncDataToSize()
+		input.data = input.data.map(row => {
+			const firstCol = row.shift()
+			return [...row, firstCol]
+		})
+	}
+
+	function moveRight() {
+		addUndoState()
+		syncDataToSize()
+		input.data = input.data.map(row => {
+			const lastCol = row.pop()
+			return [lastCol, ...row]
+		})
+	}
+
+	function moveUp() {
+		addUndoState()
+		syncDataToSize()
+		const firstRow = input.data.shift()
+		input.data = [...input.data, firstRow]
+	}
+
+	function moveDown() {
+		addUndoState()
+		syncDataToSize()
+		const lastRow = input.data.pop()
+		input.data = [lastRow, ...input.data]
+	}
+
+	function syncDataToSize() {
+		if (input.height > input.data.length) {
+			// add empty rows
+			const rowsNeeded = input.height - input.data.length
+			input.data = input.data.concat(buildData(rowsNeeded, input.width))
+			console.log('adding rows')
+		} else if (input.height < input.data.length) {
+			// crop unnecessary rows
+			console.log('chopping off some rows')
+			input.data.slice(0, input.height)
+		}
+
+		// make sure all rows are the right length
+		input.data = input.data.map(row => {
+			if (input.width > row.length) {
+				const colsNeeded = input.width - row.length
+				row = row.concat(buildColumns(colsNeeded))
+				console.log('adding cols')
+			} else if (input.width < row.length) {
+				console.log('chopping off some cols')
+				row.slice(0, input.width)
+			}
+			return row
+		})
 	}
 </script>
 
-<style>
-	.color-picker button {
-		display: block;
-		width: 40px;
-		height: 25px;
-		margin-bottom: 0;
-		border: none;
-		border: 1px solid #eee;
-	}
-	.color-picker button:focus {
-		outline: none;
-		border: 1px solid #eee;
-	}
-
-	.color-picker button.active {
-		width: 50px;
-	}
-
-	svg {
-		fill: #fff;
-		padding: 5px;
-	}
-
+<style lang="scss">
+	@import '../../css/variables';
 	.flex input[type='number'] {
 		width: 50px;
 	}
 
-	.preview-bg {
-		background: rgb(135, 206, 235);
+	canvas {
+		display: block;
+		@include med-box-shadow();
+		background: repeating-linear-gradient(-45deg, transparent, #eee 10px);
+	}
+
+	.preview {
+		margin-left: 10px;
+	}
+
+	.header-controls {
+		display: flex;
+		flex-direction: row;
+	}
+
+	.width-auto {
+		width: auto;
+	}
+
+	.flex .btn-group {
+		margin-left: 5px;
+	}
+	.flex .btn-group,
+	.flex input {
+		margin-right: 5px;
+	}
+
+	.toolbar {
+		font-size: 14px;
+
+		.flex-column {
+			margin-right: 5px;
+		}
+	}
+
+	.paint-cursor {
+		cursor: url(/paint-icon.png) 0 20, auto;
+	}
+	.fill-cursor {
+		cursor: url(/fill-icon.png) 20 20, auto;
 	}
 </style>

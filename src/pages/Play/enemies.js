@@ -1,6 +1,3 @@
-import enemyStore from '../../stores/enemy-store'
-const artScale = 2
-
 // todo configurable per enemy
 const leashRange = 400 // in pixels
 

@@ -1,12 +1,18 @@
 {#if graphic != null && graphic.png != null}
-	<img src={graphic.png} alt={graphic.name} title={graphic.name} style="transform: rotate({rotation}deg)" />
+	<img
+		src={graphic.png}
+		alt={graphic.name}
+		title={graphic.name}
+		style="transform: rotate({rotation}deg); {height != null ? 'max-height: ' + height + 'px' : ''}" />
+	{graphic.png.length}
 {/if}
 
 <script>
-	import toPNG from '../to-png'
+	import toPNG from '../../../services/to-png'
 	import artStore from '../../../stores/art-store'
 
 	export let name
+	export let height = null
 
 	export let spin = false
 

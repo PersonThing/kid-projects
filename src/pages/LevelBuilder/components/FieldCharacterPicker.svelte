@@ -2,23 +2,29 @@
 	<label for="graphic">
 		<slot>Characters</slot>
 	</label>
-	<div class="options">
-		{#each Object.keys($characterStore) as name}
+	<div>
+		<InputSelect multiple {options} bind:value let:option inline filterable={options.length > 2}>
+			<Art name={$characterStore[option.value].graphicStill} />
+			{option.value}
+		</InputSelect>
+	</div>
+	<!-- <div class="options">
+		{#each options as name}
 			<div class:active={value.indexOf(name) > -1} on:click={() => toggle(name)}>
 				<Art name={$characterStore[name].graphicStill} />
 			</div>
 		{/each}
-	</div>
+	</div> -->
 </div>
 
 <script>
 	import artStore from '../../../stores/art-store'
 	import characterStore from '../../../stores/character-store'
 	import Art from './Art.svelte'
+	import InputSelect from '../../../components/InputSelect.svelte'
 	export let value = []
-	export let filter = null
 
-	$: options = Object.keys($artStore).filter(name => filter == null || filter($artStore[name]))
+	$: options = Object.keys($characterStore)
 
 	function toggle(name) {
 		value = value.indexOf(name) > -1 ? value.filter(v => v != name) : [...value, name].sort()

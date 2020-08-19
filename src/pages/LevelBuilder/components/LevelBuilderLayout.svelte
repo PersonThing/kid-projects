@@ -1,26 +1,21 @@
 <div class="flex align-top">
-	<div>
-		<div class="list-group">
-			<a class="list-group-item list-group-item-action" class:active={tab == 'art'} href={baseUrl}>Art</a>
-			{#each tabs as t}
-				<a class="list-group-item list-group-item-action" class:active={tab == t.name} href="{baseUrl}/{t.name}/new">{t.name}</a>
-				{#if t.name == tab}
-					<div class="list-group sub-nav">
-						<a href="{baseUrl}/{t.name}/new" class="list-group-item list-group-item-action" class:list-group-item-success={store[activeName] == null}>
-							+ New
+	<div class="sub-nav">
+		{#each tabs as t}
+			<a class="sub-nav-item" class:active={tab == t.name} href="{baseUrl}/{t.name}/new">{t.name}</a>
+			{#if t.name == tab}
+				<div class="sub-nav">
+					<a href="{baseUrl}/{t.name}/new" class="sub-nav-item" class:new={store[activeName] == null}>+ New</a>
+					{#each Object.keys(store).sort() as name}
+						<a class="sub-nav-item" class:active={activeName == name} href="{baseUrl}/{t.name}/{name}">
+							<Art name={tab == 'art' ? name : store[name][t.graphicKey]} height="20" />
+							<span>{name}</span>
 						</a>
-						{#each Object.keys(store) as name}
-							<a class="list-group-item list-group-item-action" class:active={activeName == name} href="{baseUrl}/{t.name}/{name}">
-								<Art name={store[name][t.graphicKey]} />
-								{name}
-							</a>
-						{/each}
-					</div>
-				{/if}
-			{/each}
-		</div>
+					{/each}
+				</div>
+			{/if}
+		{/each}
 	</div>
-	<div class="flex-grow">
+	<div class="flex-grow pl-2">
 		<slot />
 	</div>
 </div>
@@ -35,6 +30,7 @@
 	const baseUrl = '#/level-builder'
 
 	const tabs = [
+		{ name: 'art' },
 		{ name: 'blocks', graphicKey: 'graphic' },
 		{ name: 'characters', graphicKey: 'graphicStill' },
 		{ name: 'enemies', graphicKey: 'graphicStill' },
@@ -42,11 +38,44 @@
 	]
 </script>
 
-<style>
-	.sub-nav {
-		margin-left: 20px;
+<style lang="scss">
+	@import '../../../css/variables';
+
+	.sub-nav .sub-nav {
+		padding-left: 10px;
+		margin-left: 10px;
+		max-height: 60vh;
+		overflow: auto;
+		border-left: 1px solid #eee;
+
+		.sub-nav-item {
+			padding: 3px 7px;
+		}
 	}
-	.sub-nav .list-group-item {
-		padding: 6px 12px;
+
+	.sub-nav .sub-nav-item {
+		padding: 5px 7px;
+		display: flex;
+		flex-direction: row;
+
+		font-size: 15px;
+		color: #666;
+
+		span {
+			padding-left: 5px;
+		}
+
+		&:hover {
+			background: #efefef;
+			color: $primary;
+			text-decoration: none;
+		}
+		&.active {
+			color: $success;
+		}
+	}
+
+	.sub-nav-item.new {
+		color: $success;
 	}
 </style>

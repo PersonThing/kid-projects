@@ -1,7 +1,7 @@
 <LevelBuilderLayout tab="blocks" activeName={input.name} store={$blocks}>
 	<Form on:submit={save}>
-		<FieldText name="name" bind:value={input.name}>Name</FieldText>
-		<FieldGraphicPicker bind:value={input.graphic} filter={b => b.width == 20 && b.height == 20}>Graphic (must be 20x20)</FieldGraphicPicker>
+		<FieldText name="name" bind:value={input.name} autofocus>Name</FieldText>
+		<FieldArtPicker bind:value={input.graphic} filter={b => b.width == 20 && b.height == 20}>Graphic (must be 20x20)</FieldArtPicker>
 		<FieldCheckbox name="solid" bind:checked={input.solid}>Solid?</FieldCheckbox>
 		<FieldCheckbox name="throwOnTouch" bind:checked={input.throwOnTouch}>Throw things that touch it?</FieldCheckbox>
 		<FieldNumber name="dps" bind:value={input.dps}>
@@ -18,12 +18,13 @@
 <script>
 	import { push } from 'svelte-spa-router'
 	import LevelBuilderLayout from './components/LevelBuilderLayout.svelte'
-	import FieldGraphicPicker from './components/FieldGraphicPicker.svelte'
+	import FieldArtPicker from './components/FieldArtPicker.svelte'
 	import FieldText from './components/FieldText.svelte'
 	import FieldCheckbox from './components/FieldCheckbox.svelte'
 	import FieldNumber from './components/FieldNumber.svelte'
 	import Form from './components/Form.svelte'
 	import blocks from '../../stores/block-store'
+	import validator from '../../services/validator'
 
 	export let params = {}
 	let input
@@ -32,6 +33,10 @@
 	$: isAdding = paramName == 'new'
 
 	function save() {
+		if (validator.empty(input.name)) {
+			document.getElementById('name').focus()
+			return
+		}
 		$blocks[input.name] = JSON.parse(JSON.stringify(input))
 		push(`/level-builder/blocks/${encodeURIComponent(input.name)}`)
 	}

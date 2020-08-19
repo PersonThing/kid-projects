@@ -11,11 +11,11 @@
 
 <LevelBuilderLayout tab="enemies" activeName={input.name} store={$enemies}>
 	<Form on:submit={save}>
-		<FieldText name="name" bind:value={input.name}>Name</FieldText>
-		<FieldGraphicPicker bind:value={input.graphicStill} filter={b => b.width != 20 || b.height != 20}>Standing still graphic</FieldGraphicPicker>
-		<!-- <FieldGraphicPicker bind:value={input.graphicMoving1}>Moving graphic 1</FieldGraphicPicker>
-			<FieldGraphicPicker bind:value={input.graphicMoving2}>Moving graphic 2</FieldGraphicPicker>
-			<FieldGraphicPicker bind:value={input.graphicMoving3}>Moving graphic 3</FieldGraphicPicker> -->
+		<FieldText name="name" bind:value={input.name} autofocus>Name</FieldText>
+		<FieldArtPicker bind:value={input.graphicStill} filter={b => b.width != 20 || b.height != 20}>Standing still graphic</FieldArtPicker>
+		<!-- <FieldArtPicker bind:value={input.graphicMoving1}>Moving graphic 1</FieldArtPicker>
+			<FieldArtPicker bind:value={input.graphicMoving2}>Moving graphic 2</FieldArtPicker>
+			<FieldArtPicker bind:value={input.graphicMoving3}>Moving graphic 3</FieldArtPicker> -->
 		<FieldNumber name="maxVelocity" min={0} bind:value={input.maxVelocity}>Max velocity</FieldNumber>
 		<FieldNumber name="jumpVelocity" min={0} bind:value={input.jumpVelocity}>Jump velocity</FieldNumber>
 		<FieldNumber name="gravityMultiplier" min={0} max={2} step={0.1} bind:value={input.gravityMultiplier}>Gravity multiplier</FieldNumber>
@@ -35,11 +35,12 @@
 	import { push } from 'svelte-spa-router'
 	import enemies from '../../stores/enemy-store'
 	import FieldCheckbox from './components/FieldCheckbox.svelte'
-	import FieldGraphicPicker from './components/FieldGraphicPicker.svelte'
+	import FieldArtPicker from './components/FieldArtPicker.svelte'
 	import FieldNumber from './components/FieldNumber.svelte'
 	import FieldText from './components/FieldText.svelte'
 	import Form from './components/Form.svelte'
 	import LevelBuilderLayout from './components/LevelBuilderLayout.svelte'
+	import validator from '../../services/validator'
 
 	export let params = {}
 	let input
@@ -48,6 +49,10 @@
 	$: isAdding = paramName == 'new'
 
 	function save() {
+		if (validator.empty(input.name)) {
+			document.getElementById('name').focus()
+			return
+		}
 		$enemies[input.name] = JSON.parse(JSON.stringify(input))
 		push(`/level-builder/enemies/${encodeURIComponent(input.name)}`)
 	}

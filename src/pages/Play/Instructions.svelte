@@ -31,6 +31,10 @@
 			key: 'Enter',
 			action: 'Restart',
 		},
+		{
+			key: 'P',
+			action: 'Pause',
+		},
 	]
 </script>
 

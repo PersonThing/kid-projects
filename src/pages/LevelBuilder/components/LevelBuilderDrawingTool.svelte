@@ -2,24 +2,33 @@
 	<LevelPreview level={{ background, thumbnail }} on:pan={onPreviewPan} />
 	<div class="tool-picker">
 		<div>
-			Blocks
-			<div class="btn-group">
-				{#each Object.keys($blockStore) as name}
-					<button type="button" class="btn btn-{name == selectedBlock ? 'primary' : 'light'}" on:click={() => selectBlock(name)}>
-						<Art name={$blockStore[name].graphic} />
-					</button>
-				{/each}
-			</div>
+			<InputSelect
+				name="selected-block"
+				inline
+				placeholder="Select a block to place"
+				options={Object.keys($blockStore).map(name => $blockStore[name])}
+				let:option
+				valueProp="name"
+				bind:value={selectedBlock}
+				on:change={() => (selectedEnemy = null)}>
+				<Art name={$blockStore[option.name].graphic} height="40" />
+				{option.name}: {option.dps} dps, {option.solid ? 'solid' : 'background'}
+			</InputSelect>
 		</div>
 		<div>
-			Enemies
-			<div class="btn-group">
-				{#each Object.keys($enemyStore) as name}
-					<button type="button" class="btn btn-{name == selectedEnemy ? 'primary' : 'default'}" on:click={() => selectEnemy(name)}>
-						<Art name={$enemyStore[name].graphicStill} />
-					</button>
-				{/each}
-			</div>
+			<InputSelect
+				name="selected-block"
+				inline
+				placeholder="Select an enemy to place"
+				options={Object.keys($enemyStore).map(name => $enemyStore[name])}
+				let:option
+				valueProp="name"
+				bind:value={selectedEnemy}
+				on:change={() => (selectedBlock = null)}>
+				<Art name={$enemyStore[option.name].graphicStill} height="40" />
+				<strong>{option.name}</strong>
+				{option.dps} dps, {option.maxVelocity} max velocity, worth {option.score} score
+			</InputSelect>
 		</div>
 	</div>
 
@@ -42,8 +51,9 @@
 	import LivingSprite from '../../Play/LivingSprite.svelte'
 	import enemyStore from '../../../stores/enemy-store'
 	import Level from '../../Play/Level.svelte'
-	import makeThumbnail from '../make-thumbnail'
+	import makeThumbnail from '../../../services/make-thumbnail'
 	import LevelPreview from '../../Play/LevelPreview.svelte'
+	import InputSelect from '../../../components/InputSelect.svelte'
 
 	export let background = null
 
@@ -132,7 +142,6 @@
 	}
 
 	function getEventItemPosition(e) {
-		const container = e.target.closest('.level-container')
 		return {
 			x: Math.floor(e.offsetX / blockSize) * blockSize,
 			y: Math.floor((height - e.offsetY) / blockSize) * blockSize,

@@ -2,9 +2,10 @@
 	<HealthBar {health} {maxHealth} />
 	{#if graphic != null}
 		<img
-			class="graphic"
+			class="graphic drop-shadow"
 			src={graphic.png}
 			alt={name}
+			class:dead={health <= 0}
 			style="width: {graphic.width * artScale}px; height: {graphic.height * artScale}px; transform: scaleX({direction}) rotate({rotate}deg);" />
 	{/if}
 </div>
@@ -50,5 +51,12 @@
 <style>
 	.player {
 		position: absolute;
+	}
+	.dead {
+		filter: none;
+		-webkit-filter: grayscale(0%);
+		-moz-filter: grayscale(0%);
+		-ms-filter: grayscale(0%);
+		-o-filter: grayscale(0%);
 	}
 </style>

@@ -1,7 +1,7 @@
 {#if input != null}
 	<LevelBuilderLayout tab="levels" activeName={input.name} store={$levels}>
 		<Form on:submit={save}>
-			<FieldText name="name" bind:value={input.name}>Name</FieldText>
+			<FieldText name="name" bind:value={input.name} autofocus>Name</FieldText>
 			<FieldCharacterPicker name="playableCharacters" bind:value={input.playableCharacters}>
 				Which characters can play this level?
 			</FieldCharacterPicker>
@@ -22,19 +22,20 @@
 
 <script>
 	import { push } from 'svelte-spa-router'
+	import { tick } from 'svelte'
 	import characters from '../../stores/character-store'
 	import FieldCharacterPicker from './components/FieldCharacterPicker.svelte'
 	import FieldCheckbox from './components/FieldCheckbox.svelte'
-	import FieldGraphicPicker from './components/FieldGraphicPicker.svelte'
+	import FieldArtPicker from './components/FieldArtPicker.svelte'
 	import FieldMultiSelect from './components/FieldMultiSelect.svelte'
 	import FieldNumber from './components/FieldNumber.svelte'
 	import FieldText from './components/FieldText.svelte'
 	import Form from './components/Form.svelte'
 	import LevelBuilderDrawingTool from './components/LevelBuilderDrawingTool.svelte'
 	import LevelBuilderLayout from './components/LevelBuilderLayout.svelte'
-	import levels from '../../stores/level-store'
-	import { tick } from 'svelte'
 	import LevelPreview from '../Play/LevelPreview.svelte'
+	import levels from '../../stores/level-store'
+	import validator from '../../services/validator'
 
 	export let params = {}
 	let input
@@ -43,6 +44,10 @@
 	$: isAdding = paramName == 'new'
 
 	function save() {
+		if (validator.empty(input.name)) {
+			document.getElementById('name').focus()
+			return
+		}
 		$levels[input.name] = JSON.parse(JSON.stringify(input))
 		push(`/level-builder/levels/${encodeURIComponent(input.name)}`)
 	}

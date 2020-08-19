@@ -51,6 +51,7 @@
 	let player
 	let enemies
 	let gameOver = false
+	let paused = false
 
 	let gameAlive = true
 	let lastRequestedFrame = null
@@ -140,6 +141,7 @@
 			return CreateEnemy(template, e, w, h)
 		})
 		gameOver = false
+		paused = false
 
 		// only start game loop if it's not already going
 		if (lastRequestedFrame == null) gameLoop()
@@ -162,7 +164,7 @@
 					? // viewport all the way to the left
 					  0
 					: // player is at end of level
-					player.x > endOfLevel - halfViewportWidth
+					player.x > endOfLevel - halfViewportWidth && endOfLevel > viewport.width
 					? // viewport all the way to the right
 					  endOfLevel - viewport.width
 					: // player is in middle of level, viewport centered on player
@@ -242,9 +244,10 @@
 					const sxw = sprite.x + sprite.width
 					return b.solid && txw > b.x && sxw <= b.x && doObjectsIntersectYExclusive(b, sprite)
 				})
+
 				if (blockToRight != null) targetX = blockToRight.x - sprite.width
 				// don't let them go past end of level
-				else if (targetX > endOfLevel) targetX = endOfLevel
+				else if (targetX > endOfLevel - sprite.width) targetX = endOfLevel - sprite.width
 				sprite.x = targetX
 			} else if (sprite.vx < 0) {
 				// moving left
@@ -312,6 +315,7 @@
 				break
 			case 'Space':
 				if (gameOver) start()
+				if (paused) paused = false
 				break
 			case 'KeyR':
 				player.spinning = false
@@ -319,6 +323,9 @@
 			case 'Enter':
 			case 'NumpadEnter':
 				start()
+				break
+			case 'KeyP':
+				paused = true
 				break
 			default:
 				console.log(e.code)

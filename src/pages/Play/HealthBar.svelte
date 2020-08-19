@@ -20,7 +20,9 @@
 	.health-bar {
 		height: 18px;
 		background: rgba(0, 0, 0, 0.5);
-		position: relative;
+		position: absolute;
+		top: -20px;
+		margin: 0 auto;
 		border-radius: 5px;
 		overflow: hidden;
 		min-width: 75px;

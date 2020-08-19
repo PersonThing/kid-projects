@@ -14,13 +14,13 @@
 
 <LevelBuilderLayout tab="characters" activeName={input.name} store={$characters}>
 	<Form on:submit={save}>
-		<FieldText name="name" bind:value={input.name}>Name</FieldText>
-		<FieldGraphicPicker bind:value={input.graphicStill} filter={notBlockFilter}>Standing still graphic</FieldGraphicPicker>
-		<FieldGraphicPicker bind:value={input.graphicSpinning} filter={notBlockFilter} spin>Spinning graphic</FieldGraphicPicker>
+		<FieldText name="name" bind:value={input.name} autofocus>Name</FieldText>
+		<FieldArtPicker bind:value={input.graphicStill} filter={notBlockFilter}>Standing still graphic</FieldArtPicker>
+		<FieldArtPicker bind:value={input.graphicSpinning} filter={notBlockFilter} spin>Spinning graphic</FieldArtPicker>
 		<!--
 			todo, let them select up to 3 moving graphics to cycle through
 			sprite will sit on each graphic for X # of frames?
-			<FieldGraphicPicker bind:value={input.graphicMoving1} filter={notBlockFilter}>Moving graphics</FieldGraphicPicker>
+			<FieldArtPicker bind:value={input.graphicMoving1} filter={notBlockFilter}>Moving graphics</FieldArtPicker>
 		-->
 		<FieldNumber name="maxVelocity" min={0} bind:value={input.maxVelocity}>Max velocity</FieldNumber>
 		<FieldNumber name="jumpVelocity" min={0} bind:value={input.jumpVelocity}>Jump velocity</FieldNumber>
@@ -41,11 +41,12 @@
 	import { push } from 'svelte-spa-router'
 	import characters from '../../stores/character-store'
 	import FieldCheckbox from './components/FieldCheckbox.svelte'
-	import FieldGraphicPicker from './components/FieldGraphicPicker.svelte'
+	import FieldArtPicker from './components/FieldArtPicker.svelte'
 	import FieldNumber from './components/FieldNumber.svelte'
 	import FieldText from './components/FieldText.svelte'
 	import Form from './components/Form.svelte'
 	import LevelBuilderLayout from './components/LevelBuilderLayout.svelte'
+	import validator from '../../services/validator'
 
 	const notBlockFilter = b => b.width != 20 || b.height != 20
 
@@ -56,6 +57,10 @@
 	$: isAdding = paramName == 'new'
 
 	function save() {
+		if (validator.empty(input.name)) {
+			document.getElementById('name').focus()
+			return
+		}
 		$characters[input.name] = JSON.parse(JSON.stringify(input))
 		push(`/level-builder/characters/${encodeURIComponent(input.name)}`)
 	}

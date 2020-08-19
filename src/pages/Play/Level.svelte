@@ -51,9 +51,15 @@
 		} else {
 			const oldOnload = drawing.onload
 			drawing.onload = () => {
+				if (typeof oldOnload === 'function') oldOnload()
 				drawThisImage()
-				oldOnload()
 			}
 		}
 	}
 </script>
+
+<style>
+	canvas {
+		display: block;
+	}
+</style>

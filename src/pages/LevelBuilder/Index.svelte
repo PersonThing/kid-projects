@@ -13,7 +13,7 @@
 
 	const prefix = '/level-builder'
 	const routes = {
-		'/': ArtMaker,
+		'/art/:name?': ArtMaker,
 		'/blocks/:name?': BlockBuilder,
 		'/characters/:name?': CharacterBuilder,
 		'/enemies/:name?': EnemyBuilder,

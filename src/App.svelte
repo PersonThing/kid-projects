@@ -1,6 +1,6 @@
 <ul class="nav">
 	<li class="nav-item">
-		<a class="nav-link" href="#/level-builder">Level Builder</a>
+		<a class="nav-link" href="#/level-builder/art/new">Level Builder</a>
 	</li>
 	{#if canPlay}
 		<li class="nav-item">
@@ -27,27 +27,15 @@
 	const routes = {
 		'/level-builder/:tab?/:name?': LevelBuilder,
 		'/play': Play,
-		'*': NotFound,
+		'*': LevelBuilder,
 	}
 </script>
 
 <style>
-	main {
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
-
 	h1 {
 		color: #ff3e00;
 		text-transform: uppercase;
 		font-size: 4em;
 		font-weight: 100;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
 	}
 </style>
