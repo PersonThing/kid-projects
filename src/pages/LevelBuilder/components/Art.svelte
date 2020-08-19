@@ -4,7 +4,6 @@
 		alt={graphic.name}
 		title={graphic.name}
 		style="transform: rotate({rotation}deg); {height != null ? 'max-height: ' + height + 'px' : ''}" />
-	{graphic.png.length}
 {/if}
 
 <script>

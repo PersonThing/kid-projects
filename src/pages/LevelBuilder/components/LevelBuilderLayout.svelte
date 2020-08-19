@@ -8,7 +8,12 @@
 					{#each Object.keys(store).sort() as name}
 						<a class="sub-nav-item" class:active={activeName == name} href="{baseUrl}/{t.name}/{name}">
 							<Art name={tab == 'art' ? name : store[name][t.graphicKey]} height="20" />
-							<span>{name}</span>
+							<div class="flex-column">
+								<span>{name}</span>
+								{#if tab == 'levels'}
+									<img src={store[name].thumbnail} class="level-thumbnail" />
+								{/if}
+							</div>
 						</a>
 					{/each}
 				</div>
@@ -42,8 +47,8 @@
 	@import '../../../css/variables';
 
 	.sub-nav .sub-nav {
-		padding-left: 10px;
-		margin-left: 10px;
+		padding-left: 5px;
+		margin-left: 15px;
 		max-height: 60vh;
 		overflow: auto;
 		border-left: 1px solid #eee;
@@ -61,17 +66,22 @@
 		font-size: 15px;
 		color: #666;
 
-		span {
-			padding-left: 5px;
+		:global(img) {
+			margin-right: 5px;
+		}
+
+		img.level-thumbnail {
+			width: 100px;
 		}
 
 		&:hover {
-			background: #efefef;
-			color: $primary;
+			color: $success;
 			text-decoration: none;
+			font-weight: bold;
 		}
 		&.active {
-			color: $success;
+			color: $primary;
+			font-weight: bold;
 		}
 	}
 

@@ -103,16 +103,19 @@
 	}
 
 	.color-picker-choices {
-		width: 388px;
+		width: 347px;
 		overflow: auto;
 		padding: 5px;
 
 		.color-choice {
 			height: 30px;
-			padding: 1px 15px;
+			padding: 2px 15px;
 			z-index: 9;
+			color: #fff;
+			text-shadow: 2px 2px rgba(255, 255, 255, 0.3);
 
-			&:hover {
+			&:hover,
+			&.selected {
 				@include big-box-shadow();
 				z-index: 10;
 				transform: scale(1.25);

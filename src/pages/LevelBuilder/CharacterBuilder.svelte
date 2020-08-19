@@ -13,7 +13,7 @@
 </ul> -->
 
 <LevelBuilderLayout tab="characters" activeName={input.name} store={$characters}>
-	<Form on:submit={save}>
+	<Form on:submit={save} {hasChanges}>
 		<FieldText name="name" bind:value={input.name} autofocus>Name</FieldText>
 		<FieldArtPicker bind:value={input.graphicStill} filter={notBlockFilter}>Standing still graphic</FieldArtPicker>
 		<FieldArtPicker bind:value={input.graphicSpinning} filter={notBlockFilter} spin>Spinning graphic</FieldArtPicker>
@@ -55,6 +55,7 @@
 	$: paramName = decodeURIComponent(params.name) || 'new'
 	$: paramName == 'new' ? create() : edit(paramName)
 	$: isAdding = paramName == 'new'
+	$: hasChanges = input != null && !validator.equals(input, $characters[input.name])
 
 	function save() {
 		if (validator.empty(input.name)) {

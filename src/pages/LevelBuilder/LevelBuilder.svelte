@@ -1,6 +1,6 @@
 {#if input != null}
 	<LevelBuilderLayout tab="levels" activeName={input.name} store={$levels}>
-		<Form on:submit={save}>
+		<Form on:submit={save} {hasChanges}>
 			<FieldText name="name" bind:value={input.name} autofocus>Name</FieldText>
 			<FieldCharacterPicker name="playableCharacters" bind:value={input.playableCharacters}>
 				Which characters can play this level?
@@ -42,6 +42,7 @@
 	$: paramName = decodeURIComponent(params.name) || 'new'
 	$: paramName == 'new' ? create() : edit(paramName)
 	$: isAdding = paramName == 'new'
+	$: hasChanges = input != null && !validator.equals(input, $levels[input.name])
 
 	function save() {
 		if (validator.empty(input.name)) {

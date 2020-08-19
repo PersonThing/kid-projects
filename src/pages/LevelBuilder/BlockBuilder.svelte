@@ -1,5 +1,5 @@
 <LevelBuilderLayout tab="blocks" activeName={input.name} store={$blocks}>
-	<Form on:submit={save}>
+	<Form on:submit={save} {hasChanges}>
 		<FieldText name="name" bind:value={input.name} autofocus>Name</FieldText>
 		<FieldArtPicker bind:value={input.graphic} filter={b => b.width == 20 && b.height == 20}>Graphic (must be 20x20)</FieldArtPicker>
 		<FieldCheckbox name="solid" bind:checked={input.solid}>Solid?</FieldCheckbox>
@@ -31,6 +31,7 @@
 	$: paramName = decodeURIComponent(params.name) || 'new'
 	$: paramName == 'new' ? create() : edit(paramName)
 	$: isAdding = paramName == 'new'
+	$: hasChanges = input != null && !validator.equals(input, $blocks[input.name])
 
 	function save() {
 		if (validator.empty(input.name)) {

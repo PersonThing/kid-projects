@@ -1,6 +1,6 @@
 <svelte:window on:keyup={onKeyUp} />
 
-<LevelBuilderLayout tab="art" store={$artStore}>
+<LevelBuilderLayout tab="art" activeName={input.name} store={$artStore}>
 	<Form on:submit={save} {hasChanges}>
 		<span slot="buttons" class="flex">
 			<input type="text" class="form-control width-auto" id="name" name="name" bind:value={input.name} bind:this={nameField} />
@@ -36,12 +36,10 @@
 
 			<div class="btn-group">
 				<button type="button" class="btn btn-light btn-sm" on:click={flipX} title="Flip horizontal">
-					<Icon data={arrowRightIcon} />
-					<Icon data={arrowLeftIcon} />
+					<Icon data={flipIcon} />
 				</button>
 				<button type="button" class="btn btn-light btn-sm" on:click={flipY} title="Flip vertical">
-					<Icon data={arrowUpIcon} />
-					<Icon data={arrowDownIcon} />
+					<Icon data={flipIcon} style="transform: rotate(90deg);" />
 				</button>
 			</div>
 
@@ -126,7 +124,7 @@
 		undo as undoIcon,
 		paintBrush as paintBrushIcon,
 	} from 'svelte-awesome/icons'
-	import { faFillDrip as fillIcon, faPaintBrush as paintIcon } from '@fortawesome/free-solid-svg-icons'
+	import { faFillDrip as fillIcon, faPaintBrush as paintIcon, faExchangeAlt as flipIcon } from '@fortawesome/free-solid-svg-icons'
 	import { null_to_empty } from 'svelte/internal'
 
 	const artStore = LocalStorageStore('pixel-drawings', {})
@@ -153,7 +151,7 @@
 	$: previewPNG = toPNG(input.data, input.width, input.height)
 	$: drawResult = draw(input.data, input.width, input.height)
 	$: if (input.width != 0 && input.height != 0 && showGrid) redraw()
-	$: hasChanges = !validator.equals(input, $artStore[input.name])
+	$: hasChanges = input != null && !validator.equals(input, $artStore[input.name])
 
 	function create() {
 		input = {
