@@ -34,7 +34,7 @@
 
 	<div
 		class="level-container"
-		style="background: {background}; height: {height + 25}px;"
+		style="background: {background}; height: {height + 18}px;"
 		bind:this={levelContainer}
 		on:mousedown={onMouseDown}
 		on:mouseup={onMouseUp}

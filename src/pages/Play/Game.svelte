@@ -148,7 +148,7 @@
 	}
 
 	function gameLoop() {
-		if (!gameOver) {
+		if (!gameOver && !paused) {
 			// visibleBlocks = blocks.filter(b => doObjectsIntersect(viewport, b))
 			player = applyWorldToSprite(player, true)
 
@@ -325,7 +325,7 @@
 				start()
 				break
 			case 'KeyP':
-				paused = true
+				paused = !paused
 				break
 			default:
 				console.log(e.code)

@@ -11,13 +11,17 @@
 		</span>
 
 		<div class="toolbar flex align-center">
+			<ColorPicker bind:value={selectedColor} />
+
 			<div class="btn-group">
-				<ColorPicker bind:value={selectedColor} />
-				<button type="button" class="btn btn-sm btn-{mode == 'paint' ? 'primary' : 'light'}" on:click={() => (mode = 'paint')}>
+				<button type="button" class="btn btn-sm btn-{mode == 'paint' ? 'primary' : 'light'}" on:click={() => (mode = 'paint')} title="Paint brush">
 					<Icon data={paintIcon} />
 				</button>
-				<button type="button" class="btn btn-sm btn-{mode == 'fill' ? 'primary' : 'light'}" on:click={() => (mode = 'fill')}>
+				<button type="button" class="btn btn-sm btn-{mode == 'fill' ? 'primary' : 'light'}" on:click={() => (mode = 'fill')} title="Paint bucket">
 					<Icon data={fillIcon} />
+				</button>
+				<button type="button" class="btn btn-sm btn-{mode == 'erase' ? 'primary' : 'light'}" on:click={() => (mode = 'erase')} title="Eraser">
+					<Icon data={eraseIcon} />
 				</button>
 			</div>
 
@@ -76,6 +80,7 @@
 			<canvas
 				class:paint-cursor={mode == 'paint'}
 				class:fill-cursor={mode == 'fill'}
+				class:erase-cursor={mode == 'erase'}
 				bind:this={drawCanvas}
 				width={input.width * gridSize}
 				height={input.height * gridSize}
@@ -123,6 +128,7 @@
 		arrowDown as arrowDownIcon,
 		undo as undoIcon,
 		paintBrush as paintBrushIcon,
+		eraser as eraseIcon,
 	} from 'svelte-awesome/icons'
 	import { faFillDrip as fillIcon, faPaintBrush as paintIcon, faExchangeAlt as flipIcon } from '@fortawesome/free-solid-svg-icons'
 	import { null_to_empty } from 'svelte/internal'
@@ -227,7 +233,11 @@
 	function onDrawMouseDown(e) {
 		const color = getColorAtEvent(e)
 		if (e.altKey || e.button !== 0) {
-			selectedColor = color
+			if (color == 'transparent') mode = 'erase'
+			else {
+				mode = 'paint'
+				selectedColor = color
+			}
 		} else {
 			addUndoState()
 			mouseDown = true
@@ -242,7 +252,10 @@
 	function onDrawMouseMove(e) {
 		if (!mouseDown) return
 		const { x, y } = getEventCellIndexes(e)
-		if (y != null && x != null) setColor(y, x, selectedColor)
+		if (y != null && x != null) {
+			if (mode == 'erase') setColor(y, x, 'transparent')
+			else setColor(y, x, selectedColor)
+		}
 	}
 
 	function getEventCellIndexes(e) {
@@ -434,5 +447,8 @@
 	}
 	.fill-cursor {
 		cursor: url(/fill-icon.png) 20 20, url(/kid-projects/public/fill-icon.png) 20 20, auto;
+	}
+	.erase-cursor {
+		cursor: url(/erase-icon.png) 0 20, url(/kid-projects/public/erase-icon.png) 0 20, auto;
 	}
 </style>

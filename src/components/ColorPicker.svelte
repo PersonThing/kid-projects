@@ -83,6 +83,7 @@
 	@import '../css/variables';
 
 	:global(.color-picker-toggle .color-choice) {
+		border-radius: 3px;
 		@include med-box-shadow();
 	}
 
@@ -91,7 +92,7 @@
 		vertical-align: top;
 		min-width: 48px;
 		position: relative;
-		height: 100%;
+		height: 31px;
 		color: #fff;
 		text-align: center;
 		padding: 12px 15px;

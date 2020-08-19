@@ -24,8 +24,8 @@ export default LocalStorageStore('characters', {
 		graphicSpinning: 'sonic spinning',
 	},
 	'mr littles': {
-		graphicStill: 'original enemy black',
-		graphicSpinning: 'original enemy green',
+		graphicStill: 'alien',
+		graphicSpinning: 'alien',
 		name: 'mr littles',
 		maxVelocity: 8,
 		jumpVelocity: 15,
