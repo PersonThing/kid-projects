@@ -27,5 +27,8 @@ export default LocalStorageStore('characters', {
 		dpsToPlayers: 120,
 		maxHealth: 200,
 		graphicSpinning: 'sonic spinning',
+		graphicMoving1: 'sonic move 1',
+		graphicMoving2: 'sonic move 2',
+		graphicMoving3: 'sonic move 3',
 	},
 })

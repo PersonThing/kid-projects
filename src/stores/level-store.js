@@ -2,7 +2,7 @@ import LocalStorageStore from './local-storage-store'
 export default LocalStorageStore('levels', {
 	'level 1': {
 		name: 'level 1',
-		playableCharacters: ['mr squiggles', 'sonic', 'mr littles'],
+		playableCharacters: ['mr squiggles', 'sonic'],
 		background: 'rgb(135, 206, 235)',
 		blocks: [
 			{ name: 'grass', x: 0, y: 40, width: 40, height: 40 },

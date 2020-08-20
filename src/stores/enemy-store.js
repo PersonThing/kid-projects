@@ -3,13 +3,13 @@ export default LocalStorageStore('enemies', {
 	'mr smiley': {
 		graphicStill: 'mr smiley',
 		name: 'mr smiley',
-		maxVelocity: 2,
+		maxVelocity: 3,
 		jumpVelocity: 12,
 		gravityMultiplier: 1,
 		fallDamageMultiplier: 1,
 		dps: 120,
 		dpsToPlayers: 50,
-		maxHealth: 5000,
+		maxHealth: 1000,
 		score: 10,
 	},
 	alien: {
