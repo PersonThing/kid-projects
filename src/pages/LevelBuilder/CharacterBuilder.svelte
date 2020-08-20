@@ -35,10 +35,9 @@
 					{#if previewMotionGraphic}
 						<div>
 							<div class="motion-preview" style="height: {$artStore[input.graphicStill].height * 2}px;">
-								<LivingSprite x={posX} vx={posDir} frame={previewFrame} {...input} hideHealth />
+								<LivingSprite x={0} vx={posDir} frame={previewFrame} {...input} hideHealth />
+								<LivingSprite x={posX + $artStore[input.graphicStill].width * 2} vx={posDir} frame={previewFrame} {...input} hideHealth />
 							</div>
-							<input type="checkbox" bind:checked={previewMoving} id="moving" />
-							<label for="moving">Preview moving</label>
 						</div>
 					{/if}
 				</div>
@@ -68,12 +67,15 @@
 			</div>
 		{/if}
 
-		<FieldCheckbox name="canFireProjectiles" bind:checked={input.canFireProjectiles}>Can fire projectiles?</FieldCheckbox>
+		<FieldCheckbox name="canFireProjectiles" bind:checked={input.canFireProjectiles}>
+			Can fire projectiles? (Note: game doesn't actually support this yet, but you can set it up for now)
+		</FieldCheckbox>
 		{#if input.canFireProjectiles}
 			<div class="card bg-light">
 				<div class="card-body">
 					<FieldNumber name="projectileVelocity" bind:value={input.projectileVelocity} min={0} max={300}>Projectile velocity</FieldNumber>
 					<FieldNumber name="projectileYStart" bind:value={input.projectileYStart} min={0} max={300}>Projectile start height</FieldNumber>
+					<FieldNumber min={0} max={2} step={0.1} bind:value={input.projectileGravityMultiplier}>Projectile gravity multiplier</FieldNumber>
 					<FieldArtPicker bind:value={input.graphicProjectile} filter={notBlockFilter}>Projectile graphic</FieldArtPicker>
 				</div>
 				{#if input.graphicProjectile != null}
@@ -81,7 +83,7 @@
 						<img src={$artStore[input.graphicStill].png} />
 						<img
 							src={$artStore[input.graphicProjectile].png}
-							style="position: absolute; bottom: {input.projectileYStart}px; left: {$artStore[input.graphicStill].width * 2 + 10 + projectilePosX}px" />
+							style="position: absolute; bottom: {projectileY}px; left: {$artStore[input.graphicStill].width * 2 + 10 + projectileX}px" />
 					</div>
 				{/if}
 			</div>
@@ -126,9 +128,10 @@
 	let motionDelta = 1
 	let posX = 0
 	let posDir = 1
-	let projectilePosX = 0
+	let projectileX = 0
 	let projectilePosDir = 1
-	let previewMoving = true
+	let projectileY = 0
+	let projectileVY = 0
 	$: previewMotionGraphics = input.motionGraphics.length > 0 ? input.motionGraphics.filter(g => g != null) : [input.graphicStill]
 	$: previewMotionGraphic = previewMotionGraphics[motionState] != null ? $artStore[previewMotionGraphics[motionState]].png : null
 
@@ -139,17 +142,19 @@
 		previewFrame++
 
 		// move the character
-		if (previewMoving) {
-			posX += (input.maxVelocity || 0) * posDir
-			if (posX > 300 || posX < 0) posDir = posDir * -1
-		} else {
-			posX = 0
-			posDir = 1
-		}
+		posX += (input.maxVelocity || 0) * posDir
+		if (posX > 300 || posX < 0) posDir = posDir * -1
 
 		// move the projectile if there is one
-		projectilePosX += (input.projectileVelocity || 0) * projectilePosDir
-		if (projectilePosX > 300) projectilePosX = 0
+		projectileX += (input.projectileVelocity || 0) * projectilePosDir
+		projectileY += projectileVY
+		projectileVY -= 1 * input.projectileGravityMultiplier
+		if (projectileX > 300) {
+			projectileX = 0
+			projectileY = input.projectileYStart
+			projectileVY = 0
+		}
+		// console.log(projectileY, projectileVY)
 
 		lastRequestedFrame = window.requestAnimationFrame(animationLoop)
 	}
@@ -207,6 +212,7 @@
 			canFireProjectiles: false,
 			projectileYStart: 20,
 			projectileVelocity: 20,
+			projectileGravityMultiplier: 0.1,
 		}
 	}
 
@@ -223,6 +229,7 @@
 	.motion-preview {
 		position: relative;
 		background: #eee;
+		overflow: hidden;
 
 		img {
 			position: relative;
