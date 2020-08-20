@@ -26,11 +26,14 @@
 	import QuickDropdown from './QuickDropdown.svelte'
 	import Icon from 'svelte-awesome'
 	import { check as checkIcon } from 'svelte-awesome/icons'
+	import { createEventDispatcher } from 'svelte'
+	const dispatch = createEventDispatcher()
 
 	export let value = 'transparent'
 
 	function select(color) {
 		value = color
+		dispatch('change', color)
 	}
 
 	function getBackground(color) {

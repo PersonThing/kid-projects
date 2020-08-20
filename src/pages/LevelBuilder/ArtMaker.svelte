@@ -11,7 +11,7 @@
 		</span>
 
 		<div class="toolbar flex align-center">
-			<ColorPicker bind:value={selectedColor} />
+			<ColorPicker bind:value={selectedColor} on:change={() => (mode = mode == 'erase' ? 'paint' : mode)} />
 
 			<div class="btn-group">
 				<button type="button" class="btn btn-sm btn-{mode == 'paint' ? 'primary' : 'light'}" on:click={() => (mode = 'paint')} title="Paint brush">
@@ -25,7 +25,20 @@
 				</button>
 			</div>
 
-			<button type="button" class="btn btn-light btn-sm" on:click={reset}>Start over</button>
+			<button type="button" class="btn btn-light btn-sm mr1" on:click={reset}>Start over</button>
+
+			{#if $autoSaveStore[input.name] != null}
+				<InputSelect
+					options={$autoSaveStore[input.name]}
+					on:change={e => (input = JSON.parse(JSON.stringify(e.detail)))}
+					let:option
+					placeholder="Auto-saves"
+					inline
+					sm>
+					{option.name}
+					<img src={toPNG(option.data, option.width, option.height)} height="40" />
+				</InputSelect>
+			{/if}
 
 			<div class="btn-group">
 				<button type="button" disabled={undos.length == 0} class="btn btn-default btn-sm" on:click={undo}>
@@ -121,6 +134,7 @@
 	import validator from '../../services/validator'
 	import Icon from 'svelte-awesome'
 	import artStore from '../../stores/art-store'
+	import autoSaveStore from '../../stores/auto-save-store'
 	import {
 		arrowLeft as arrowLeftIcon,
 		arrowRight as arrowRightIcon,
@@ -131,7 +145,7 @@
 		eraser as eraseIcon,
 	} from 'svelte-awesome/icons'
 	import { faFillDrip as fillIcon, faPaintBrush as paintIcon, faExchangeAlt as flipIcon } from '@fortawesome/free-solid-svg-icons'
-	import { null_to_empty } from 'svelte/internal'
+	import InputSelect from '../../components/InputSelect.svelte'
 
 	export let params = {}
 	let input
@@ -276,6 +290,11 @@
 
 		// if we're adding a new undo state, empty redos
 		redos = []
+
+		// auto save
+		// todo consider making undo/redo store local storaged?
+		$autoSaveStore[input.name] = [JSON.parse(JSON.stringify(input)), ...($autoSaveStore[input.name] || []).slice(0, 10)]
+		console.log('auto saved')
 	}
 
 	function buildData(height, width) {

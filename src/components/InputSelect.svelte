@@ -191,7 +191,7 @@
 			close()
 		}
 		if (setViewIndex != null) viewIndex = setViewIndex
-		dispatch('change')
+		dispatch('change', value)
 	}
 
 	async function open() {

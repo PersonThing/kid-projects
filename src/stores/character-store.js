@@ -28,15 +28,4 @@ export default LocalStorageStore('characters', {
 		maxHealth: 200,
 		graphicSpinning: 'sonic spinning',
 	},
-	'mr littles': {
-		graphicStill: 'alien',
-		graphicSpinning: 'alien',
-		name: 'mr littles',
-		maxVelocity: 8,
-		jumpVelocity: 15,
-		gravityMultiplier: 1,
-		fallDamageMultiplier: 1,
-		dps: 120,
-		maxHealth: 100,
-	},
 })

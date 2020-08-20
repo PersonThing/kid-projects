@@ -1,12 +1,12 @@
 <svelte:window on:keydown={onKeyDown} on:keyup={onKeyUp} />
 
 <div class="game-window" bind:this={mainEl}>
-	{#if gameOver}
-		<GameOver {score} {player} won={gameWon} {level} />
-	{:else if paused}
-		<Paused />
-	{/if}
 	{#if level != null && player != null}
+		{#if gameOver}
+			<GameOver {score} {player} won={gameWon} {level} />
+		{:else if paused}
+			<Paused />
+		{/if}
 		<Viewport {...viewport} background={level.background}>
 			<Level {blocks} width={levelWidth} height={levelHeight} playing />
 			{#each enemies as enemy}
