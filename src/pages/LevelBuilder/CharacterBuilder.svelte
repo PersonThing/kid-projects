@@ -67,6 +67,25 @@
 				</div>
 			</div>
 		{/if}
+
+		<FieldCheckbox name="canFireProjectiles" bind:checked={input.canFireProjectiles}>Can fire projectiles?</FieldCheckbox>
+		{#if input.canFireProjectiles}
+			<div class="card bg-light">
+				<div class="card-body">
+					<FieldNumber name="projectileVelocity" bind:value={input.projectileVelocity} min={0} max={300}>Projectile velocity</FieldNumber>
+					<FieldNumber name="projectileYStart" bind:value={input.projectileYStart} min={0} max={300}>Projectile start height</FieldNumber>
+					<FieldArtPicker bind:value={input.graphicProjectile} filter={notBlockFilter}>Projectile graphic</FieldArtPicker>
+				</div>
+				{#if input.graphicProjectile != null}
+					<div class="motion-preview">
+						<img src={$artStore[input.graphicStill].png} />
+						<img
+							src={$artStore[input.graphicProjectile].png}
+							style="position: absolute; bottom: {input.projectileYStart}px; left: {$artStore[input.graphicStill].width * 2 + 10 + projectilePosX}px" />
+					</div>
+				{/if}
+			</div>
+		{/if}
 		<span slot="buttons">
 			{#if !isAdding}
 				<button type="button" class="btn btn-danger" on:click={() => del(input.name)}>Delete</button>
@@ -91,6 +110,7 @@
 	import LevelBuilderLayout from './components/LevelBuilderLayout.svelte'
 	import LivingSprite from '../Play/LivingSprite.svelte'
 	import validator from '../../services/validator'
+	import Art from './components/Art.svelte'
 
 	const notBlockFilter = b => b.width != 20 || b.height != 20
 
@@ -106,6 +126,8 @@
 	let motionDelta = 1
 	let posX = 0
 	let posDir = 1
+	let projectilePosX = 0
+	let projectilePosDir = 1
 	let previewMoving = true
 	$: previewMotionGraphics = input.motionGraphics.length > 0 ? input.motionGraphics.filter(g => g != null) : [input.graphicStill]
 	$: previewMotionGraphic = previewMotionGraphics[motionState] != null ? $artStore[previewMotionGraphics[motionState]].png : null
@@ -124,6 +146,11 @@
 			posX = 0
 			posDir = 1
 		}
+
+		// move the projectile if there is one
+		projectilePosX += (input.projectileVelocity || 0) * projectilePosDir
+		if (projectilePosX > 300) projectilePosX = 0
+
 		lastRequestedFrame = window.requestAnimationFrame(animationLoop)
 	}
 	onDestroy(() => {
@@ -173,8 +200,13 @@
 			fallDamageMultiplier: 1,
 			dps: 100,
 			canFly: false,
+
 			canSpin: true,
 			spinDegreesPerFrame: 15,
+
+			canFireProjectiles: false,
+			projectileYStart: 20,
+			projectileVelocity: 20,
 		}
 	}
 
@@ -191,7 +223,6 @@
 	.motion-preview {
 		position: relative;
 		background: #eee;
-		padding: 20px;
 
 		img {
 			position: relative;

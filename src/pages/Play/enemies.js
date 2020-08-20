@@ -24,7 +24,7 @@ export default function CreateEnemy(template, config, width, height) {
 				// move toward them
 
 				// x axis
-				if (player.x == me.x) me.vx = 0
+				if (Math.abs(player.x - me.x) < 2) me.vx = 0
 				else if (player.x < me.x) me.vx = -me.tvx
 				else me.vx = me.tvx
 
