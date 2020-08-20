@@ -18,7 +18,7 @@
 		<FieldArtPicker bind:value={input.graphicStill} filter={notBlockFilter}>Standing still graphic</FieldArtPicker>
 		<div class="form-group">
 			<label>Motion graphics</label>
-			<div class="card bg-light">
+			<div class="card bg-light mb-3">
 				<div class="card-body">
 					<div class="flex align-top motion-graphics-fields">
 						<FieldNumber bind:value={input.framesPerGraphic} max={100}>Frames per graphic</FieldNumber>
@@ -57,7 +57,7 @@
 		<FieldCheckbox name="canFly" bind:checked={input.canFly}>Can fly?</FieldCheckbox>
 		<FieldCheckbox name="canSpin" bind:checked={input.canSpin}>Can spin attack?</FieldCheckbox>
 		{#if input.canSpin}
-			<div class="card bg-light">
+			<div class="card bg-light mb-3">
 				<div class="card-body">
 					<FieldNumber name="spinDegreesPerFrame" bind:value={input.spinDegreesPerFrame} min={0} max={25}>Spin degrees per frame</FieldNumber>
 					<FieldArtPicker bind:value={input.graphicSpinning} filter={notBlockFilter} spin={previewFrame * input.spinDegreesPerFrame}>
@@ -71,7 +71,7 @@
 			Can fire projectiles? (Note: game doesn't actually support this yet, but you can set it up for now)
 		</FieldCheckbox>
 		{#if input.canFireProjectiles}
-			<div class="card bg-light">
+			<div class="card bg-light mb-3">
 				<div class="card-body">
 					<FieldNumber name="projectileVelocity" bind:value={input.projectileVelocity} min={0} max={300}>Projectile velocity</FieldNumber>
 					<FieldNumber name="projectileYStart" bind:value={input.projectileYStart} min={0} max={300}>Projectile start height</FieldNumber>
