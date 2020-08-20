@@ -89,12 +89,14 @@
 			</label>
 		</div>
 
-		<div class="flex my-3 align-top">
+		<div class="canvas-container">
+			<canvas class="draw-canvas" bind:this={drawCanvas} width={input.width * gridSize} height={input.height * gridSize} />
 			<canvas
+				class="grid-canvas"
+				bind:this={gridCanvas}
 				class:paint-cursor={mode == 'paint'}
 				class:fill-cursor={mode == 'fill'}
 				class:erase-cursor={mode == 'erase'}
-				bind:this={drawCanvas}
 				width={input.width * gridSize}
 				height={input.height * gridSize}
 				on:mousedown|preventDefault={onDrawMouseDown}
@@ -153,22 +155,24 @@
 
 	let mode = 'paint'
 	let drawCanvas
+	let drawContext
+	let gridCanvas
+	let gridContext
+	let gridSize = 25
 	let undos = []
 	let redos = []
 	let mouseDown = false
 	let showGrid = true
-	let gridSize = 25
-	let drawContext
 	let nameField
 	let savedInput
-	let selectedColor = 'black'
+	let selectedColor = 'rgba(0, 0, 0, 255)'
 
 	$: paramName = decodeURIComponent(params.name) || 'new'
 	$: paramName == 'new' ? create() : edit(paramName)
 	$: isAdding = paramName == 'new'
 	$: previewPNG = toPNG(input.data, input.width, input.height)
 	$: drawResult = draw(input.data, input.width, input.height)
-	$: if (input.width != 0 && input.height != 0 && showGrid) redraw()
+	$: if (input.width != 0 && input.height != 0 && showGrid != null) redraw()
 	$: hasChanges = input != null && !validator.equals(input, $artStore[input.name])
 
 	function create() {
@@ -222,19 +226,25 @@
 	}
 
 	function draw(d, w, h) {
-		if (d == null || drawCanvas == null) return
+		if (d == null || drawCanvas == null || gridCanvas == null) return
 		if (drawContext == null) drawContext = drawCanvas.getContext('2d')
+		if (gridContext == null) gridContext = gridCanvas.getContext('2d')
 
 		drawContext.clearRect(0, 0, w * gridSize, h * gridSize)
+		gridContext.clearRect(0, 0, w * gridSize, h * gridSize)
+
 		for (let y = 0; y < h; y++) {
 			for (let x = 0; x < w; x++) {
 				drawContext.beginPath()
 				drawContext.rect(x * gridSize, y * gridSize, gridSize, gridSize)
 				drawContext.fillStyle = getCellColor(d, y, x)
 				drawContext.fill()
+
 				if (showGrid) {
-					drawContext.strokeStyle = '#eee'
-					drawContext.stroke()
+					gridContext.beginPath()
+					gridContext.rect(x * gridSize, y * gridSize, gridSize, gridSize)
+					gridContext.strokeStyle = 'rgba(255,255,255,0.5)'
+					gridContext.stroke()
 				}
 			}
 		}
@@ -247,10 +257,11 @@
 	function onDrawMouseDown(e) {
 		const color = getColorAtEvent(e)
 		if (e.altKey || e.button !== 0) {
-			// ugh, i can just use canvas and ditch all my data array nonsense...
 			// console.log(drawContext.getImageData(e.offsetX, e.offsetY, 1, 1))
-			if (color == 'transparent') mode = 'erase'
-			else {
+			if (color == 'transparent') {
+				mode = 'erase'
+				selectedColor = 'transparent'
+			} else {
 				mode = 'paint'
 				selectedColor = color
 			}
@@ -282,10 +293,16 @@
 	}
 
 	function getColorAtEvent(e) {
-		// could probably get this directly from canvas / getPixel stuff
-		const { x, y } = getEventCellIndexes(e)
-		return input.data[y][x] || 'transparent'
+		return toRGB(drawContext.getImageData(e.offsetX, e.offsetY, 1, 1).data)
 	}
+
+	function toRGB(d) {
+		return d[3] === 0 ? 'transparent' : `rgba(${d[0]}, ${d[1]}, ${d[2]}, ${d[3]})`
+	}
+	// 	// could probably get this directly from canvas / getPixel stuff
+	// 	const { x, y } = getEventCellIndexes(e)
+	// 	return input.data[y][x] || 'transparent'
+	// }
 
 	function addUndoState() {
 		undos = [...undos.slice(Math.max(undos.length - 20, 0)), JSON.stringify(input.data)]
@@ -428,10 +445,26 @@
 		width: 50px;
 	}
 
-	canvas {
+	.canvas-container {
+		display: flex;
+		position: relative;
+		margin: 15px 0;
+		align-items: flex-start;
+
+		.grid-canvas {
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+
+		.draw-canvas {
+			background: repeating-linear-gradient(-45deg, transparent, #eee 10px);
+			@include med-box-shadow();
+		}
+	}
+
+	canvas:last-child {
 		display: block;
-		@include med-box-shadow();
-		background: repeating-linear-gradient(-45deg, transparent, #eee 10px);
 	}
 
 	.preview {

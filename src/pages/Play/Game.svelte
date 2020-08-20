@@ -201,7 +201,6 @@
 					}
 					if (enemies[i].health <= 0) {
 						enemies[i].alive = false
-						enemies[i].onDeath()
 						score += enemies[i].score
 					}
 				}
@@ -341,6 +340,7 @@
 				start()
 				break
 			case 'KeyP':
+			case 'Escape':
 				paused = !paused
 				break
 			default:

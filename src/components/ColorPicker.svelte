@@ -7,79 +7,112 @@
 			on:click={() => selectColor(color)} />
 	{/each}
 </div> -->
-<QuickDropdown btnClass="color-picker-toggle" noCaret anyItemClickCloses>
+<QuickDropdown btnClass="color-picker-toggle" noCaret bind:isOpen>
 	<span slot="label">
 		<div data-test={name} class="color-choice" style="background: {getBackground(value)}" title="Change color" />
 	</span>
+	<!-- <div>
+	<div class="p-2">
+			<label>Alpha</label>
+			<input bind:value={alpha} class="form-control" type="range" step="5" min="0" max="255" />
+		</div>
+		<label>Color</label>
+	-->
 	<div class="color-picker-choices">
-		{#each colors as color}
-			<div class="color-choice" class:selected={value == color} on:click={() => select(color)} style="background: {getBackground(color)}">
-				{#if value == color}
-					<Icon data={checkIcon} />
-				{/if}
+		{#each colors as colorGroup}
+			<div class="color-group">
+				{#each colorGroup as color}
+					<div
+						class="color-choice"
+						class:selected={value == color}
+						on:click={() => select(color)}
+						style="background: {getBackground(color)}; width: {colorSize}px; height: {colorSize}px;" />
+				{/each}
 			</div>
 		{/each}
 	</div>
+	<!-- </div> -->
 </QuickDropdown>
 
 <script>
 	import QuickDropdown from './QuickDropdown.svelte'
-	import Icon from 'svelte-awesome'
-	import { check as checkIcon } from 'svelte-awesome/icons'
 	import { createEventDispatcher } from 'svelte'
 	const dispatch = createEventDispatcher()
 
 	export let value = 'transparent'
+	let alpha = 255
+	let isOpen = false
 
 	function select(color) {
+		console.log(color)
 		value = color
 		dispatch('change', color)
+		isOpen = false
 	}
 
 	function getBackground(color) {
 		return color != 'transparent' ? color : 'repeating-linear-gradient(-45deg, transparent, #eee 10px)'
 	}
 
-	// random collection of colors kids requested.. lazy
-	const colors = [
-		'transparent',
-		'white',
-		'rgb(204, 204, 204)',
-		'rgb(160, 164, 160)',
-		'rgb(102, 102, 102)',
-		'rgb(51, 51, 51)',
-		'black',
-		'rgb(119, 59, 11)',
-		'blue',
-		'pink',
-		'yellow',
-		'orange',
-		'purple',
-		'teal',
-		'green',
-		'rgb(40, 40, 184)',
-		'rgb(40, 80, 224)',
-		'rgb(80, 80, 248)',
-		'rgb(120, 124, 248)',
-		'rgb(160, 0, 16)',
-		'red',
-		'rgb(248, 0, 32)',
-		'rgb(208, 124, 96)',
-		'rgb(248, 208, 176)',
-		'rgb(253, 240, 232)',
-		'rgb(245, 222, 208)',
-		'rgb(220, 201, 187)',
-		'rgb(197, 179, 167)',
-		'rgb(186, 167, 153)',
-		'rgb(146, 129, 119)',
-		'rgb(120, 107, 99)',
-		'rgb(80, 68, 68)',
-		'rgb(122, 80, 55)',
-		'rgb(178, 105, 58)',
-		'rgb(203, 140, 97)',
-		'rgb(238, 187, 155)',
-		'rgb(75, 53, 39)',
-	]
+	// super half-assed generated color groups
+	const colorSteps = 6
+	const colorDarknessSteps = 10
+	const rainbowIntervals = [rgb(255, 0, 0), rgb(255, 255, 0), rgb(0, 255, 0), rgb(0, 255, 255), rgb(0, 0, 255), rgb(255, 0, 255)]
+	const colorSize = 600 / colorSteps / rainbowIntervals.length
+	let colors = []
+	$: if (alpha != null)
+		colors = (function () {
+			let result = []
+			let rainbow = []
+			for (let i = 0; i < rainbowIntervals.length; i++) {
+				rainbow = rainbow.concat(
+					lerpColorsBetween(rainbowIntervals[i], i == rainbowIntervals.length - 1 ? rainbowIntervals[0] : rainbowIntervals[i + 1], colorSteps).slice(
+						0,
+						colorSteps - 1
+					)
+				)
+			}
+
+			let blackToGreySteps = rainbowIntervals.length * (colorSteps - 1)
+			result.push(lerpColorsBetween(rgb(255, 255, 255), rgb(0, 0, 0), blackToGreySteps))
+
+			for (let i = 1; i < colorDarknessSteps; i++) result.push(rainbow.map(r => darken(r, i / (colorDarknessSteps - 1))))
+			for (let i = 1; i < colorDarknessSteps - 1; i++) result.push(rainbow.map(r => lighten(r, i / (colorDarknessSteps - 1))))
+
+			return result.map(group => group.map(c => `rgba(${c.r}, ${c.g}, ${c.b}, ${alpha})`))
+		})()
+
+	function rgb(r, g, b) {
+		return { r, g, b }
+	}
+
+	function lerpColorsBetween(color1, color2, steps) {
+		return [...Array(steps)].map((_, t) => lerpRGB(color1, color2, t / (steps - 1)))
+	}
+
+	function lerpRGB(color1, color2, t) {
+		return {
+			r: Math.round(color1.r + (color2.r - color1.r) * t),
+			g: Math.round(color1.g + (color2.g - color1.g) * t),
+			b: Math.round(color1.b + (color2.b - color1.b) * t),
+		}
+	}
+
+	function lighten(color, t) {
+		return {
+			r: Math.min(Math.round(color.r + (255 - color.r) * t), 255),
+			g: Math.min(Math.round(color.g + (255 - color.g) * t), 255),
+			b: Math.min(Math.round(color.b + (255 - color.b) * t), 255),
+		}
+	}
+
+	function darken(color, t) {
+		return {
+			r: Math.max(Math.round(color.r - 255 * (1 - t)), 0),
+			g: Math.max(Math.round(color.g - 255 * (1 - t)), 0),
+			b: Math.max(Math.round(color.b - 255 * (1 - t)), 0),
+		}
+	}
 </script>
 
 <style lang="scss">
@@ -87,18 +120,25 @@
 
 	:global(.color-picker-toggle .color-choice) {
 		border-radius: 3px;
+		height: 31px;
+		width: 48px;
+		padding: 12px 15px;
 		@include med-box-shadow();
 	}
 
+	.color-group {
+		clear: both;
+		display: flex;
+		flex-direction: row;
+		align-items: flex-start;
+
+		&:first-child {
+			margin-bottom: 10px;
+		}
+	}
+
 	.color-choice {
-		float: left;
-		vertical-align: top;
-		min-width: 48px;
 		position: relative;
-		height: 31px;
-		color: #fff;
-		text-align: center;
-		padding: 12px 15px;
 		cursor: pointer;
 
 		&:focus {
@@ -107,13 +147,10 @@
 	}
 
 	.color-picker-choices {
-		width: 347px;
-		overflow: auto;
 		padding: 5px;
 
 		.color-choice {
 			height: 30px;
-			padding: 2px 15px;
 			z-index: 9;
 			color: #fff;
 
@@ -121,7 +158,8 @@
 			&.selected {
 				@include big-box-shadow();
 				z-index: 10;
-				transform: scale(1.25);
+				transform: scale(1.5);
+				border: 1px solid white;
 			}
 		}
 	}

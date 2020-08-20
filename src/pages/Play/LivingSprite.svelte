@@ -32,6 +32,7 @@
 	export let x = 0
 	export let health
 	export let frame
+	export let spinDegreesPerFrame = 5
 
 	let motionGraphicIndex = 0
 	let motionGraphicDelta = 1
@@ -63,17 +64,7 @@
 	let direction = 1
 	$: if (vx != 0) direction = vx > 0 ? 1 : -1
 
-	$: rotate = spinning ? spinningRotation : -1 * (vy > 0 ? vy * 3 : vy * 1.5)
-
-	let spinningRotation = 0
-	let spinTimeout = null
-	$: if (spinning) {
-		spinTimeout = setTimeout(() => {
-			spinningRotation += 30
-		}, 25)
-	} else {
-		clearTimeout(spinTimeout)
-	}
+	$: rotate = spinning ? frame * (spinDegreesPerFrame || 15) : -1 * (vy > 0 ? vy * 3 : vy * 1.5)
 </script>
 
 <style>

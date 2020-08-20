@@ -32,7 +32,7 @@
 			action: 'Restart',
 		},
 		{
-			key: 'P',
+			key: 'P or Escape',
 			action: 'Pause',
 		},
 	]

@@ -4,7 +4,7 @@ export default LocalStorageStore('characters', {
 		graphicStill: 'mr squiggles',
 		graphicSpinning: 'mr squiggles spin',
 		motionGraphics: ['mr squiggles move 1', 'mr squiggles move 2', 'mr squiggles move 3'],
-		framesPerGraphic: 5,
+		framesPerGraphic: 6,
 		name: 'mr squiggles',
 		maxHealth: 200,
 		maxVelocity: 5,
@@ -14,5 +14,7 @@ export default LocalStorageStore('characters', {
 		dps: 250,
 		canFly: false,
 		canSpin: true,
+		spinDegreesPerFrame: 15,
+		spinSpeed: 20,
 	},
 })

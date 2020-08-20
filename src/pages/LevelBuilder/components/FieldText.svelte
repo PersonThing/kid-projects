@@ -14,7 +14,7 @@
 
 	let field
 
-	onMount(() => {
-		if (autofocus) field.focus()
-	})
+	// onMount(() => {
+	// 	if (autofocus) field.focus()
+	// })
 </script>

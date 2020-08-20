@@ -14,7 +14,7 @@
 				<img src={$levels[levelName].thumbnail} style="background: {$levels[levelName].background}" alt="level preview" />
 				<div class="flex-row">
 					{#each $levels[levelName].playableCharacters as characterName}
-						<button class="btn btn-secondary mr-1" on:click={() => selectLevel(levelName, characterName)}>
+						<button class="btn btn-light m-1" on:click={() => selectLevel(levelName, characterName)}>
 							<Art name={$characters[characterName].graphicStill} />
 							{characterName}
 						</button>

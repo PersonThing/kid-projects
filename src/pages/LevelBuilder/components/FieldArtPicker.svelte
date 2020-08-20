@@ -19,7 +19,7 @@
 	import InputSelect from '../../../components/InputSelect.svelte'
 	export let value = null
 	export let filter = null
-	export let spin = false
+	export let spin = 0
 	export let name = 'graphic-picker'
 	export let placeholder = 'Select art'
 

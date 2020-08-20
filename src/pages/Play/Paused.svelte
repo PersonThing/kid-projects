@@ -1,6 +1,6 @@
 <div class="paused">
 	<h1>Paused</h1>
-	<p>Press p or space to resume.</p>
+	<p>Press p, escape, or space to resume.</p>
 </div>
 
 <style>

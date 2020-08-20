@@ -3,7 +3,7 @@
 		src={graphic.png}
 		alt={graphic.name}
 		title={graphic.name}
-		style="transform: rotate({rotation}deg); {height != null ? 'max-height: ' + height + 'px' : ''}" />
+		style="transform: rotate({spin}deg); {height != null ? 'max-height: ' + height + 'px' : ''}" />
 {/if}
 
 <script>
@@ -12,8 +12,7 @@
 
 	export let name
 	export let height = null
-
-	export let spin = false
+	export let spin = 0
 
 	let graphic
 
@@ -23,15 +22,5 @@
 		if (graphic != null && graphic.png == null) {
 			graphic.png = toPNG(graphic, graphic.width, graphic.height)
 		}
-	}
-
-	let spinTimeout
-	let rotation = 0
-	$: if (spin) {
-		spinTimeout = setTimeout(() => {
-			rotation += 30
-		}, 25)
-	} else {
-		clearTimeout(spinTimeout)
 	}
 </script>

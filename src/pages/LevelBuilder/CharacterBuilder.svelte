@@ -21,6 +21,7 @@
 			<div class="card bg-light">
 				<div class="card-body">
 					<div class="flex align-top motion-graphics-fields">
+						<FieldNumber bind:value={input.framesPerGraphic} max={100}>Frames per graphic</FieldNumber>
 						{#each input.motionGraphics as g, index}
 							<FieldArtPicker bind:value={g} filter={notBlockFilter}>
 								Frame {index + 1}
@@ -31,14 +32,13 @@
 						{/each}
 						<button type="button" class="btn btn-sm btn-info" on:click={addMotionGraphicFrame}>Add frame</button>
 					</div>
-					<FieldNumber bind:value={input.framesPerGraphic} max={100}>Frames per graphic (60 = 1 second)</FieldNumber>
 					{#if previewMotionGraphic}
 						<div>
-							<input type="checkbox" bind:checked={previewMoving} id="moving" />
-							<label for="moving">Preview moving</label>
 							<div class="motion-preview" style="height: {$artStore[input.graphicStill].height * 2}px;">
 								<LivingSprite x={posX} vx={posDir} frame={previewFrame} {...input} hideHealth />
 							</div>
+							<input type="checkbox" bind:checked={previewMoving} id="moving" />
+							<label for="moving">Preview moving</label>
 						</div>
 					{/if}
 				</div>
@@ -60,7 +60,10 @@
 		{#if input.canSpin}
 			<div class="card bg-light">
 				<div class="card-body">
-					<FieldArtPicker bind:value={input.graphicSpinning} filter={notBlockFilter} spin>Spin attack graphic</FieldArtPicker>
+					<FieldNumber name="spinDegreesPerFrame" bind:value={input.spinDegreesPerFrame} min={0} max={25}>Spin degrees per frame</FieldNumber>
+					<FieldArtPicker bind:value={input.graphicSpinning} filter={notBlockFilter} spin={previewFrame * input.spinDegreesPerFrame}>
+						Spin attack graphic
+					</FieldArtPicker>
 				</div>
 			</div>
 		{/if}
@@ -73,20 +76,21 @@
 </LevelBuilderLayout>
 
 <script>
+	import { onDestroy } from 'svelte'
 	import { push } from 'svelte-spa-router'
+	import { remove as removeIcon } from 'svelte-awesome/icons'
+	import artStore from '../../stores/art-store'
 	import characters from '../../stores/character-store'
-	import FieldCheckbox from './components/FieldCheckbox.svelte'
 	import FieldArtPicker from './components/FieldArtPicker.svelte'
+	import FieldCheckbox from './components/FieldCheckbox.svelte'
 	import FieldNumber from './components/FieldNumber.svelte'
+	import FieldRange from './components/FieldRange.svelte'
 	import FieldText from './components/FieldText.svelte'
 	import Form from './components/Form.svelte'
-	import LevelBuilderLayout from './components/LevelBuilderLayout.svelte'
-	import validator from '../../services/validator'
-	import artStore from '../../stores/art-store'
-	import { onDestroy } from 'svelte'
 	import Icon from 'svelte-awesome'
-	import { remove as removeIcon } from 'svelte-awesome/icons'
+	import LevelBuilderLayout from './components/LevelBuilderLayout.svelte'
 	import LivingSprite from '../Play/LivingSprite.svelte'
+	import validator from '../../services/validator'
 
 	const notBlockFilter = b => b.width != 20 || b.height != 20
 
@@ -170,6 +174,7 @@
 			dps: 100,
 			canFly: false,
 			canSpin: true,
+			spinDegreesPerFrame: 15,
 		}
 	}
 

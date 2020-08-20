@@ -38,9 +38,5 @@ export default function CreateEnemy(template, config, width, height) {
 				me.vx = 0
 			}
 		},
-
-		onDeath() {
-			// nothing yet
-		},
 	}
 }

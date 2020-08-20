@@ -19,7 +19,7 @@ export default LocalStorageStore('enemies', {
 		jumpVelocity: 7,
 		gravityMultiplier: 1,
 		fallDamageMultiplier: 0.5,
-		dps: 120,
+		dps: 20,
 		dpsToPlayers: 50,
 		maxHealth: 100,
 		score: 1,

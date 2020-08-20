@@ -5,7 +5,10 @@
 			<FieldCharacterPicker name="playableCharacters" bind:value={input.playableCharacters}>
 				Which characters can play this level?
 			</FieldCharacterPicker>
-			<FieldText name="background" bind:value={input.background}>Background (any css background value)</FieldText>
+			<div class="form-group">
+				<label for="color">Background color</label>
+				<ColorPicker name="color" bind:value={input.background} />
+			</div>
 			<LevelBuilderDrawingTool
 				background={input.background}
 				bind:thumbnail={input.thumbnail}
@@ -36,6 +39,7 @@
 	import LevelPreview from '../Play/LevelPreview.svelte'
 	import levels from '../../stores/level-store'
 	import validator from '../../services/validator'
+	import ColorPicker from '../../components/ColorPicker.svelte'
 
 	export let params = {}
 	let input
