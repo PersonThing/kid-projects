@@ -47,7 +47,7 @@
 	let direction = 1
 	$: if (vx != 0) direction = vx > 0 ? 1 : -1
 
-	$: rotate = spinning ? spinningRotation : -1 * (5 + (vy > 0 ? vy * 3 : vy * 1.5))
+	$: rotate = spinning ? spinningRotation : -1 * (vy > 0 ? vy * 3 : vy * 1.5)
 
 	let spinningRotation = 0
 	let spinTimeout = null
@@ -66,9 +66,9 @@
 	}
 	.dead {
 		filter: none;
-		-webkit-filter: grayscale(0%);
-		-moz-filter: grayscale(0%);
-		-ms-filter: grayscale(0%);
-		-o-filter: grayscale(0%);
+		-webkit-filter: grayscale(100%);
+		-moz-filter: grayscale(100%);
+		-ms-filter: grayscale(100%);
+		-o-filter: grayscale(100%);
 	}
 </style>

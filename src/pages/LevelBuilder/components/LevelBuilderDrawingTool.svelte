@@ -5,7 +5,7 @@
 			<InputSelect
 				name="selected-block"
 				inline
-				placeholder="Select a block to place"
+				placeholder="Place a block"
 				options={Object.keys($blockStore).map(name => $blockStore[name])}
 				let:option
 				valueProp="name"
@@ -19,7 +19,7 @@
 			<InputSelect
 				name="selected-block"
 				inline
-				placeholder="Select an enemy to place"
+				placeholder="Place an enemy"
 				options={Object.keys($enemyStore).map(name => $enemyStore[name])}
 				let:option
 				valueProp="name"
@@ -27,7 +27,7 @@
 				on:change={() => (selectedBlock = null)}>
 				<Art name={$enemyStore[option.name].graphicStill} height="40" />
 				<strong>{option.name}</strong>
-				{option.dps} dps, {option.maxVelocity} max velocity, worth {option.score} score
+				{option.dps} dps, {option.maxHealth} health, {option.maxVelocity} speed, {option.score} score
 			</InputSelect>
 		</div>
 	</div>

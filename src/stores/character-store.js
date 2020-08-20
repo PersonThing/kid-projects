@@ -12,7 +12,7 @@ export default LocalStorageStore('characters', {
 		maxHealth: 200,
 		graphicMoving1: 'mr squiggles move 1',
 		graphicMoving2: 'mr squiggles move 2',
-		canFly: true,
+		canFly: false,
 		graphicSpinning: 'mr squiggles',
 		graphicMoving3: 'mr squiggles move 3',
 	},
