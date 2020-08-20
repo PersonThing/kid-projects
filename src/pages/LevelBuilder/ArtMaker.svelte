@@ -247,6 +247,8 @@
 	function onDrawMouseDown(e) {
 		const color = getColorAtEvent(e)
 		if (e.altKey || e.button !== 0) {
+			// ugh, i can just use canvas and ditch all my data array nonsense...
+			// console.log(drawContext.getImageData(e.offsetX, e.offsetY, 1, 1))
 			if (color == 'transparent') mode = 'erase'
 			else {
 				mode = 'paint'

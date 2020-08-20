@@ -1,5 +1,7 @@
 <div class="player" style="left: {x}px; bottom: {y}px;">
-	<HealthBar {health} {maxHealth} />
+	{#if !hideHealth}
+		<HealthBar {health} {maxHealth} />
+	{/if}
 	{#if graphic != null}
 		<img
 			class="graphic drop-shadow"
@@ -20,19 +22,33 @@
 	export let maxHealth
 	export let graphicStill
 	export let graphicSpinning
-	export let graphicMoving1
-	export let graphicMoving2
-	export let graphicMoving3
+	export let motionGraphics = []
+	export let framesPerGraphic = 5
+	export let hideHealth = false
 
 	export let vx = 0
 	export let vy = 0
 	export let y = 0
 	export let x = 0
 	export let health
-	export let motionState
+	export let frame
 
-	$: motionGraphics = [graphicMoving1, graphicMoving2, graphicMoving3]
-	$: motionGraphic = motionGraphics[motionState]
+	let motionGraphicIndex = 0
+	let motionGraphicDelta = 1
+
+	$: usableMotionGraphics = motionGraphics.filter(g => g != null)
+	$: motionGraphic = usableMotionGraphics[motionGraphicIndex]
+
+	$: if (frame % framesPerGraphic === 0) {
+		// change the graphic every x frames
+		if (usableMotionGraphics.length > 1) {
+			motionGraphicIndex = Math.max(motionGraphicIndex + motionGraphicDelta, 0)
+			if (motionGraphicIndex >= usableMotionGraphics.length - 1 || motionGraphicIndex == 0) motionGraphicDelta = motionGraphicDelta * -1
+		} else {
+			motionGraphicIndex = 0
+		}
+	}
+
 	$: graphic =
 		spinning && graphicSpinning != null
 			? $artStore[graphicSpinning]

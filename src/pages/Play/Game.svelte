@@ -10,9 +10,9 @@
 		<Viewport {...viewport} background={level.background}>
 			<Level {blocks} width={levelWidth} height={levelHeight} playing />
 			{#each enemies as enemy}
-				<LivingSprite {...enemy} {motionState} />
+				<LivingSprite {...enemy} {frame} />
 			{/each}
-			<LivingSprite {...player} {motionState} />
+			<LivingSprite {...player} {frame} />
 		</Viewport>
 	{/if}
 	<Status {level} {score} enemyCount={(enemies || []).filter(e => e.alive).length} />
@@ -69,9 +69,6 @@
 
 	let leftDown = false
 	let rightDown = false
-
-	// bool to pass to sprites to toggle between frame 1 or 2 of motion graphics
-	let motionState = false
 
 	onMount(() => {
 		// sort blocks by x, then y
@@ -159,8 +156,6 @@
 		if (!gameOver && !paused) {
 			frame++
 			if (frame > 1000) frame = 0
-
-			if (frame % 3 == 0) motionState = motionState == 2 ? 0 : motionState + 1
 
 			// visibleBlocks = blocks.filter(b => doObjectsIntersect(viewport, b))
 			player = applyWorldToSprite(player, true)
@@ -316,7 +311,7 @@
 				if (player.grounded || player.canFly) player.vy = player.jumpVelocity
 				break
 			case 'KeyR':
-				player.spinning = true
+				if (player.canSpin) player.spinning = true
 				break
 			case 'KeyQ':
 				player.health = player.maxHealth
@@ -339,7 +334,7 @@
 				if (paused) paused = false
 				break
 			case 'KeyR':
-				player.spinning = false
+				if (player.canSpin) player.spinning = false
 				break
 			case 'Enter':
 			case 'NumpadEnter':
