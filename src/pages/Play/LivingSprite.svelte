@@ -20,15 +20,27 @@
 	export let maxHealth
 	export let graphicStill
 	export let graphicSpinning
+	export let graphicMoving1
+	export let graphicMoving2
+	export let graphicMoving3
 
 	export let vx = 0
 	export let vy = 0
 	export let y = 0
 	export let x = 0
-
 	export let health
+	export let motionState
 
-	$: graphic = spinning && graphicSpinning != null ? $artStore[graphicSpinning] : graphicStill != null ? $artStore[graphicStill] : null
+	$: motionGraphics = [graphicMoving1, graphicMoving2, graphicMoving3]
+	$: motionGraphic = motionGraphics[motionState]
+	$: graphic =
+		spinning && graphicSpinning != null
+			? $artStore[graphicSpinning]
+			: vx != 0 && motionGraphic != null
+			? $artStore[motionGraphic]
+			: graphicStill != null
+			? $artStore[graphicStill]
+			: null
 
 	export let spinning = false
 

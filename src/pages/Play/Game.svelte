@@ -10,9 +10,9 @@
 		<Viewport {...viewport} background={level.background}>
 			<Level {blocks} width={levelWidth} height={levelHeight} playing />
 			{#each enemies as enemy}
-				<LivingSprite {...enemy} />
+				<LivingSprite {...enemy} {motionState} />
 			{/each}
-			<LivingSprite {...player} />
+			<LivingSprite {...player} {motionState} />
 		</Viewport>
 	{/if}
 	<Status {level} {score} enemyCount={(enemies || []).filter(e => e.alive).length} />
@@ -53,6 +53,7 @@
 	let mainEl
 	let player
 	let enemies
+	let frame = 0
 	let gameOver = false
 	let gameWon = false
 	let paused = false
@@ -68,6 +69,9 @@
 
 	let leftDown = false
 	let rightDown = false
+
+	// bool to pass to sprites to toggle between frame 1 or 2 of motion graphics
+	let motionState = false
 
 	onMount(() => {
 		// sort blocks by x, then y
@@ -153,6 +157,11 @@
 
 	function gameLoop() {
 		if (!gameOver && !paused) {
+			frame++
+			if (frame > 1000) frame = 0
+
+			if (frame % 3 == 0) motionState = motionState == 2 ? 0 : motionState + 1
+
 			// visibleBlocks = blocks.filter(b => doObjectsIntersect(viewport, b))
 			player = applyWorldToSprite(player, true)
 

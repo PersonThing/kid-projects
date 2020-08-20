@@ -17,6 +17,9 @@
 		<FieldText name="name" bind:value={input.name} autofocus>Name</FieldText>
 		<FieldArtPicker bind:value={input.graphicStill} filter={notBlockFilter}>Standing still graphic</FieldArtPicker>
 		<FieldArtPicker bind:value={input.graphicSpinning} filter={notBlockFilter} spin>Spinning graphic</FieldArtPicker>
+		<FieldArtPicker bind:value={input.graphicMoving1} filter={notBlockFilter}>Moving graphic 1</FieldArtPicker>
+		<FieldArtPicker bind:value={input.graphicMoving2} filter={notBlockFilter}>Moving graphic 2</FieldArtPicker>
+		<FieldArtPicker bind:value={input.graphicMoving3} filter={notBlockFilter}>Moving graphic 3</FieldArtPicker>
 		<!--
 			todo, let them select up to 3 moving graphics to cycle through
 			sprite will sit on each graphic for X # of frames?
