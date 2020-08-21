@@ -187,25 +187,28 @@
 					  player.y - halfViewportHeight
 
 			// for every live enemy intersecting the player, one or the other should take damage
-			for (let i = 0; i < enemies.length; i++) {
-				if (enemies[i].alive) {
-					enemies[i] = applyWorldToSprite(enemies[i])
-					enemies[i].tick(enemies[i], player)
-					if (doObjectsIntersect(player, enemies[i])) {
-						if (player.spinning) {
-							enemies[i].gettingHit = true
-							enemies[i].health -= player.dps / 60 // damage per frame
-						} else {
-							player.health -= enemies[i].dps / 60 // damage per frame
+			// only update enemies within leash range
+			const leashRange = 400
+			enemies
+				.filter(e => Math.abs(e.x - player.x) < leashRange)
+				.map(e => {
+					if (e.alive) {
+						e = applyWorldToSprite(e)
+						e.tick(e, player)
+						if (doObjectsIntersect(player, e)) {
+							if (player.spinning) {
+								e.health -= player.dps / 60 // damage per frame
+							} else {
+								player.health -= e.dps / 60 // damage per frame
+							}
+						}
+						if (e.health <= 0) {
+							e.alive = false
+							e.vx = 0
+							score += e.score
 						}
 					}
-					if (enemies[i].health <= 0) {
-						enemies[i].alive = false
-						enemies[i].vx = 0
-						score += enemies[i].score
-					}
-				}
-			}
+				})
 
 			// game is over if player dies
 			if (player.health <= 0) {
