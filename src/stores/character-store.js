@@ -3,8 +3,8 @@ export default LocalStorageStore('characters', {
 	'mr squiggles': {
 		graphicStill: 'mr squiggles',
 		graphicSpinning: 'mr squiggles spin',
-		motionGraphics: ['mr squiggles move 1', 'mr squiggles move 2', 'mr squiggles move 3'],
-		framesPerGraphic: 6,
+		motionGraphics: ['mr squiggles move 1', 'mr squiggles move 1.5', 'mr squiggles move 2', 'mr squiggles move 2.5', 'mr squiggles move 3'],
+		framesPerGraphic: 2,
 		name: 'mr squiggles',
 		maxHealth: 200,
 		maxVelocity: 5,
@@ -15,6 +15,12 @@ export default LocalStorageStore('characters', {
 		canFly: false,
 		canSpin: true,
 		spinDegreesPerFrame: 15,
+		canFireProjectiles: true,
+		projectileDamage: 50,
+		projectileYStart: 25,
+		projectileVelocity: 20,
+		projectileGravityMultiplier: 0.1,
 		spinSpeed: 20,
+		graphicProjectile: 'fireball',
 	},
 })
