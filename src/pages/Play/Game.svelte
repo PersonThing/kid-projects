@@ -201,6 +201,7 @@
 					}
 					if (enemies[i].health <= 0) {
 						enemies[i].alive = false
+						enemies[i].vx = 0
 						score += enemies[i].score
 					}
 				}

@@ -12,10 +12,10 @@
 <LevelBuilderLayout tab="enemies" activeName={input.name} store={$enemies}>
 	<Form on:submit={save} {hasChanges}>
 		<FieldText name="name" bind:value={input.name} autofocus>Name</FieldText>
-		<FieldArtPicker bind:value={input.graphicStill} filter={b => b.width != 20 || b.height != 20}>Standing still graphic</FieldArtPicker>
-		<!-- <FieldArtPicker bind:value={input.graphicMoving1}>Moving graphic 1</FieldArtPicker>
-			<FieldArtPicker bind:value={input.graphicMoving2}>Moving graphic 2</FieldArtPicker>
-			<FieldArtPicker bind:value={input.graphicMoving3}>Moving graphic 3</FieldArtPicker> -->
+		<FieldArtPicker bind:value={input.graphicStill}>Standing still graphic</FieldArtPicker>
+		<FieldAnimation bind:graphics={input.motionGraphics} bind:framesPerGraphic={input.framesPerGraphic} vx={input.maxVelocity}>
+			Moving graphics
+		</FieldAnimation>
 		<FieldNumber name="maxVelocity" min={0} bind:value={input.maxVelocity}>Max velocity</FieldNumber>
 		<FieldNumber name="jumpVelocity" min={0} bind:value={input.jumpVelocity}>Jump velocity</FieldNumber>
 		<FieldNumber name="gravityMultiplier" min={0} max={2} step={0.1} bind:value={input.gravityMultiplier}>Gravity multiplier</FieldNumber>
@@ -41,6 +41,7 @@
 	import Form from './components/Form.svelte'
 	import LevelBuilderLayout from './components/LevelBuilderLayout.svelte'
 	import validator from '../../services/validator'
+	import FieldAnimation from './components/FieldAnimation.svelte'
 
 	export let params = {}
 	let input
@@ -64,8 +65,13 @@
 	}
 
 	function create() {
-		input = {
+		input = createDefaultInput()
+	}
+
+	function createDefaultInput() {
+		return {
 			graphicStill: null,
+			motionGraphics: [],
 			name: '',
 			maxHealth: 100,
 			maxVelocity: 20,

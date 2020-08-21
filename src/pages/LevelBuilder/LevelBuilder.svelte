@@ -70,7 +70,7 @@
 		input = {
 			name: '',
 			playableCharacters: [],
-			background: 'rgb(135, 206, 235)',
+			background: 'rgba(198, 244, 255, 255)',
 			blocks: [],
 			enemies: [],
 		}

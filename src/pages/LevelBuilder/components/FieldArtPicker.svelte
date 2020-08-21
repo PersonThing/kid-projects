@@ -18,10 +18,11 @@
 	import artStore from '../../../stores/art-store'
 	import InputSelect from '../../../components/InputSelect.svelte'
 	export let value = null
-	export let filter = null
 	export let spin = 0
 	export let name = 'graphic-picker'
 	export let placeholder = 'Select art'
+	export let blocks = false
 
-	$: options = Object.keys($artStore).filter(name => filter == null || filter($artStore[name]))
+	const blockFilter = b => b.width == 20 || b.height == 20
+	$: options = Object.keys($artStore).filter(name => blocks == blockFilter($artStore[name]))
 </script>
