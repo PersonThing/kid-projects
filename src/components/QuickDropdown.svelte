@@ -34,7 +34,6 @@
 	import Icon from 'svelte-awesome'
 	import { caretDown as caretDownIcon } from 'svelte-awesome/icons'
 
-	export let btnTitle = null
 	export let isOpen = false
 	export let dataTest = null
 	export { className as class }
@@ -42,7 +41,6 @@
 	export let dropdownClass = 'below left'
 	export let anyItemClickCloses = false
 	export let noCaret = false
-	export let icon = null
 	export let autofocusFirstItem = false
 	export let disabled = false
 	export let label = null

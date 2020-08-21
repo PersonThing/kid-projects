@@ -188,9 +188,9 @@
 
 			// for every live enemy intersecting the player, one or the other should take damage
 			// only update enemies within leash range
-			const leashRange = 400
+			const screenRange = viewport.width / 2
 			enemies
-				.filter(e => Math.abs(e.x - player.x) < leashRange)
+				.filter(e => Math.abs(e.x - player.x) < screenRange)
 				.map(e => {
 					if (e.alive) {
 						e = applyWorldToSprite(e)
@@ -209,6 +209,7 @@
 						}
 					}
 				})
+			enemies = enemies
 
 			// game is over if player dies
 			if (player.health <= 0) {
