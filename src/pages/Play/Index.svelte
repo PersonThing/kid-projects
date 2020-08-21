@@ -1,8 +1,8 @@
 {#if levelName != null}
 	<div class="mb-2">
 		<button type="button" on:click={() => (levelName = null)} class="btn btn-info">&lt; Change level</button>
-		<a href="#/{$project.name}/build/levels/{encodeURIComponent(levelName)}" class="btn btn-secondary" role="button">Edit {levelName}</a>
-		<a href="#/{$project.name}/build/characters/{encodeURIComponent(characterName)}" class="btn btn-secondary" role="button">Edit {characterName}</a>
+		<a href="#/{$project.name}/build/levels/{encodeURIComponent(levelName)}" class="btn btn-light" role="button">Edit {levelName}</a>
+		<a href="#/{$project.name}/build/characters/{encodeURIComponent(characterName)}" class="btn btn-light" role="button">Edit {characterName}</a>
 	</div>
 
 	<Game level={$project.levels[levelName]} character={$project.characters[characterName]} />
