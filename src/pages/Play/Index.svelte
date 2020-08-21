@@ -26,11 +26,11 @@
 {/if}
 
 <script>
-	import Art from '../LevelBuilder/components/Art.svelte'
-	import Game from './Game.svelte'
-	import levels from '../../stores/level-store'
+	import Art from '../../components/Art.svelte'
 	import characters from '../../stores/character-store'
-	import LevelPreview from './LevelPreview.svelte'
+	import Game from '../../components/Game.svelte'
+	import LevelPreview from '../../components/LevelPreview.svelte'
+	import levels from '../../stores/level-store'
 
 	let levelName
 	let characterName

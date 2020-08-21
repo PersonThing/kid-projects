@@ -46,14 +46,14 @@
 
 <script>
 	import Art from './Art.svelte'
-	import artStore from '../../../stores/art-store'
-	import blockStore from '../../../stores/block-store'
-	import LivingSprite from '../../Play/LivingSprite.svelte'
-	import enemyStore from '../../../stores/enemy-store'
-	import Level from '../../Play/Level.svelte'
-	import makeThumbnail from '../../../services/make-thumbnail'
-	import LevelPreview from '../../Play/LevelPreview.svelte'
-	import InputSelect from '../../../components/InputSelect.svelte'
+	import artStore from '../stores/art-store'
+	import blockStore from '../stores/block-store'
+	import LivingSprite from './LivingSprite.svelte'
+	import enemyStore from '../stores/enemy-store'
+	import Level from './Level.svelte'
+	import makeThumbnail from '../services/make-thumbnail'
+	import LevelPreview from './LevelPreview.svelte'
+	import InputSelect from './InputSelect.svelte'
 
 	export let background = null
 

@@ -3,7 +3,7 @@ export default LocalStorageStore('characters', {
 	'mr squiggles': {
 		graphicStill: 'mr squiggles',
 		graphicSpinning: 'mr squiggles spin',
-		motionGraphics: ['mr squiggles move 1', 'mr squiggles move 1.5', 'mr squiggles move 2', 'mr squiggles move 2.5', 'mr squiggles move 3'],
+		motionGraphics: ['mr squiggles move 1', 'mr squiggles move 2', 'mr squiggles move 3', 'mr squiggles move 4', 'mr squiggles move 5'],
 		framesPerGraphic: 2,
 		name: 'mr squiggles',
 		maxHealth: 200,

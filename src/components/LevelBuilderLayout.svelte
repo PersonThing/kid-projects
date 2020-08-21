@@ -44,7 +44,7 @@
 </script>
 
 <style lang="scss">
-	@import '../../../css/variables';
+	@import '../css/variables';
 
 	.nav-column {
 		width: 250px;

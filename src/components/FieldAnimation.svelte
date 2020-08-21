@@ -37,11 +37,11 @@
 <script>
 	import { onDestroy } from 'svelte'
 	import { remove as removeIcon } from 'svelte-awesome/icons'
-	import artStore from '../../../stores/art-store'
+	import artStore from '../stores/art-store'
 	import FieldArtPicker from './FieldArtPicker.svelte'
 	import FieldNumber from './FieldNumber.svelte'
 	import Icon from 'svelte-awesome'
-	import LivingSprite from '../../Play/LivingSprite.svelte'
+	import LivingSprite from './LivingSprite.svelte'
 
 	export let graphics = []
 	export let framesPerGraphic = 5

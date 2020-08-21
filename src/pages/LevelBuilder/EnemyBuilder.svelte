@@ -34,14 +34,14 @@
 <script>
 	import { push } from 'svelte-spa-router'
 	import enemies from '../../stores/enemy-store'
-	import FieldCheckbox from './components/FieldCheckbox.svelte'
-	import FieldArtPicker from './components/FieldArtPicker.svelte'
-	import FieldNumber from './components/FieldNumber.svelte'
-	import FieldText from './components/FieldText.svelte'
-	import Form from './components/Form.svelte'
-	import LevelBuilderLayout from './components/LevelBuilderLayout.svelte'
+	import FieldCheckbox from '../../components/FieldCheckbox.svelte'
+	import FieldArtPicker from '../../components/FieldArtPicker.svelte'
+	import FieldNumber from '../../components/FieldNumber.svelte'
+	import FieldText from '../../components/FieldText.svelte'
+	import Form from '../../components/Form.svelte'
+	import LevelBuilderLayout from '../../components/LevelBuilderLayout.svelte'
 	import validator from '../../services/validator'
-	import FieldAnimation from './components/FieldAnimation.svelte'
+	import FieldAnimation from '../../components/FieldAnimation.svelte'
 
 	export let params = {}
 	let input

@@ -29,20 +29,20 @@
 	import HealthBar from './HealthBar.svelte'
 	import GameOver from './GameOver.svelte'
 	import Paused from './Paused.svelte'
-	import { doObjectsIntersect, isAAboveB, doObjectsIntersectY, doObjectsIntersectYExclusive } from './spatial-functions'
-	import CreateEnemy from './enemies'
+	import { doObjectsIntersect, isAAboveB, doObjectsIntersectY, doObjectsIntersectYExclusive } from '../services/spatial-functions'
 
-	import artStore from '../../stores/art-store'
-	import blockStore from '../../stores/block-store'
-	import enemyStore from '../../stores/enemy-store'
+	import artStore from '../stores/art-store'
+	import blockStore from '../stores/block-store'
+	import enemyStore from '../stores/enemy-store'
 
 	export let level = null
 	export let character = null
 
 	const artScale = 2
 	const startOfLevel = 0
-	let endOfLevel
 	const blockSize = 40
+	const leashRange = 400
+	let endOfLevel
 	let blocks
 	let effectBlocks
 	let levelWidth = 0
@@ -143,7 +143,7 @@
 			const template = $enemyStore[e.name]
 			const w = $artStore[template.graphicStill].width * artScale // width of graphic
 			const h = $artStore[template.graphicStill].height * artScale // height of graphic
-			return CreateEnemy(template, e, w, h)
+			return createEnemy(template, e, w, h)
 		})
 		gameOver = false
 		paused = false
@@ -299,6 +299,46 @@
 			})
 
 		return sprite
+	}
+
+	function createEnemy(template, config, width, height) {
+		return {
+			...template,
+			...config,
+
+			width,
+			height,
+
+			health: template.maxHealth,
+			tvx: template.maxVelocity,
+			vx: 0,
+			vy: 0,
+			grounded: false,
+			alive: true,
+
+			tick(me, player) {
+				if (!me.grounded) return
+
+				// is player in leash range?
+				if (Math.abs(player.x - me.x) < leashRange) {
+					// move toward them
+
+					// x axis
+					if (Math.abs(player.x - me.x) < 2) me.vx = 0
+					else if (player.x < me.x) me.vx = -me.tvx
+					else me.vx = me.tvx
+
+					// y axis
+					if (player.y > me.y + me.height) {
+						me.vy = me.jumpVelocity
+						me.y += 1
+					}
+				} else {
+					// stop moving
+					me.vx = 0
+				}
+			},
+		}
 	}
 
 	function onKeyDown(e) {

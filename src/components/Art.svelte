@@ -7,8 +7,8 @@
 {/if}
 
 <script>
-	import toPNG from '../../../services/to-png'
-	import artStore from '../../../stores/art-store'
+	import toPNG from '../services/to-png'
+	import artStore from '../stores/art-store'
 
 	export let name
 	export let height = null

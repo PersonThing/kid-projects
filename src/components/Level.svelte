@@ -2,9 +2,9 @@
 
 <script>
 	import { createEventDispatcher } from 'svelte'
-	import blockStore from '../../stores/block-store'
-	import enemyStore from '../../stores/enemy-store'
-	import artStore from '../../stores/art-store'
+	import blockStore from '../stores/block-store'
+	import enemyStore from '../stores/enemy-store'
+	import artStore from '../stores/art-store'
 
 	export let width = 0
 	export let height = 0

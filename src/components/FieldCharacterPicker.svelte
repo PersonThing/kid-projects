@@ -18,10 +18,10 @@
 </div>
 
 <script>
-	import artStore from '../../../stores/art-store'
-	import characterStore from '../../../stores/character-store'
+	import artStore from '../stores/art-store'
+	import characterStore from '../stores/character-store'
 	import Art from './Art.svelte'
-	import InputSelect from '../../../components/InputSelect.svelte'
+	import InputSelect from './InputSelect.svelte'
 	export let value = []
 
 	$: options = Object.keys($characterStore)

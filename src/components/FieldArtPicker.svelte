@@ -15,8 +15,8 @@
 
 <script>
 	import Art from './Art.svelte'
-	import artStore from '../../../stores/art-store'
-	import InputSelect from '../../../components/InputSelect.svelte'
+	import artStore from '../stores/art-store'
+	import InputSelect from './InputSelect.svelte'
 	export let value = null
 	export let spin = 0
 	export let name = 'graphic-picker'

@@ -127,16 +127,6 @@
 </LevelBuilderLayout>
 
 <script>
-	import { push } from 'svelte-spa-router'
-	import ColorPicker from '../../components/ColorPicker.svelte'
-	import FieldText from './components/FieldText.svelte'
-	import Form from './components/Form.svelte'
-	import LevelBuilderLayout from './components/LevelBuilderLayout.svelte'
-	import toPNG from '../../services/to-png'
-	import validator from '../../services/validator'
-	import Icon from 'svelte-awesome'
-	import artStore from '../../stores/art-store'
-	import autoSaveStore from '../../stores/auto-save-store'
 	import {
 		arrowLeft as arrowLeftIcon,
 		arrowRight as arrowRightIcon,
@@ -147,7 +137,17 @@
 		eraser as eraseIcon,
 	} from 'svelte-awesome/icons'
 	import { faFillDrip as fillIcon, faPaintBrush as paintIcon, faExchangeAlt as flipIcon } from '@fortawesome/free-solid-svg-icons'
+	import { push } from 'svelte-spa-router'
+	import artStore from '../../stores/art-store'
+	import autoSaveStore from '../../stores/auto-save-store'
+	import ColorPicker from '../../components/ColorPicker.svelte'
+	import FieldText from '../../components/FieldText.svelte'
+	import Form from '../../components/Form.svelte'
+	import Icon from 'svelte-awesome'
 	import InputSelect from '../../components/InputSelect.svelte'
+	import LevelBuilderLayout from '../../components/LevelBuilderLayout.svelte'
+	import toPNG from '../../services/to-png'
+	import validator from '../../services/validator'
 
 	export let params = {}
 	let input
@@ -158,7 +158,7 @@
 	let drawContext
 	let gridCanvas
 	let gridContext
-	let gridSize = 25
+	let gridSize = 20
 	let undos = []
 	let redos = []
 	let mouseDown = false

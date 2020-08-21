@@ -6,6 +6,7 @@
 			{/if}
 		</span>
 		<FieldText name="name" bind:value={input.name} autofocus>Name</FieldText>
+
 		<FieldArtPicker bind:value={input.graphicStill}>Standing still graphic</FieldArtPicker>
 		<FieldAnimation bind:graphics={input.motionGraphics} bind:framesPerGraphic={input.framesPerGraphic} vx={input.maxVelocity}>
 			Moving graphics
@@ -23,19 +24,19 @@
 	import { onDestroy } from 'svelte'
 	import { push } from 'svelte-spa-router'
 	import { remove as removeIcon } from 'svelte-awesome/icons'
-	import Art from './components/Art.svelte'
+	import Art from '../../components/Art.svelte'
 	import artStore from '../../stores/art-store'
 	import characters from '../../stores/character-store'
-	import FieldAbilities from './FieldAbilities.svelte'
-	import FieldAnimation from './components/FieldAnimation.svelte'
-	import FieldArtPicker from './components/FieldArtPicker.svelte'
-	import FieldCheckbox from './components/FieldCheckbox.svelte'
-	import FieldNumber from './components/FieldNumber.svelte'
-	import FieldRange from './components/FieldRange.svelte'
-	import FieldText from './components/FieldText.svelte'
-	import Form from './components/Form.svelte'
+	import FieldAbilities from '../../components/FieldAbilities.svelte'
+	import FieldAnimation from '../../components/FieldAnimation.svelte'
+	import FieldArtPicker from '../../components/FieldArtPicker.svelte'
+	import FieldCheckbox from '../../components/FieldCheckbox.svelte'
+	import FieldNumber from '../../components/FieldNumber.svelte'
+	import FieldRange from '../../components/FieldRange.svelte'
+	import FieldText from '../../components/FieldText.svelte'
+	import Form from '../../components/Form.svelte'
 	import Icon from 'svelte-awesome'
-	import LevelBuilderLayout from './components/LevelBuilderLayout.svelte'
+	import LevelBuilderLayout from '../../components/LevelBuilderLayout.svelte'
 	import validator from '../../services/validator'
 
 	export let params = {}

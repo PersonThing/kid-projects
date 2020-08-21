@@ -17,12 +17,12 @@
 
 <script>
 	import { push } from 'svelte-spa-router'
-	import LevelBuilderLayout from './components/LevelBuilderLayout.svelte'
-	import FieldArtPicker from './components/FieldArtPicker.svelte'
-	import FieldText from './components/FieldText.svelte'
-	import FieldCheckbox from './components/FieldCheckbox.svelte'
-	import FieldNumber from './components/FieldNumber.svelte'
-	import Form from './components/Form.svelte'
+	import LevelBuilderLayout from '../../components/LevelBuilderLayout.svelte'
+	import FieldArtPicker from '../../components/FieldArtPicker.svelte'
+	import FieldText from '../../components/FieldText.svelte'
+	import FieldCheckbox from '../../components/FieldCheckbox.svelte'
+	import FieldNumber from '../../components/FieldNumber.svelte'
+	import Form from '../../components/Form.svelte'
 	import blocks from '../../stores/block-store'
 	import validator from '../../services/validator'
 

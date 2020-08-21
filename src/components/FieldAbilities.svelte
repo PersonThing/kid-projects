@@ -40,10 +40,10 @@
 	import { onDestroy } from 'svelte'
 	import Icon from 'svelte-awesome'
 	import { spinner } from 'svelte-awesome/icons'
-	import FieldNumber from './components/FieldNumber.svelte'
-	import FieldArtPicker from './components/FieldArtPicker.svelte'
-	import FieldCheckbox from './components/FieldCheckbox.svelte'
-	import artStore from '../../stores/art-store'
+	import FieldNumber from './FieldNumber.svelte'
+	import FieldArtPicker from './FieldArtPicker.svelte'
+	import FieldCheckbox from './FieldCheckbox.svelte'
+	import artStore from '../stores/art-store'
 
 	// export let abilities = {}
 

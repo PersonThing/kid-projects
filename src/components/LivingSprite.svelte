@@ -13,7 +13,7 @@
 </div>
 
 <script>
-	import artStore from '../../stores/art-store'
+	import artStore from '../stores/art-store'
 	import HealthBar from './HealthBar.svelte'
 
 	const artScale = 2
