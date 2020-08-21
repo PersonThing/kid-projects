@@ -41,7 +41,7 @@
 			{#if filterable}
 				<div class="filter">
 					<div class="input-group">
-						<input type="text" class="form-control" bind:value={filter} placeholder={filterPlaceholder} autofocus on:keydown={keyListener} />
+						<input type="text" class="form-control" bind:value={filter} placeholder={filterPlaceholder} on:keydown={keyListener} />
 						<a class="input-group-addon" on:click|preventDefault={() => (filter = '')} href="/" tabindex="-1">
 							<Icon data={removeIcon} class="fw" />
 						</a>

@@ -11,7 +11,7 @@
 
 <LevelBuilderLayout tab="enemies" activeName={input.name} store={$enemies}>
 	<Form on:submit={save} {hasChanges}>
-		<FieldText name="name" bind:value={input.name} autofocus>Name</FieldText>
+		<FieldText name="name" bind:value={input.name}>Name</FieldText>
 		<FieldArtPicker bind:value={input.graphicStill}>Standing still graphic</FieldArtPicker>
 		<FieldAnimation bind:graphics={input.motionGraphics} bind:framesPerGraphic={input.framesPerGraphic} vx={input.maxVelocity}>
 			Moving graphics

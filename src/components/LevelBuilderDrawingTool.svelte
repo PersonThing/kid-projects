@@ -208,15 +208,6 @@
 		flex-direction: column;
 	}
 
-	.tool-picker .btn-group {
-		margin-right: 5px;
-	}
-
-	.tool-picker .btn {
-		height: 60px;
-		overflow: hidden;
-	}
-
 	.level-container {
 		overflow-x: auto;
 		max-width: 100%;

@@ -5,7 +5,7 @@
 				<button type="button" class="btn btn-danger" on:click={() => del(input.name)}>Delete</button>
 			{/if}
 		</span>
-		<FieldText name="name" bind:value={input.name} autofocus>Name</FieldText>
+		<FieldText name="name" bind:value={input.name}>Name</FieldText>
 
 		<FieldArtPicker bind:value={input.graphicStill}>Standing still graphic</FieldArtPicker>
 		<FieldAnimation bind:graphics={input.motionGraphics} bind:framesPerGraphic={input.framesPerGraphic} vx={input.maxVelocity}>

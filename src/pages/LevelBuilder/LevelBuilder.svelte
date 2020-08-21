@@ -1,7 +1,7 @@
 {#if input != null}
 	<LevelBuilderLayout tab="levels" activeName={input.name} store={$levels}>
 		<Form on:submit={save} {hasChanges}>
-			<FieldText name="name" bind:value={input.name} autofocus>Name</FieldText>
+			<FieldText name="name" bind:value={input.name}>Name</FieldText>
 			<FieldCharacterPicker name="playableCharacters" bind:value={input.playableCharacters}>
 				Which characters can play this level?
 			</FieldCharacterPicker>

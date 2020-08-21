@@ -10,11 +10,6 @@
 
 	export let value = null
 	export let name = 'text'
-	export let autofocus = false
 
 	let field
-
-	// onMount(() => {
-	// 	if (autofocus) field.focus()
-	// })
 </script>

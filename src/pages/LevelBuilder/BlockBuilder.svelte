@@ -1,6 +1,6 @@
 <LevelBuilderLayout tab="blocks" activeName={input.name} store={$blocks}>
 	<Form on:submit={save} {hasChanges}>
-		<FieldText name="name" bind:value={input.name} autofocus>Name</FieldText>
+		<FieldText name="name" bind:value={input.name}>Name</FieldText>
 		<FieldArtPicker bind:value={input.graphic} blocks>Graphic (must be 20x20)</FieldArtPicker>
 		<FieldCheckbox name="solid" bind:checked={input.solid}>Solid? (if not checked, things will just move through it)</FieldCheckbox>
 		<FieldCheckbox name="throwOnTouch" bind:checked={input.throwOnTouch}>Throw things that touch it?</FieldCheckbox>
