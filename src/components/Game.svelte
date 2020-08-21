@@ -20,20 +20,17 @@
 </div>
 
 <script>
-	import { onMount, onDestroy } from 'svelte'
-	import Status from './Status.svelte'
-	import Level from './Level.svelte'
-	import Instructions from './Instructions.svelte'
-	import Viewport from './Viewport.svelte'
-	import LivingSprite from './LivingSprite.svelte'
-	import HealthBar from './HealthBar.svelte'
-	import GameOver from './GameOver.svelte'
-	import Paused from './Paused.svelte'
 	import { doObjectsIntersect, isAAboveB, doObjectsIntersectY, doObjectsIntersectYExclusive } from '../services/spatial-functions'
-
-	import artStore from '../stores/art-store'
-	import blockStore from '../stores/block-store'
-	import enemyStore from '../stores/enemy-store'
+	import { onMount, onDestroy } from 'svelte'
+	import GameOver from './GameOver.svelte'
+	import HealthBar from './HealthBar.svelte'
+	import Instructions from './Instructions.svelte'
+	import Level from './Level.svelte'
+	import LivingSprite from './LivingSprite.svelte'
+	import Paused from './Paused.svelte'
+	import project from '../stores/active-project-store'
+	import Status from './Status.svelte'
+	import Viewport from './Viewport.svelte'
 
 	export let level = null
 	export let character = null
@@ -84,10 +81,10 @@
 			})
 			.map(b => ({
 				...b,
-				solid: $blockStore[b.name].solid,
-				png: $artStore[$blockStore[b.name].graphic].png,
-				dps: $blockStore[b.name].dps,
-				throwOnTouch: $blockStore[b.name].throwOnTouch,
+				solid: $project.blocks[b.name].solid,
+				png: $project.art[$project.blocks[b.name].graphic].png,
+				dps: $project.blocks[b.name].dps,
+				throwOnTouch: $project.blocks[b.name].throwOnTouch,
 			}))
 
 		endOfLevel = Math.max(...blocks.map(b => b.x + b.width))
@@ -111,8 +108,8 @@
 			health: character.maxHealth,
 			tvx: character.maxVelocity,
 
-			width: $artStore[character.graphicStill].width * artScale, // width of graphic
-			height: $artStore[character.graphicStill].height * artScale, // height of graphic
+			width: $project.art[character.graphicStill].width * artScale, // width of graphic
+			height: $project.art[character.graphicStill].height * artScale, // height of graphic
 
 			// runtime stuff
 			x: blocks[0].x,
@@ -140,9 +137,9 @@
 			},
 		}
 		enemies = level.enemies.map(e => {
-			const template = $enemyStore[e.name]
-			const w = $artStore[template.graphicStill].width * artScale // width of graphic
-			const h = $artStore[template.graphicStill].height * artScale // height of graphic
+			const template = $project.enemies[e.name]
+			const w = $project.art[template.graphicStill].width * artScale // width of graphic
+			const h = $project.art[template.graphicStill].height * artScale // height of graphic
 			return createEnemy(template, e, w, h)
 		})
 		gameOver = false

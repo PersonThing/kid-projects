@@ -9,13 +9,13 @@
 		</InputSelect>
 	</div>
 	{#if value != null}
-		<a href="#/level-builder/art/{value}" class="ml-1">Edit {value} art</a>
+		<a href="#/{$project.name}/build/art/{value}" class="ml-1">Edit {value} art</a>
 	{/if}
 </div>
 
 <script>
 	import Art from './Art.svelte'
-	import artStore from '../stores/art-store'
+	import project from '../stores/active-project-store'
 	import InputSelect from './InputSelect.svelte'
 	export let value = null
 	export let spin = 0
@@ -24,5 +24,5 @@
 	export let blocks = false
 
 	const blockFilter = b => b.width == 20 || b.height == 20
-	$: options = Object.keys($artStore).filter(name => blocks == blockFilter($artStore[name]))
+	$: options = Object.keys($project.art).filter(name => blocks == blockFilter($project.art[name]))
 </script>

@@ -37,7 +37,7 @@
 <script>
 	import { onDestroy } from 'svelte'
 	import { remove as removeIcon } from 'svelte-awesome/icons'
-	import artStore from '../stores/art-store'
+	import project from '../stores/active-project-store'
 	import FieldArtPicker from './FieldArtPicker.svelte'
 	import FieldNumber from './FieldNumber.svelte'
 	import Icon from 'svelte-awesome'
@@ -55,7 +55,7 @@
 	let previewFrame = 0
 
 	$: previewGraphics = graphics.length > 0 ? graphics.filter(g => g != null) : []
-	$: previewGraphic = previewGraphics != null && previewGraphics[motionState] != null ? $artStore[previewGraphics[motionState]] : null
+	$: previewGraphic = previewGraphics != null && previewGraphics[motionState] != null ? $project.art[previewGraphics[motionState]] : null
 
 	animationLoop()
 

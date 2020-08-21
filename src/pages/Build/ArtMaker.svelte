@@ -1,6 +1,6 @@
 <svelte:window on:keyup={onKeyUp} />
 
-<LevelBuilderLayout tab="art" activeName={input.name} store={$artStore}>
+<BuildLayout tab="art" activeName={input.name} store={$project.art}>
 	<Form on:submit={save} {hasChanges}>
 		<span slot="buttons" class="flex">
 			<input type="text" class="form-control width-auto" id="name" name="name" bind:value={input.name} bind:this={nameField} />
@@ -36,7 +36,7 @@
 					inline
 					sm>
 					{option.name}
-					<img src={toPNG(option.data, option.width, option.height)} height="40" />
+					<img src={toPNG(option.data, option.width, option.height)} height="40" alt="" />
 				</InputSelect>
 			{/if}
 
@@ -124,7 +124,7 @@
 		</div>
 	</Form>
 
-</LevelBuilderLayout>
+</BuildLayout>
 
 <script>
 	import {
@@ -138,14 +138,14 @@
 	} from 'svelte-awesome/icons'
 	import { faFillDrip as fillIcon, faPaintBrush as paintIcon, faExchangeAlt as flipIcon } from '@fortawesome/free-solid-svg-icons'
 	import { push } from 'svelte-spa-router'
-	import artStore from '../../stores/art-store'
+	import project from '../../stores/active-project-store'
 	import autoSaveStore from '../../stores/auto-save-store'
 	import ColorPicker from '../../components/ColorPicker.svelte'
 	import FieldText from '../../components/FieldText.svelte'
 	import Form from '../../components/Form.svelte'
 	import Icon from 'svelte-awesome'
 	import InputSelect from '../../components/InputSelect.svelte'
-	import LevelBuilderLayout from '../../components/LevelBuilderLayout.svelte'
+	import BuildLayout from '../../components/BuildLayout.svelte'
 	import toPNG from '../../services/to-png'
 	import validator from '../../services/validator'
 
@@ -173,7 +173,7 @@
 	$: previewPNG = toPNG(input.data, input.width, input.height)
 	$: drawResult = draw(input.data, input.width, input.height)
 	$: if (input.width != 0 && input.height != 0 && showGrid != null) redraw()
-	$: hasChanges = input != null && !validator.equals(input, $artStore[input.name])
+	$: hasChanges = input != null && !validator.equals(input, $project.art[input.name])
 
 	function create() {
 		input = {
@@ -188,12 +188,12 @@
 	}
 
 	function edit(name) {
-		if (!$artStore.hasOwnProperty(name)) return
+		if (!$project.art.hasOwnProperty(name)) return
 
 		undos = []
 		redos = []
 
-		input = JSON.parse(JSON.stringify($artStore[name]))
+		input = JSON.parse(JSON.stringify($project.art[name]))
 		input.width = input.width || input.data[0].length
 		input.height = input.height || input.data.length
 
@@ -208,15 +208,15 @@
 
 		input.png = toPNG(input.data, input.width, input.height)
 
-		$artStore[input.name] = JSON.parse(JSON.stringify(input))
-		push(`/level-builder/art/${encodeURIComponent(input.name)}`)
+		$project.art[input.name] = JSON.parse(JSON.stringify(input))
+		push(`/${$project.name}/build/art/${encodeURIComponent(input.name)}`)
 	}
 
 	function del(name) {
 		if (confirm(`Are you sure you want to delete "${name}"?`)) {
-			delete $artStore[name]
-			$artStore = $artStore
-			push('/level-builder/art/new')
+			delete $project.art[name]
+			$project.art = $project.art
+			push(`/${$project.name}/build/art/new`)
 		}
 	}
 

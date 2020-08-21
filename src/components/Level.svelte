@@ -2,9 +2,7 @@
 
 <script>
 	import { createEventDispatcher } from 'svelte'
-	import blockStore from '../stores/block-store'
-	import enemyStore from '../stores/enemy-store'
-	import artStore from '../stores/art-store'
+	import project from '../stores/active-project-store'
 
 	export let width = 0
 	export let height = 0
@@ -22,15 +20,15 @@
 	$: if (canvas != null) context = canvas.getContext('2d')
 	$: if (blocks != null && width != null && height != null && context != null) {
 		context.clearRect(0, 0, width, height)
-		blocks.forEach(b => drawOnCanvas($blockStore[b.name].graphic, b.x, b.y))
+		blocks.forEach(b => drawOnCanvas($project.blocks[b.name].graphic, b.x, b.y))
 		if (enemies != null) {
-			enemies.forEach(e => drawOnCanvas($enemyStore[e.name].graphicStill, e.x, e.y))
+			enemies.forEach(e => drawOnCanvas($project.enemies[e.name].graphicStill, e.x, e.y))
 		}
 		dispatch('draw', canvas)
 	}
 
 	function drawOnCanvas(artName, x, y) {
-		let art = $artStore[artName]
+		let art = $project.art[artName]
 		let src = art.png
 		let drawing = imageCache[artName]
 

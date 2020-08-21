@@ -8,7 +8,8 @@
 
 <script>
 	import toPNG from '../services/to-png'
-	import artStore from '../stores/art-store'
+	import { getContext } from 'svelte'
+	import project from '../stores/active-project-store'
 
 	export let name
 	export let height = null
@@ -17,7 +18,7 @@
 	let graphic
 
 	$: if (name != null) {
-		graphic = $artStore[name]
+		graphic = $project.art[name]
 		// set png for any that haven't been saved with png yet
 		if (graphic != null && graphic.png == null) {
 			graphic.png = toPNG(graphic, graphic.width, graphic.height)

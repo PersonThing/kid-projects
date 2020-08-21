@@ -8,7 +8,7 @@ function LocalStorageStore(key, defaultValue) {
 	const valueFromStorage = localStorage.getItem(key)
 	const initialValue =
 		valueFromStorage != null && valueFromStorage != 'null' && valueFromStorage != 'undefined' ? JSON.parse(valueFromStorage) : defaultValue
-	const { subscribe, set, update } = writable(initialValue)
+	const { subscribe, set } = writable(initialValue)
 	return {
 		subscribe,
 		set: function (value) {

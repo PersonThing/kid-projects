@@ -1,4 +1,4 @@
-<LevelBuilderLayout tab="blocks" activeName={input.name} store={$blocks}>
+<BuildLayout tab="blocks" activeName={input.name} store={$project.blocks}>
 	<Form on:submit={save} {hasChanges}>
 		<FieldText name="name" bind:value={input.name}>Name</FieldText>
 		<FieldArtPicker bind:value={input.graphic} blocks>Graphic (must be 20x20)</FieldArtPicker>
@@ -13,17 +13,17 @@
 			{/if}
 		</span>
 	</Form>
-</LevelBuilderLayout>
+</BuildLayout>
 
 <script>
 	import { push } from 'svelte-spa-router'
-	import LevelBuilderLayout from '../../components/LevelBuilderLayout.svelte'
+	import BuildLayout from '../../components/BuildLayout.svelte'
 	import FieldArtPicker from '../../components/FieldArtPicker.svelte'
 	import FieldText from '../../components/FieldText.svelte'
 	import FieldCheckbox from '../../components/FieldCheckbox.svelte'
 	import FieldNumber from '../../components/FieldNumber.svelte'
 	import Form from '../../components/Form.svelte'
-	import blocks from '../../stores/block-store'
+	import project from '../../stores/active-project-store'
 	import validator from '../../services/validator'
 
 	export let params = {}
@@ -31,20 +31,20 @@
 	$: paramName = decodeURIComponent(params.name) || 'new'
 	$: paramName == 'new' ? create() : edit(paramName)
 	$: isAdding = paramName == 'new'
-	$: hasChanges = input != null && !validator.equals(input, $blocks[input.name])
+	$: hasChanges = input != null && !validator.equals(input, $project.blocks[input.name])
 
 	function save() {
 		if (validator.empty(input.name)) {
 			document.getElementById('name').focus()
 			return
 		}
-		$blocks[input.name] = JSON.parse(JSON.stringify(input))
-		push(`/level-builder/blocks/${encodeURIComponent(input.name)}`)
+		$project.blocks[input.name] = JSON.parse(JSON.stringify(input))
+		push(`/${$project.name}/build/blocks/${encodeURIComponent(input.name)}`)
 	}
 
 	function edit(name) {
-		if (!$blocks.hasOwnProperty(name)) return
-		input = JSON.parse(JSON.stringify($blocks[name]))
+		if (!$project.blocks.hasOwnProperty(name)) return
+		input = JSON.parse(JSON.stringify($project.blocks[name]))
 	}
 
 	function create() {
@@ -58,9 +58,9 @@
 
 	function del(name) {
 		if (confirm(`Are you sure you want to delete "${name}"?`)) {
-			delete $blocks[name]
-			$blocks = $blocks
-			push('/level-builder/blocks/new')
+			delete $project.blocks[name]
+			$project.blocks = $project.blocks
+			push(`/${$project.name}/build/blocks/new`)
 		}
 	}
 </script>

@@ -1,12 +1,15 @@
-<ul class="nav">
-	<li class="nav-item">
-		<a class="nav-link" href="#/level-builder/art/new">Level Builder</a>
-	</li>
-	{#if canPlay}
+<ul class="nav nav-tabs">
+	{#each $projects as p}
 		<li class="nav-item">
-			<a class="nav-link" href="#/play">Play!</a>
+			<a class="nav-link" use:active={`/${encodeURIComponent(p.name)}/*`} href="#/{encodeURIComponent(p.name)}/">{p.name}</a>
 		</li>
-	{/if}
+	{/each}
+	<li class="nav-item">
+		<a class="nav-link" href="#/new" on:click|preventDefault={startNewProject}>
+			<Icon data={addIcon} />
+			Create new game
+		</a>
+	</li>
 </ul>
 
 <main>
@@ -14,28 +17,19 @@
 </main>
 
 <script>
-	// svelte-spa-router for hash routing since this is just going to be hosted on github pages
-	import Router from 'svelte-spa-router'
-	import LevelBuilder from './pages/LevelBuilder/Index.svelte'
-	import Play from './pages/Play/Index.svelte'
-	import NotFound from './pages/NotFound.svelte'
-
-	import levelStore from './stores/level-store'
-
-	$: canPlay = Object.keys($levelStore).length > 0
+	import Router, { push } from 'svelte-spa-router'
+	import active from 'svelte-spa-router/active'
+	import projects from './stores/project-store'
+	import Project from './pages/Project.svelte'
+	import Icon from 'svelte-awesome'
+	import { plus as addIcon } from 'svelte-awesome/icons'
 
 	const routes = {
-		'/level-builder/:tab?/:name?': LevelBuilder,
-		'/play': Play,
-		'*': LevelBuilder,
+		'/:projectName/*': Project,
+	}
+
+	function startNewProject() {
+		const name = prompt('Project name?', '')
+		if (name != null && name.trim().length > 0) push(`/${encodeURIComponent(name)}/`)
 	}
 </script>
-
-<style>
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
-</style>

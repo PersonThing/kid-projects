@@ -6,12 +6,12 @@
 				name="selected-block"
 				inline
 				placeholder="Place a block"
-				options={Object.keys($blockStore).map(name => $blockStore[name])}
+				options={Object.keys($project.blocks).map(name => $project.blocks[name])}
 				let:option
 				valueProp="name"
 				bind:value={selectedBlock}
 				on:change={() => (selectedEnemy = null)}>
-				<Art name={$blockStore[option.name].graphic} height="40" />
+				<Art name={$project.blocks[option.name].graphic} height="40" />
 				{option.name}: {option.dps} dps, {option.solid ? 'solid' : 'background'}
 			</InputSelect>
 		</div>
@@ -20,12 +20,12 @@
 				name="selected-block"
 				inline
 				placeholder="Place an enemy"
-				options={Object.keys($enemyStore).map(name => $enemyStore[name])}
+				options={Object.keys($project.enemies).map(name => $project.enemies[name])}
 				let:option
 				valueProp="name"
 				bind:value={selectedEnemy}
 				on:change={() => (selectedBlock = null)}>
-				<Art name={$enemyStore[option.name].graphicStill} height="40" />
+				<Art name={$project.enemies[option.name].graphicStill} height="40" />
 				<strong>{option.name}</strong>
 				{option.dps} dps, {option.maxHealth} health, {option.maxVelocity} speed, {option.score} score
 			</InputSelect>
@@ -46,10 +46,8 @@
 
 <script>
 	import Art from './Art.svelte'
-	import artStore from '../stores/art-store'
-	import blockStore from '../stores/block-store'
+	import project from '../stores/active-project-store'
 	import LivingSprite from './LivingSprite.svelte'
-	import enemyStore from '../stores/enemy-store'
 	import Level from './Level.svelte'
 	import makeThumbnail from '../services/make-thumbnail'
 	import LevelPreview from './LevelPreview.svelte'
@@ -151,7 +149,7 @@
 	function placeItem(x, y) {
 		eraseItemAt(x, y)
 		if (selectedBlock != null) {
-			const template = $blockStore[selectedBlock]
+			const template = $project.blocks[selectedBlock]
 			blocks = [
 				...blocks,
 				{
@@ -163,7 +161,7 @@
 				},
 			]
 		} else if (selectedEnemy != null) {
-			const template = $enemyStore[selectedEnemy]
+			const template = $project.enemies[selectedEnemy]
 			enemies = [
 				...enemies,
 				{
@@ -183,7 +181,7 @@
 	}
 
 	function hydrateEnemy(enemy) {
-		const template = $enemyStore[enemy.name]
+		const template = $project.enemies[enemy.name]
 		return {
 			...template,
 			...enemy,

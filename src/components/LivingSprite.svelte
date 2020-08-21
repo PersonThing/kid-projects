@@ -13,7 +13,7 @@
 </div>
 
 <script>
-	import artStore from '../stores/art-store'
+	import project from '../stores/active-project-store'
 	import HealthBar from './HealthBar.svelte'
 
 	const artScale = 2
@@ -52,11 +52,11 @@
 
 	$: graphic =
 		spinning && graphicSpinning != null
-			? $artStore[graphicSpinning]
+			? $project.art[graphicSpinning]
 			: vx != 0 && motionGraphic != null
-			? $artStore[motionGraphic]
+			? $project.art[motionGraphic]
 			: graphicStill != null
-			? $artStore[graphicStill]
+			? $project.art[graphicStill]
 			: null
 
 	export let spinning = false

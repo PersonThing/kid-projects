@@ -1,4 +1,6 @@
-<Router {routes} {prefix} />
+{#if $project != null && prefix != null}
+	<Router {prefix} {routes} />
+{/if}
 
 <script>
 	export let params = {}
@@ -8,10 +10,11 @@
 	import CharacterBuilder from './CharacterBuilder.svelte'
 	import EnemyBuilder from './EnemyBuilder.svelte'
 	import LevelBuilder from './LevelBuilder.svelte'
+	import project from '../../stores/active-project-store'
 
 	$: tab = params.tab || 'art'
+	$: prefix = `/${encodeURIComponent($project.name)}/build`
 
-	const prefix = '/level-builder'
 	const routes = {
 		'/art/:name?': ArtMaker,
 		'/blocks/:name?': BlockBuilder,

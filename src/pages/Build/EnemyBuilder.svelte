@@ -9,7 +9,7 @@
 	</li>
 </ul> -->
 
-<LevelBuilderLayout tab="enemies" activeName={input.name} store={$enemies}>
+<BuildLayout tab="enemies" activeName={input.name} store={$project.enemies}>
 	<Form on:submit={save} {hasChanges}>
 		<FieldText name="name" bind:value={input.name}>Name</FieldText>
 		<FieldArtPicker bind:value={input.graphicStill}>Standing still graphic</FieldArtPicker>
@@ -29,17 +29,17 @@
 			{/if}
 		</span>
 	</Form>
-</LevelBuilderLayout>
+</BuildLayout>
 
 <script>
 	import { push } from 'svelte-spa-router'
-	import enemies from '../../stores/enemy-store'
+	import project from '../../stores/active-project-store'
 	import FieldCheckbox from '../../components/FieldCheckbox.svelte'
 	import FieldArtPicker from '../../components/FieldArtPicker.svelte'
 	import FieldNumber from '../../components/FieldNumber.svelte'
 	import FieldText from '../../components/FieldText.svelte'
 	import Form from '../../components/Form.svelte'
-	import LevelBuilderLayout from '../../components/LevelBuilderLayout.svelte'
+	import BuildLayout from '../../components/BuildLayout.svelte'
 	import validator from '../../services/validator'
 	import FieldAnimation from '../../components/FieldAnimation.svelte'
 
@@ -48,20 +48,23 @@
 	$: paramName = decodeURIComponent(params.name) || 'new'
 	$: paramName == 'new' ? create() : edit(paramName)
 	$: isAdding = paramName == 'new'
-	$: hasChanges = input != null && !validator.equals(input, $enemies[input.name])
+	$: hasChanges = input != null && !validator.equals(input, $project.enemies[input.name])
 
 	function save() {
 		if (validator.empty(input.name)) {
 			document.getElementById('name').focus()
 			return
 		}
-		$enemies[input.name] = JSON.parse(JSON.stringify(input))
-		push(`/level-builder/enemies/${encodeURIComponent(input.name)}`)
+		$project.enemies[input.name] = JSON.parse(JSON.stringify(input))
+		push(`/${$project.name}/build/enemies/${encodeURIComponent(input.name)}`)
 	}
 
 	function edit(name) {
-		if (!$enemies.hasOwnProperty(name)) return
-		input = JSON.parse(JSON.stringify($enemies[name]))
+		if (!$project.enemies.hasOwnProperty(name)) return
+		input = {
+			...createDefaultInput(),
+			...JSON.parse(JSON.stringify($project.enemies[name])),
+		}
 	}
 
 	function create() {
@@ -74,8 +77,8 @@
 			motionGraphics: [],
 			name: '',
 			maxHealth: 100,
-			maxVelocity: 20,
-			jumpVelocity: 15,
+			maxVelocity: 5,
+			jumpVelocity: 10,
 			gravityMultiplier: 1,
 			fallDamageMultiplier: 1,
 			dps: 120,
@@ -85,9 +88,9 @@
 
 	function del(name) {
 		if (confirm(`Are you sure you want to delete "${name}"?`)) {
-			delete $enemies[name]
-			$enemies = $enemies
-			push('/level-builder/enemies/new')
+			delete $project.enemies[name]
+			$project.enemies = $project.enemies
+			push(`/${$project.name}/build/enemies/new`)
 		}
 	}
 </script>

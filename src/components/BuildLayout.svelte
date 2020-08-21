@@ -11,7 +11,7 @@
 							<div class="flex-column">
 								<span>{name}</span>
 								{#if tab == 'levels'}
-									<img src={store[name].thumbnail} class="level-thumbnail" />
+									<img src={store[name].thumbnail} class="level-thumbnail" alt="" />
 								{/if}
 							</div>
 						</a>
@@ -27,12 +27,13 @@
 
 <script>
 	import Art from './Art.svelte'
+	import project from '../stores/active-project-store'
 
 	export let tab
 	export let activeName
 	export let store
 
-	const baseUrl = '#/level-builder'
+	$: baseUrl = `#/${$project.name}/build`
 
 	const tabs = [
 		{ name: 'art' },

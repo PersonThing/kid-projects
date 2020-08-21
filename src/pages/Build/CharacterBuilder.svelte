@@ -1,4 +1,4 @@
-<LevelBuilderLayout tab="characters" activeName={input.name} store={$characters}>
+<BuildLayout tab="characters" activeName={input.name} store={$project.characters}>
 	<Form on:submit={save} {hasChanges}>
 		<span slot="buttons">
 			{#if !isAdding}
@@ -18,15 +18,14 @@
 		<FieldNumber name="maxHealth" bind:value={input.maxHealth}>Max health</FieldNumber>
 		<FieldAbilities name="abilities" bind:input>Abilities</FieldAbilities>
 	</Form>
-</LevelBuilderLayout>
+</BuildLayout>
 
 <script>
 	import { onDestroy } from 'svelte'
 	import { push } from 'svelte-spa-router'
 	import { remove as removeIcon } from 'svelte-awesome/icons'
 	import Art from '../../components/Art.svelte'
-	import artStore from '../../stores/art-store'
-	import characters from '../../stores/character-store'
+	import project from '../../stores/active-project-store'
 	import FieldAbilities from '../../components/FieldAbilities.svelte'
 	import FieldAnimation from '../../components/FieldAnimation.svelte'
 	import FieldArtPicker from '../../components/FieldArtPicker.svelte'
@@ -36,7 +35,7 @@
 	import FieldText from '../../components/FieldText.svelte'
 	import Form from '../../components/Form.svelte'
 	import Icon from 'svelte-awesome'
-	import LevelBuilderLayout from '../../components/LevelBuilderLayout.svelte'
+	import BuildLayout from '../../components/BuildLayout.svelte'
 	import validator from '../../services/validator'
 
 	export let params = {}
@@ -44,22 +43,22 @@
 	$: paramName = decodeURIComponent(params.name) || 'new'
 	$: paramName == 'new' ? create() : edit(paramName)
 	$: isAdding = paramName == 'new'
-	$: hasChanges = input != null && !validator.equals(input, $characters[input.name])
+	$: hasChanges = input != null && !validator.equals(input, $project.characters[input.name])
 
 	function save() {
 		if (validator.empty(input.name)) {
 			document.getElementById('name').focus()
 			return
 		}
-		$characters[input.name] = JSON.parse(JSON.stringify(input))
-		push(`/level-builder/characters/${encodeURIComponent(input.name)}`)
+		$project.characters[input.name] = JSON.parse(JSON.stringify(input))
+		push(`/${$project.name}/build/characters/${encodeURIComponent(input.name)}`)
 	}
 
 	function edit(name) {
-		if (!$characters.hasOwnProperty(name)) return
+		if (!$project.characters.hasOwnProperty(name)) return
 		input = {
 			...createDefaultInput(),
-			...JSON.parse(JSON.stringify($characters[name])),
+			...JSON.parse(JSON.stringify($project.characters[name])),
 		}
 	}
 
@@ -95,9 +94,9 @@
 
 	function del(name) {
 		if (confirm(`Are you sure you want to delete "${name}"?`)) {
-			delete $characters[name]
-			$characters = $characters
-			push('/level-builder/characters/new')
+			delete $project.characters[name]
+			$project.characters = $project.characters
+			push(`/${$project.name}/build/characters/new`)
 		}
 	}
 </script>
