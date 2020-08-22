@@ -27,18 +27,17 @@
 
 			<button type="button" class="btn btn-light btn-sm mr1" on:click={reset}>Start over</button>
 
-			{#if $autoSaveStore[input.name] != null}
-				<InputSelect
-					options={$autoSaveStore[input.name]}
-					on:change={e => (input = JSON.parse(JSON.stringify(e.detail)))}
-					let:option
-					placeholder="Auto-saves"
-					inline
-					sm>
-					{option.name}
-					<img src={option.png} height="40" alt="" />
-				</InputSelect>
-			{/if}
+			<InputSelect
+				disabled={$autoSaveStore[input.name] == null}
+				options={$autoSaveStore[input.name]}
+				on:change={e => (input = JSON.parse(JSON.stringify(e.detail)))}
+				let:option
+				placeholder="Auto-saves"
+				inline
+				sm>
+				{option.name}
+				<img src={option.png} height="40" alt="" />
+			</InputSelect>
 
 			<div class="btn-group">
 				<button type="button" disabled={undos.length == 0} class="btn btn-default btn-sm" on:click={undo}>
@@ -237,67 +236,6 @@
 		input.png = null
 	}
 
-	function drawSquare(context, x, y, size, color) {
-		if (color == 'transparent') {
-			context.clearRect(x, y, size, size)
-		} else {
-			context.beginPath()
-			context.rect(x, y, size, size)
-			context.fillStyle = color
-			context.fill()
-		}
-	}
-
-	function redraw() {
-		if (input.png == null || drawCanvas == null || gridCanvas == null) return
-		if (drawContext == null) drawContext = drawCanvas.getContext('2d')
-		if (gridContext == null) gridContext = gridCanvas.getContext('2d')
-
-		// put source png onto scale canvas
-		createMemoryImage(input.png).then(image => {
-			// draw png onto scale canvas
-			let scaleWidth = image.width
-			let scaleHeight = image.height
-
-			// if png size is exactly double input size... we're just importing old data, scale it down
-			if (scaleWidth == input.width * 2 && scaleHeight == input.height * 2) {
-				// should be fine...
-				// use input size instead
-				scaleWidth = image.width / 2
-				scaleHeight = image.height / 2
-			}
-
-			scaleCanvas.width = input.width
-			scaleCanvas.height = input.height
-			scaleContext.clearRect(0, 0, input.width, input.height)
-
-			drawCanvas.width = input.width * gridSize
-			drawCanvas.height = input.height * gridSize
-			drawContext.clearRect(0, 0, input.width * gridSize, input.height * gridSize)
-
-			gridCanvas.width = input.width * gridSize
-			gridCanvas.height = input.height * gridSize
-			gridContext.clearRect(0, 0, input.width * gridSize, input.height * gridSize)
-
-			// draw the png full size, even if it gets cut off
-			scaleContext.drawImage(image, 0, 0, scaleWidth, scaleHeight)
-
-			// loop the scaleContext, grabbing pixels to render larger on full size canvas
-			for (let y = 0; y < input.height; y++) {
-				for (let x = 0; x < input.width; x++) {
-					let [r, g, b, a] = scaleContext.getImageData(x, y, 1, 1).data
-					if (a > 0) drawSquare(drawContext, x * gridSize, y * gridSize, gridSize, `rgba(${r}, ${g}, ${b}, ${a})`)
-					if (showGrid) {
-						gridContext.beginPath()
-						gridContext.rect(x * gridSize, y * gridSize, gridSize, gridSize)
-						gridContext.strokeStyle = 'rgba(255,255,255,0.5)'
-						gridContext.stroke()
-					}
-				}
-			}
-		})
-	}
-
 	function onDrawMouseDown(e) {
 		const { x, y } = getScaleCoordinates(e.offsetX, e.offsetY)
 		const color = getColorAt(x, y)
@@ -327,6 +265,17 @@
 		if (y != null && x != null) {
 			if (mode == 'erase') setColor(x, y, 'transparent')
 			else setColor(x, y, selectedColor)
+		}
+	}
+
+	function onKeyUp(e) {
+		switch (e.code) {
+			case 'KeyZ':
+				if (e.ctrlKey) undo()
+				break
+			case 'KeyY':
+				if (e.ctrlKey) redo()
+				break
 		}
 	}
 
@@ -394,15 +343,66 @@
 		if (!recursing) setInputFromCanvas()
 	}
 
-	function onKeyUp(e) {
-		switch (e.code) {
-			case 'KeyZ':
-				if (e.ctrlKey) undo()
-				break
-			case 'KeyY':
-				if (e.ctrlKey) redo()
-				break
+	function drawSquare(context, x, y, size, color) {
+		if (color == 'transparent') {
+			context.clearRect(x, y, size, size)
+		} else {
+			context.beginPath()
+			context.rect(x, y, size, size)
+			context.fillStyle = color
+			context.fill()
 		}
+	}
+
+	function redraw() {
+		if (input.png == null || drawCanvas == null || gridCanvas == null) return
+		if (drawContext == null) drawContext = drawCanvas.getContext('2d')
+		if (gridContext == null) gridContext = gridCanvas.getContext('2d')
+
+		// put source png onto scale canvas
+		createMemoryImage(input.png).then(image => {
+			// draw png onto scale canvas
+			let scaleWidth = image.width
+			let scaleHeight = image.height
+			// if png size is exactly double input size... we're just importing old data, scale it down
+			let wasOutOfScale = scaleWidth == input.width * 2 && scaleHeight == input.height * 2
+			if (wasOutOfScale) {
+				// should be fine...
+				// use input size instead
+				scaleWidth = image.width / 2
+				scaleHeight = image.height / 2
+			}
+
+			scaleCanvas.width = input.width
+			scaleCanvas.height = input.height
+			scaleContext.clearRect(0, 0, input.width, input.height)
+
+			drawCanvas.width = input.width * gridSize
+			drawCanvas.height = input.height * gridSize
+			drawContext.clearRect(0, 0, input.width * gridSize, input.height * gridSize)
+
+			gridCanvas.width = input.width * gridSize
+			gridCanvas.height = input.height * gridSize
+			gridContext.clearRect(0, 0, input.width * gridSize, input.height * gridSize)
+
+			// draw the png full size, even if it gets cut off
+			scaleContext.drawImage(image, 0, 0, scaleWidth, scaleHeight)
+			if (wasOutOfScale) setInputFromCanvas()
+
+			// loop the scaleContext, grabbing pixels to render larger on full size canvas
+			for (let y = 0; y < input.height; y++) {
+				for (let x = 0; x < input.width; x++) {
+					let [r, g, b, a] = scaleContext.getImageData(x, y, 1, 1).data
+					if (a > 0) drawSquare(drawContext, x * gridSize, y * gridSize, gridSize, `rgba(${r}, ${g}, ${b}, ${a})`)
+					if (showGrid) {
+						gridContext.beginPath()
+						gridContext.rect(x * gridSize, y * gridSize, gridSize, gridSize)
+						gridContext.strokeStyle = 'rgba(255,255,255,0.5)'
+						gridContext.stroke()
+					}
+				}
+			}
+		})
 	}
 
 	function flipY() {
@@ -434,6 +434,7 @@
 	}
 
 	function moveImage(dx, dy) {
+		setInputFromCanvas()
 		createMemoryImage(input.png).then(image => {
 			scaleContext.clearRect(0, 0, input.width, input.height)
 			scaleContext.drawImage(image, dx, dy, input.width, input.height)
@@ -447,6 +448,7 @@
 	}
 
 	function flipImage(flipX, flipY) {
+		setInputFromCanvas()
 		createMemoryImage(input.png).then(image => {
 			scaleContext.clearRect(0, 0, input.width, input.height)
 			scaleContext.scale(flipX ? -1 : 1, flipY ? -1 : 1)

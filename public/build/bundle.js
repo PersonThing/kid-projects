@@ -14744,7 +14744,7 @@ var app = (function () {
     }
 
     // (8:3) {#if !isAdding}
-    function create_if_block_2$3(ctx) {
+    function create_if_block_1$4(ctx) {
     	let button;
     	let mounted;
     	let dispose;
@@ -14775,7 +14775,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_2$3.name,
+    		id: create_if_block_1$4.name,
     		type: "if",
     		source: "(8:3) {#if !isAdding}",
     		ctx
@@ -14791,7 +14791,7 @@ var app = (function () {
     	let t;
     	let mounted;
     	let dispose;
-    	let if_block = !/*isAdding*/ ctx[9] && create_if_block_2$3(ctx);
+    	let if_block = !/*isAdding*/ ctx[9] && create_if_block_1$4(ctx);
 
     	const block = {
     		c: function create() {
@@ -14830,7 +14830,7 @@ var app = (function () {
     				if (if_block) {
     					if_block.p(ctx, dirty);
     				} else {
-    					if_block = create_if_block_2$3(ctx);
+    					if_block = create_if_block_1$4(ctx);
     					if_block.c();
     					if_block.m(span, null);
     				}
@@ -14859,75 +14859,7 @@ var app = (function () {
     	return block;
     }
 
-    // (30:3) {#if $autoSaveStore[input.name] != null}
-    function create_if_block_1$4(ctx) {
-    	let inputselect;
-    	let current;
-
-    	inputselect = new InputSelect({
-    			props: {
-    				options: /*$autoSaveStore*/ ctx[12][/*input*/ ctx[0].name],
-    				placeholder: "Auto-saves",
-    				inline: true,
-    				sm: true,
-    				$$slots: {
-    					default: [
-    						create_default_slot_2,
-    						({ option }) => ({ 67: option }),
-    						({ option }) => [0, 0, option ? 32 : 0]
-    					]
-    				},
-    				$$scope: { ctx }
-    			},
-    			$$inline: true
-    		});
-
-    	inputselect.$on("change", /*change_handler_1*/ ctx[38]);
-
-    	const block = {
-    		c: function create() {
-    			create_component(inputselect.$$.fragment);
-    		},
-    		m: function mount(target, anchor) {
-    			mount_component(inputselect, target, anchor);
-    			current = true;
-    		},
-    		p: function update(ctx, dirty) {
-    			const inputselect_changes = {};
-    			if (dirty[0] & /*$autoSaveStore, input*/ 4097) inputselect_changes.options = /*$autoSaveStore*/ ctx[12][/*input*/ ctx[0].name];
-
-    			if (dirty[2] & /*$$scope, option*/ 96) {
-    				inputselect_changes.$$scope = { dirty, ctx };
-    			}
-
-    			inputselect.$set(inputselect_changes);
-    		},
-    		i: function intro(local) {
-    			if (current) return;
-    			transition_in(inputselect.$$.fragment, local);
-    			current = true;
-    		},
-    		o: function outro(local) {
-    			transition_out(inputselect.$$.fragment, local);
-    			current = false;
-    		},
-    		d: function destroy(detaching) {
-    			destroy_component(inputselect, detaching);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_if_block_1$4.name,
-    		type: "if",
-    		source: "(30:3) {#if $autoSaveStore[input.name] != null}",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    // (31:4) <InputSelect       options={$autoSaveStore[input.name]}       on:change={e => (input = JSON.parse(JSON.stringify(e.detail)))}       let:option       placeholder="Auto-saves"       inline       sm>
+    // (30:3) <InputSelect      disabled={$autoSaveStore[input.name] == null}      options={$autoSaveStore[input.name]}      on:change={e => (input = JSON.parse(JSON.stringify(e.detail)))}      let:option      placeholder="Auto-saves"      inline      sm>
     function create_default_slot_2(ctx) {
     	let t0_value = /*option*/ ctx[67].name + "";
     	let t0;
@@ -14943,7 +14875,7 @@ var app = (function () {
     			if (img.src !== (img_src_value = /*option*/ ctx[67].png)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "height", "40");
     			attr_dev(img, "alt", "");
-    			add_location(img, file$c, 38, 5, 1589);
+    			add_location(img, file$c, 38, 4, 1586);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, t0, anchor);
@@ -14968,14 +14900,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_2.name,
     		type: "slot",
-    		source: "(31:4) <InputSelect       options={$autoSaveStore[input.name]}       on:change={e => (input = JSON.parse(JSON.stringify(e.detail)))}       let:option       placeholder=\\\"Auto-saves\\\"       inline       sm>",
+    		source: "(30:3) <InputSelect      disabled={$autoSaveStore[input.name] == null}      options={$autoSaveStore[input.name]}      on:change={e => (input = JSON.parse(JSON.stringify(e.detail)))}      let:option      placeholder=\\\"Auto-saves\\\"      inline      sm>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (110:4) {#if input.width == 20 && input.height == 20}
+    // (109:4) {#if input.width == 20 && input.height == 20}
     function create_if_block$6(ctx) {
     	let div;
     	let each_value = [0, 0];
@@ -14995,7 +14927,7 @@ var app = (function () {
     			}
 
     			attr_dev(div, "class", "ml-2");
-    			add_location(div, file$c, 110, 5, 4157);
+    			add_location(div, file$c, 109, 5, 4143);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -15037,14 +14969,14 @@ var app = (function () {
     		block,
     		id: create_if_block$6.name,
     		type: "if",
-    		source: "(110:4) {#if input.width == 20 && input.height == 20}",
+    		source: "(109:4) {#if input.width == 20 && input.height == 20}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (114:8) {#each [0, 0, 0] as margin}
+    // (113:8) {#each [0, 0, 0] as margin}
     function create_each_block_1$4(ctx) {
     	let img;
     	let img_src_value;
@@ -15054,7 +14986,7 @@ var app = (function () {
     			img = element("img");
     			if (img.src !== (img_src_value = /*input*/ ctx[0].png)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "block repeating preview");
-    			add_location(img, file$c, 114, 9, 4264);
+    			add_location(img, file$c, 113, 9, 4250);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, img, anchor);
@@ -15073,14 +15005,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1$4.name,
     		type: "each",
-    		source: "(114:8) {#each [0, 0, 0] as margin}",
+    		source: "(113:8) {#each [0, 0, 0] as margin}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (112:6) {#each [0, 0] as r}
+    // (111:6) {#each [0, 0] as r}
     function create_each_block$4(ctx) {
     	let div;
     	let t;
@@ -15101,7 +15033,7 @@ var app = (function () {
     			}
 
     			t = space();
-    			add_location(div, file$c, 112, 7, 4211);
+    			add_location(div, file$c, 111, 7, 4197);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -15145,7 +15077,7 @@ var app = (function () {
     		block,
     		id: create_each_block$4.name,
     		type: "each",
-    		source: "(112:6) {#each [0, 0] as r}",
+    		source: "(111:6) {#each [0, 0] as r}",
     		ctx
     	});
 
@@ -15174,6 +15106,7 @@ var app = (function () {
     	let t4;
     	let button3;
     	let t6;
+    	let inputselect;
     	let t7;
     	let div1;
     	let button4;
@@ -15273,7 +15206,26 @@ var app = (function () {
     			$$inline: true
     		});
 
-    	let if_block0 = /*$autoSaveStore*/ ctx[12][/*input*/ ctx[0].name] != null && create_if_block_1$4(ctx);
+    	inputselect = new InputSelect({
+    			props: {
+    				disabled: /*$autoSaveStore*/ ctx[12][/*input*/ ctx[0].name] == null,
+    				options: /*$autoSaveStore*/ ctx[12][/*input*/ ctx[0].name],
+    				placeholder: "Auto-saves",
+    				inline: true,
+    				sm: true,
+    				$$slots: {
+    					default: [
+    						create_default_slot_2,
+    						({ option }) => ({ 67: option }),
+    						({ option }) => [0, 0, option ? 32 : 0]
+    					]
+    				},
+    				$$scope: { ctx }
+    			},
+    			$$inline: true
+    		});
+
+    	inputselect.$on("change", /*change_handler_1*/ ctx[38]);
 
     	icon3 = new Icon({
     			props: { data: undoIcon },
@@ -15318,7 +15270,7 @@ var app = (function () {
     			$$inline: true
     		});
 
-    	let if_block1 = /*input*/ ctx[0].width == 20 && /*input*/ ctx[0].height == 20 && create_if_block$6(ctx);
+    	let if_block = /*input*/ ctx[0].width == 20 && /*input*/ ctx[0].height == 20 && create_if_block$6(ctx);
 
     	const block = {
     		c: function create() {
@@ -15339,7 +15291,7 @@ var app = (function () {
     			button3 = element("button");
     			button3.textContent = "Start over";
     			t6 = space();
-    			if (if_block0) if_block0.c();
+    			create_component(inputselect.$$.fragment);
     			t7 = space();
     			div1 = element("div");
     			button4 = element("button");
@@ -15393,7 +15345,7 @@ var app = (function () {
     			div7 = element("div");
     			img = element("img");
     			t28 = space();
-    			if (if_block1) if_block1.c();
+    			if (if_block) if_block.c();
     			attr_dev(button0, "type", "button");
     			attr_dev(button0, "class", button0_class_value = "btn btn-sm btn-" + (/*mode*/ ctx[1] == "paint" ? "primary" : "light"));
     			attr_dev(button0, "title", "Paint brush");
@@ -15414,75 +15366,75 @@ var app = (function () {
     			attr_dev(button4, "type", "button");
     			button4.disabled = button4_disabled_value = /*undos*/ ctx[2].length == 0;
     			attr_dev(button4, "class", "btn btn-default btn-sm");
-    			add_location(button4, file$c, 43, 4, 1698);
+    			add_location(button4, file$c, 42, 4, 1684);
     			attr_dev(button5, "type", "button");
     			button5.disabled = button5_disabled_value = /*redos*/ ctx[3].length == 0;
     			attr_dev(button5, "class", "btn btn-default btn-sm");
-    			add_location(button5, file$c, 47, 4, 1893);
+    			add_location(button5, file$c, 46, 4, 1879);
     			attr_dev(div1, "class", "btn-group svelte-59xta7");
-    			add_location(div1, file$c, 42, 3, 1669);
+    			add_location(div1, file$c, 41, 3, 1655);
     			attr_dev(button6, "type", "button");
     			attr_dev(button6, "class", "btn btn-light btn-sm");
     			attr_dev(button6, "title", "Flip horizontal");
-    			add_location(button6, file$c, 54, 4, 2147);
+    			add_location(button6, file$c, 53, 4, 2133);
     			attr_dev(button7, "type", "button");
     			attr_dev(button7, "class", "btn btn-light btn-sm");
     			attr_dev(button7, "title", "Flip vertical");
-    			add_location(button7, file$c, 57, 4, 2291);
+    			add_location(button7, file$c, 56, 4, 2277);
     			attr_dev(div2, "class", "btn-group svelte-59xta7");
-    			add_location(div2, file$c, 53, 3, 2118);
+    			add_location(div2, file$c, 52, 3, 2104);
     			attr_dev(button8, "type", "button");
     			attr_dev(button8, "class", "btn btn-light btn-sm");
     			attr_dev(button8, "title", "Move left");
-    			add_location(button8, file$c, 63, 4, 2508);
+    			add_location(button8, file$c, 62, 4, 2494);
     			attr_dev(button9, "type", "button");
     			attr_dev(button9, "class", "btn btn-light btn-sm");
     			attr_dev(button9, "title", "Move right");
-    			add_location(button9, file$c, 66, 4, 2654);
+    			add_location(button9, file$c, 65, 4, 2640);
     			attr_dev(button10, "type", "button");
     			attr_dev(button10, "class", "btn btn-light btn-sm");
     			attr_dev(button10, "title", "Move up");
-    			add_location(button10, file$c, 69, 4, 2803);
+    			add_location(button10, file$c, 68, 4, 2789);
     			attr_dev(button11, "type", "button");
     			attr_dev(button11, "class", "btn btn-light btn-sm");
     			attr_dev(button11, "title", "Move down");
-    			add_location(button11, file$c, 72, 4, 2943);
+    			add_location(button11, file$c, 71, 4, 2929);
     			attr_dev(div3, "class", "btn-group svelte-59xta7");
-    			add_location(div3, file$c, 62, 3, 2479);
+    			add_location(div3, file$c, 61, 3, 2465);
     			attr_dev(input0, "type", "number");
     			attr_dev(input0, "placeholder", "Height");
     			attr_dev(input0, "class", "svelte-59xta7");
-    			add_location(input0, file$c, 79, 4, 3144);
+    			add_location(input0, file$c, 78, 4, 3130);
     			attr_dev(div4, "class", "flex-column svelte-59xta7");
-    			add_location(div4, file$c, 77, 3, 3101);
+    			add_location(div4, file$c, 76, 3, 3087);
     			attr_dev(input1, "type", "number");
     			attr_dev(input1, "placeholder", "Width");
     			attr_dev(input1, "class", "svelte-59xta7");
-    			add_location(input1, file$c, 83, 4, 3272);
+    			add_location(input1, file$c, 82, 4, 3258);
     			attr_dev(div5, "class", "flex-column svelte-59xta7");
-    			add_location(div5, file$c, 81, 3, 3230);
+    			add_location(div5, file$c, 80, 3, 3216);
     			attr_dev(input2, "type", "checkbox");
     			attr_dev(input2, "class", "svelte-59xta7");
-    			add_location(input2, file$c, 86, 4, 3369);
-    			add_location(label, file$c, 85, 3, 3356);
+    			add_location(input2, file$c, 85, 4, 3355);
+    			add_location(label, file$c, 84, 3, 3342);
     			attr_dev(div6, "class", "toolbar flex align-center svelte-59xta7");
     			add_location(div6, file$c, 12, 2, 459);
     			attr_dev(canvas0, "class", "draw-canvas svelte-59xta7");
-    			add_location(canvas0, file$c, 92, 3, 3497);
+    			add_location(canvas0, file$c, 91, 3, 3483);
     			attr_dev(canvas1, "class", "grid-canvas svelte-59xta7");
     			toggle_class(canvas1, "paint-cursor", /*mode*/ ctx[1] == "paint");
     			toggle_class(canvas1, "fill-cursor", /*mode*/ ctx[1] == "fill");
     			toggle_class(canvas1, "erase-cursor", /*mode*/ ctx[1] == "erase");
-    			add_location(canvas1, file$c, 93, 3, 3555);
+    			add_location(canvas1, file$c, 92, 3, 3541);
     			if (img.src !== (img_src_value = /*input*/ ctx[0].png)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "preview");
     			attr_dev(img, "class", "drop-shadow");
-    			add_location(img, file$c, 105, 5, 3975);
-    			add_location(div7, file$c, 104, 4, 3963);
+    			add_location(img, file$c, 104, 5, 3961);
+    			add_location(div7, file$c, 103, 4, 3949);
     			attr_dev(div8, "class", "preview flex svelte-59xta7");
-    			add_location(div8, file$c, 103, 3, 3931);
+    			add_location(div8, file$c, 102, 3, 3917);
     			attr_dev(div9, "class", "canvas-container svelte-59xta7");
-    			add_location(div9, file$c, 91, 2, 3462);
+    			add_location(div9, file$c, 90, 2, 3448);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, t0, anchor);
@@ -15501,7 +15453,7 @@ var app = (function () {
     			append_dev(div6, t4);
     			append_dev(div6, button3);
     			append_dev(div6, t6);
-    			if (if_block0) if_block0.m(div6, null);
+    			mount_component(inputselect, div6, null);
     			append_dev(div6, t7);
     			append_dev(div6, div1);
     			append_dev(div1, button4);
@@ -15560,7 +15512,7 @@ var app = (function () {
     			append_dev(div8, div7);
     			append_dev(div7, img);
     			append_dev(div8, t28);
-    			if (if_block1) if_block1.m(div8, null);
+    			if (if_block) if_block.m(div8, null);
     			current = true;
 
     			if (!mounted) {
@@ -15569,8 +15521,8 @@ var app = (function () {
     					listen_dev(button1, "click", /*click_handler_2*/ ctx[36], false, false, false),
     					listen_dev(button2, "click", /*click_handler_3*/ ctx[37], false, false, false),
     					listen_dev(button3, "click", /*reset*/ ctx[15], false, false, false),
-    					listen_dev(button4, "click", /*undo*/ ctx[19], false, false, false),
-    					listen_dev(button5, "click", /*redo*/ ctx[20], false, false, false),
+    					listen_dev(button4, "click", /*undo*/ ctx[20], false, false, false),
+    					listen_dev(button5, "click", /*redo*/ ctx[21], false, false, false),
     					listen_dev(button6, "click", /*flipX*/ ctx[23], false, false, false),
     					listen_dev(button7, "click", /*flipY*/ ctx[22], false, false, false),
     					listen_dev(button8, "click", /*moveLeft*/ ctx[24], false, false, false),
@@ -15612,28 +15564,15 @@ var app = (function () {
     				attr_dev(button2, "class", button2_class_value);
     			}
 
-    			if (/*$autoSaveStore*/ ctx[12][/*input*/ ctx[0].name] != null) {
-    				if (if_block0) {
-    					if_block0.p(ctx, dirty);
+    			const inputselect_changes = {};
+    			if (dirty[0] & /*$autoSaveStore, input*/ 4097) inputselect_changes.disabled = /*$autoSaveStore*/ ctx[12][/*input*/ ctx[0].name] == null;
+    			if (dirty[0] & /*$autoSaveStore, input*/ 4097) inputselect_changes.options = /*$autoSaveStore*/ ctx[12][/*input*/ ctx[0].name];
 
-    					if (dirty[0] & /*$autoSaveStore, input*/ 4097) {
-    						transition_in(if_block0, 1);
-    					}
-    				} else {
-    					if_block0 = create_if_block_1$4(ctx);
-    					if_block0.c();
-    					transition_in(if_block0, 1);
-    					if_block0.m(div6, t7);
-    				}
-    			} else if (if_block0) {
-    				group_outros();
-
-    				transition_out(if_block0, 1, 1, () => {
-    					if_block0 = null;
-    				});
-
-    				check_outros();
+    			if (dirty[2] & /*$$scope, option*/ 96) {
+    				inputselect_changes.$$scope = { dirty, ctx };
     			}
+
+    			inputselect.$set(inputselect_changes);
 
     			if ((!current || dirty[0] & /*undos*/ 4) && t9_value !== (t9_value = (/*undos*/ ctx[2].length > 0
     			? /*undos*/ ctx[2].length
@@ -15680,16 +15619,16 @@ var app = (function () {
     			}
 
     			if (/*input*/ ctx[0].width == 20 && /*input*/ ctx[0].height == 20) {
-    				if (if_block1) {
-    					if_block1.p(ctx, dirty);
+    				if (if_block) {
+    					if_block.p(ctx, dirty);
     				} else {
-    					if_block1 = create_if_block$6(ctx);
-    					if_block1.c();
-    					if_block1.m(div8, null);
+    					if_block = create_if_block$6(ctx);
+    					if_block.c();
+    					if_block.m(div8, null);
     				}
-    			} else if (if_block1) {
-    				if_block1.d(1);
-    				if_block1 = null;
+    			} else if (if_block) {
+    				if_block.d(1);
+    				if_block = null;
     			}
     		},
     		i: function intro(local) {
@@ -15698,7 +15637,7 @@ var app = (function () {
     			transition_in(icon0.$$.fragment, local);
     			transition_in(icon1.$$.fragment, local);
     			transition_in(icon2.$$.fragment, local);
-    			transition_in(if_block0);
+    			transition_in(inputselect.$$.fragment, local);
     			transition_in(icon3.$$.fragment, local);
     			transition_in(icon4.$$.fragment, local);
     			transition_in(icon5.$$.fragment, local);
@@ -15714,7 +15653,7 @@ var app = (function () {
     			transition_out(icon0.$$.fragment, local);
     			transition_out(icon1.$$.fragment, local);
     			transition_out(icon2.$$.fragment, local);
-    			transition_out(if_block0);
+    			transition_out(inputselect.$$.fragment, local);
     			transition_out(icon3.$$.fragment, local);
     			transition_out(icon4.$$.fragment, local);
     			transition_out(icon5.$$.fragment, local);
@@ -15732,7 +15671,7 @@ var app = (function () {
     			destroy_component(icon0);
     			destroy_component(icon1);
     			destroy_component(icon2);
-    			if (if_block0) if_block0.d();
+    			destroy_component(inputselect);
     			destroy_component(icon3);
     			destroy_component(icon4);
     			destroy_component(icon5);
@@ -15745,7 +15684,7 @@ var app = (function () {
     			if (detaching) detach_dev(div9);
     			/*canvas0_binding*/ ctx[42](null);
     			/*canvas1_binding*/ ctx[43](null);
-    			if (if_block1) if_block1.d();
+    			if (if_block) if_block.d();
     			mounted = false;
     			run_all(dispose);
     		}
@@ -15853,7 +15792,7 @@ var app = (function () {
     			current = true;
 
     			if (!mounted) {
-    				dispose = listen_dev(window, "keyup", /*onKeyUp*/ ctx[21], false, false, false);
+    				dispose = listen_dev(window, "keyup", /*onKeyUp*/ ctx[19], false, false, false);
     				mounted = true;
     			}
     		},
@@ -15907,17 +15846,6 @@ var app = (function () {
     	};
     }
 
-    function drawSquare(context, x, y, size, color) {
-    	if (color == "transparent") {
-    		context.clearRect(x, y, size, size);
-    	} else {
-    		context.beginPath();
-    		context.rect(x, y, size, size);
-    		context.fillStyle = color;
-    		context.fill();
-    	}
-    }
-
     function getScaleCoordinates(x, y) {
     	return {
     		x: Math.floor(x / gridSize),
@@ -15929,6 +15857,17 @@ var app = (function () {
     	return d[3] === 0
     	? "transparent"
     	: `rgba(${d[0]}, ${d[1]}, ${d[2]}, ${d[3]})`;
+    }
+
+    function drawSquare(context, x, y, size, color) {
+    	if (color == "transparent") {
+    		context.clearRect(x, y, size, size);
+    	} else {
+    		context.beginPath();
+    		context.rect(x, y, size, size);
+    		context.fillStyle = color;
+    		context.fill();
+    	}
     }
 
     function instance$e($$self, $$props, $$invalidate) {
@@ -16008,57 +15947,6 @@ var app = (function () {
     		$$invalidate(0, input.png = null, input);
     	}
 
-    	function redraw() {
-    		if (input.png == null || drawCanvas == null || gridCanvas == null) return;
-    		if (drawContext == null) drawContext = drawCanvas.getContext("2d");
-    		if (gridContext == null) gridContext = gridCanvas.getContext("2d");
-
-    		// put source png onto scale canvas
-    		createMemoryImage(input.png).then(image => {
-    			// draw png onto scale canvas
-    			let scaleWidth = image.width;
-
-    			let scaleHeight = image.height;
-
-    			// if png size is exactly double input size... we're just importing old data, scale it down
-    			if (scaleWidth == input.width * 2 && scaleHeight == input.height * 2) {
-    				// should be fine...
-    				// use input size instead
-    				scaleWidth = image.width / 2;
-
-    				scaleHeight = image.height / 2;
-    			}
-
-    			scaleCanvas.width = input.width;
-    			scaleCanvas.height = input.height;
-    			scaleContext.clearRect(0, 0, input.width, input.height);
-    			$$invalidate(7, drawCanvas.width = input.width * gridSize, drawCanvas);
-    			$$invalidate(7, drawCanvas.height = input.height * gridSize, drawCanvas);
-    			drawContext.clearRect(0, 0, input.width * gridSize, input.height * gridSize);
-    			$$invalidate(8, gridCanvas.width = input.width * gridSize, gridCanvas);
-    			$$invalidate(8, gridCanvas.height = input.height * gridSize, gridCanvas);
-    			gridContext.clearRect(0, 0, input.width * gridSize, input.height * gridSize);
-
-    			// draw the png full size, even if it gets cut off
-    			scaleContext.drawImage(image, 0, 0, scaleWidth, scaleHeight);
-
-    			// loop the scaleContext, grabbing pixels to render larger on full size canvas
-    			for (let y = 0; y < input.height; y++) {
-    				for (let x = 0; x < input.width; x++) {
-    					let [r, g, b, a] = scaleContext.getImageData(x, y, 1, 1).data;
-    					if (a > 0) drawSquare(drawContext, x * gridSize, y * gridSize, gridSize, `rgba(${r}, ${g}, ${b}, ${a})`);
-
-    					if (showGrid) {
-    						gridContext.beginPath();
-    						gridContext.rect(x * gridSize, y * gridSize, gridSize, gridSize);
-    						gridContext.strokeStyle = "rgba(255,255,255,0.5)";
-    						gridContext.stroke();
-    					}
-    				}
-    			}
-    		});
-    	}
-
     	function onDrawMouseDown(e) {
     		const { x, y } = getScaleCoordinates(e.offsetX, e.offsetY);
     		const color = getColorAt(x, y);
@@ -16088,6 +15976,17 @@ var app = (function () {
 
     		if (y != null && x != null) {
     			if (mode == "erase") setColor(x, y, "transparent"); else setColor(x, y, selectedColor);
+    		}
+    	}
+
+    	function onKeyUp(e) {
+    		switch (e.code) {
+    			case "KeyZ":
+    				if (e.ctrlKey) undo();
+    				break;
+    			case "KeyY":
+    				if (e.ctrlKey) redo();
+    				break;
     		}
     	}
 
@@ -16150,15 +16049,59 @@ var app = (function () {
     		if (!recursing) setInputFromCanvas();
     	}
 
-    	function onKeyUp(e) {
-    		switch (e.code) {
-    			case "KeyZ":
-    				if (e.ctrlKey) undo();
-    				break;
-    			case "KeyY":
-    				if (e.ctrlKey) redo();
-    				break;
-    		}
+    	function redraw() {
+    		if (input.png == null || drawCanvas == null || gridCanvas == null) return;
+    		if (drawContext == null) drawContext = drawCanvas.getContext("2d");
+    		if (gridContext == null) gridContext = gridCanvas.getContext("2d");
+
+    		// put source png onto scale canvas
+    		createMemoryImage(input.png).then(image => {
+    			// draw png onto scale canvas
+    			let scaleWidth = image.width;
+
+    			let scaleHeight = image.height;
+
+    			// if png size is exactly double input size... we're just importing old data, scale it down
+    			let wasOutOfScale = scaleWidth == input.width * 2 && scaleHeight == input.height * 2;
+
+    			if (wasOutOfScale) {
+    				// should be fine...
+    				// use input size instead
+    				scaleWidth = image.width / 2;
+
+    				scaleHeight = image.height / 2;
+    			}
+
+    			scaleCanvas.width = input.width;
+    			scaleCanvas.height = input.height;
+    			scaleContext.clearRect(0, 0, input.width, input.height);
+    			$$invalidate(7, drawCanvas.width = input.width * gridSize, drawCanvas);
+    			$$invalidate(7, drawCanvas.height = input.height * gridSize, drawCanvas);
+    			drawContext.clearRect(0, 0, input.width * gridSize, input.height * gridSize);
+    			$$invalidate(8, gridCanvas.width = input.width * gridSize, gridCanvas);
+    			$$invalidate(8, gridCanvas.height = input.height * gridSize, gridCanvas);
+    			gridContext.clearRect(0, 0, input.width * gridSize, input.height * gridSize);
+
+    			// draw the png full size, even if it gets cut off
+    			scaleContext.drawImage(image, 0, 0, scaleWidth, scaleHeight);
+
+    			if (wasOutOfScale) setInputFromCanvas();
+
+    			// loop the scaleContext, grabbing pixels to render larger on full size canvas
+    			for (let y = 0; y < input.height; y++) {
+    				for (let x = 0; x < input.width; x++) {
+    					let [r, g, b, a] = scaleContext.getImageData(x, y, 1, 1).data;
+    					if (a > 0) drawSquare(drawContext, x * gridSize, y * gridSize, gridSize, `rgba(${r}, ${g}, ${b}, ${a})`);
+
+    					if (showGrid) {
+    						gridContext.beginPath();
+    						gridContext.rect(x * gridSize, y * gridSize, gridSize, gridSize);
+    						gridContext.strokeStyle = "rgba(255,255,255,0.5)";
+    						gridContext.stroke();
+    					}
+    				}
+    			}
+    		});
     	}
 
     	function flipY() {
@@ -16190,6 +16133,8 @@ var app = (function () {
     	}
 
     	function moveImage(dx, dy) {
+    		setInputFromCanvas();
+
     		createMemoryImage(input.png).then(image => {
     			scaleContext.clearRect(0, 0, input.width, input.height);
     			scaleContext.drawImage(image, dx, dy, input.width, input.height);
@@ -16203,6 +16148,8 @@ var app = (function () {
     	}
 
     	function flipImage(flipX, flipY) {
+    		setInputFromCanvas();
+
     		createMemoryImage(input.png).then(image => {
     			scaleContext.clearRect(0, 0, input.width, input.height);
     			scaleContext.scale(flipX ? -1 : 1, flipY ? -1 : 1);
@@ -16343,11 +16290,10 @@ var app = (function () {
     		save,
     		del,
     		reset,
-    		drawSquare,
-    		redraw,
     		onDrawMouseDown,
     		onDrawMouseUp,
     		onDrawMouseMove,
+    		onKeyUp,
     		getColorAt,
     		getScaleCoordinates,
     		toRGB,
@@ -16355,7 +16301,8 @@ var app = (function () {
     		undo,
     		redo,
     		setColor,
-    		onKeyUp,
+    		drawSquare,
+    		redraw,
     		flipY,
     		flipX,
     		moveLeft,
@@ -16444,9 +16391,9 @@ var app = (function () {
     		onDrawMouseDown,
     		onDrawMouseUp,
     		onDrawMouseMove,
+    		onKeyUp,
     		undo,
     		redo,
-    		onKeyUp,
     		flipY,
     		flipX,
     		moveLeft,
@@ -18184,7 +18131,7 @@ var app = (function () {
     }
 
     // (6:0) {#if input.canSpin}
-    function create_if_block_2$4(ctx) {
+    function create_if_block_2$3(ctx) {
     	let div1;
     	let div0;
     	let fieldnumber;
@@ -18303,7 +18250,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_2$4.name,
+    		id: create_if_block_2$3.name,
     		type: "if",
     		source: "(6:0) {#if input.canSpin}",
     		ctx
@@ -18959,7 +18906,7 @@ var app = (function () {
     		});
 
     	binding_callbacks.push(() => bind(fieldcheckbox1, "checked", fieldcheckbox1_checked_binding));
-    	let if_block0 = /*input*/ ctx[0].canSpin && create_if_block_2$4(ctx);
+    	let if_block0 = /*input*/ ctx[0].canSpin && create_if_block_2$3(ctx);
 
     	function fieldcheckbox2_checked_binding(value) {
     		/*fieldcheckbox2_checked_binding*/ ctx[10].call(null, value);
@@ -19065,7 +19012,7 @@ var app = (function () {
     						transition_in(if_block0, 1);
     					}
     				} else {
-    					if_block0 = create_if_block_2$4(ctx);
+    					if_block0 = create_if_block_2$3(ctx);
     					if_block0.c();
     					transition_in(if_block0, 1);
     					if_block0.m(t3.parentNode, t3);
@@ -27156,7 +27103,7 @@ var app = (function () {
     	let t;
     	let viewport_1;
     	let current;
-    	const if_block_creators = [create_if_block_1$9, create_if_block_2$5];
+    	const if_block_creators = [create_if_block_1$9, create_if_block_2$4];
     	const if_blocks = [];
 
     	function select_block_type(ctx, dirty) {
@@ -27277,7 +27224,7 @@ var app = (function () {
     }
 
     // (7:19) 
-    function create_if_block_2$5(ctx) {
+    function create_if_block_2$4(ctx) {
     	let paused_1;
     	let current;
     	paused_1 = new Paused({ $$inline: true });
@@ -27307,7 +27254,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_2$5.name,
+    		id: create_if_block_2$4.name,
     		type: "if",
     		source: "(7:19) ",
     		ctx
@@ -28853,7 +28800,7 @@ var app = (function () {
     	let current;
     	let mounted;
     	let dispose;
-    	let if_block0 = show_if && create_if_block_2$6(ctx);
+    	let if_block0 = show_if && create_if_block_2$5(ctx);
 
     	icon0 = new Icon({
     			props: { data: editIcon },
@@ -28935,7 +28882,7 @@ var app = (function () {
     						transition_in(if_block0, 1);
     					}
     				} else {
-    					if_block0 = create_if_block_2$6(ctx);
+    					if_block0 = create_if_block_2$5(ctx);
     					if_block0.c();
     					transition_in(if_block0, 1);
     					if_block0.m(ul, t0);
@@ -29021,7 +28968,7 @@ var app = (function () {
     }
 
     // (3:2) {#if Object.keys($project.levels).length > 0}
-    function create_if_block_2$6(ctx) {
+    function create_if_block_2$5(ctx) {
     	let li;
     	let a;
     	let icon;
@@ -29081,7 +29028,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_2$6.name,
+    		id: create_if_block_2$5.name,
     		type: "if",
     		source: "(3:2) {#if Object.keys($project.levels).length > 0}",
     		ctx
