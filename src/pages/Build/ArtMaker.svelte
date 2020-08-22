@@ -1,4 +1,4 @@
-<svelte:window on:keyup={onKeyUp} on:paste={onPaste} />
+<svelte:window on:keyup={onKeyUp} on:paste={onPaste} on:mouseup={onDrawMouseUp} />
 
 <BuildLayout tab="art" activeName={input.name} store={$project.art}>
 	<Form on:submit={save} {hasChanges}>
