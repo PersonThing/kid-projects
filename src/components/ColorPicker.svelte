@@ -55,8 +55,8 @@
 	}
 
 	// super half-assed generated color groups
-	const colorSteps = 6
-	const colorDarknessSteps = 10
+	const colorSteps = 15
+	const colorDarknessSteps = 30
 	const rainbowIntervals = [rgb(255, 0, 0), rgb(255, 255, 0), rgb(0, 255, 0), rgb(0, 255, 255), rgb(0, 0, 255), rgb(255, 0, 255)]
 	const colorSize = 600 / colorSteps / rainbowIntervals.length
 	let colors = []
