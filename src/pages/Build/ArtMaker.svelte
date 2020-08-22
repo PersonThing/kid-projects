@@ -347,6 +347,7 @@
 		redos = [...redos, input.png]
 		input.png = undos.pop()
 		undos = undos
+		redraw()
 	}
 
 	function redo() {
@@ -355,6 +356,7 @@
 		undos = [...undos, input.png]
 		input.png = redos.pop()
 		redos = redos
+		redraw()
 	}
 
 	function setColor(x, y, color, recursing = false) {
