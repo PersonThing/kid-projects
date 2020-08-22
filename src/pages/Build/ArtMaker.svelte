@@ -30,7 +30,7 @@
 			<InputSelect
 				disabled={$autoSaveStore[input.name] == null}
 				options={$autoSaveStore[input.name]}
-				on:change={e => (input = JSON.parse(JSON.stringify(e.detail)))}
+				on:change={e => loadAutoSave(e.detail)}
 				let:option
 				placeholder="Auto-saves"
 				inline
@@ -211,6 +211,11 @@
 			...createDefaultInput(),
 			...JSON.parse(JSON.stringify($project.art[name])),
 		}
+		redraw()
+	}
+
+	function loadAutoSave(saveData) {
+		input = JSON.parse(JSON.stringify(saveData))
 		redraw()
 	}
 
