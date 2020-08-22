@@ -5,7 +5,7 @@
 		<a href="#/{$project.name}/build/characters/{encodeURIComponent(characterName)}" class="btn btn-light" role="button">Edit {characterName}</a>
 	</div>
 
-	<Game level={$project.levels[levelName]} character={$project.characters[characterName]} />
+	<PhaserGame level={$project.levels[levelName]} character={$project.characters[characterName]} />
 {:else}
 	<div class="list-group">
 		{#each sortedLevelNames as levelName}
@@ -27,7 +27,7 @@
 
 <script>
 	import Art from '../../components/Art.svelte'
-	import Game from '../../components/Game.svelte'
+	import PhaserGame from '../../components/PhaserGame.svelte'
 	import LevelPreview from '../../components/LevelPreview.svelte'
 	import project from '../../stores/active-project-store'
 
