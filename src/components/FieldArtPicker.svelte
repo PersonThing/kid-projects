@@ -23,6 +23,6 @@
 	export let placeholder = 'Select art'
 	export let blocks = false
 
-	const blockFilter = b => b.width == 20 || b.height == 20
+	const blockFilter = b => b.width == 20 && b.height == 20
 	$: options = Object.keys($project.art).filter(name => blocks == blockFilter($project.art[name]))
 </script>
