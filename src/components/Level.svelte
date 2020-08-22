@@ -17,9 +17,12 @@
 	let canvas
 	let context
 
-	$: if (canvas != null) context = canvas.getContext('2d')
+	$: if (canvas != null) {
+		context = canvas.getContext('2d')
+	}
 	$: if (blocks != null && width != null && height != null && context != null) {
 		context.clearRect(0, 0, width, height)
+		context.imageSmoothingEnabled = false
 		blocks.forEach(b => drawOnCanvas($project.blocks[b.name].graphic, b.x, b.y))
 		if (enemies != null) {
 			enemies.forEach(e => drawOnCanvas($project.enemies[e.name].graphicStill, e.x, e.y))
@@ -33,7 +36,9 @@
 		let drawing = imageCache[artName]
 
 		const drawThisImage = () => {
-			const draw = () => context.drawImage(drawing, x, height - y - art.height * artScale)
+			const draw = () => {
+				context.drawImage(drawing, x, height - y - art.height * artScale, drawing.width * artScale, drawing.height * artScale)
+			}
 			if (playing) setTimeout(draw, 100)
 			else draw()
 		}

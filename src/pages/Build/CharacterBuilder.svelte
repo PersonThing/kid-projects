@@ -8,7 +8,11 @@
 		<FieldText name="name" bind:value={input.name}>Name</FieldText>
 
 		<FieldArtPicker bind:value={input.graphicStill}>Standing still graphic</FieldArtPicker>
-		<FieldAnimation bind:graphics={input.motionGraphics} bind:framesPerGraphic={input.framesPerGraphic} vx={input.maxVelocity}>
+		<FieldAnimation
+			bind:graphics={input.motionGraphics}
+			bind:framesPerGraphic={input.framesPerGraphic}
+			bind:loopBack={input.motionGraphicsLoopBack}
+			vx={input.maxVelocity}>
 			Moving graphics
 		</FieldAnimation>
 		<FieldNumber name="maxVelocity" min={0} bind:value={input.maxVelocity}>Max velocity</FieldNumber>

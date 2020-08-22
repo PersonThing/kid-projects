@@ -6,6 +6,7 @@
 		<div class="card-body">
 			<div class="flex align-top motion-graphics-fields">
 				<FieldNumber bind:value={framesPerGraphic} max={100}>Frames per graphic</FieldNumber>
+				<FieldCheckbox bind:checked={loopBack}>Loop backwards, or start from beginning?</FieldCheckbox>
 				{#each graphics as g, index}
 					<FieldArtPicker bind:value={g}>
 						Frame {index + 1}
@@ -42,9 +43,11 @@
 	import FieldNumber from './FieldNumber.svelte'
 	import Icon from 'svelte-awesome'
 	import LivingSprite from './LivingSprite.svelte'
+	import FieldCheckbox from './FieldCheckbox.svelte'
 
 	export let graphics = []
 	export let framesPerGraphic = 5
+	export let loopBack = true
 	export let vx = 5
 
 	let motionState = 0
@@ -63,7 +66,7 @@
 		previewFrame++
 
 		posX += (vx || 0) * posDir
-		if (posX > 300 || posX < 0) posDir = posDir * -1
+		if (posX > 500 || posX < 0) posDir = posDir * -1
 
 		lastRequestedFrame = window.requestAnimationFrame(animationLoop)
 	}

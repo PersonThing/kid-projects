@@ -23,6 +23,7 @@
 	export let graphicStill
 	export let graphicSpinning
 	export let motionGraphics = []
+	export let motionGraphicsLoopBack = true
 	export let framesPerGraphic = 5
 	export let hideHealth = false
 
@@ -44,7 +45,10 @@
 		// change the graphic every x frames
 		if (usableMotionGraphics.length > 1) {
 			motionGraphicIndex = Math.max(motionGraphicIndex + motionGraphicDelta, 0)
-			if (motionGraphicIndex >= usableMotionGraphics.length - 1 || motionGraphicIndex == 0) motionGraphicDelta = motionGraphicDelta * -1
+			if (motionGraphicIndex >= usableMotionGraphics.length - 1 || motionGraphicIndex == 0) {
+				if (motionGraphicsLoopBack) motionGraphicDelta = motionGraphicDelta * -1
+				else motionGraphicIndex = 0
+			}
 		} else {
 			motionGraphicIndex = 0
 		}

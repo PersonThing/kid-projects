@@ -1,4 +1,4 @@
-<svelte:window on:keyup={onKeyUp} />
+<svelte:window on:keyup={onKeyUp} on:paste={onPaste} />
 
 <BuildLayout tab="art" activeName={input.name} store={$project.art}>
 	<Form on:submit={save} {hasChanges}>
@@ -146,6 +146,7 @@
 	import validator from '../../services/validator'
 	import { onMount } from 'svelte'
 	import makeThumbnail from '../../services/make-thumbnail'
+	import debounce from '../../services/debounce'
 
 	export let params = {}
 	let input = createDefaultInput()
@@ -161,8 +162,8 @@
 	// we load the png into this canvas
 	// and when user draws on the big canvas, we actually make the change on the scaled down canvas, and then re-render the larger canvas from this one
 	// (if we make a change to the larger canvas, it gets blurry when scaling back down)
-	const scaleCanvas = document.createElement('canvas')
-	const scaleContext = scaleCanvas.getContext('2d')
+	const pngCanvas = document.createElement('canvas')
+	const pngContext = pngCanvas.getContext('2d')
 	const artScale = 2
 
 	// we render a scaled up version to this canvas for user to interact with
@@ -174,23 +175,19 @@
 	let gridCanvas
 	let gridContext
 
+	const debouncedRedraw = debounce(() => redraw(), 500)
 	$: paramName = decodeURIComponent(params.name) || 'new'
 	$: paramName == 'new' ? create() : edit(paramName)
 	$: isAdding = paramName == 'new'
 	$: inputWidth = input.width
 	$: inputHeight = input.height
-	$: if (inputWidth != 0 && inputHeight != 0 && showGrid != null) {
-		console.log('reactive', showGrid)
-		redraw()
-	}
-
-	// image breaks if you change width/height, then move stuff...
-
 	$: hasChanges = input != null && !validator.equals(input, $project.art[input.name])
+	$: if (inputWidth != 0 && inputHeight != 0 && showGrid != null) debouncedRedraw()
 
 	onMount(() => redraw())
 
 	function create() {
+		console.log('create')
 		input = createDefaultInput()
 		redraw()
 	}
@@ -238,6 +235,7 @@
 	function reset(undoable = true) {
 		if (undoable) addUndoState()
 		input.png = null
+		redraw()
 	}
 
 	function onDrawMouseDown(e) {
@@ -283,8 +281,36 @@
 		}
 	}
 
+	function onPaste(e) {
+		const items = (e.clipboardData || e.originalEvent.clipboardData).items
+		console.log('onpaste', JSON.stringify(items)) // will give you the mime types
+		for (let index in items) {
+			const item = items[index]
+			if (item.kind === 'file') {
+				const blob = item.getAsFile()
+				const reader = new FileReader()
+				reader.onload = function (event) {
+					console.log('onload', event.target.result)
+					const image = new Image()
+					image.src = event.target.result
+					image.onload = () => {
+						input.width = image.width
+						input.height = image.height
+						input.png = event.target.result
+						console.log(image.width, image.height)
+						redraw()
+					}
+				}
+				// data url!
+				// callback(blob)
+				console.log('blob', blob)
+				reader.readAsDataURL(blob)
+			}
+		}
+	}
+
 	function getColorAt(x, y) {
-		return toRGB(scaleContext.getImageData(x, y, 1, 1).data)
+		return toRGB(pngContext.getImageData(x, y, 1, 1).data)
 	}
 
 	function getScaleCoordinates(x, y) {
@@ -328,7 +354,7 @@
 
 	function setColor(x, y, color, recursing = false) {
 		const oldColor = getColorAt(x, y)
-		drawSquare(scaleContext, x, y, 1, color)
+		drawSquare(pngContext, x, y, 1, color)
 		drawSquare(drawContext, x * gridSize, y * gridSize, gridSize, color)
 
 		if (mode == 'fill') {
@@ -359,12 +385,14 @@
 	}
 
 	function redraw() {
-		if (input.png == null || drawCanvas == null || gridCanvas == null) return
+		if (drawCanvas == null || gridCanvas == null) return
 		if (drawContext == null) drawContext = drawCanvas.getContext('2d')
 		if (gridContext == null) gridContext = gridCanvas.getContext('2d')
 
+		console.log('redrawing')
 		// put source png onto scale canvas
 		createMemoryImage(input.png).then(image => {
+			console.log('image callback')
 			// draw png onto scale canvas
 			let scaleWidth = image.width
 			let scaleHeight = image.height
@@ -377,9 +405,9 @@
 				scaleHeight = image.height / 2
 			}
 
-			scaleCanvas.width = input.width
-			scaleCanvas.height = input.height
-			scaleContext.clearRect(0, 0, input.width, input.height)
+			pngCanvas.width = input.width
+			pngCanvas.height = input.height
+			pngContext.clearRect(0, 0, input.width, input.height)
 
 			drawCanvas.width = input.width * gridSize
 			drawCanvas.height = input.height * gridSize
@@ -390,13 +418,14 @@
 			gridContext.clearRect(0, 0, input.width * gridSize, input.height * gridSize)
 
 			// draw the png full size, even if it gets cut off
-			scaleContext.drawImage(image, 0, 0, scaleWidth, scaleHeight)
+			if (input.png != null) pngContext.drawImage(image, 0, 0, scaleWidth, scaleHeight)
+
 			setInputFromCanvas()
 
 			// loop the scaleContext, grabbing pixels to render larger on full size canvas
 			for (let y = 0; y < input.height; y++) {
 				for (let x = 0; x < input.width; x++) {
-					let [r, g, b, a] = scaleContext.getImageData(x, y, 1, 1).data
+					let [r, g, b, a] = pngContext.getImageData(x, y, 1, 1).data
 					if (a > 0) drawSquare(drawContext, x * gridSize, y * gridSize, gridSize, `rgba(${r}, ${g}, ${b}, ${a})`)
 					if (showGrid) {
 						gridContext.beginPath()
@@ -440,12 +469,12 @@
 	function moveImage(dx, dy) {
 		setInputFromCanvas()
 		createMemoryImage(input.png).then(image => {
-			scaleContext.clearRect(0, 0, input.width, input.height)
-			scaleContext.drawImage(image, dx, dy, input.width, input.height)
+			pngContext.clearRect(0, 0, input.width, input.height)
+			pngContext.drawImage(image, dx, dy, input.width, input.height)
 
 			// draw the pixels that were cut off on the opposite side of the canvas, cuz why not
-			if (dx != 0) scaleContext.drawImage(image, dx - dx * input.width, 0, input.width, input.height)
-			else if (dy != 0) scaleContext.drawImage(image, 0, dy - dy * input.height, input.width, input.height)
+			if (dx != 0) pngContext.drawImage(image, dx - dx * input.width, 0, input.width, input.height)
+			else if (dy != 0) pngContext.drawImage(image, 0, dy - dy * input.height, input.width, input.height)
 			setInputFromCanvas()
 			redraw()
 		})
@@ -454,19 +483,21 @@
 	function flipImage(flipX, flipY) {
 		setInputFromCanvas()
 		createMemoryImage(input.png).then(image => {
-			scaleContext.clearRect(0, 0, input.width, input.height)
-			scaleContext.scale(flipX ? -1 : 1, flipY ? -1 : 1)
-			scaleContext.drawImage(image, flipX ? input.width * -1 : 0, flipY ? input.height * -1 : 0, input.width, input.height)
+			pngContext.clearRect(0, 0, input.width, input.height)
+			pngContext.scale(flipX ? -1 : 1, flipY ? -1 : 1)
+			pngContext.drawImage(image, flipX ? input.width * -1 : 0, flipY ? input.height * -1 : 0, input.width, input.height)
 			setInputFromCanvas()
 			redraw()
 		})
 	}
 
 	function setInputFromCanvas() {
-		input.png = scaleCanvas.toDataURL('image/png')
+		input.png = pngCanvas.toDataURL('image/png')
+		console.log(input.png)
 	}
 
 	function createMemoryImage(png) {
+		if (png == null) return Promise.resolve({ width: input.width, height: input.height })
 		return new Promise((resolve, reject) => {
 			const image = new Image()
 			image.src = input.png

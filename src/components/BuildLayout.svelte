@@ -7,7 +7,7 @@
 					<a href="{baseUrl}/{t.name}/new" class="sub-nav-item" class:new={store[activeName] == null}>+ New</a>
 					{#each Object.keys(store).sort() as name}
 						<a class="sub-nav-item" class:active={activeName == name} href="{baseUrl}/{t.name}/{name}">
-							<Art name={tab == 'art' ? name : store[name][t.graphicKey]} height="20" />
+							<Art name={tab == 'art' ? name : store[name][t.graphicKey]} />
 							<div class="flex-column">
 								<span>{name}</span>
 								{#if tab == 'levels'}
@@ -74,6 +74,7 @@
 
 		:global(img) {
 			margin-right: 5px;
+			height: 20px;
 		}
 
 		img.level-thumbnail {
