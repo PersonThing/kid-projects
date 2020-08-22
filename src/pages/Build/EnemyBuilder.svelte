@@ -12,10 +12,9 @@
 <BuildLayout tab="enemies" activeName={input.name} store={$project.enemies}>
 	<Form on:submit={save} {hasChanges}>
 		<FieldText name="name" bind:value={input.name}>Name</FieldText>
-		<FieldArtPicker bind:value={input.graphicStill}>Standing still graphic</FieldArtPicker>
-		<FieldAnimation bind:graphics={input.motionGraphics} bind:framesPerGraphic={input.framesPerGraphic} vx={input.maxVelocity}>
-			Moving graphics
-		</FieldAnimation>
+
+		<FieldGraphics bind:value={input.graphics.still}>Still graphics</FieldGraphics>
+		<FieldGraphics bind:value={input.graphics.moving}>Moving graphics</FieldGraphics>
 		<FieldNumber name="maxVelocity" min={0} bind:value={input.maxVelocity}>Max velocity</FieldNumber>
 		<FieldNumber name="jumpVelocity" min={0} bind:value={input.jumpVelocity}>Jump velocity</FieldNumber>
 		<FieldNumber name="gravityMultiplier" min={0} max={2} step={0.1} bind:value={input.gravityMultiplier}>Gravity multiplier</FieldNumber>
@@ -35,13 +34,12 @@
 	import { push } from 'svelte-spa-router'
 	import project from '../../stores/active-project-store'
 	import FieldCheckbox from '../../components/FieldCheckbox.svelte'
-	import FieldArtPicker from '../../components/FieldArtPicker.svelte'
 	import FieldNumber from '../../components/FieldNumber.svelte'
 	import FieldText from '../../components/FieldText.svelte'
 	import Form from '../../components/Form.svelte'
 	import BuildLayout from '../../components/BuildLayout.svelte'
 	import validator from '../../services/validator'
-	import FieldAnimation from '../../components/FieldAnimation.svelte'
+	import FieldGraphics from '../../components/FieldGraphics.svelte'
 
 	export let params = {}
 	let input
@@ -73,8 +71,27 @@
 
 	function createDefaultInput() {
 		return {
-			graphicStill: null,
-			motionGraphics: [],
+			graphics: {
+				still: {
+					art: null,
+					animated: false,
+					frameWidth: 40,
+					frameRate: 15,
+					yoyo: false,
+				},
+				moving: {
+					art: null,
+					animated: false,
+					frameWidth: 40,
+					frameRate: 15,
+					yoyo: false,
+				},
+				// jumping: {
+				// 	art: null,
+				// 	frameWidth: 40,
+				// 	frameRate: 5,
+				// },
+			},
 			name: '',
 			maxHealth: 100,
 			maxVelocity: 5,

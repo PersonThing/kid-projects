@@ -41,8 +41,8 @@
 	const tabs = [
 		{ name: 'art' },
 		{ name: 'blocks', graphicKey: 'graphic' },
-		{ name: 'characters', graphicKey: 'graphicStill' },
-		{ name: 'enemies', graphicKey: 'graphicStill' },
+		{ name: 'characters', graphicKey: 'graphics.still.art' },
+		{ name: 'enemies', graphicKey: 'graphics.still.art' },
 		{ name: 'levels', graphicKey: null },
 	]
 </script>

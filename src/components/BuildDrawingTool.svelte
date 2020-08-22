@@ -11,7 +11,7 @@
 				valueProp="name"
 				bind:value={selectedBlock}
 				on:change={() => (selectedEnemy = null)}>
-				<Art name={$project.blocks[option.name].graphic} height="40" />
+				<Art name={$project.blocks[option.name].graphic} />
 				{option.name}: {option.dps} dps, {option.solid ? 'solid' : 'background'}
 			</InputSelect>
 		</div>
@@ -25,7 +25,7 @@
 				valueProp="name"
 				bind:value={selectedEnemy}
 				on:change={() => (selectedBlock = null)}>
-				<Art name={$project.enemies[option.name].graphicStill} height="40" />
+				<Art name={$project.enemies[option.name].graphics.still.art} />
 				<strong>{option.name}</strong>
 				{option.dps} dps, {option.maxHealth} health, {option.maxVelocity} speed, {option.score} score
 			</InputSelect>
@@ -47,7 +47,6 @@
 <script>
 	import Art from './Art.svelte'
 	import project from '../stores/active-project-store'
-	import LivingSprite from './LivingSprite.svelte'
 	import Level from './Level.svelte'
 	import makeThumbnail from '../services/make-thumbnail'
 	import LevelPreview from './LevelPreview.svelte'

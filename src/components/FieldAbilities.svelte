@@ -26,10 +26,10 @@
 		</div>
 		{#if input.graphicProjectile != null}
 			<div class="motion-preview">
-				<img src={$project.art[input.graphicStill].png} alt="" />
+				<img src={$project.art[input.asdf].png} alt="" />
 				<img
 					src={$project.art[input.graphicProjectile].png}
-					style="position: absolute; bottom: {projectileY}px; left: {$project.art[input.graphicStill].width * 2 + projectileX}px"
+					style="position: absolute; bottom: {projectileY}px; left: {$project.art[input.asdf].width * 2 + projectileX}px"
 					alt="" />
 			</div>
 		{/if}

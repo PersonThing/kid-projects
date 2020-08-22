@@ -82,12 +82,34 @@
 				Width
 				<input type="number" bind:value={input.width} placeholder="Width" />
 			</div>
+			<div class="flex-column">
+				Zoom
+				<input type="number" bind:value={gridSize} placeholder="Zoom" />
+			</div>
 			<label>
 				<input type="checkbox" bind:checked={showGrid} />
 				Show grid
 			</label>
 		</div>
 
+		<div class="preview flex">
+			<div>
+				<img src={input.png} alt="preview" class="drop-shadow" width={input.width * artScale} height={input.height * artScale} />
+			</div>
+
+			<!-- if block size, show repeated in x and y-->
+			{#if input.width == 20 && input.height == 20}
+				<div class="ml-2">
+					{#each [0, 0] as r}
+						<div>
+							{#each [0, 0, 0] as margin}
+								<img src={input.png} alt="block repeating preview" width={input.width * artScale} height={input.height * artScale} />
+							{/each}
+						</div>
+					{/each}
+				</div>
+			{/if}
+		</div>
 		<div class="canvas-container">
 			<canvas class="draw-canvas" bind:this={drawCanvas} />
 			<canvas
@@ -100,24 +122,6 @@
 				on:mouseup|preventDefault={onDrawMouseUp}
 				on:mousemove|preventDefault={onDrawMouseMove}
 				on:contextmenu|preventDefault />
-			<div class="preview flex">
-				<div>
-					<img src={input.png} alt="preview" class="drop-shadow" width={input.width * artScale} height={input.height * artScale} />
-				</div>
-
-				<!-- if block size, show repeated in x and y-->
-				{#if input.width == 20 && input.height == 20}
-					<div class="ml-2">
-						{#each [0, 0] as r}
-							<div>
-								{#each [0, 0, 0] as margin}
-									<img src={input.png} alt="block repeating preview" width={input.width * artScale} height={input.height * artScale} />
-								{/each}
-							</div>
-						{/each}
-					</div>
-				{/if}
-			</div>
 		</div>
 	</Form>
 
@@ -169,7 +173,7 @@
 	// we render a scaled up version to this canvas for user to interact with
 	let drawCanvas
 	let drawContext
-	const gridSize = 20
+	let gridSize = 10
 
 	// we render grid lines to this canvas
 	let gridCanvas
@@ -182,7 +186,7 @@
 	$: inputWidth = input.width
 	$: inputHeight = input.height
 	$: hasChanges = input != null && !validator.equals(input, $project.art[input.name])
-	$: if (inputWidth != 0 && inputHeight != 0 && showGrid != null) debouncedRedraw()
+	$: if (inputWidth != 0 && inputHeight != 0 && showGrid != null && gridSize != null) debouncedRedraw()
 
 	onMount(() => redraw())
 
@@ -520,10 +524,8 @@
 	}
 
 	.canvas-container {
-		display: flex;
 		position: relative;
 		margin: 15px 0;
-		align-items: flex-start;
 
 		.grid-canvas {
 			position: absolute;

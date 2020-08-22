@@ -4,7 +4,7 @@
 	</label>
 	<div>
 		<InputSelect multiple {options} bind:value let:option inline filterable={options.length > 2}>
-			<Art name={$project.characters[option.value].graphicStill} />
+			<Art name={$project.characters[option.value].graphics.still.art} />
 			{option.value}
 		</InputSelect>
 	</div>

@@ -7,25 +7,14 @@
 		</span>
 		<FieldText name="name" bind:value={input.name}>Name</FieldText>
 
-		<FieldAnimationSpriteSheet name="still-graphics" bind:value={input.sprites.still}>Still graphics</FieldAnimationSpriteSheet>
-		<!-- <FieldAnimationSpriteSheet name="moving-graphics" bind:value={input.sprites.moving}>Moving graphics</FieldAnimationSpriteSheet> -->
-		<!-- <FieldAnimationSpriteSheet bind:value={input.sprites.jumping}>Jumping graphics</FieldAnimationSpriteSheet> -->
-
-		<!--
-		<FieldArtPicker bind:value={input.graphicStill}>Standing still graphic</FieldArtPicker>
-		<FieldAnimation
-			bind:graphics={input.motionGraphics}
-			bind:framesPerGraphic={input.framesPerGraphic}
-			bind:loopBack={input.motionGraphicsLoopBack}
-			vx={input.maxVelocity}>
-			Moving graphics
-		</FieldAnimation> -->
+		<FieldGraphics bind:value={input.graphics.still}>Still graphics</FieldGraphics>
+		<FieldGraphics bind:value={input.graphics.moving}>Moving graphics</FieldGraphics>
 		<FieldNumber name="maxVelocity" min={0} bind:value={input.maxVelocity}>Max velocity</FieldNumber>
 		<FieldNumber name="jumpVelocity" min={0} bind:value={input.jumpVelocity}>Jump velocity</FieldNumber>
 		<FieldNumber name="gravityMultiplier" min={0} max={2} step={0.1} bind:value={input.gravityMultiplier}>Gravity multiplier</FieldNumber>
 		<FieldNumber name="fallDamageMultiplier" min={0} max={1} step={0.1} bind:value={input.fallDamageMultiplier}>Fall damage multiplier</FieldNumber>
 		<FieldNumber name="maxHealth" bind:value={input.maxHealth}>Max health</FieldNumber>
-		<!-- <FieldAbilities name="abilities" bind:input>Abilities</FieldAbilities> -->
+		<FieldAbilities name="abilities" bind:input>Abilities</FieldAbilities>
 	</Form>
 </BuildLayout>
 
@@ -36,7 +25,6 @@
 	import Art from '../../components/Art.svelte'
 	import project from '../../stores/active-project-store'
 	import FieldAbilities from '../../components/FieldAbilities.svelte'
-	import FieldAnimation from '../../components/FieldAnimation.svelte'
 	import FieldArtPicker from '../../components/FieldArtPicker.svelte'
 	import FieldCheckbox from '../../components/FieldCheckbox.svelte'
 	import FieldNumber from '../../components/FieldNumber.svelte'
@@ -47,7 +35,7 @@
 	import BuildLayout from '../../components/BuildLayout.svelte'
 	import validator from '../../services/validator'
 	import FieldPngData from '../../components/InputPngData.svelte'
-	import FieldAnimationSpriteSheet from '../../components/FieldAnimationSpriteSheet.svelte'
+	import FieldGraphics from '../../components/FieldGraphics.svelte'
 
 	export let params = {}
 	let input = {}
@@ -79,16 +67,18 @@
 
 	function createDefaultInput() {
 		return {
-			sprites: {
+			graphics: {
 				still: {
 					art: null,
 					frameWidth: 40,
-					frameRate: 5,
+					frameRate: 15,
+					yoyo: false,
 				},
 				moving: {
 					art: null,
 					frameWidth: 40,
-					frameRate: 5,
+					frameRate: 15,
+					yoyo: false,
 				},
 				// jumping: {
 				// 	art: null,

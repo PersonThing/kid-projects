@@ -15,7 +15,7 @@
 				<div class="flex-row">
 					{#each $project.levels[levelName].playableCharacters as characterName}
 						<button class="btn btn-light m-1" on:click={() => selectLevel(levelName, characterName)}>
-							<Art name={$project.characters[characterName].graphicStill} />
+							<Art name={$project.characters[characterName].graphics.still.art} />
 							{characterName}
 						</button>
 					{/each}
@@ -31,8 +31,8 @@
 	import LevelPreview from '../../components/LevelPreview.svelte'
 	import project from '../../stores/active-project-store'
 
-	let levelName
-	let characterName
+	let levelName //= 'level 1'
+	let characterName //= 'sonic'
 
 	$: sortedLevelNames = Object.keys($project.levels).sort()
 
