@@ -7,6 +7,11 @@
 		</span>
 		<FieldText name="name" bind:value={input.name}>Name</FieldText>
 
+		<FieldAnimationSpriteSheet bind:value={input.sprites.still}>Still graphics</FieldAnimationSpriteSheet>
+		<FieldAnimationSpriteSheet bind:value={input.sprites.moving}>Moving graphics</FieldAnimationSpriteSheet>
+		<FieldAnimationSpriteSheet bind:value={input.sprites.jumping}>Jumping graphics</FieldAnimationSpriteSheet>
+
+		<!--
 		<FieldArtPicker bind:value={input.graphicStill}>Standing still graphic</FieldArtPicker>
 		<FieldAnimation
 			bind:graphics={input.motionGraphics}
@@ -14,13 +19,13 @@
 			bind:loopBack={input.motionGraphicsLoopBack}
 			vx={input.maxVelocity}>
 			Moving graphics
-		</FieldAnimation>
+		</FieldAnimation> -->
 		<FieldNumber name="maxVelocity" min={0} bind:value={input.maxVelocity}>Max velocity</FieldNumber>
 		<FieldNumber name="jumpVelocity" min={0} bind:value={input.jumpVelocity}>Jump velocity</FieldNumber>
 		<FieldNumber name="gravityMultiplier" min={0} max={2} step={0.1} bind:value={input.gravityMultiplier}>Gravity multiplier</FieldNumber>
 		<FieldNumber name="fallDamageMultiplier" min={0} max={1} step={0.1} bind:value={input.fallDamageMultiplier}>Fall damage multiplier</FieldNumber>
 		<FieldNumber name="maxHealth" bind:value={input.maxHealth}>Max health</FieldNumber>
-		<FieldAbilities name="abilities" bind:input>Abilities</FieldAbilities>
+		<!-- <FieldAbilities name="abilities" bind:input>Abilities</FieldAbilities> -->
 	</Form>
 </BuildLayout>
 
@@ -41,6 +46,8 @@
 	import Icon from 'svelte-awesome'
 	import BuildLayout from '../../components/BuildLayout.svelte'
 	import validator from '../../services/validator'
+	import FieldPngData from '../../components/InputPngData.svelte'
+	import FieldAnimationSpriteSheet from '../../components/FieldAnimationSpriteSheet.svelte'
 
 	export let params = {}
 	let input = {}
@@ -72,10 +79,11 @@
 
 	function createDefaultInput() {
 		return {
-			graphicStill: null,
-			graphicSpinning: null,
-			motionGraphics: [null],
-			framesPerGraphic: 5,
+			sprites: {
+				still: {},
+				moving: {},
+				jumping: {},
+			},
 			name: '',
 			maxHealth: 100,
 			maxVelocity: 5,

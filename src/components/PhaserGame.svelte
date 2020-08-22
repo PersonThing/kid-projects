@@ -58,7 +58,9 @@
 	})
 
 	function preload() {
-		for (let i=0; i<level.)
+		// preload sprites for character
+		// preload sprites for enemies
+		// preload sprites for blocks
 	}
 
 	function create() {}
