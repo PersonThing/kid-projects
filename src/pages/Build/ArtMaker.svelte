@@ -36,7 +36,7 @@
 					inline
 					sm>
 					{option.name}
-					<img src={toPNG(option.data, option.width, option.height)} height="40" alt="" />
+					<img src={option.png} height="40" alt="" />
 				</InputSelect>
 			{/if}
 
@@ -90,22 +90,20 @@
 		</div>
 
 		<div class="canvas-container">
-			<canvas class="draw-canvas" bind:this={drawCanvas} width={input.width * gridSize} height={input.height * gridSize} />
+			<canvas class="draw-canvas" bind:this={drawCanvas} />
 			<canvas
 				class="grid-canvas"
 				bind:this={gridCanvas}
 				class:paint-cursor={mode == 'paint'}
 				class:fill-cursor={mode == 'fill'}
 				class:erase-cursor={mode == 'erase'}
-				width={input.width * gridSize}
-				height={input.height * gridSize}
 				on:mousedown|preventDefault={onDrawMouseDown}
 				on:mouseup|preventDefault={onDrawMouseUp}
 				on:mousemove|preventDefault={onDrawMouseMove}
 				on:contextmenu|preventDefault />
 			<div class="preview flex">
 				<div>
-					<img src={previewPNG} alt="preview" class="drop-shadow" />
+					<img src={input.png} alt="preview" class="drop-shadow" />
 				</div>
 
 				<!-- if block size, show repeated in x and y-->
@@ -114,7 +112,7 @@
 						{#each [0, 0] as r}
 							<div>
 								{#each [0, 0, 0] as margin}
-									<img src={previewPNG} alt="block repeating preview" />
+									<img src={input.png} alt="block repeating preview" />
 								{/each}
 							</div>
 						{/each}
@@ -148,17 +146,12 @@
 	import BuildLayout from '../../components/BuildLayout.svelte'
 	import toPNG from '../../services/to-png'
 	import validator from '../../services/validator'
+	import { onMount } from 'svelte'
+	import makeThumbnail from '../../services/make-thumbnail'
 
 	export let params = {}
-	let input
-	create()
-
+	let input = createDefaultInput()
 	let mode = 'paint'
-	let drawCanvas
-	let drawContext
-	let gridCanvas
-	let gridContext
-	let gridSize = 20
 	let undos = []
 	let redos = []
 	let mouseDown = false
@@ -167,24 +160,45 @@
 	let savedInput
 	let selectedColor = 'rgba(0, 0, 0, 255)'
 
+	// we load the png into this canvas
+	// and when user draws on the big canvas, we actually make the change on the scaled down canvas, and then re-render the larger canvas from this one
+	// (if we make a change to the larger canvas, it gets blurry when scaling back down)
+	const scaleCanvas = document.createElement('canvas')
+	const scaleContext = scaleCanvas.getContext('2d')
+	const artScale = 2
+
+	// we render a scaled up version to this canvas for user to interact with
+	let drawCanvas
+	let drawContext
+	const gridSize = 20
+
+	// we render grid lines to this canvas
+	let gridCanvas
+	let gridContext
+
 	$: paramName = decodeURIComponent(params.name) || 'new'
 	$: paramName == 'new' ? create() : edit(paramName)
 	$: isAdding = paramName == 'new'
-	$: previewPNG = toPNG(input.data, input.width, input.height)
-	$: drawResult = draw(input.data, input.width, input.height)
 	$: if (input.width != 0 && input.height != 0 && showGrid != null) redraw()
+
+	// image breaks if you change width/height, then move stuff...
+
 	$: hasChanges = input != null && !validator.equals(input, $project.art[input.name])
 
+	onMount(() => redraw())
+
 	function create() {
-		input = {
+		input = createDefaultInput()
+		redraw()
+	}
+
+	function createDefaultInput() {
+		return {
 			name: '',
 			width: 20,
 			height: 20,
-			data: buildData(20, 20),
+			png: null,
 		}
-		setTimeout(() => {
-			nameField.focus()
-		}, 100)
 	}
 
 	function edit(name) {
@@ -193,10 +207,10 @@
 		undos = []
 		redos = []
 
-		input = JSON.parse(JSON.stringify($project.art[name]))
-		input.width = input.width || input.data[0].length
-		input.height = input.height || input.data.length
-
+		input = {
+			...createDefaultInput(),
+			...JSON.parse(JSON.stringify($project.art[name])),
+		}
 		redraw()
 	}
 
@@ -205,8 +219,6 @@
 			document.getElementById('name').focus()
 			return
 		}
-
-		input.png = toPNG(input.data, input.width, input.height)
 
 		$project.art[input.name] = JSON.parse(JSON.stringify(input))
 		push(`/${$project.name}/build/art/${encodeURIComponent(input.name)}`)
@@ -222,42 +234,74 @@
 
 	function reset(undoable = true) {
 		if (undoable) addUndoState()
-		input.data = buildData(input.height, input.width)
+		input.png = null
 	}
 
-	function draw(d, w, h) {
-		if (d == null || drawCanvas == null || gridCanvas == null) return
-		if (drawContext == null) drawContext = drawCanvas.getContext('2d')
-		if (gridContext == null) gridContext = gridCanvas.getContext('2d')
-
-		drawContext.clearRect(0, 0, w * gridSize, h * gridSize)
-		gridContext.clearRect(0, 0, w * gridSize, h * gridSize)
-
-		for (let y = 0; y < h; y++) {
-			for (let x = 0; x < w; x++) {
-				drawContext.beginPath()
-				drawContext.rect(x * gridSize, y * gridSize, gridSize, gridSize)
-				drawContext.fillStyle = getCellColor(d, y, x)
-				drawContext.fill()
-
-				if (showGrid) {
-					gridContext.beginPath()
-					gridContext.rect(x * gridSize, y * gridSize, gridSize, gridSize)
-					gridContext.strokeStyle = 'rgba(255,255,255,0.5)'
-					gridContext.stroke()
-				}
-			}
+	function drawSquare(context, x, y, size, color) {
+		if (color == 'transparent') {
+			context.clearRect(x, y, size, size)
+		} else {
+			context.beginPath()
+			context.rect(x, y, size, size)
+			context.fillStyle = color
+			context.fill()
 		}
 	}
 
 	function redraw() {
-		setTimeout(() => draw(input.data, input.width, input.height, gridSize), 10)
+		if (input.png == null || drawCanvas == null || gridCanvas == null) return
+		if (drawContext == null) drawContext = drawCanvas.getContext('2d')
+		if (gridContext == null) gridContext = gridCanvas.getContext('2d')
+
+		// put source png onto scale canvas
+		createMemoryImage(input.png).then(image => {
+			// draw png onto scale canvas
+			let scaleWidth = image.width
+			let scaleHeight = image.height
+
+			// if png size is exactly double input size... we're just importing old data, scale it down
+			if (scaleWidth == input.width * 2 && scaleHeight == input.height * 2) {
+				// should be fine...
+				// use input size instead
+				scaleWidth = image.width / 2
+				scaleHeight = image.height / 2
+			}
+
+			scaleCanvas.width = input.width
+			scaleCanvas.height = input.height
+			scaleContext.clearRect(0, 0, input.width, input.height)
+
+			drawCanvas.width = input.width * gridSize
+			drawCanvas.height = input.height * gridSize
+			drawContext.clearRect(0, 0, input.width * gridSize, input.height * gridSize)
+
+			gridCanvas.width = input.width * gridSize
+			gridCanvas.height = input.height * gridSize
+			gridContext.clearRect(0, 0, input.width * gridSize, input.height * gridSize)
+
+			// draw the png full size, even if it gets cut off
+			scaleContext.drawImage(image, 0, 0, scaleWidth, scaleHeight)
+
+			// loop the scaleContext, grabbing pixels to render larger on full size canvas
+			for (let y = 0; y < input.height; y++) {
+				for (let x = 0; x < input.width; x++) {
+					let [r, g, b, a] = scaleContext.getImageData(x, y, 1, 1).data
+					if (a > 0) drawSquare(drawContext, x * gridSize, y * gridSize, gridSize, `rgba(${r}, ${g}, ${b}, ${a})`)
+					if (showGrid) {
+						gridContext.beginPath()
+						gridContext.rect(x * gridSize, y * gridSize, gridSize, gridSize)
+						gridContext.strokeStyle = 'rgba(255,255,255,0.5)'
+						gridContext.stroke()
+					}
+				}
+			}
+		})
 	}
 
 	function onDrawMouseDown(e) {
-		const color = getColorAtEvent(e)
+		const { x, y } = getScaleCoordinates(e.offsetX, e.offsetY)
+		const color = getColorAt(x, y)
 		if (e.altKey || e.button !== 0) {
-			// console.log(drawContext.getImageData(e.offsetX, e.offsetY, 1, 1))
 			if (color == 'transparent') {
 				mode = 'erase'
 				selectedColor = 'transparent'
@@ -278,34 +322,31 @@
 
 	function onDrawMouseMove(e) {
 		if (!mouseDown) return
-		const { x, y } = getEventCellIndexes(e)
+
+		const { x, y } = getScaleCoordinates(e.offsetX, e.offsetY)
 		if (y != null && x != null) {
-			if (mode == 'erase') setColor(y, x, 'transparent')
-			else setColor(y, x, selectedColor)
+			if (mode == 'erase') setColor(x, y, 'transparent')
+			else setColor(x, y, selectedColor)
 		}
 	}
 
-	function getEventCellIndexes(e) {
+	function getColorAt(x, y) {
+		return toRGB(scaleContext.getImageData(x, y, 1, 1).data)
+	}
+
+	function getScaleCoordinates(x, y) {
 		return {
-			x: Math.floor(e.offsetX / gridSize),
-			y: Math.floor(e.offsetY / gridSize),
+			x: Math.floor(x / gridSize),
+			y: Math.floor(y / gridSize),
 		}
-	}
-
-	function getColorAtEvent(e) {
-		return toRGB(drawContext.getImageData(e.offsetX, e.offsetY, 1, 1).data)
 	}
 
 	function toRGB(d) {
 		return d[3] === 0 ? 'transparent' : `rgba(${d[0]}, ${d[1]}, ${d[2]}, ${d[3]})`
 	}
-	// 	// could probably get this directly from canvas / getPixel stuff
-	// 	const { x, y } = getEventCellIndexes(e)
-	// 	return input.data[y][x] || 'transparent'
-	// }
 
 	function addUndoState() {
-		undos = [...undos.slice(Math.max(undos.length - 20, 0)), JSON.stringify(input.data)]
+		undos = [...undos.slice(Math.max(undos.length - 20, 0)), input.png]
 
 		// if we're adding a new undo state, empty redos
 		redos = []
@@ -316,53 +357,41 @@
 		console.log('auto saved')
 	}
 
-	function buildData(height, width) {
-		return [...Array(height)].map(r => buildColumns(width))
-	}
-
-	function buildColumns(width) {
-		return [...Array(width)].map(c => 'transparent')
-	}
-
 	function undo() {
 		if (undos.length == 0) return
 
-		redos = [...redos, JSON.stringify(input.data)]
-		input.data = JSON.parse(undos.pop())
+		redos = [...redos, input.png]
+		input.png = undos.pop()
 		undos = undos
 	}
 
 	function redo() {
 		if (redos.length == 0) return
 
-		undos = [...undos, JSON.stringify(input.data)]
-		input.data = JSON.parse(redos.pop())
+		undos = [...undos, input.png]
+		input.png = redos.pop()
 		redos = redos
 	}
 
-	function setColor(y, x, color) {
-		syncDataToSize()
-
-		// don't need to worry about columns.. they get auto-filled with null
-		const oldColor = input.data[y][x] || 'transparent'
-		input.data[y][x] = color
+	function setColor(x, y, color, recursing = false) {
+		const oldColor = getColorAt(x, y)
+		drawSquare(scaleContext, x, y, 1, color)
+		drawSquare(drawContext, x * gridSize, y * gridSize, gridSize, color)
 
 		if (mode == 'fill') {
 			// recursively loop around this pixel setting pixels that were the same color this one used to be to the new color
 			// needs revision
 			// right now it works well for filling outlines, but overfills through outlines that only touch on corners
-			for (let yn = y - 1; yn <= y + 1; yn++) {
-				for (let xn = x - 1; xn <= x + 1; xn++) {
-					if (yn < 0 || yn > input.height - 1 || xn < 0 || xn > input.width - 1) continue
-					const currentColor = input.data[yn][xn] || 'transparent'
-					if (currentColor == oldColor) setColor(yn, xn, color)
+			for (let xn = x - 1; xn <= x + 1; xn += 1) {
+				for (let yn = y - 1; yn <= y + 1; yn += 1) {
+					if (yn < 0 || yn > input.height - 1 || xn < 0 || xn > input.width * 1 - 1) continue
+					const currentColor = getColorAt(xn, yn)
+					if (currentColor == oldColor) setColor(xn, yn, color, true)
 				}
 			}
 		}
-	}
 
-	function getCellColor(d, row, column) {
-		return d.length > row && d[row].length > column ? d[row][column] || 'transparent' : 'white'
+		if (!recursing) setInputFromCanvas()
 	}
 
 	function onKeyUp(e) {
@@ -377,64 +406,65 @@
 	}
 
 	function flipY() {
-		input.data = input.data.slice(0, input.height).reverse()
+		flipImage(false, true)
 	}
 
 	function flipX() {
-		input.data = input.data.map(d => d.slice(0, input.width).reverse())
+		flipImage(true, false)
 	}
 
 	function moveLeft() {
 		addUndoState()
-		syncDataToSize()
-		input.data = input.data.map(row => {
-			const firstCol = row.shift()
-			return [...row, firstCol]
-		})
+		moveImage(-1, 0)
 	}
 
 	function moveRight() {
 		addUndoState()
-		syncDataToSize()
-		input.data = input.data.map(row => {
-			const lastCol = row.pop()
-			return [lastCol, ...row]
-		})
+		moveImage(1, 0)
 	}
 
 	function moveUp() {
 		addUndoState()
-		syncDataToSize()
-		const firstRow = input.data.shift()
-		input.data = [...input.data, firstRow]
+		moveImage(0, -1)
 	}
 
 	function moveDown() {
 		addUndoState()
-		syncDataToSize()
-		const lastRow = input.data.pop()
-		input.data = [lastRow, ...input.data]
+		moveImage(0, 1)
 	}
 
-	function syncDataToSize() {
-		if (input.height > input.data.length) {
-			// add empty rows
-			const rowsNeeded = input.height - input.data.length
-			input.data = input.data.concat(buildData(rowsNeeded, input.width))
-			// } else if (input.height < input.data.length) {
-			// 	// crop unnecessary rows
-			// 	input.data.slice(0, input.height)
-		}
+	function moveImage(dx, dy) {
+		createMemoryImage(input.png).then(image => {
+			scaleContext.clearRect(0, 0, input.width, input.height)
+			scaleContext.drawImage(image, dx, dy, input.width, input.height)
 
-		// make sure all rows are the right length
-		input.data = input.data.map(row => {
-			if (input.width > row.length) {
-				const colsNeeded = input.width - row.length
-				row = row.concat(buildColumns(colsNeeded))
-				// } else if (input.width < row.length) {
-				// 	row.slice(0, input.width)
-			}
-			return row
+			// draw the pixels that were cut off on the opposite side of the canvas, cuz why not
+			if (dx != 0) scaleContext.drawImage(image, dx - dx * input.width, 0, input.width, input.height)
+			else if (dy != 0) scaleContext.drawImage(image, 0, dy - dy * input.height, input.width, input.height)
+			setInputFromCanvas()
+			redraw()
+		})
+	}
+
+	function flipImage(flipX, flipY) {
+		createMemoryImage(input.png).then(image => {
+			scaleContext.clearRect(0, 0, input.width, input.height)
+			scaleContext.scale(flipX ? -1 : 1, flipY ? -1 : 1)
+			scaleContext.drawImage(image, flipX ? input.width * -1 : 0, flipY ? input.height * -1 : 0, input.width, input.height)
+			setInputFromCanvas()
+			redraw()
+		})
+	}
+
+	function setInputFromCanvas() {
+		input.png = scaleCanvas.toDataURL('image/png')
+	}
+
+	function createMemoryImage(png) {
+		return new Promise((resolve, reject) => {
+			const image = new Image()
+			image.src = input.png
+			image.onload = () => resolve(image)
 		})
 	}
 </script>
