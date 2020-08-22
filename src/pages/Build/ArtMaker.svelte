@@ -102,7 +102,7 @@
 				on:contextmenu|preventDefault />
 			<div class="preview flex">
 				<div>
-					<img src={input.png} alt="preview" class="drop-shadow" />
+					<img src={input.png} alt="preview" class="drop-shadow" width={input.width * artScale} height={input.height * artScale} />
 				</div>
 
 				<!-- if block size, show repeated in x and y-->
@@ -111,7 +111,7 @@
 						{#each [0, 0] as r}
 							<div>
 								{#each [0, 0, 0] as margin}
-									<img src={input.png} alt="block repeating preview" />
+									<img src={input.png} alt="block repeating preview" width={input.width * artScale} height={input.height * artScale} />
 								{/each}
 							</div>
 						{/each}
@@ -143,7 +143,6 @@
 	import Icon from 'svelte-awesome'
 	import InputSelect from '../../components/InputSelect.svelte'
 	import BuildLayout from '../../components/BuildLayout.svelte'
-	import toPNG from '../../services/to-png'
 	import validator from '../../services/validator'
 	import { onMount } from 'svelte'
 	import makeThumbnail from '../../services/make-thumbnail'
@@ -178,7 +177,12 @@
 	$: paramName = decodeURIComponent(params.name) || 'new'
 	$: paramName == 'new' ? create() : edit(paramName)
 	$: isAdding = paramName == 'new'
-	$: if (input.width != 0 && input.height != 0 && showGrid != null) redraw()
+	$: inputWidth = input.width
+	$: inputHeight = input.height
+	$: if (inputWidth != 0 && inputHeight != 0 && showGrid != null) {
+		console.log('reactive', showGrid)
+		redraw()
+	}
 
 	// image breaks if you change width/height, then move stuff...
 
@@ -387,7 +391,7 @@
 
 			// draw the png full size, even if it gets cut off
 			scaleContext.drawImage(image, 0, 0, scaleWidth, scaleHeight)
-			if (wasOutOfScale) setInputFromCanvas()
+			setInputFromCanvas()
 
 			// loop the scaleContext, grabbing pixels to render larger on full size canvas
 			for (let y = 0; y < input.height; y++) {

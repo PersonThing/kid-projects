@@ -7,7 +7,6 @@
 {/if}
 
 <script>
-	import toPNG from '../services/to-png'
 	import { getContext } from 'svelte'
 	import project from '../stores/active-project-store'
 
@@ -16,12 +15,5 @@
 	export let spin = 0
 
 	let graphic
-
-	$: if (name != null) {
-		graphic = $project.art[name]
-		// set png for any that haven't been saved with png yet
-		if (graphic != null && graphic.png == null) {
-			graphic.png = toPNG(graphic, graphic.width, graphic.height)
-		}
-	}
+	$: if (name != null) graphic = $project.art[name]
 </script>
