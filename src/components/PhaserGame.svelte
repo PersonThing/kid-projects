@@ -27,8 +27,6 @@
 	import project from '../stores/active-project-store'
 	import Status from './Status.svelte'
 
-	import Phaser from 'phaser'
-
 	export let level = null
 	export let character = null
 

@@ -7,9 +7,9 @@
 		</span>
 		<FieldText name="name" bind:value={input.name}>Name</FieldText>
 
-		<FieldAnimationSpriteSheet bind:value={input.sprites.still}>Still graphics</FieldAnimationSpriteSheet>
-		<FieldAnimationSpriteSheet bind:value={input.sprites.moving}>Moving graphics</FieldAnimationSpriteSheet>
-		<FieldAnimationSpriteSheet bind:value={input.sprites.jumping}>Jumping graphics</FieldAnimationSpriteSheet>
+		<FieldAnimationSpriteSheet name="still-graphics" bind:value={input.sprites.still}>Still graphics</FieldAnimationSpriteSheet>
+		<!-- <FieldAnimationSpriteSheet name="moving-graphics" bind:value={input.sprites.moving}>Moving graphics</FieldAnimationSpriteSheet> -->
+		<!-- <FieldAnimationSpriteSheet bind:value={input.sprites.jumping}>Jumping graphics</FieldAnimationSpriteSheet> -->
 
 		<!--
 		<FieldArtPicker bind:value={input.graphicStill}>Standing still graphic</FieldArtPicker>
@@ -80,9 +80,21 @@
 	function createDefaultInput() {
 		return {
 			sprites: {
-				still: {},
-				moving: {},
-				jumping: {},
+				still: {
+					art: null,
+					frameWidth: 40,
+					frameRate: 5,
+				},
+				moving: {
+					art: null,
+					frameWidth: 40,
+					frameRate: 5,
+				},
+				// jumping: {
+				// 	art: null,
+				// 	frameWidth: 40,
+				// 	frameRate: 5,
+				// },
 			},
 			name: '',
 			maxHealth: 100,
