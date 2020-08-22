@@ -65,8 +65,7 @@
 
 	function deleteProject() {
 		let name = $project.name
-		if (!confirm(`Are you SURE you want to delete ${name}?`)) return
-		// $project = null
+		if (prompt(`If you are sure you want to delete this project, type the project name:?`, '') !== name) return
 		$projects = $projects.filter(p => p.name != name)
 		params.projectName = null // or it'll just autocreate it from reactive statement above
 		push(`/`)
