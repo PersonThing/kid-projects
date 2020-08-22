@@ -1,4 +1,4 @@
-<svelte:window on:keyup={onKeyUp} on:paste={onPaste} />
+<svelte:window on:keyup={onKeyUp} on:paste={onPaste} on:mouseup={onDrawMouseUp} />
 
 <BuildLayout tab="art" activeName={input.name} store={$project.art}>
 	<Form on:submit={save} {hasChanges}>
@@ -347,6 +347,7 @@
 		redos = [...redos, input.png]
 		input.png = undos.pop()
 		undos = undos
+		redraw()
 	}
 
 	function redo() {
@@ -355,6 +356,7 @@
 		undos = [...undos, input.png]
 		input.png = redos.pop()
 		redos = redos
+		redraw()
 	}
 
 	function setColor(x, y, color, recursing = false) {
