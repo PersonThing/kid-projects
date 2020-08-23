@@ -29,7 +29,7 @@
 	export let height
 	export let frameWidth
 	export let frameRate
-	export let scale = 2
+	export let scale = 1
 	export let yoyo
 
 	export let simple = false

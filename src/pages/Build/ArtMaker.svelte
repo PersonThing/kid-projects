@@ -4,177 +4,183 @@
 	<form on:submit|preventDefault={save}>
 		<div class="flex mb-2">
 			<SaveBtn disabled={!hasChanges} />
-			<input type="text" class="form-control width-auto" id="name" name="name" bind:value={input.name} bind:this={nameField} />
+			<input type="text" class="form-control width-auto" id="name" name="name" bind:value={input.name} />
 
 			{#if !isAdding}
 				<button type="button" class="btn btn-danger" on:click={() => del(input.name)}>Delete</button>
 			{/if}
 		</div>
+	</form>
 
-		<div class="toolbar flex align-center">
-			<ColorPicker bind:value={selectedColor} on:change={() => (mode = mode == 'erase' ? 'paint' : mode)} />
+	<div class="toolbar flex align-center">
+		<ColorPicker bind:value={selectedColor} on:change={() => (mode = mode == 'erase' ? 'paint' : mode)} />
 
-			<div class="btn-group">
-				<button type="button" class="btn btn-sm btn-{mode == 'paint' ? 'primary' : 'light'}" on:click={() => (mode = 'paint')} title="Paint brush">
-					<Icon data={paintIcon} />
-				</button>
-				<button type="button" class="btn btn-sm btn-{mode == 'fill' ? 'primary' : 'light'}" on:click={() => (mode = 'fill')} title="Paint bucket">
-					<Icon data={fillIcon} />
-				</button>
-				<button type="button" class="btn btn-sm btn-{mode == 'erase' ? 'primary' : 'light'}" on:click={() => (mode = 'erase')} title="Eraser">
-					<Icon data={eraseIcon} />
-				</button>
-			</div>
-
-			<div class="btn-group">
-				<button type="button" disabled={undos.length == 0} class="btn btn-default btn-sm" on:click={undo}>
-					<Icon data={undoIcon} />
-					{undos.length > 0 ? undos.length : ''}
-				</button>
-				<button type="button" disabled={redos.length == 0} class="btn btn-default btn-sm" on:click={redo}>
-					<Icon data={undoIcon} flip="horizontal" />
-					{redos.length > 0 ? redos.length : ''}
-				</button>
-			</div>
-
-			<div class="btn-group">
-				<button type="button" class="btn btn-light btn-sm" on:click={flipX} title="Flip horizontal">
-					<Icon data={flipIcon} />
-				</button>
-				<button type="button" class="btn btn-light btn-sm" on:click={flipY} title="Flip vertical">
-					<Icon data={flipIcon} style="transform: rotate(90deg);" />
-				</button>
-			</div>
-
-			<!-- <div class="btn-group">
-				<button type="button" class="btn btn-light btn-sm" on:click={rotateLeft} title="Rotate left">
-					<Icon data={rotateIcon} />
-				</button>
-				<button type="button" class="btn btn-light btn-sm" on:click={rotateRight} title="Rotate right">
-					<Icon data={rotateIcon} flip="horizontal" />
-				</button>
-			</div> -->
-
-			<div class="btn-group">
-				<button type="button" class="btn btn-light btn-sm" on:click={moveLeft} title="Move left">
-					<Icon data={arrowLeftIcon} />
-				</button>
-				<button type="button" class="btn btn-light btn-sm" on:click={moveRight} title="Move right">
-					<Icon data={arrowRightIcon} />
-				</button>
-				<button type="button" class="btn btn-light btn-sm" on:click={moveUp} title="Move up">
-					<Icon data={arrowUpIcon} />
-				</button>
-				<button type="button" class="btn btn-light btn-sm" on:click={moveDown} title="Move down">
-					<Icon data={arrowDownIcon} />
-				</button>
-			</div>
-
-			<div>
-				W
-				<input id="width" type="number" bind:value={input.width} placeholder="Width" />
-				x H
-				<input id="height" type="number" bind:value={input.height} placeholder="Height" />
-			</div>
-
-			<div>
-				<Icon data={zoomIcon} />
-				<input id="zoom" type="number" bind:value={zoom} min={2} max={20} />
-			</div>
-			<div>
-				<label>
-					<input type="checkbox" bind:checked={showGrid} />
-					Show grid
-				</label>
-			</div>
-
-			<button type="button" class="btn btn-light btn-sm mr1" on:click={reset}>Start over</button>
-
-			<InputSelect
-				disabled={$autoSaveStore[input.name] == null}
-				options={$autoSaveStore[input.name]}
-				bind:value={selectedAutoSave}
-				on:change={e => loadAutoSave(e.detail)}
-				let:option
-				placeholder="Auto-saves"
-				inline
-				sm
-				right>
-				{option.name}
-				<img src={option.png} height="40" alt="" />
-			</InputSelect>
-
+		<div class="btn-group">
+			<button type="button" class="btn btn-sm btn-{mode == 'paint' ? 'primary' : 'light'}" on:click={() => (mode = 'paint')} title="Paint brush">
+				<Icon data={paintIcon} />
+			</button>
+			<button type="button" class="btn btn-sm btn-{mode == 'fill' ? 'primary' : 'light'}" on:click={() => (mode = 'fill')} title="Paint bucket">
+				<Icon data={fillIcon} />
+			</button>
+			<button type="button" class="btn btn-sm btn-{mode == 'erase' ? 'primary' : 'light'}" on:click={() => (mode = 'erase')} title="Eraser">
+				<Icon data={eraseIcon} />
+			</button>
 		</div>
-		<div class="my-1">
-			{#if input.width != 20 || input.height != 20}
+
+		<div class="btn-group">
+			<button type="button" disabled={undos.length == 0} class="btn btn-default btn-sm" on:click={undo}>
+				<Icon data={undoIcon} />
+				{undos.length > 0 ? undos.length : ''}
+			</button>
+			<button type="button" disabled={redos.length == 0} class="btn btn-default btn-sm" on:click={redo}>
+				<Icon data={undoIcon} flip="horizontal" />
+				{redos.length > 0 ? redos.length : ''}
+			</button>
+		</div>
+
+		<div class="btn-group">
+			<button type="button" class="btn btn-light btn-sm" on:click={flipX} title="Flip horizontal">
+				<Icon data={flipIcon} />
+			</button>
+			<button type="button" class="btn btn-light btn-sm" on:click={flipY} title="Flip vertical">
+				<Icon data={flipIcon} style="transform: rotate(90deg);" />
+			</button>
+		</div>
+
+		<div class="btn-group">
+			<button type="button" class="btn btn-light btn-sm" on:click={moveLeft} title="Move left">
+				<Icon data={arrowLeftIcon} />
+			</button>
+			<button type="button" class="btn btn-light btn-sm" on:click={moveRight} title="Move right">
+				<Icon data={arrowRightIcon} />
+			</button>
+			<button type="button" class="btn btn-light btn-sm" on:click={moveUp} title="Move up">
+				<Icon data={arrowUpIcon} />
+			</button>
+			<button type="button" class="btn btn-light btn-sm" on:click={moveDown} title="Move down">
+				<Icon data={arrowDownIcon} />
+			</button>
+		</div>
+
+		<QuickDropdown label="Size" dropdownClass="p-2" on:open={startChangeSize}>
+			<form on:submit|preventDefault={applyChangeSize}>
 				<div class="flex">
-					<div>
-						<label>
-							Animated
-							<input type="checkbox" bind:checked={input.animated} />
-						</label>
+					<input type="number" min={1} max={1000} bind:value={changeSize.width} />
+					<strong>x</strong>
+					<input type="number" min={1} max={1000} bind:value={changeSize.height} />
+					<button type="submit" class="btn btn-info btn-sm">Apply</button>
+				</div>
+			</form>
+		</QuickDropdown>
+
+		<QuickDropdown label="Scale" dropdownClass="p-2">
+			<button type="button" class="btn btn-light btn-sm" on:click={scaleDown} title="Scale down">
+				<Icon data={minusIcon} />
+				Half size
+			</button>
+			<button type="button" class="btn btn-light btn-sm" on:click={scaleUp} title="Scale up">
+				<Icon data={plusIcon} />
+				Double size
+			</button>
+		</QuickDropdown>
+
+		<InputSelect sm placeholder="Zoom" bind:value={zoom} let:option options={[...Array(11)].map((_, i) => i + 10)}>
+			<Icon data={zoomIcon} />
+			{option.value}
+		</InputSelect>
+		<div>
+			<label>
+				<input type="checkbox" bind:checked={showGrid} />
+				Show grid
+			</label>
+		</div>
+
+		<button type="button" class="btn btn-light btn-sm mr1" on:click={reset}>Start over</button>
+
+		<InputSelect
+			disabled={$autoSaveStore[input.name] == null}
+			options={$autoSaveStore[input.name]}
+			bind:value={selectedAutoSave}
+			on:change={e => loadAutoSave(e.detail)}
+			let:option
+			placeholder="Auto-saves"
+			inline
+			sm
+			right>
+			{option.name}
+			<img src={option.png} height="40" alt="" />
+		</InputSelect>
+
+	</div>
+	<div class="my-1">
+		{#if input.width != 40 || input.height != 40}
+			<div class="flex">
+				<div>
+					<label>
+						Animated
+						<input type="checkbox" bind:checked={input.animated} on:change={animatedChanged} />
+					</label>
+				</div>
+			</div>
+		{/if}
+
+		<div class="preview flex">
+			{#if input.animated}
+				<div>
+					<div class="flex">
+						<div>
+							<label for="frame-width">Frame width</label>
+							<input id="frame-width" type="number" bind:value={input.frameWidth} min={1} max={200} step={1} />
+						</div>
+
+						<div>
+							<label for="frame-width">Frame rate</label>
+							<input id="frame-rate" type="number" bind:value={input.frameRate} min={1} max={60} step={1} />
+						</div>
+
+						<div>
+							<label>
+								Loop back
+								<input type="checkbox" bind:checked={input.yoyo} />
+							</label>
+						</div>
+					</div>
+
+					<div class="flex-column">
+						<AnimationPreview {...input} scale={artScale} width={pngCanvas.width} height={pngCanvas.height} />
+						<div class="frame-editor">
+							<img src={input.png} width={pngCanvas.width * artScale} height={pngCanvas.height * artScale} alt="preview frame splits" />
+							{#each [...Array(numFrames)] as x, frameNumber}
+								<div class="frame" style="left: {frameNumber * input.frameWidth * artScale}px; width: {input.frameWidth * artScale}px;">
+									<a href="#/" on:click|preventDefault={() => removeFrame(frameNumber)} class="text-danger">
+										<Icon data={deleteIcon} />
+									</a>
+									<a href="#/" on:click|preventDefault={() => copyFrame(frameNumber)} class="text-info">
+										<Icon data={copyIcon} />
+									</a>
+								</div>
+							{/each}
+						</div>
 					</div>
 				</div>
+			{:else}
+				<img src={input.png} width={pngCanvas.width * artScale} height={pngCanvas.height * artScale} alt="" />
 			{/if}
 
-			<div class="preview flex">
-				{#if input.animated}
-					<div>
-						<div class="flex">
-							<div>
-								<label for="frame-width">Frame width</label>
-								<input id="frame-width" type="number" bind:value={input.frameWidth} min={1} max={200} step={1} />
-							</div>
-
-							<div>
-								<label for="frame-width">Frame rate</label>
-								<input id="frame-rate" type="number" bind:value={input.frameRate} min={1} max={60} step={1} />
-							</div>
-
-							<div>
-								<label>
-									Loop back
-									<input type="checkbox" bind:checked={input.yoyo} />
-								</label>
-							</div>
+			<!-- if block size, show repeated in x and y-->
+			{#if input.width == 40 && input.height == 40}
+				<div class="ml-2">
+					{#each [0, 0] as r}
+						<div>
+							{#each [0, 0, 0] as margin}
+								<img src={input.png} alt="block repeating preview" width={input.width * artScale} height={input.height * artScale} />
+							{/each}
 						</div>
-
-						<div class="flex-column">
-							<AnimationPreview {...input} scale={artScale} width={pngCanvas.width} height={pngCanvas.height} />
-							<div class="frame-editor">
-								<img src={input.png} width={pngCanvas.width * artScale} height={pngCanvas.height * artScale} alt="preview frame splits" />
-								{#each [...Array(numFrames)] as x, frameNumber}
-									<div class="frame" style="left: {frameNumber * input.frameWidth * artScale}px; width: {input.frameWidth * artScale}px;">
-										<a href="#/" on:click|preventDefault={() => removeFrame(frameNumber)} class="text-danger">
-											<Icon data={deleteIcon} />
-										</a>
-										<a href="#/" on:click|preventDefault={() => copyFrame(frameNumber)} class="text-info">
-											<Icon data={copyIcon} />
-										</a>
-									</div>
-								{/each}
-							</div>
-						</div>
-					</div>
-				{:else}
-					<img src={input.png} width={pngCanvas.width * artScale} height={pngCanvas.height * artScale} alt="" />
-				{/if}
-
-				<!-- if block size, show repeated in x and y-->
-				{#if input.width == 20 && input.height == 20}
-					<div class="ml-2">
-						{#each [0, 0] as r}
-							<div>
-								{#each [0, 0, 0] as margin}
-									<img src={input.png} alt="block repeating preview" width={input.width * artScale} height={input.height * artScale} />
-								{/each}
-							</div>
-						{/each}
-					</div>
-				{/if}
-			</div>
+					{/each}
+				</div>
+			{/if}
 		</div>
-	</form>
+	</div>
 
 	<div class="canvas-container">
 		<canvas class="draw-canvas" bind:this={drawCanvas} />
@@ -204,23 +210,27 @@
 		remove as deleteIcon,
 		copy as copyIcon,
 		searchPlus as zoomIcon,
+		minus as minusIcon,
+		plus as plusIcon,
 	} from 'svelte-awesome/icons'
 	import { faFillDrip as fillIcon, faPaintBrush as paintIcon, faExchangeAlt as flipIcon } from '@fortawesome/free-solid-svg-icons'
+	import { onMount } from 'svelte'
 	import { push } from 'svelte-spa-router'
-	import project from '../../stores/active-project-store'
+	import AnimationPreview from '../../components/AnimationPreview.svelte'
 	import autoSaveStore from '../../stores/auto-save-store'
+	import BuildLayout from '../../components/BuildLayout.svelte'
 	import ColorPicker from '../../components/ColorPicker.svelte'
+	import debounce from '../../services/debounce'
+	import FieldNumber from '../../components/FieldNumber.svelte'
 	import FieldText from '../../components/FieldText.svelte'
 	import Form from '../../components/Form.svelte'
 	import Icon from 'svelte-awesome'
 	import InputSelect from '../../components/InputSelect.svelte'
-	import BuildLayout from '../../components/BuildLayout.svelte'
-	import validator from '../../services/validator'
-	import { onMount } from 'svelte'
 	import makeThumbnail from '../../services/make-thumbnail'
-	import debounce from '../../services/debounce'
-	import AnimationPreview from '../../components/AnimationPreview.svelte'
+	import project from '../../stores/active-project-store'
+	import QuickDropdown from '../../components/QuickDropdown.svelte'
 	import SaveBtn from '../../components/SaveBtn.svelte'
+	import validator from '../../services/validator'
 
 	export let params = {}
 	let input = createDefaultInput()
@@ -229,10 +239,6 @@
 	let redos = []
 	let mouseDown = false
 	let showGrid = true
-	let showFrames = false
-	let frameWidth = 40
-	let nameField
-	let savedInput
 	let selectedColor = 'rgba(0, 0, 0, 255)'
 	let selectedAutoSave = null
 
@@ -241,7 +247,7 @@
 	// (if we make a change to the larger canvas, it gets blurry when scaling back down)
 	const pngCanvas = document.createElement('canvas')
 	const pngContext = pngCanvas.getContext('2d')
-	const artScale = 2
+	const artScale = 1
 
 	// we render a scaled up version to this canvas for user to interact with
 	let drawCanvas
@@ -251,6 +257,11 @@
 	// we render grid lines to this canvas
 	let gridCanvas
 	let gridContext
+
+	let changeSize = {
+		width: 0,
+		height: 0,
+	}
 
 	const debouncedRedraw = debounce(() => redraw(), 200)
 	$: paramName = decodeURIComponent(params.name) || 'new'
@@ -273,8 +284,8 @@
 	function createDefaultInput() {
 		return {
 			name: '',
-			width: 20,
-			height: 20,
+			width: 40,
+			height: 40,
 			png: null,
 
 			animated: false,
@@ -517,17 +528,17 @@
 			gridContext.clearRect(0, 0, input.width * zoom, input.height * zoom)
 
 			// draw the png full size, even if it gets cut off
-			if (input.png != null) pngContext.drawImage(image, 0, 0, scaleWidth, scaleHeight)
+			if (input.png != null && image != null) {
+				pngContext.drawImage(image, 0, 0, scaleWidth, scaleHeight)
 
+				// draw image larger on big canvas
+				drawContext.save()
+				drawContext.scale(zoom, zoom)
+				drawContext.imageSmoothingEnabled = false
+				drawContext.drawImage(image, 0, 0)
+				drawContext.restore()
+			}
 			setInputFromCanvas()
-
-			// loop the scaleContext, grabbing pixels to render larger on full size canvas
-			// draw image larger on big canvas
-			drawContext.save()
-			drawContext.scale(zoom, zoom)
-			drawContext.imageSmoothingEnabled = false
-			drawContext.drawImage(image, 0, 0)
-			drawContext.restore()
 
 			if (showGrid) {
 				gridContext.strokeStyle = 'rgba(255,255,255,1)'
@@ -639,7 +650,6 @@
 
 	function copyFrame(frameIndex) {
 		addUndoState()
-
 		const frameStartX = frameIndex * input.frameWidth
 		const existingFramesData = pngContext.getImageData(0, 0, input.width, input.height)
 		const frameData = pngContext.getImageData(frameStartX, 0, input.frameWidth, input.height)
@@ -647,19 +657,53 @@
 		// changing width clears old content, so we have to re-draw old frames too
 		pngContext.putImageData(existingFramesData, 0, 0)
 		pngContext.putImageData(frameData, input.width, 0)
-		// pngContext.beginPath()
-		// pngContext.rect(0, 0, frameWidth, input.height)
-		// pngContext.fillStyle = 'red'
-		// pngContext.fill()
-
-		// context.beginPath()
-		// context.rect(x, y, size, size)
-		// context.fillStyle = color
-		// context.fill()
-
 		setInputFromCanvas()
 		console.log(input.png)
 		input.width += input.frameWidth
+	}
+
+	function scaleUp() {
+		scale(2)
+	}
+
+	function scaleDown() {
+		scale(0.5)
+	}
+
+	function scale(s) {
+		addUndoState()
+		createMemoryImage(input.png).then(image => {
+			pngCanvas.width = input.width * s
+			pngCanvas.height = input.height * s
+			pngContext.scale(s, s)
+			pngContext.imageSmoothingEnabled = false
+			pngContext.drawImage(image, 0, 0)
+			pngContext.restore()
+
+			setInputFromCanvas()
+			input.width = Math.ceil(input.width * s)
+			input.height = Math.ceil(input.height * s)
+			input.frameWidth = Math.ceil(input.frameWidth * s)
+		})
+	}
+
+	// set frame width to width if they're turning on animation for first time
+	function animatedChanged() {
+		if (input.animated) {
+			input.frameWidth = input.width
+		}
+	}
+
+	function startChangeSize() {
+		changeSize.width = input.width
+		changeSize.height = input.height
+		changeSize.scale = 1
+	}
+
+	function applyChangeSize() {
+		console.log('yeah yeah')
+		input.width = changeSize.width
+		input.height = changeSize.height
 	}
 </script>
 
@@ -708,10 +752,7 @@
 		width: auto;
 	}
 
-	.flex .btn-group {
-		margin-left: 5px;
-	}
-	.flex .btn-group {
+	.flex > * {
 		margin-right: 5px;
 	}
 

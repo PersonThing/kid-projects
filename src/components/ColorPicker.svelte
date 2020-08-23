@@ -1,23 +1,7 @@
-<!-- <div class="color-picker">
-	{#each colors as color}
-		<button
-			type="button"
-			style="background: {color != 'transparent' ? color : 'linear-gradient(110deg, rgba(200,200,200,1) 45%, rgba(255,255,255,1) 55%, rgba(255,255,255,1) 100%)'}"
-			class:active={color == value}
-			on:click={() => selectColor(color)} />
-	{/each}
-</div> -->
 <QuickDropdown btnClass="color-picker-toggle" noCaret bind:isOpen>
 	<span slot="label">
 		<div data-test={name} class="color-choice" style="background: {getBackground(value)}" title="Change color" />
 	</span>
-	<!-- <div>
-	<div class="p-2">
-			<label>Alpha</label>
-			<input bind:value={alpha} class="form-control" type="range" step="5" min="0" max="255" />
-		</div>
-		<label>Color</label>
-	-->
 	<div class="color-picker-choices">
 		{#each colors as colorGroup}
 			<div class="color-group">
@@ -31,7 +15,6 @@
 			</div>
 		{/each}
 	</div>
-	<!-- </div> -->
 </QuickDropdown>
 
 <script>
@@ -55,8 +38,8 @@
 	}
 
 	// super half-assed generated color groups
-	const colorSteps = 15
-	const colorDarknessSteps = 30
+	const colorSteps = 10
+	const colorDarknessSteps = 25
 	const rainbowIntervals = [rgb(255, 0, 0), rgb(255, 255, 0), rgb(0, 255, 0), rgb(0, 255, 255), rgb(0, 0, 255), rgb(255, 0, 255)]
 	const colorSize = 600 / colorSteps / rainbowIntervals.length
 	let colors = []

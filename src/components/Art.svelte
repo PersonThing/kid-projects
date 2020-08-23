@@ -19,7 +19,7 @@
 
 	export let name
 	export let spin = 0
-	export let scale = 2
+	export let scale = 1
 
 	let graphic
 	$: if (name != null) graphic = $project.art[name]

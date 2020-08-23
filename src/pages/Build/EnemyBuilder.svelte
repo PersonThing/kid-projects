@@ -21,6 +21,7 @@
 		<FieldNumber name="fallDamageMultiplier" min={0} max={1} step={0.1} bind:value={input.fallDamageMultiplier}>Fall damage multiplier</FieldNumber>
 		<FieldNumber name="maxHealth" bind:value={input.maxHealth}>Max health</FieldNumber>
 		<FieldNumber name="score" bind:value={input.score}>Score (How many points you get when this enemy dies)</FieldNumber>
+		<FieldCheckbox name="canFly" bind:checked={input.canFly}>Can fly?</FieldCheckbox>
 		<FieldNumber name="dps" bind:value={input.dps}>DPS (when in contact with player - we will replace this with abilities later)</FieldNumber>
 		<span slot="buttons">
 			{#if !isAdding}

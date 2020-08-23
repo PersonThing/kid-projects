@@ -9,7 +9,7 @@
 	export let blocks = []
 	export let enemies = null
 	export let playing = false
-	const artScale = 2
+	const artScale = 1
 
 	const dispatch = createEventDispatcher()
 	const imageCache = {}

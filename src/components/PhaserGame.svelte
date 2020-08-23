@@ -25,6 +25,14 @@
 	export let level = null
 	export let character = null
 
+	// TODO: make editable in level or on individual enemies
+	const leashRange = 400
+
+	// TODO: make this a project setting
+	const artScale = 1
+
+	const gravityPixelsPerSecond = 2000
+
 	let container
 
 	let gameOver
@@ -107,7 +115,7 @@
 				physics: {
 					default: 'arcade',
 					arcade: {
-						gravity: { y: 2500 },
+						gravity: { y: gravityPixelsPerSecond },
 						debug: false,
 					},
 				},
@@ -138,12 +146,20 @@
 			let loadingPromises = distinctBlockArt.map(name => preloadArt(name))
 
 			// load player art
-			loadingPromises = loadingPromises.concat(Object.keys(character.graphics).map(key => preloadArt(character.graphics[key])))
+			loadingPromises = loadingPromises.concat(
+				Object.keys(character.graphics)
+					.filter(key => character.graphics[key] != null)
+					.map(key => preloadArt(character.graphics[key]))
+			)
 
 			// load enemy art
 			const distinctEnemies = [...new Set(level.enemies.map(e => e.name))].map(name => $project.enemies[name])
 			loadingPromises = loadingPromises.concat(
-				distinctEnemies.flatMap(enemy => Object.keys(enemy.graphics).map(key => preloadArt(enemy.graphics[key])))
+				distinctEnemies.flatMap(enemy =>
+					Object.keys(enemy.graphics)
+						.filter(key => enemy.graphics[key] != null)
+						.map(key => preloadArt(enemy.graphics[key]))
+				)
 			)
 
 			Promise.all(loadingPromises).then(data => {
@@ -170,10 +186,8 @@
 		this.cameras.main.setBackgroundColor(rgbaStringToHex(level.background))
 
 		// set up textures and sprites for all blocks, character, and enemies in level
-		console.log(preloadedData)
 		preloadedData.forEach(art => {
 			if (art.animated) {
-				console.log('setting sprite animation')
 				// animated spritesheet
 				this.textures.addSpriteSheet(art.name, art.image, {
 					frameWidth: art.frameWidth,
@@ -199,15 +213,15 @@
 		worldSimpleBlocks = this.physics.add.staticGroup()
 		simpleBlocks.forEach(b => {
 			worldSimpleBlocks
-				.create(b.x, gameHeight - b.y, $project.blocks[b.name].graphic)
-				.setScale(2)
+				.create(b.x, gameHeight - b.y - b.height / 2, $project.blocks[b.name].graphic)
+				.setScale(artScale)
 				.refreshBody()
 		})
 		worldEffectBlocks = this.physics.add.staticGroup()
 		effectBlocks.forEach(b => {
 			const block = worldEffectBlocks
-				.create(b.x, gameHeight - b.y, $project.blocks[b.name].graphic)
-				.setScale(2)
+				.create(b.x, gameHeight - b.y - b.height / 2, $project.blocks[b.name].graphic)
+				.setScale(artScale)
 				.refreshBody()
 			block.dps = b.dps
 			block.throwOnTouch = b.throwOnTouch
@@ -215,8 +229,9 @@
 
 		// add player
 		player = this.physics.add.sprite(0, 300, character.graphics.still)
+		player.body.checkCollision.top = false
 		player.health = character.maxHealth
-		player.setScale(2)
+		player.setScale(artScale)
 		// TODO: gravity multiplier
 
 		// player should collide with simple blocks
@@ -228,11 +243,29 @@
 
 		// add enemies
 		enemies = this.physics.add.group()
+		enemies.runChildUpdate = true
 		level.enemies.forEach(e => {
 			const template = $project.enemies[e.name]
 			let enemy = enemies.create(e.x, gameHeight - e.y, template.graphics.still)
-			enemy.setScale(2)
+			enemy.setScale(artScale)
 			enemy.health = template.maxHealth
+			enemy.update = () => {
+				// move toward player if within leashRange
+				if (Math.abs(player.x - enemy.x) < leashRange) {
+					// x axis
+					if (Math.abs(player.x - enemy.x) < 2) enemy.setVelocityX(0)
+					else if (player.x < enemy.x) enemy.setVelocityX(-template.maxVelocity)
+					else enemy.setVelocityX(template.maxVelocity)
+
+					// y axis
+					if ((enemy.body.touching.down || template.canFly) && player.y < enemy.y - enemy.height) {
+						enemy.setVelocityY(-template.jumpVelocity)
+					}
+				} else {
+					// stop moving
+					enemy.setVelocityX(0)
+				}
+			}
 			// TODO: gravity multiplier
 		})
 		this.physics.add.collider(enemies, worldSimpleBlocks)
