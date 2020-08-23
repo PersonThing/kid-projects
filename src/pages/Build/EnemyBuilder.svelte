@@ -13,8 +13,8 @@
 	<Form on:submit={save} {hasChanges}>
 		<FieldText name="name" bind:value={input.name}>Name</FieldText>
 
-		<FieldGraphics bind:value={input.graphics.still}>Still graphics</FieldGraphics>
-		<FieldGraphics bind:value={input.graphics.moving}>Moving graphics</FieldGraphics>
+		<FieldArtPicker bind:value={input.graphics.still}>Still graphics</FieldArtPicker>
+		<FieldArtPicker bind:value={input.graphics.moving}>Moving graphics</FieldArtPicker>
 		<FieldNumber name="maxVelocity" min={0} bind:value={input.maxVelocity}>Max velocity</FieldNumber>
 		<FieldNumber name="jumpVelocity" min={0} bind:value={input.jumpVelocity}>Jump velocity</FieldNumber>
 		<FieldNumber name="gravityMultiplier" min={0} max={2} step={0.1} bind:value={input.gravityMultiplier}>Gravity multiplier</FieldNumber>
@@ -32,14 +32,14 @@
 
 <script>
 	import { push } from 'svelte-spa-router'
-	import project from '../../stores/active-project-store'
+	import BuildLayout from '../../components/BuildLayout.svelte'
+	import FieldArtPicker from '../../components/FieldArtPicker.svelte'
 	import FieldCheckbox from '../../components/FieldCheckbox.svelte'
 	import FieldNumber from '../../components/FieldNumber.svelte'
 	import FieldText from '../../components/FieldText.svelte'
 	import Form from '../../components/Form.svelte'
-	import BuildLayout from '../../components/BuildLayout.svelte'
+	import project from '../../stores/active-project-store'
 	import validator from '../../services/validator'
-	import FieldGraphics from '../../components/FieldGraphics.svelte'
 
 	export let params = {}
 	let input

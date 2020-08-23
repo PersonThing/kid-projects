@@ -7,7 +7,7 @@
 		{/if}
 		<div bind:this={container} />
 	{/if}
-	<Status {level} {score} enemyCount={(enemies || []).filter(e => e.alive).length} />
+	<Status {level} {score} />
 	<Instructions />
 </div>
 
@@ -133,45 +133,18 @@
 
 	function preload() {
 		return new Promise((resolve, reject) => {
-			// load block textures
+			// load block art
 			const distinctBlockArt = [...new Set(level.blocks.map(b => $project.blocks[b.name].graphic))]
-			const loadingPromises = distinctBlockArt.map(
-				artKey =>
-					new Promise((res, rej) => {
-						const image = new Image()
-						image.onload = () =>
-							res({
-								key: artKey,
-								image,
-							})
-						image.src = $project.art[artKey].png
-					})
+			let loadingPromises = distinctBlockArt.map(name => preloadArt(name))
+
+			// load player art
+			loadingPromises = loadingPromises.concat(Object.keys(character.graphics).map(key => preloadArt(character.graphics[key])))
+
+			// load enemy art
+			const distinctEnemies = [...new Set(level.enemies.map(e => e.name))].map(name => $project.enemies[name])
+			loadingPromises = loadingPromises.concat(
+				distinctEnemies.flatMap(enemy => Object.keys(enemy.graphics).map(key => preloadArt(enemy.graphics[key])))
 			)
-
-			// load player character graphics
-			for (let key in character.graphics) {
-				const graphic = character.graphics[key]
-				loadingPromises.push(
-					new Promise((res, rej) => {
-						const image = new Image()
-						image.onload = () =>
-							res({
-								key: `player.${key}`,
-								image,
-								animated: !graphic.animated
-									? false
-									: {
-											frameRate: graphic.frameRate,
-											frameWidth: graphic.frameWidth,
-											yoyo: graphic.yoyo,
-									  },
-							})
-						image.src = $project.art[graphic.art].png
-					})
-				)
-			}
-
-			// TODO: load enemy graphics
 
 			Promise.all(loadingPromises).then(data => {
 				preloadedData = data
@@ -180,30 +153,45 @@
 		})
 	}
 
+	function preloadArt(name) {
+		const art = $project.art[name]
+		return new Promise((res, rej) => {
+			const image = new Image()
+			image.onload = () =>
+				res({
+					...art,
+					image,
+				})
+			image.src = art.png
+		})
+	}
+
 	function onCreate() {
 		this.cameras.main.setBackgroundColor(rgbaStringToHex(level.background))
 
 		// set up textures and sprites for all blocks, character, and enemies in level
-		preloadedData.forEach(data => {
-			if (data.animated) {
+		console.log(preloadedData)
+		preloadedData.forEach(art => {
+			if (art.animated) {
+				console.log('setting sprite animation')
 				// animated spritesheet
-				this.textures.addSpriteSheet(data.key, data.image, {
-					frameWidth: data.animated.frameWidth,
-					frameHeight: data.image.height,
+				this.textures.addSpriteSheet(art.name, art.image, {
+					frameWidth: art.frameWidth,
+					frameHeight: art.height,
 				})
 				this.anims.create({
-					key: `${data.key}.animation`,
-					frames: this.anims.generateFrameNumbers(data.key, {
+					key: getAnimationKey(art.name),
+					frames: this.anims.generateFrameNumbers(art.name, {
 						start: 0,
-						end: Math.ceil(data.image.width / data.animated.frameWidth),
+						end: Math.ceil(art.width / art.frameWidth),
 					}),
-					frameRate: data.animated.frameRate,
+					frameRate: art.frameRate,
 					repeat: -1,
-					yoyo: data.animated.yoyo,
+					yoyo: art.yoyo,
 				})
 			} else {
 				// simple static image
-				this.textures.addImage(data.key, data.image)
+				this.textures.addImage(art.name, art.image)
 			}
 		})
 
@@ -226,33 +214,45 @@
 		})
 
 		// add player
-		player = this.physics.add.sprite(0, 300, 'player.still')
+		player = this.physics.add.sprite(0, 300, character.graphics.still)
 		player.health = character.maxHealth
 		player.setScale(2)
+		// TODO: gravity multiplier
 
 		// player should collide with simple blocks
 		this.physics.add.collider(player, worldSimpleBlocks)
 		player.setCollideWorldBounds(true)
 
 		// player should collide with effect blocks and do something when it happens
-		this.physics.add.collider(player, worldEffectBlocks, (player, block) => {
-			player.health -= block.dps / 60
-			if (block.throwOnTouch) player.setVelocityY(-1000)
-			console.log(player.health)
+		this.physics.add.collider(player, worldEffectBlocks, onEffectBlockCollision)
+
+		// add enemies
+		enemies = this.physics.add.group()
+		level.enemies.forEach(e => {
+			const template = $project.enemies[e.name]
+			let enemy = enemies.create(e.x, gameHeight - e.y, template.graphics.still)
+			enemy.setScale(2)
+			enemy.health = template.maxHealth
+			// TODO: gravity multiplier
 		})
+		this.physics.add.collider(enemies, worldSimpleBlocks)
+		this.physics.add.collider(enemies, worldEffectBlocks, onEffectBlockCollision)
 
 		// camera and player bounds
 		this.physics.world.setBounds(0, -levelHeight, levelWidth, levelHeight + gameHeight + 500)
 		this.cameras.main.setBounds(0, -levelHeight, levelWidth, levelHeight + gameHeight)
 		this.cameras.main.startFollow(player)
 
-		// TODO: add enemies
-
 		// configure input
 		cursors = this.input.keyboard.createCursorKeys()
 		spacebarKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
 		enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
 		rKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R)
+	}
+
+	function onEffectBlockCollision(sprite, block) {
+		sprite.health -= block.dps / 60
+		if (block.throwOnTouch) sprite.setVelocityY(-1000)
 	}
 
 	function onUpdate() {
@@ -291,11 +291,12 @@
 		}
 
 		// r key to spin
-		if (Phaser.Input.Keyboard.JustDown(rKey)) {
+		if (Phaser.Input.Keyboard.JustDown(rKey) && character.canSpin) {
 			player.spinning = true
 		} else if (Phaser.Input.Keyboard.JustUp(rKey)) {
 			player.spinning = false
 		}
+
 		if (player.spinning) {
 			player.setAngularVelocity(1080 * (player.body.velocity.x < 0 ? -1 : 1))
 		} else {
@@ -312,10 +313,14 @@
 	}
 
 	function setGraphic(key) {
-		if (character.graphics[key] == null || character.graphics[key].art == null) key = 'still'
+		if (character.graphics[key] == null) key = 'still'
+		const art = $project.art[character.graphics[key]]
+		if (art.animated) player.anims.play(getAnimationKey(art.name), true)
+		else player.setTexture(art.name)
+	}
 
-		if (character.graphics[key].animated) player.anims.play(`player.${key}.animation`, true)
-		else player.setTexture(`player.${key}`)
+	function getAnimationKey(key) {
+		return `${key}.animation`
 	}
 </script>
 

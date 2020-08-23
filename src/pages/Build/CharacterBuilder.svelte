@@ -7,9 +7,8 @@
 		</span>
 		<FieldText name="name" bind:value={input.name}>Name</FieldText>
 
-		<FieldGraphics bind:value={input.graphics.still}>Still graphics</FieldGraphics>
-		<FieldGraphics bind:value={input.graphics.moving}>Moving graphics</FieldGraphics>
-		<FieldGraphics bind:value={input.graphics.spinning}>Spinning graphics</FieldGraphics>
+		<FieldArtPicker bind:value={input.graphics.still}>Still graphics</FieldArtPicker>
+		<FieldArtPicker bind:value={input.graphics.moving}>Moving graphics</FieldArtPicker>
 		<FieldNumber name="maxVelocity" min={0} bind:value={input.maxVelocity}>Max velocity</FieldNumber>
 		<FieldNumber name="jumpVelocity" min={0} bind:value={input.jumpVelocity}>Jump velocity</FieldNumber>
 		<FieldNumber name="gravityMultiplier" min={0} max={2} step={0.1} bind:value={input.gravityMultiplier}>Gravity multiplier</FieldNumber>
@@ -24,19 +23,18 @@
 	import { push } from 'svelte-spa-router'
 	import { remove as removeIcon } from 'svelte-awesome/icons'
 	import Art from '../../components/Art.svelte'
-	import project from '../../stores/active-project-store'
+	import BuildLayout from '../../components/BuildLayout.svelte'
 	import FieldAbilities from '../../components/FieldAbilities.svelte'
 	import FieldArtPicker from '../../components/FieldArtPicker.svelte'
 	import FieldCheckbox from '../../components/FieldCheckbox.svelte'
 	import FieldNumber from '../../components/FieldNumber.svelte'
+	import FieldPngData from '../../components/InputPngData.svelte'
 	import FieldRange from '../../components/FieldRange.svelte'
 	import FieldText from '../../components/FieldText.svelte'
 	import Form from '../../components/Form.svelte'
 	import Icon from 'svelte-awesome'
-	import BuildLayout from '../../components/BuildLayout.svelte'
+	import project from '../../stores/active-project-store'
 	import validator from '../../services/validator'
-	import FieldPngData from '../../components/InputPngData.svelte'
-	import FieldGraphics from '../../components/FieldGraphics.svelte'
 
 	export let params = {}
 	let input = {}

@@ -7,7 +7,7 @@
 	<div class="card bg-light mb-3">
 		<div class="card-body">
 			<FieldNumber name="spinDegreesPerFrame" bind:value={input.spinDegreesPerFrame} min={0} max={25}>Spin degrees per frame</FieldNumber>
-			<FieldArtPicker bind:value={input.graphicSpinning} spin={previewFrame * input.spinDegreesPerFrame}>Spin attack graphic</FieldArtPicker>
+			<FieldArtPicker bind:value={input.graphics.spinning} spin={previewFrame * input.spinDegreesPerFrame}>Spinning graphics</FieldArtPicker>
 		</div>
 	</div>
 {/if}
