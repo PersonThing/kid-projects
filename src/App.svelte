@@ -1,4 +1,4 @@
-<ul class="nav nav-pills">
+<ul class="nav nav-tabs">
 	{#each $projects as p}
 		<li class="nav-item">
 			<a class="nav-link" use:active={`/${encodeURIComponent(p.name)}/*`} href="#/{encodeURIComponent(p.name)}/">{p.name}</a>

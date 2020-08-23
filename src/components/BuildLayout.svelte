@@ -1,5 +1,5 @@
 <div class="flex align-top">
-	<div class="sub-nav nav-column">
+	<div class="sub-nav nav-container">
 		{#each tabs as t}
 			<a class="sub-nav-item" class:active={tab == t.name} href="{baseUrl}/{t.name}/new">{t.name}</a>
 			{#if t.name == tab}
@@ -7,13 +7,15 @@
 					<a href="{baseUrl}/{t.name}/new" class="sub-nav-item" class:new={store[activeName] == null}>+ New</a>
 					{#each Object.keys(store).sort() as name}
 						<a class="sub-nav-item" class:active={activeName == name} href="{baseUrl}/{t.name}/{name}">
+							{#if tab != 'levels'}
+								<Art name={tab == 'art' ? name : getGraphic(name, t.graphicKey)} scale={1} />
+							{/if}
 							<div class="flex-column">
 								<span>{name}</span>
+
 								<div>
 									{#if tab == 'levels'}
 										<img src={store[name].thumbnail} class="level-thumbnail" alt="" />
-									{:else}
-										<Art name={tab == 'art' ? name : store[name][t.graphicKey]} />
 									{/if}
 								</div>
 							</div>
@@ -23,7 +25,7 @@
 			{/if}
 		{/each}
 	</div>
-	<div class="flex-grow pl-2">
+	<div class="content-container">
 		<slot />
 	</div>
 </div>
@@ -41,17 +43,28 @@
 	const tabs = [
 		{ name: 'art' },
 		{ name: 'blocks', graphicKey: 'graphic' },
-		{ name: 'characters', graphicKey: 'graphics.still.art' },
-		{ name: 'enemies', graphicKey: 'graphics.still.art' },
+		{ name: 'characters', graphicKey: 'graphics.still' },
+		{ name: 'enemies', graphicKey: 'graphics.still' },
 		{ name: 'levels', graphicKey: null },
 	]
+
+	function getGraphic(name, key) {
+		let item = store[name]
+		key.split('.').forEach(p => {
+			item = item[p]
+		})
+		return item
+	}
 </script>
 
 <style lang="scss">
 	@import '../css/variables';
 
-	.nav-column {
-		width: 250px;
+	.nav-container {
+		width: 200px;
+	}
+	.content-container {
+		width: calc(100vw - 200px);
 	}
 
 	.sub-nav .sub-nav {
@@ -72,16 +85,12 @@
 		display: flex;
 		flex-direction: row;
 
-		font-size: 15px;
+		font-size: 13px;
 		color: #666;
 
 		:global(img) {
 			margin-right: 5px;
-			max-height: 20px;
-		}
-
-		img.level-thumbnail {
-			width: 100px;
+			height: 20px;
 		}
 
 		&:hover {

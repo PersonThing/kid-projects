@@ -1,14 +1,15 @@
 <svelte:window on:keyup={onKeyUp} on:paste={onPaste} on:mouseup={onDrawMouseUp} />
 
 <BuildLayout tab="art" activeName={input.name} store={$project.art}>
-	<Form on:submit={save} {hasChanges}>
-		<span slot="buttons" class="flex">
+	<form on:submit|preventDefault={save}>
+		<div class="flex mb-2">
+			<SaveBtn disabled={!hasChanges} />
 			<input type="text" class="form-control width-auto" id="name" name="name" bind:value={input.name} bind:this={nameField} />
 
 			{#if !isAdding}
 				<button type="button" class="btn btn-danger" on:click={() => del(input.name)}>Delete</button>
 			{/if}
-		</span>
+		</div>
 
 		<div class="toolbar flex align-center">
 			<ColorPicker bind:value={selectedColor} on:change={() => (mode = mode == 'erase' ? 'paint' : mode)} />
@@ -24,20 +25,6 @@
 					<Icon data={eraseIcon} />
 				</button>
 			</div>
-
-			<button type="button" class="btn btn-light btn-sm mr1" on:click={reset}>Start over</button>
-
-			<InputSelect
-				disabled={$autoSaveStore[input.name] == null}
-				options={$autoSaveStore[input.name]}
-				on:change={e => loadAutoSave(e.detail)}
-				let:option
-				placeholder="Auto-saves"
-				inline
-				sm>
-				{option.name}
-				<img src={option.png} height="40" alt="" />
-			</InputSelect>
 
 			<div class="btn-group">
 				<button type="button" disabled={undos.length == 0} class="btn btn-default btn-sm" on:click={undo}>
@@ -59,6 +46,15 @@
 				</button>
 			</div>
 
+			<!-- <div class="btn-group">
+				<button type="button" class="btn btn-light btn-sm" on:click={rotateLeft} title="Rotate left">
+					<Icon data={rotateIcon} />
+				</button>
+				<button type="button" class="btn btn-light btn-sm" on:click={rotateRight} title="Rotate right">
+					<Icon data={rotateIcon} flip="horizontal" />
+				</button>
+			</div> -->
+
 			<div class="btn-group">
 				<button type="button" class="btn btn-light btn-sm" on:click={moveLeft} title="Move left">
 					<Icon data={arrowLeftIcon} />
@@ -74,56 +70,125 @@
 				</button>
 			</div>
 
-			<div class="flex-column">
-				Height
-				<input type="number" bind:value={input.height} placeholder="Height" />
-			</div>
-			<div class="flex-column">
-				Width
-				<input type="number" bind:value={input.width} placeholder="Width" />
-			</div>
-			<div class="flex-column">
-				Zoom
-				<input type="number" bind:value={gridSize} placeholder="Zoom" />
-			</div>
-			<label>
-				<input type="checkbox" bind:checked={showGrid} />
-				Show grid
-			</label>
-		</div>
-
-		<div class="preview flex">
 			<div>
-				<img src={input.png} alt="preview" class="drop-shadow" width={input.width * artScale} height={input.height * artScale} />
+				W
+				<input id="width" type="number" bind:value={input.width} placeholder="Width" />
+				x H
+				<input id="height" type="number" bind:value={input.height} placeholder="Height" />
 			</div>
 
-			<!-- if block size, show repeated in x and y-->
-			{#if input.width == 20 && input.height == 20}
-				<div class="ml-2">
-					{#each [0, 0] as r}
-						<div>
-							{#each [0, 0, 0] as margin}
-								<img src={input.png} alt="block repeating preview" width={input.width * artScale} height={input.height * artScale} />
-							{/each}
-						</div>
-					{/each}
+			<div>
+				<Icon data={zoomIcon} />
+				<input id="zoom" type="number" bind:value={zoom} min={2} max={20} />
+			</div>
+			<div>
+				<label>
+					<input type="checkbox" bind:checked={showGrid} />
+					Show grid
+				</label>
+			</div>
+
+			<button type="button" class="btn btn-light btn-sm mr1" on:click={reset}>Start over</button>
+
+			<InputSelect
+				disabled={$autoSaveStore[input.name] == null}
+				options={$autoSaveStore[input.name]}
+				bind:value={selectedAutoSave}
+				on:change={e => loadAutoSave(e.detail)}
+				let:option
+				placeholder="Auto-saves"
+				inline
+				sm
+				right>
+				{option.name}
+				<img src={option.png} height="40" alt="" />
+			</InputSelect>
+
+		</div>
+		<div class="my-1">
+			{#if input.width != 20 || input.height != 20}
+				<div class="flex">
+					<div>
+						<label>
+							Animated
+							<input type="checkbox" bind:checked={input.animated} />
+						</label>
+					</div>
 				</div>
 			{/if}
+
+			<div class="preview flex">
+				{#if input.animated}
+					<div>
+						<div class="flex">
+							<div>
+								<label for="frame-width">Frame width</label>
+								<input id="frame-width" type="number" bind:value={input.frameWidth} min={1} max={200} step={1} />
+							</div>
+
+							<div>
+								<label for="frame-width">Frame rate</label>
+								<input id="frame-rate" type="number" bind:value={input.frameRate} min={1} max={60} step={1} />
+							</div>
+
+							<div>
+								<label>
+									Loop back
+									<input type="checkbox" bind:checked={input.yoyo} />
+								</label>
+							</div>
+						</div>
+
+						<div class="flex-column">
+							<AnimationPreview {...input} scale={artScale} width={pngCanvas.width} height={pngCanvas.height} />
+							<div class="frame-editor">
+								<img src={input.png} width={pngCanvas.width * artScale} height={pngCanvas.height * artScale} alt="preview frame splits" />
+								{#each [...Array(numFrames)] as x, frameNumber}
+									<div class="frame" style="left: {frameNumber * input.frameWidth * artScale}px; width: {input.frameWidth * artScale}px;">
+										<a href="#/" on:click|preventDefault={() => removeFrame(frameNumber)} class="text-danger">
+											<Icon data={deleteIcon} />
+										</a>
+										<a href="#/" on:click|preventDefault={() => copyFrame(frameNumber)} class="text-info">
+											<Icon data={copyIcon} />
+										</a>
+									</div>
+								{/each}
+							</div>
+						</div>
+					</div>
+				{:else}
+					<img src={input.png} width={pngCanvas.width * artScale} height={pngCanvas.height * artScale} alt="" />
+				{/if}
+
+				<!-- if block size, show repeated in x and y-->
+				{#if input.width == 20 && input.height == 20}
+					<div class="ml-2">
+						{#each [0, 0] as r}
+							<div>
+								{#each [0, 0, 0] as margin}
+									<img src={input.png} alt="block repeating preview" width={input.width * artScale} height={input.height * artScale} />
+								{/each}
+							</div>
+						{/each}
+					</div>
+				{/if}
+			</div>
 		</div>
-		<div class="canvas-container">
-			<canvas class="draw-canvas" bind:this={drawCanvas} />
-			<canvas
-				class="grid-canvas"
-				bind:this={gridCanvas}
-				class:paint-cursor={mode == 'paint'}
-				class:fill-cursor={mode == 'fill'}
-				class:erase-cursor={mode == 'erase'}
-				on:mousedown|preventDefault={onDrawMouseDown}
-				on:mouseup|preventDefault={onDrawMouseUp}
-				on:mousemove|preventDefault={onDrawMouseMove}
-				on:contextmenu|preventDefault />
-		</div>
-	</Form>
+	</form>
+
+	<div class="canvas-container">
+		<canvas class="draw-canvas" bind:this={drawCanvas} />
+		<canvas
+			class="grid-canvas"
+			bind:this={gridCanvas}
+			class:paint-cursor={mode == 'paint'}
+			class:fill-cursor={mode == 'fill'}
+			class:erase-cursor={mode == 'erase'}
+			on:mousedown|preventDefault={onDrawMouseDown}
+			on:mouseup|preventDefault={onDrawMouseUp}
+			on:mousemove|preventDefault={onDrawMouseMove}
+			on:contextmenu|preventDefault />
+	</div>
 
 </BuildLayout>
 
@@ -136,6 +201,9 @@
 		undo as undoIcon,
 		paintBrush as paintBrushIcon,
 		eraser as eraseIcon,
+		remove as deleteIcon,
+		copy as copyIcon,
+		searchPlus as zoomIcon,
 	} from 'svelte-awesome/icons'
 	import { faFillDrip as fillIcon, faPaintBrush as paintIcon, faExchangeAlt as flipIcon } from '@fortawesome/free-solid-svg-icons'
 	import { push } from 'svelte-spa-router'
@@ -151,6 +219,8 @@
 	import { onMount } from 'svelte'
 	import makeThumbnail from '../../services/make-thumbnail'
 	import debounce from '../../services/debounce'
+	import AnimationPreview from '../../components/AnimationPreview.svelte'
+	import SaveBtn from '../../components/SaveBtn.svelte'
 
 	export let params = {}
 	let input = createDefaultInput()
@@ -159,9 +229,12 @@
 	let redos = []
 	let mouseDown = false
 	let showGrid = true
+	let showFrames = false
+	let frameWidth = 40
 	let nameField
 	let savedInput
 	let selectedColor = 'rgba(0, 0, 0, 255)'
+	let selectedAutoSave = null
 
 	// we load the png into this canvas
 	// and when user draws on the big canvas, we actually make the change on the scaled down canvas, and then re-render the larger canvas from this one
@@ -173,20 +246,21 @@
 	// we render a scaled up version to this canvas for user to interact with
 	let drawCanvas
 	let drawContext
-	let gridSize = 10
+	let zoom = 15
 
 	// we render grid lines to this canvas
 	let gridCanvas
 	let gridContext
 
-	const debouncedRedraw = debounce(() => redraw(), 500)
+	const debouncedRedraw = debounce(() => redraw(), 200)
 	$: paramName = decodeURIComponent(params.name) || 'new'
 	$: paramName == 'new' ? create() : edit(paramName)
 	$: isAdding = paramName == 'new'
 	$: inputWidth = input.width
 	$: inputHeight = input.height
-	$: hasChanges = input != null && !validator.equals(input, $project.art[input.name])
-	$: if (inputWidth != 0 && inputHeight != 0 && showGrid != null && gridSize != null) debouncedRedraw()
+	$: hasChanges = !validator.equals(input, $project.art[input.name])
+	$: numFrames = input.width != null && input.frameWidth != null ? Math.ceil(input.width / input.frameWidth) : 0
+	$: if (inputWidth != 0 && inputHeight != 0 && showGrid != null && zoom != null) debouncedRedraw()
 
 	onMount(() => redraw())
 
@@ -202,6 +276,11 @@
 			width: 20,
 			height: 20,
 			png: null,
+
+			animated: false,
+			frameWidth: 25,
+			frameRate: 10,
+			yoyo: false,
 		}
 	}
 
@@ -220,6 +299,7 @@
 
 	function loadAutoSave(saveData) {
 		input = JSON.parse(JSON.stringify(saveData))
+		selectedAutoSave = null
 		redraw()
 	}
 
@@ -248,7 +328,7 @@
 	}
 
 	function onDrawMouseDown(e) {
-		const { x, y } = getScaleCoordinates(e.offsetX, e.offsetY)
+		const { x, y } = getScaledEventCoordinates(e)
 		const color = getColorAt(x, y)
 		if (e.altKey || e.button !== 0) {
 			if (color == 'transparent') {
@@ -272,7 +352,7 @@
 	function onDrawMouseMove(e) {
 		if (!mouseDown) return
 
-		const { x, y } = getScaleCoordinates(e.offsetX, e.offsetY)
+		const { x, y } = getScaledEventCoordinates(e)
 		if (y != null && x != null) {
 			if (mode == 'erase') setColor(x, y, 'transparent')
 			else setColor(x, y, selectedColor)
@@ -322,10 +402,14 @@
 		return toRGB(pngContext.getImageData(x, y, 1, 1).data)
 	}
 
-	function getScaleCoordinates(x, y) {
+	function getScaledEventCoordinates(e) {
+		const x = e.offsetX + e.target.scrollLeft
+		const y = e.offsetY + e.target.scrollTop
+		console.log(x, y)
+		// debugger
 		return {
-			x: Math.floor(x / gridSize),
-			y: Math.floor(y / gridSize),
+			x: Math.floor(x / zoom),
+			y: Math.floor(y / zoom),
 		}
 	}
 
@@ -334,7 +418,7 @@
 	}
 
 	function addUndoState() {
-		undos = [...undos.slice(Math.max(undos.length - 20, 0)), input.png]
+		undos = [...undos.slice(Math.max(undos.length - 20, 0)), JSON.stringify(input)]
 
 		// if we're adding a new undo state, empty redos
 		redos = []
@@ -348,8 +432,11 @@
 	function undo() {
 		if (undos.length == 0) return
 
-		redos = [...redos, input.png]
-		input.png = undos.pop()
+		redos = [...redos, JSON.stringify(input)]
+		input = {
+			...input,
+			...JSON.parse(undos.pop()),
+		}
 		undos = undos
 		redraw()
 	}
@@ -357,8 +444,11 @@
 	function redo() {
 		if (redos.length == 0) return
 
-		undos = [...undos, input.png]
-		input.png = redos.pop()
+		undos = [...undos, JSON.stringify(input)]
+		input = {
+			...input,
+			...JSON.parse(redos.pop()),
+		}
 		redos = redos
 		redraw()
 	}
@@ -366,7 +456,7 @@
 	function setColor(x, y, color, recursing = false) {
 		const oldColor = getColorAt(x, y)
 		drawSquare(pngContext, x, y, 1, color)
-		drawSquare(drawContext, x * gridSize, y * gridSize, gridSize, color)
+		drawSquare(drawContext, x * zoom, y * zoom, zoom, color)
 
 		if (mode == 'fill') {
 			// recursively loop around this pixel setting pixels that were the same color this one used to be to the new color
@@ -400,10 +490,8 @@
 		if (drawContext == null) drawContext = drawCanvas.getContext('2d')
 		if (gridContext == null) gridContext = gridCanvas.getContext('2d')
 
-		console.log('redrawing')
 		// put source png onto scale canvas
 		createMemoryImage(input.png).then(image => {
-			console.log('image callback')
 			// draw png onto scale canvas
 			let scaleWidth = image.width
 			let scaleHeight = image.height
@@ -420,13 +508,13 @@
 			pngCanvas.height = input.height
 			pngContext.clearRect(0, 0, input.width, input.height)
 
-			drawCanvas.width = input.width * gridSize
-			drawCanvas.height = input.height * gridSize
-			drawContext.clearRect(0, 0, input.width * gridSize, input.height * gridSize)
+			drawCanvas.width = input.width * zoom
+			drawCanvas.height = input.height * zoom
+			drawContext.clearRect(0, 0, input.width * zoom, input.height * zoom)
 
-			gridCanvas.width = input.width * gridSize
-			gridCanvas.height = input.height * gridSize
-			gridContext.clearRect(0, 0, input.width * gridSize, input.height * gridSize)
+			gridCanvas.width = input.width * zoom
+			gridCanvas.height = input.height * zoom
+			gridContext.clearRect(0, 0, input.width * zoom, input.height * zoom)
 
 			// draw the png full size, even if it gets cut off
 			if (input.png != null) pngContext.drawImage(image, 0, 0, scaleWidth, scaleHeight)
@@ -434,64 +522,75 @@
 			setInputFromCanvas()
 
 			// loop the scaleContext, grabbing pixels to render larger on full size canvas
-			for (let y = 0; y < input.height; y++) {
-				for (let x = 0; x < input.width; x++) {
-					let [r, g, b, a] = pngContext.getImageData(x, y, 1, 1).data
-					if (a > 0) drawSquare(drawContext, x * gridSize, y * gridSize, gridSize, `rgba(${r}, ${g}, ${b}, ${a})`)
-					if (showGrid) {
-						gridContext.beginPath()
-						gridContext.rect(x * gridSize, y * gridSize, gridSize, gridSize)
-						gridContext.strokeStyle = 'rgba(255,255,255,0.5)'
-						gridContext.stroke()
-					}
+			// draw image larger on big canvas
+			drawContext.save()
+			drawContext.scale(zoom, zoom)
+			drawContext.imageSmoothingEnabled = false
+			drawContext.drawImage(image, 0, 0)
+			drawContext.restore()
+
+			if (showGrid) {
+				gridContext.strokeStyle = 'rgba(255,255,255,1)'
+				for (let x = 1; x < input.width; x++) {
+					gridContext.beginPath()
+					gridContext.moveTo(x * zoom, 0)
+					gridContext.lineTo(x * zoom, input.height * zoom)
+					gridContext.stroke()
+				}
+				for (let y = 1; y < input.height; y++) {
+					gridContext.beginPath()
+					gridContext.moveTo(0, y * zoom)
+					gridContext.lineTo(input.width * zoom, y * zoom)
+					gridContext.stroke()
 				}
 			}
 		})
 	}
 
 	function flipY() {
-		flipImage(false, true)
+		flip(false, true)
 	}
 
 	function flipX() {
-		flipImage(true, false)
+		flip(true, false)
 	}
 
 	function moveLeft() {
-		addUndoState()
-		moveImage(-1, 0)
+		move(-1, 0)
 	}
 
 	function moveRight() {
-		addUndoState()
-		moveImage(1, 0)
+		move(1, 0)
 	}
 
 	function moveUp() {
-		addUndoState()
-		moveImage(0, -1)
+		move(0, -1)
 	}
 
 	function moveDown() {
+		move(0, 1)
+	}
+
+	function rotateLeft() {
+		rotate(-90)
+	}
+
+	function rotateRight() {
+		rotate(90)
+	}
+
+	function move(dx, dy) {
 		addUndoState()
-		moveImage(0, 1)
-	}
-
-	function moveImage(dx, dy) {
+		const data = pngContext.getImageData(0, 0, input.width, input.height)
+		pngContext.putImageData(data, dx, dy)
+		if (dx != 0) pngContext.putImageData(data, dx - dx * input.width, 0)
+		else if (dy != 0) pngContext.putImageData(data, 0, dy - dy * input.height)
 		setInputFromCanvas()
-		createMemoryImage(input.png).then(image => {
-			pngContext.clearRect(0, 0, input.width, input.height)
-			pngContext.drawImage(image, dx, dy, input.width, input.height)
-
-			// draw the pixels that were cut off on the opposite side of the canvas, cuz why not
-			if (dx != 0) pngContext.drawImage(image, dx - dx * input.width, 0, input.width, input.height)
-			else if (dy != 0) pngContext.drawImage(image, 0, dy - dy * input.height, input.width, input.height)
-			setInputFromCanvas()
-			redraw()
-		})
+		redraw()
 	}
 
-	function flipImage(flipX, flipY) {
+	function flip(flipX, flipY) {
+		addUndoState()
 		setInputFromCanvas()
 		createMemoryImage(input.png).then(image => {
 			pngContext.clearRect(0, 0, input.width, input.height)
@@ -502,9 +601,16 @@
 		})
 	}
 
+	// can't seem to get this to work
+	// function rotate(deg) {
+	// 	addUndoState()
+	// 	setInputFromCanvas()
+	// 	createMemoryImage(input.png).then(image => {
+	// 	})
+	// }
+
 	function setInputFromCanvas() {
 		input.png = pngCanvas.toDataURL('image/png')
-		console.log(input.png)
 	}
 
 	function createMemoryImage(png) {
@@ -515,6 +621,46 @@
 			image.onload = () => resolve(image)
 		})
 	}
+
+	function removeFrame(frameIndex) {
+		addUndoState()
+		const frameStartX = frameIndex * input.frameWidth
+		const framesAfterData = pngContext.getImageData(frameStartX + input.frameWidth, 0, input.width, input.height)
+
+		pngContext.clearRect(frameStartX, 0, input.width, input.height)
+		pngContext.width = input.width - input.frameWidth
+		pngContext.putImageData(framesAfterData, frameStartX, 0)
+
+		setInputFromCanvas()
+		redraw()
+
+		input.width -= input.frameWidth
+	}
+
+	function copyFrame(frameIndex) {
+		addUndoState()
+
+		const frameStartX = frameIndex * input.frameWidth
+		const existingFramesData = pngContext.getImageData(0, 0, input.width, input.height)
+		const frameData = pngContext.getImageData(frameStartX, 0, input.frameWidth, input.height)
+		pngCanvas.width = pngCanvas.width + input.frameWidth
+		// changing width clears old content, so we have to re-draw old frames too
+		pngContext.putImageData(existingFramesData, 0, 0)
+		pngContext.putImageData(frameData, input.width, 0)
+		// pngContext.beginPath()
+		// pngContext.rect(0, 0, frameWidth, input.height)
+		// pngContext.fillStyle = 'red'
+		// pngContext.fill()
+
+		// context.beginPath()
+		// context.rect(x, y, size, size)
+		// context.fillStyle = color
+		// context.fill()
+
+		setInputFromCanvas()
+		console.log(input.png)
+		input.width += input.frameWidth
+	}
 </script>
 
 <style lang="scss">
@@ -523,9 +669,15 @@
 		width: 50px;
 	}
 
+	.flex label {
+		margin-bottom: 0;
+	}
+
 	.canvas-container {
 		position: relative;
 		margin: 15px 0;
+		max-width: 100%;
+		overflow: auto;
 
 		.grid-canvas {
 			position: absolute;
@@ -559,17 +711,21 @@
 	.flex .btn-group {
 		margin-left: 5px;
 	}
-	.flex .btn-group,
-	.flex input {
+	.flex .btn-group {
 		margin-right: 5px;
 	}
 
 	.toolbar {
 		font-size: 14px;
+		margin-bottom: 5px;
 
-		.flex-column {
+		> div {
 			margin-right: 5px;
 		}
+	}
+
+	.flex > div {
+		margin-right: 5px;
 	}
 
 	.paint-cursor {
@@ -580,5 +736,31 @@
 	}
 	.erase-cursor {
 		cursor: url(/erase-icon.png) 0 20, url(/kid-projects/public/erase-icon.png) 0 20, auto;
+	}
+
+	.frame-editor {
+		position: relative;
+		padding-top: 25px;
+		padding-bottom: 25px;
+
+		.frame {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			border-right: 1px solid #333;
+			text-align: center;
+
+			a {
+				position: absolute;
+				left: 2px;
+
+				&:first-child {
+					top: 0;
+				}
+				&:last-child {
+					bottom: 0;
+				}
+			}
+		}
 	}
 </style>

@@ -69,29 +69,10 @@
 	function createDefaultInput() {
 		return {
 			graphics: {
-				still: {
-					art: null,
-					frameWidth: 40,
-					frameRate: 15,
-					yoyo: false,
-				},
-				moving: {
-					art: null,
-					frameWidth: 40,
-					frameRate: 15,
-					yoyo: false,
-				},
-				spinning: {
-					art: null,
-					frameWidth: 40,
-					frameRate: 15,
-					yoyo: false,
-				},
-				// jumping: {
-				// 	art: null,
-				// 	frameWidth: 40,
-				// 	frameRate: 5,
-				// },
+				still: null,
+				moving: null,
+				spinning: null,
+				// jumping: null,
 			},
 			name: '',
 			maxHealth: 100,

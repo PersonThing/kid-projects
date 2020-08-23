@@ -55,17 +55,7 @@
 	let levelWidth
 	let levelHeight
 
-	$: if (level != null && character != null && container != null) start()
-
-	function start() {
-		gameOver = false
-		gameWon = false
-		paused = false
-		score = 0
-
-		levelWidth = Math.max(...level.blocks.map(b => b.x + b.width * 2))
-		levelHeight = Math.max(Math.max(...level.blocks.map(b => b.y + b.height * 2)), 600)
-
+	onMount(() => {
 		// sort blocks by x, then y
 		blocks = level.blocks
 			.sort((a, b) => {
@@ -88,9 +78,24 @@
 		effectBlocks = blocks.filter(b => b.dps > 0 || b.throwOnTouch)
 		simpleBlocks = blocks.filter(b => b.dps == 0 && !b.throwOnTouch)
 
+		start()
+	})
+
+	// $: if (level != null && character != null && container != null) start()
+
+	function start() {
 		destroyGame()
 		preload().then(() => {
 			if (container == null) return
+
+			gameOver = false
+			gameWon = false
+			paused = false
+			score = 0
+			gameWidth = window.innerWidth
+
+			levelWidth = Math.max(...level.blocks.map(b => b.x + b.width * 2))
+			levelHeight = Math.max(...level.blocks.map(b => b.y + b.height * 2))
 
 			config = {
 				type: Phaser.AUTO,
@@ -102,7 +107,7 @@
 				physics: {
 					default: 'arcade',
 					arcade: {
-						gravity: { y: 1800 },
+						gravity: { y: 2500 },
 						debug: false,
 					},
 				},
@@ -227,14 +232,18 @@
 
 		// player should collide with simple blocks
 		this.physics.add.collider(player, worldSimpleBlocks)
+		player.setCollideWorldBounds(true)
 
 		// player should collide with effect blocks and do something when it happens
 		this.physics.add.collider(player, worldEffectBlocks, (player, block) => {
 			player.health -= block.dps / 60
-			if (block.throwOnTouch) player.setVelocityY(-800)
+			if (block.throwOnTouch) player.setVelocityY(-1000)
 			console.log(player.health)
 		})
-		this.cameras.main.setBounds(0, -levelHeight * 1, levelWidth, levelHeight * 2)
+
+		// camera and player bounds
+		this.physics.world.setBounds(0, -levelHeight, levelWidth, levelHeight + gameHeight + 500)
+		this.cameras.main.setBounds(0, -levelHeight, levelWidth, levelHeight + gameHeight)
 		this.cameras.main.startFollow(player)
 
 		// TODO: add enemies
@@ -248,10 +257,7 @@
 
 	function onUpdate() {
 		// restart game
-		if (Phaser.Input.Keyboard.JustDown(enterKey)) {
-			player.health = 1
-			start()
-		}
+		if (Phaser.Input.Keyboard.JustDown(enterKey) || (gameOver && Phaser.Input.Keyboard.JustDown(spacebarKey))) start()
 
 		if (gameOver) return
 
@@ -268,7 +274,7 @@
 					: Math.max(player.body.velocity.x - character.maxVelocity / 15, -character.maxVelocity)
 			player.setVelocityX(newVelocity)
 			player.flipX = true
-			setGraphic('moving')
+			setGraphic(player.spinning ? 'spinning' : 'moving')
 		} else if (cursors.right.isDown && !cursors.isDown) {
 			// moving right
 			const newVelocity =
@@ -277,7 +283,7 @@
 					: Math.min(player.body.velocity.x + character.maxVelocity / 15, character.maxVelocity)
 			player.setVelocityX(newVelocity)
 			player.flipX = false
-			setGraphic('moving')
+			setGraphic(player.spinning ? 'spinning' : 'moving')
 		} else if (player.body.touching.down) {
 			// stop if touching ground
 			player.setVelocityX(0)
@@ -298,8 +304,8 @@
 			player.setRotation((player.body.velocity.y / 1800) * (player.body.velocity.x < 0 ? -1 : 1))
 		}
 
-		// if player is dead, they lost
-		if (player.health < 0) {
+		// if player is dead or fell out bottom of world, they lost
+		if (player.health < 0 || player.body.y > this.physics.world.bounds.bottom - 100) {
 			this.physics.pause()
 			gameOver = true
 		}

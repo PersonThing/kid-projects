@@ -25,7 +25,7 @@
 		context.imageSmoothingEnabled = false
 		blocks.forEach(b => drawOnCanvas($project.blocks[b.name].graphic, b.x, b.y))
 		if (enemies != null) {
-			enemies.forEach(e => drawOnCanvas($project.enemies[e.name].graphics.still.art, e.x, e.y))
+			enemies.forEach(e => drawOnCanvas($project.enemies[e.name].graphics.still, e.x, e.y))
 		}
 		dispatch('draw', canvas)
 	}

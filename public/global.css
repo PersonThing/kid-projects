@@ -1,6 +1,7 @@
 body {
 	margin: 0;
-	padding: 5px;
+	padding: 0;
+	image-rendering: pixelated;
 }
 
 .flex {
@@ -16,6 +17,9 @@ body {
 
 .align-top {
 	align-items: flex-start;
+}
+.align-center {
+	align-items: center;
 }
 
 .flex-grow {
@@ -40,8 +44,4 @@ svg.fa-icon {
 
 .card-header .btn {
 	margin-right: 5px;
-}
-
-img {
-	image-rendering: pixelated;
 }

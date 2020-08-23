@@ -15,7 +15,7 @@
 				<div class="flex-row">
 					{#each $project.levels[levelName].playableCharacters as characterName}
 						<button class="btn btn-light m-1" on:click={() => selectLevel(levelName, characterName)}>
-							<Art name={$project.characters[characterName].graphics.still.art} />
+							<Art name={$project.characters[characterName].graphics.moving} />
 							{characterName}
 						</button>
 					{/each}

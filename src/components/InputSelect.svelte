@@ -37,7 +37,7 @@
 	</div>
 
 	{#if isOpen && !disabled}
-		<div class="select-dropdown">
+		<div class="select-dropdown" class:right>
 			{#if filterable}
 				<div class="filter">
 					<div class="input-group">
@@ -121,6 +121,8 @@
 	export let inline = false
 
 	export let sm = false
+
+	export let right = false // lazy - make dropdown start from right of button instead of left, for when it's toward right edge of screen
 
 	let container = null
 	let fakeField = null
@@ -330,6 +332,11 @@
 		-webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
 		box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
 		background-color: #fff;
+
+		&.right {
+			left: auto;
+			right: 0;
+		}
 
 		& > .filter {
 			padding: 2px;

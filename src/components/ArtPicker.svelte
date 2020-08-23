@@ -19,5 +19,7 @@
 	export let blocks = false
 
 	const blockFilter = b => b.width == 20 && b.height == 20
-	$: options = Object.keys($project.art).filter(name => blocks == blockFilter($project.art[name]))
+	$: options = Object.keys($project.art)
+		.filter(name => blocks == blockFilter($project.art[name]))
+		.sort()
 </script>
