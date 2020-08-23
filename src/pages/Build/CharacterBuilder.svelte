@@ -9,6 +9,7 @@
 
 		<FieldGraphics bind:value={input.graphics.still}>Still graphics</FieldGraphics>
 		<FieldGraphics bind:value={input.graphics.moving}>Moving graphics</FieldGraphics>
+		<FieldGraphics bind:value={input.graphics.spinning}>Spinning graphics</FieldGraphics>
 		<FieldNumber name="maxVelocity" min={0} bind:value={input.maxVelocity}>Max velocity</FieldNumber>
 		<FieldNumber name="jumpVelocity" min={0} bind:value={input.jumpVelocity}>Jump velocity</FieldNumber>
 		<FieldNumber name="gravityMultiplier" min={0} max={2} step={0.1} bind:value={input.gravityMultiplier}>Gravity multiplier</FieldNumber>
@@ -75,6 +76,12 @@
 					yoyo: false,
 				},
 				moving: {
+					art: null,
+					frameWidth: 40,
+					frameRate: 15,
+					yoyo: false,
+				},
+				spinning: {
 					art: null,
 					frameWidth: 40,
 					frameRate: 15,

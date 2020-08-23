@@ -43,13 +43,17 @@
 	let game
 	let preloadedData
 	let cursors
-	let spacebar
-	let enter
+	let spacebarKey
+	let enterKey
+	let rKey
 	let player
 	let enemies
 
 	let gameWidth = 1200
 	let gameHeight = 600
+
+	let levelWidth
+	let levelHeight
 
 	$: if (level != null && character != null && container != null) start()
 
@@ -58,6 +62,9 @@
 		gameWon = false
 		paused = false
 		score = 0
+
+		levelWidth = Math.max(...level.blocks.map(b => b.x + b.width * 2))
+		levelHeight = Math.max(Math.max(...level.blocks.map(b => b.y + b.height * 2)), 600)
 
 		// sort blocks by x, then y
 		blocks = level.blocks
@@ -199,14 +206,14 @@
 		worldSimpleBlocks = this.physics.add.staticGroup()
 		simpleBlocks.forEach(b => {
 			worldSimpleBlocks
-				.create(b.x, gameHeight - b.y - b.height, $project.blocks[b.name].graphic)
+				.create(b.x, gameHeight - b.y, $project.blocks[b.name].graphic)
 				.setScale(2)
 				.refreshBody()
 		})
 		worldEffectBlocks = this.physics.add.staticGroup()
 		effectBlocks.forEach(b => {
 			const block = worldEffectBlocks
-				.create(b.x, gameHeight - b.y - b.height, $project.blocks[b.name].graphic)
+				.create(b.x, gameHeight - b.y, $project.blocks[b.name].graphic)
 				.setScale(2)
 				.refreshBody()
 			block.dps = b.dps
@@ -227,29 +234,34 @@
 			if (block.throwOnTouch) player.setVelocityY(-800)
 			console.log(player.health)
 		})
+		this.cameras.main.setBounds(0, -levelHeight * 1, levelWidth, levelHeight * 2)
 		this.cameras.main.startFollow(player)
 
 		// TODO: add enemies
 
 		// configure input
 		cursors = this.input.keyboard.createCursorKeys()
-		spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
-		enter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
+		spacebarKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
+		enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
+		rKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R)
 	}
 
 	function onUpdate() {
-		if (player.body.touching.down || character.canFly) {
-			if (Phaser.Input.Keyboard.JustDown(spacebar)) {
-				player.setVelocityY(-character.jumpVelocity)
-			}
+		// restart game
+		if (Phaser.Input.Keyboard.JustDown(enterKey)) {
+			player.health = 1
+			start()
 		}
 
-		// rotate player based on y velocity
-		player.setRotation((player.body.velocity.y / 1800) * (player.body.velocity.x < 0 ? -1 : 1))
+		if (gameOver) return
 
+		// jumping
+		if (player.body.touching.down || character.canFly) {
+			if (Phaser.Input.Keyboard.JustDown(spacebarKey)) player.setVelocityY(-character.jumpVelocity)
+		}
+
+		// moving left
 		if (cursors.left.isDown && !cursors.right.isDown) {
-			// if they're grounded, immediately go top speed
-			// if in air, accelerate a little bit in that direction
 			const newVelocity =
 				player.body.touching.down || character.canFly
 					? -character.maxVelocity
@@ -258,6 +270,7 @@
 			player.flipX = true
 			setGraphic('moving')
 		} else if (cursors.right.isDown && !cursors.isDown) {
+			// moving right
 			const newVelocity =
 				player.body.touching.down || character.canFly
 					? character.maxVelocity
@@ -266,25 +279,35 @@
 			player.flipX = false
 			setGraphic('moving')
 		} else if (player.body.touching.down) {
-			// stop if we're touching ground
+			// stop if touching ground
 			player.setVelocityX(0)
-			setGraphic('still')
+			setGraphic(player.spinning ? 'spinning' : 'still')
 		}
 
-		// restart game
-		if (Phaser.Input.Keyboard.JustDown(enter)) {
-			player.health = 1
-			start()
+		// r key to spin
+		if (Phaser.Input.Keyboard.JustDown(rKey)) {
+			player.spinning = true
+		} else if (Phaser.Input.Keyboard.JustUp(rKey)) {
+			player.spinning = false
+		}
+		if (player.spinning) {
+			player.setAngularVelocity(1080 * (player.body.velocity.x < 0 ? -1 : 1))
+		} else {
+			// rotate player based on y velocity
+			player.setAngularVelocity(0)
+			player.setRotation((player.body.velocity.y / 1800) * (player.body.velocity.x < 0 ? -1 : 1))
 		}
 
 		// if player is dead, they lost
 		if (player.health < 0) {
-			// this.physics.pause()
+			this.physics.pause()
 			gameOver = true
 		}
 	}
 
 	function setGraphic(key) {
+		if (character.graphics[key] == null || character.graphics[key].art == null) key = 'still'
+
 		if (character.graphics[key].animated) player.anims.play(`player.${key}.animation`, true)
 		else player.setTexture(`player.${key}`)
 	}

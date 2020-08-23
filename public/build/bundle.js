@@ -20270,7 +20270,7 @@ var app = (function () {
     }
 
     // (8:2) <FieldText name="name" bind:value={input.name}>
-    function create_default_slot_10$1(ctx) {
+    function create_default_slot_11(ctx) {
     	let t;
 
     	const block = {
@@ -20287,7 +20287,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_10$1.name,
+    		id: create_default_slot_11.name,
     		type: "slot",
     		source: "(8:2) <FieldText name=\\\"name\\\" bind:value={input.name}>",
     		ctx
@@ -20297,7 +20297,7 @@ var app = (function () {
     }
 
     // (10:2) <FieldGraphics bind:value={input.graphics.still}>
-    function create_default_slot_9$1(ctx) {
+    function create_default_slot_10$1(ctx) {
     	let t;
 
     	const block = {
@@ -20314,7 +20314,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_9$1.name,
+    		id: create_default_slot_10$1.name,
     		type: "slot",
     		source: "(10:2) <FieldGraphics bind:value={input.graphics.still}>",
     		ctx
@@ -20324,7 +20324,7 @@ var app = (function () {
     }
 
     // (11:2) <FieldGraphics bind:value={input.graphics.moving}>
-    function create_default_slot_8$1(ctx) {
+    function create_default_slot_9$1(ctx) {
     	let t;
 
     	const block = {
@@ -20341,7 +20341,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_8$1.name,
+    		id: create_default_slot_9$1.name,
     		type: "slot",
     		source: "(11:2) <FieldGraphics bind:value={input.graphics.moving}>",
     		ctx
@@ -20350,7 +20350,34 @@ var app = (function () {
     	return block;
     }
 
-    // (12:2) <FieldNumber name="maxVelocity" min={0} bind:value={input.maxVelocity}>
+    // (12:2) <FieldGraphics bind:value={input.graphics.spinning}>
+    function create_default_slot_8$1(ctx) {
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			t = text("Spinning graphics");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, t, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(t);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot_8$1.name,
+    		type: "slot",
+    		source: "(12:2) <FieldGraphics bind:value={input.graphics.spinning}>",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (13:2) <FieldNumber name="maxVelocity" min={0} bind:value={input.maxVelocity}>
     function create_default_slot_7$1(ctx) {
     	let t;
 
@@ -20370,14 +20397,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_7$1.name,
     		type: "slot",
-    		source: "(12:2) <FieldNumber name=\\\"maxVelocity\\\" min={0} bind:value={input.maxVelocity}>",
+    		source: "(13:2) <FieldNumber name=\\\"maxVelocity\\\" min={0} bind:value={input.maxVelocity}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (13:2) <FieldNumber name="jumpVelocity" min={0} bind:value={input.jumpVelocity}>
+    // (14:2) <FieldNumber name="jumpVelocity" min={0} bind:value={input.jumpVelocity}>
     function create_default_slot_6$2(ctx) {
     	let t;
 
@@ -20397,14 +20424,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_6$2.name,
     		type: "slot",
-    		source: "(13:2) <FieldNumber name=\\\"jumpVelocity\\\" min={0} bind:value={input.jumpVelocity}>",
+    		source: "(14:2) <FieldNumber name=\\\"jumpVelocity\\\" min={0} bind:value={input.jumpVelocity}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (14:2) <FieldNumber name="gravityMultiplier" min={0} max={2} step={0.1} bind:value={input.gravityMultiplier}>
+    // (15:2) <FieldNumber name="gravityMultiplier" min={0} max={2} step={0.1} bind:value={input.gravityMultiplier}>
     function create_default_slot_5$2(ctx) {
     	let t;
 
@@ -20424,14 +20451,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_5$2.name,
     		type: "slot",
-    		source: "(14:2) <FieldNumber name=\\\"gravityMultiplier\\\" min={0} max={2} step={0.1} bind:value={input.gravityMultiplier}>",
+    		source: "(15:2) <FieldNumber name=\\\"gravityMultiplier\\\" min={0} max={2} step={0.1} bind:value={input.gravityMultiplier}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (15:2) <FieldNumber name="fallDamageMultiplier" min={0} max={1} step={0.1} bind:value={input.fallDamageMultiplier}>
+    // (16:2) <FieldNumber name="fallDamageMultiplier" min={0} max={1} step={0.1} bind:value={input.fallDamageMultiplier}>
     function create_default_slot_4$2(ctx) {
     	let t;
 
@@ -20451,14 +20478,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_4$2.name,
     		type: "slot",
-    		source: "(15:2) <FieldNumber name=\\\"fallDamageMultiplier\\\" min={0} max={1} step={0.1} bind:value={input.fallDamageMultiplier}>",
+    		source: "(16:2) <FieldNumber name=\\\"fallDamageMultiplier\\\" min={0} max={1} step={0.1} bind:value={input.fallDamageMultiplier}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (16:2) <FieldNumber name="maxHealth" bind:value={input.maxHealth}>
+    // (17:2) <FieldNumber name="maxHealth" bind:value={input.maxHealth}>
     function create_default_slot_3$2(ctx) {
     	let t;
 
@@ -20478,14 +20505,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_3$2.name,
     		type: "slot",
-    		source: "(16:2) <FieldNumber name=\\\"maxHealth\\\" bind:value={input.maxHealth}>",
+    		source: "(17:2) <FieldNumber name=\\\"maxHealth\\\" bind:value={input.maxHealth}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (17:2) <FieldAbilities name="abilities" bind:input>
+    // (18:2) <FieldAbilities name="abilities" bind:input>
     function create_default_slot_2$3(ctx) {
     	let t;
 
@@ -20505,7 +20532,7 @@ var app = (function () {
     		block,
     		id: create_default_slot_2$3.name,
     		type: "slot",
-    		source: "(17:2) <FieldAbilities name=\\\"abilities\\\" bind:input>",
+    		source: "(18:2) <FieldAbilities name=\\\"abilities\\\" bind:input>",
     		ctx
     	});
 
@@ -20524,21 +20551,24 @@ var app = (function () {
     	let fieldgraphics1;
     	let updating_value_2;
     	let t3;
-    	let fieldnumber0;
+    	let fieldgraphics2;
     	let updating_value_3;
     	let t4;
-    	let fieldnumber1;
+    	let fieldnumber0;
     	let updating_value_4;
     	let t5;
-    	let fieldnumber2;
+    	let fieldnumber1;
     	let updating_value_5;
     	let t6;
-    	let fieldnumber3;
+    	let fieldnumber2;
     	let updating_value_6;
     	let t7;
-    	let fieldnumber4;
+    	let fieldnumber3;
     	let updating_value_7;
     	let t8;
+    	let fieldnumber4;
+    	let updating_value_8;
+    	let t9;
     	let fieldabilities;
     	let updating_input;
     	let current;
@@ -20549,7 +20579,7 @@ var app = (function () {
 
     	let fieldtext_props = {
     		name: "name",
-    		$$slots: { default: [create_default_slot_10$1] },
+    		$$slots: { default: [create_default_slot_11] },
     		$$scope: { ctx }
     	};
 
@@ -20565,7 +20595,7 @@ var app = (function () {
     	}
 
     	let fieldgraphics0_props = {
-    		$$slots: { default: [create_default_slot_9$1] },
+    		$$slots: { default: [create_default_slot_10$1] },
     		$$scope: { ctx }
     	};
 
@@ -20585,7 +20615,7 @@ var app = (function () {
     	}
 
     	let fieldgraphics1_props = {
-    		$$slots: { default: [create_default_slot_8$1] },
+    		$$slots: { default: [create_default_slot_9$1] },
     		$$scope: { ctx }
     	};
 
@@ -20600,8 +20630,28 @@ var app = (function () {
 
     	binding_callbacks.push(() => bind(fieldgraphics1, "value", fieldgraphics1_value_binding));
 
+    	function fieldgraphics2_value_binding(value) {
+    		/*fieldgraphics2_value_binding*/ ctx[11].call(null, value);
+    	}
+
+    	let fieldgraphics2_props = {
+    		$$slots: { default: [create_default_slot_8$1] },
+    		$$scope: { ctx }
+    	};
+
+    	if (/*input*/ ctx[0].graphics.spinning !== void 0) {
+    		fieldgraphics2_props.value = /*input*/ ctx[0].graphics.spinning;
+    	}
+
+    	fieldgraphics2 = new FieldGraphics({
+    			props: fieldgraphics2_props,
+    			$$inline: true
+    		});
+
+    	binding_callbacks.push(() => bind(fieldgraphics2, "value", fieldgraphics2_value_binding));
+
     	function fieldnumber0_value_binding(value) {
-    		/*fieldnumber0_value_binding*/ ctx[11].call(null, value);
+    		/*fieldnumber0_value_binding*/ ctx[12].call(null, value);
     	}
 
     	let fieldnumber0_props = {
@@ -20623,7 +20673,7 @@ var app = (function () {
     	binding_callbacks.push(() => bind(fieldnumber0, "value", fieldnumber0_value_binding));
 
     	function fieldnumber1_value_binding(value) {
-    		/*fieldnumber1_value_binding*/ ctx[12].call(null, value);
+    		/*fieldnumber1_value_binding*/ ctx[13].call(null, value);
     	}
 
     	let fieldnumber1_props = {
@@ -20645,7 +20695,7 @@ var app = (function () {
     	binding_callbacks.push(() => bind(fieldnumber1, "value", fieldnumber1_value_binding));
 
     	function fieldnumber2_value_binding(value) {
-    		/*fieldnumber2_value_binding*/ ctx[13].call(null, value);
+    		/*fieldnumber2_value_binding*/ ctx[14].call(null, value);
     	}
 
     	let fieldnumber2_props = {
@@ -20669,7 +20719,7 @@ var app = (function () {
     	binding_callbacks.push(() => bind(fieldnumber2, "value", fieldnumber2_value_binding));
 
     	function fieldnumber3_value_binding(value) {
-    		/*fieldnumber3_value_binding*/ ctx[14].call(null, value);
+    		/*fieldnumber3_value_binding*/ ctx[15].call(null, value);
     	}
 
     	let fieldnumber3_props = {
@@ -20693,7 +20743,7 @@ var app = (function () {
     	binding_callbacks.push(() => bind(fieldnumber3, "value", fieldnumber3_value_binding));
 
     	function fieldnumber4_value_binding(value) {
-    		/*fieldnumber4_value_binding*/ ctx[15].call(null, value);
+    		/*fieldnumber4_value_binding*/ ctx[16].call(null, value);
     	}
 
     	let fieldnumber4_props = {
@@ -20714,7 +20764,7 @@ var app = (function () {
     	binding_callbacks.push(() => bind(fieldnumber4, "value", fieldnumber4_value_binding));
 
     	function fieldabilities_input_binding(value) {
-    		/*fieldabilities_input_binding*/ ctx[16].call(null, value);
+    		/*fieldabilities_input_binding*/ ctx[17].call(null, value);
     	}
 
     	let fieldabilities_props = {
@@ -20743,16 +20793,18 @@ var app = (function () {
     			t2 = space();
     			create_component(fieldgraphics1.$$.fragment);
     			t3 = space();
-    			create_component(fieldnumber0.$$.fragment);
+    			create_component(fieldgraphics2.$$.fragment);
     			t4 = space();
-    			create_component(fieldnumber1.$$.fragment);
+    			create_component(fieldnumber0.$$.fragment);
     			t5 = space();
-    			create_component(fieldnumber2.$$.fragment);
+    			create_component(fieldnumber1.$$.fragment);
     			t6 = space();
-    			create_component(fieldnumber3.$$.fragment);
+    			create_component(fieldnumber2.$$.fragment);
     			t7 = space();
-    			create_component(fieldnumber4.$$.fragment);
+    			create_component(fieldnumber3.$$.fragment);
     			t8 = space();
+    			create_component(fieldnumber4.$$.fragment);
+    			t9 = space();
     			create_component(fieldabilities.$$.fragment);
     		},
     		m: function mount(target, anchor) {
@@ -20763,23 +20815,25 @@ var app = (function () {
     			insert_dev(target, t2, anchor);
     			mount_component(fieldgraphics1, target, anchor);
     			insert_dev(target, t3, anchor);
-    			mount_component(fieldnumber0, target, anchor);
+    			mount_component(fieldgraphics2, target, anchor);
     			insert_dev(target, t4, anchor);
-    			mount_component(fieldnumber1, target, anchor);
+    			mount_component(fieldnumber0, target, anchor);
     			insert_dev(target, t5, anchor);
-    			mount_component(fieldnumber2, target, anchor);
+    			mount_component(fieldnumber1, target, anchor);
     			insert_dev(target, t6, anchor);
-    			mount_component(fieldnumber3, target, anchor);
+    			mount_component(fieldnumber2, target, anchor);
     			insert_dev(target, t7, anchor);
-    			mount_component(fieldnumber4, target, anchor);
+    			mount_component(fieldnumber3, target, anchor);
     			insert_dev(target, t8, anchor);
+    			mount_component(fieldnumber4, target, anchor);
+    			insert_dev(target, t9, anchor);
     			mount_component(fieldabilities, target, anchor);
     			current = true;
     		},
     		p: function update(ctx, dirty) {
     			const fieldtext_changes = {};
 
-    			if (dirty & /*$$scope*/ 1048576) {
+    			if (dirty & /*$$scope*/ 2097152) {
     				fieldtext_changes.$$scope = { dirty, ctx };
     			}
 
@@ -20792,7 +20846,7 @@ var app = (function () {
     			fieldtext.$set(fieldtext_changes);
     			const fieldgraphics0_changes = {};
 
-    			if (dirty & /*$$scope*/ 1048576) {
+    			if (dirty & /*$$scope*/ 2097152) {
     				fieldgraphics0_changes.$$scope = { dirty, ctx };
     			}
 
@@ -20805,7 +20859,7 @@ var app = (function () {
     			fieldgraphics0.$set(fieldgraphics0_changes);
     			const fieldgraphics1_changes = {};
 
-    			if (dirty & /*$$scope*/ 1048576) {
+    			if (dirty & /*$$scope*/ 2097152) {
     				fieldgraphics1_changes.$$scope = { dirty, ctx };
     			}
 
@@ -20816,74 +20870,87 @@ var app = (function () {
     			}
 
     			fieldgraphics1.$set(fieldgraphics1_changes);
-    			const fieldnumber0_changes = {};
+    			const fieldgraphics2_changes = {};
 
-    			if (dirty & /*$$scope*/ 1048576) {
-    				fieldnumber0_changes.$$scope = { dirty, ctx };
+    			if (dirty & /*$$scope*/ 2097152) {
+    				fieldgraphics2_changes.$$scope = { dirty, ctx };
     			}
 
     			if (!updating_value_3 && dirty & /*input*/ 1) {
     				updating_value_3 = true;
-    				fieldnumber0_changes.value = /*input*/ ctx[0].maxVelocity;
+    				fieldgraphics2_changes.value = /*input*/ ctx[0].graphics.spinning;
     				add_flush_callback(() => updating_value_3 = false);
+    			}
+
+    			fieldgraphics2.$set(fieldgraphics2_changes);
+    			const fieldnumber0_changes = {};
+
+    			if (dirty & /*$$scope*/ 2097152) {
+    				fieldnumber0_changes.$$scope = { dirty, ctx };
+    			}
+
+    			if (!updating_value_4 && dirty & /*input*/ 1) {
+    				updating_value_4 = true;
+    				fieldnumber0_changes.value = /*input*/ ctx[0].maxVelocity;
+    				add_flush_callback(() => updating_value_4 = false);
     			}
 
     			fieldnumber0.$set(fieldnumber0_changes);
     			const fieldnumber1_changes = {};
 
-    			if (dirty & /*$$scope*/ 1048576) {
+    			if (dirty & /*$$scope*/ 2097152) {
     				fieldnumber1_changes.$$scope = { dirty, ctx };
     			}
 
-    			if (!updating_value_4 && dirty & /*input*/ 1) {
-    				updating_value_4 = true;
+    			if (!updating_value_5 && dirty & /*input*/ 1) {
+    				updating_value_5 = true;
     				fieldnumber1_changes.value = /*input*/ ctx[0].jumpVelocity;
-    				add_flush_callback(() => updating_value_4 = false);
+    				add_flush_callback(() => updating_value_5 = false);
     			}
 
     			fieldnumber1.$set(fieldnumber1_changes);
     			const fieldnumber2_changes = {};
 
-    			if (dirty & /*$$scope*/ 1048576) {
+    			if (dirty & /*$$scope*/ 2097152) {
     				fieldnumber2_changes.$$scope = { dirty, ctx };
     			}
 
-    			if (!updating_value_5 && dirty & /*input*/ 1) {
-    				updating_value_5 = true;
+    			if (!updating_value_6 && dirty & /*input*/ 1) {
+    				updating_value_6 = true;
     				fieldnumber2_changes.value = /*input*/ ctx[0].gravityMultiplier;
-    				add_flush_callback(() => updating_value_5 = false);
+    				add_flush_callback(() => updating_value_6 = false);
     			}
 
     			fieldnumber2.$set(fieldnumber2_changes);
     			const fieldnumber3_changes = {};
 
-    			if (dirty & /*$$scope*/ 1048576) {
+    			if (dirty & /*$$scope*/ 2097152) {
     				fieldnumber3_changes.$$scope = { dirty, ctx };
     			}
 
-    			if (!updating_value_6 && dirty & /*input*/ 1) {
-    				updating_value_6 = true;
+    			if (!updating_value_7 && dirty & /*input*/ 1) {
+    				updating_value_7 = true;
     				fieldnumber3_changes.value = /*input*/ ctx[0].fallDamageMultiplier;
-    				add_flush_callback(() => updating_value_6 = false);
+    				add_flush_callback(() => updating_value_7 = false);
     			}
 
     			fieldnumber3.$set(fieldnumber3_changes);
     			const fieldnumber4_changes = {};
 
-    			if (dirty & /*$$scope*/ 1048576) {
+    			if (dirty & /*$$scope*/ 2097152) {
     				fieldnumber4_changes.$$scope = { dirty, ctx };
     			}
 
-    			if (!updating_value_7 && dirty & /*input*/ 1) {
-    				updating_value_7 = true;
+    			if (!updating_value_8 && dirty & /*input*/ 1) {
+    				updating_value_8 = true;
     				fieldnumber4_changes.value = /*input*/ ctx[0].maxHealth;
-    				add_flush_callback(() => updating_value_7 = false);
+    				add_flush_callback(() => updating_value_8 = false);
     			}
 
     			fieldnumber4.$set(fieldnumber4_changes);
     			const fieldabilities_changes = {};
 
-    			if (dirty & /*$$scope*/ 1048576) {
+    			if (dirty & /*$$scope*/ 2097152) {
     				fieldabilities_changes.$$scope = { dirty, ctx };
     			}
 
@@ -20900,6 +20967,7 @@ var app = (function () {
     			transition_in(fieldtext.$$.fragment, local);
     			transition_in(fieldgraphics0.$$.fragment, local);
     			transition_in(fieldgraphics1.$$.fragment, local);
+    			transition_in(fieldgraphics2.$$.fragment, local);
     			transition_in(fieldnumber0.$$.fragment, local);
     			transition_in(fieldnumber1.$$.fragment, local);
     			transition_in(fieldnumber2.$$.fragment, local);
@@ -20912,6 +20980,7 @@ var app = (function () {
     			transition_out(fieldtext.$$.fragment, local);
     			transition_out(fieldgraphics0.$$.fragment, local);
     			transition_out(fieldgraphics1.$$.fragment, local);
+    			transition_out(fieldgraphics2.$$.fragment, local);
     			transition_out(fieldnumber0.$$.fragment, local);
     			transition_out(fieldnumber1.$$.fragment, local);
     			transition_out(fieldnumber2.$$.fragment, local);
@@ -20928,16 +20997,18 @@ var app = (function () {
     			if (detaching) detach_dev(t2);
     			destroy_component(fieldgraphics1, detaching);
     			if (detaching) detach_dev(t3);
-    			destroy_component(fieldnumber0, detaching);
+    			destroy_component(fieldgraphics2, detaching);
     			if (detaching) detach_dev(t4);
-    			destroy_component(fieldnumber1, detaching);
+    			destroy_component(fieldnumber0, detaching);
     			if (detaching) detach_dev(t5);
-    			destroy_component(fieldnumber2, detaching);
+    			destroy_component(fieldnumber1, detaching);
     			if (detaching) detach_dev(t6);
-    			destroy_component(fieldnumber3, detaching);
+    			destroy_component(fieldnumber2, detaching);
     			if (detaching) detach_dev(t7);
-    			destroy_component(fieldnumber4, detaching);
+    			destroy_component(fieldnumber3, detaching);
     			if (detaching) detach_dev(t8);
+    			destroy_component(fieldnumber4, detaching);
+    			if (detaching) detach_dev(t9);
     			destroy_component(fieldabilities, detaching);
     		}
     	};
@@ -20984,7 +21055,7 @@ var app = (function () {
     			const form_changes = {};
     			if (dirty & /*hasChanges*/ 4) form_changes.hasChanges = /*hasChanges*/ ctx[2];
 
-    			if (dirty & /*$$scope, input, isAdding*/ 1048579) {
+    			if (dirty & /*$$scope, input, isAdding*/ 2097155) {
     				form_changes.$$scope = { dirty, ctx };
     			}
 
@@ -21046,7 +21117,7 @@ var app = (function () {
     			if (dirty & /*input*/ 1) buildlayout_changes.activeName = /*input*/ ctx[0].name;
     			if (dirty & /*$project*/ 8) buildlayout_changes.store = /*$project*/ ctx[3].characters;
 
-    			if (dirty & /*$$scope, hasChanges, input, isAdding*/ 1048583) {
+    			if (dirty & /*$$scope, hasChanges, input, isAdding*/ 2097159) {
     				buildlayout_changes.$$scope = { dirty, ctx };
     			}
 
@@ -21087,6 +21158,12 @@ var app = (function () {
     				yoyo: false
     			},
     			moving: {
+    				art: null,
+    				frameWidth: 40,
+    				frameRate: 15,
+    				yoyo: false
+    			},
+    			spinning: {
     				art: null,
     				frameWidth: 40,
     				frameRate: 15,
@@ -21178,6 +21255,11 @@ var app = (function () {
     		$$invalidate(0, input);
     	}
 
+    	function fieldgraphics2_value_binding(value) {
+    		input.graphics.spinning = value;
+    		$$invalidate(0, input);
+    	}
+
     	function fieldnumber0_value_binding(value) {
     		input.maxVelocity = value;
     		$$invalidate(0, input);
@@ -21246,7 +21328,7 @@ var app = (function () {
     	$$self.$inject_state = $$props => {
     		if ("params" in $$props) $$invalidate(6, params = $$props.params);
     		if ("input" in $$props) $$invalidate(0, input = $$props.input);
-    		if ("paramName" in $$props) $$invalidate(17, paramName = $$props.paramName);
+    		if ("paramName" in $$props) $$invalidate(18, paramName = $$props.paramName);
     		if ("isAdding" in $$props) $$invalidate(1, isAdding = $$props.isAdding);
     		if ("hasChanges" in $$props) $$invalidate(2, hasChanges = $$props.hasChanges);
     	};
@@ -21261,14 +21343,14 @@ var app = (function () {
 
     	$$self.$$.update = () => {
     		if ($$self.$$.dirty & /*params*/ 64) {
-    			 $$invalidate(17, paramName = decodeURIComponent(params.name) || "new");
+    			 $$invalidate(18, paramName = decodeURIComponent(params.name) || "new");
     		}
 
-    		if ($$self.$$.dirty & /*paramName*/ 131072) {
+    		if ($$self.$$.dirty & /*paramName*/ 262144) {
     			 paramName == "new" ? create() : edit(paramName);
     		}
 
-    		if ($$self.$$.dirty & /*paramName*/ 131072) {
+    		if ($$self.$$.dirty & /*paramName*/ 262144) {
     			 $$invalidate(1, isAdding = paramName == "new");
     		}
 
@@ -21289,6 +21371,7 @@ var app = (function () {
     		fieldtext_value_binding,
     		fieldgraphics0_value_binding,
     		fieldgraphics1_value_binding,
+    		fieldgraphics2_value_binding,
     		fieldnumber0_value_binding,
     		fieldnumber1_value_binding,
     		fieldnumber2_value_binding,
@@ -21324,7 +21407,7 @@ var app = (function () {
     const file$n = "src\\pages\\Build\\EnemyBuilder.svelte";
 
     // (14:2) <FieldText name="name" bind:value={input.name}>
-    function create_default_slot_11(ctx) {
+    function create_default_slot_11$1(ctx) {
     	let t;
 
     	const block = {
@@ -21341,7 +21424,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_11.name,
+    		id: create_default_slot_11$1.name,
     		type: "slot",
     		source: "(14:2) <FieldText name=\\\"name\\\" bind:value={input.name}>",
     		ctx
@@ -21721,7 +21804,7 @@ var app = (function () {
 
     	let fieldtext_props = {
     		name: "name",
-    		$$slots: { default: [create_default_slot_11] },
+    		$$slots: { default: [create_default_slot_11$1] },
     		$$scope: { ctx }
     	};
 
@@ -26421,10 +26504,10 @@ var app = (function () {
     		},
     		p: function update(ctx, dirty) {
     			const gameover_changes = {};
-    			if (dirty & /*score*/ 32) gameover_changes.score = /*score*/ ctx[5];
-    			if (dirty & /*player*/ 128) gameover_changes.player = /*player*/ ctx[7];
-    			if (dirty & /*gameWon*/ 16) gameover_changes.won = /*gameWon*/ ctx[4];
-    			if (dirty & /*level*/ 1) gameover_changes.level = /*level*/ ctx[0];
+    			if (dirty[0] & /*score*/ 32) gameover_changes.score = /*score*/ ctx[5];
+    			if (dirty[0] & /*player*/ 128) gameover_changes.player = /*player*/ ctx[7];
+    			if (dirty[0] & /*gameWon*/ 16) gameover_changes.won = /*gameWon*/ ctx[4];
+    			if (dirty[0] & /*level*/ 1) gameover_changes.level = /*level*/ ctx[0];
     			gameover.$set(gameover_changes);
     		},
     		i: function intro(local) {
@@ -26495,12 +26578,12 @@ var app = (function () {
     			mount_component(instructions, div, null);
     			current = true;
     		},
-    		p: function update(ctx, [dirty]) {
+    		p: function update(ctx, dirty) {
     			if (/*level*/ ctx[0] != null && /*character*/ ctx[1] != null) {
     				if (if_block) {
     					if_block.p(ctx, dirty);
 
-    					if (dirty & /*level, character*/ 3) {
+    					if (dirty[0] & /*level, character*/ 3) {
     						transition_in(if_block, 1);
     					}
     				} else {
@@ -26520,8 +26603,8 @@ var app = (function () {
     			}
 
     			const status_changes = {};
-    			if (dirty & /*level*/ 1) status_changes.level = /*level*/ ctx[0];
-    			if (dirty & /*score*/ 32) status_changes.score = /*score*/ ctx[5];
+    			if (dirty[0] & /*level*/ 1) status_changes.level = /*level*/ ctx[0];
+    			if (dirty[0] & /*score*/ 32) status_changes.score = /*score*/ ctx[5];
     			status.$set(status_changes);
     		},
     		i: function intro(local) {
@@ -26561,7 +26644,7 @@ var app = (function () {
     function instance$C($$self, $$props, $$invalidate) {
     	let $project;
     	validate_store(project, "project");
-    	component_subscribe($$self, project, $$value => $$invalidate(21, $project = $$value));
+    	component_subscribe($$self, project, $$value => $$invalidate(24, $project = $$value));
     	let { level = null } = $$props;
     	let { character = null } = $$props;
     	let container;
@@ -26578,18 +26661,23 @@ var app = (function () {
     	let game;
     	let preloadedData;
     	let cursors;
-    	let spacebar;
-    	let enter;
+    	let spacebarKey;
+    	let enterKey;
+    	let rKey;
     	let player;
     	let enemies;
     	let gameWidth = 1200;
     	let gameHeight = 600;
+    	let levelWidth;
+    	let levelHeight;
 
     	function start() {
     		$$invalidate(3, gameOver = false);
     		$$invalidate(4, gameWon = false);
     		$$invalidate(6, paused = false);
     		$$invalidate(5, score = 0);
+    		levelWidth = Math.max(...level.blocks.map(b => b.x + b.width * 2));
+    		levelHeight = Math.max(Math.max(...level.blocks.map(b => b.y + b.height * 2)), 600);
 
     		// sort blocks by x, then y
     		blocks = level.blocks.sort((a, b) => {
@@ -26713,13 +26801,13 @@ var app = (function () {
     		worldSimpleBlocks = this.physics.add.staticGroup();
 
     		simpleBlocks.forEach(b => {
-    			worldSimpleBlocks.create(b.x, gameHeight - b.y - b.height, $project.blocks[b.name].graphic).setScale(2).refreshBody();
+    			worldSimpleBlocks.create(b.x, gameHeight - b.y, $project.blocks[b.name].graphic).setScale(2).refreshBody();
     		});
 
     		worldEffectBlocks = this.physics.add.staticGroup();
 
     		effectBlocks.forEach(b => {
-    			const block = worldEffectBlocks.create(b.x, gameHeight - b.y - b.height, $project.blocks[b.name].graphic).setScale(2).refreshBody();
+    			const block = worldEffectBlocks.create(b.x, gameHeight - b.y, $project.blocks[b.name].graphic).setScale(2).refreshBody();
     			block.dps = b.dps;
     			block.throwOnTouch = b.throwOnTouch;
     		});
@@ -26740,29 +26828,34 @@ var app = (function () {
     			console.log(player.health);
     		});
 
+    		this.cameras.main.setBounds(0, -levelHeight * 1, levelWidth, levelHeight * 2);
     		this.cameras.main.startFollow(player);
 
     		// TODO: add enemies
     		// configure input
     		cursors = this.input.keyboard.createCursorKeys();
 
-    		spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-    		enter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+    		spacebarKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+    		enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+    		rKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
     	}
 
     	function onUpdate() {
-    		if (player.body.touching.down || character.canFly) {
-    			if (Phaser.Input.Keyboard.JustDown(spacebar)) {
-    				player.setVelocityY(-character.jumpVelocity);
-    			}
+    		// restart game
+    		if (Phaser.Input.Keyboard.JustDown(enterKey)) {
+    			$$invalidate(7, player.health = 1, player);
+    			start();
     		}
 
-    		// rotate player based on y velocity
-    		player.setRotation(player.body.velocity.y / 1800 * (player.body.velocity.x < 0 ? -1 : 1));
+    		if (gameOver) return;
 
+    		// jumping
+    		if (player.body.touching.down || character.canFly) {
+    			if (Phaser.Input.Keyboard.JustDown(spacebarKey)) player.setVelocityY(-character.jumpVelocity);
+    		}
+
+    		// moving left
     		if (cursors.left.isDown && !cursors.right.isDown) {
-    			// if they're grounded, immediately go top speed
-    			// if in air, accelerate a little bit in that direction
     			const newVelocity = player.body.touching.down || character.canFly
     			? -character.maxVelocity
     			: Math.max(player.body.velocity.x - character.maxVelocity / 15, -character.maxVelocity);
@@ -26771,6 +26864,7 @@ var app = (function () {
     			$$invalidate(7, player.flipX = true, player);
     			setGraphic("moving");
     		} else if (cursors.right.isDown && !cursors.isDown) {
+    			// moving right
     			const newVelocity = player.body.touching.down || character.canFly
     			? character.maxVelocity
     			: Math.min(player.body.velocity.x + character.maxVelocity / 15, character.maxVelocity);
@@ -26779,26 +26873,37 @@ var app = (function () {
     			$$invalidate(7, player.flipX = false, player);
     			setGraphic("moving");
     		} else if (player.body.touching.down) {
-    			// stop if we're touching ground
+    			// stop if touching ground
     			player.setVelocityX(0);
 
-    			setGraphic("still");
+    			setGraphic(player.spinning ? "spinning" : "still");
     		}
 
-    		// restart game
-    		if (Phaser.Input.Keyboard.JustDown(enter)) {
-    			$$invalidate(7, player.health = 1, player);
-    			start();
+    		// r key to spin
+    		if (Phaser.Input.Keyboard.JustDown(rKey)) {
+    			$$invalidate(7, player.spinning = true, player);
+    		} else if (Phaser.Input.Keyboard.JustUp(rKey)) {
+    			$$invalidate(7, player.spinning = false, player);
+    		}
+
+    		if (player.spinning) {
+    			player.setAngularVelocity(1080 * (player.body.velocity.x < 0 ? -1 : 1));
+    		} else {
+    			// rotate player based on y velocity
+    			player.setAngularVelocity(0);
+
+    			player.setRotation(player.body.velocity.y / 1800 * (player.body.velocity.x < 0 ? -1 : 1));
     		}
 
     		// if player is dead, they lost
     		if (player.health < 0) {
-    			// this.physics.pause()
+    			this.physics.pause();
     			$$invalidate(3, gameOver = true);
     		}
     	}
 
     	function setGraphic(key) {
+    		if (character.graphics[key] == null || character.graphics[key].art == null) key = "still";
     		if (character.graphics[key].animated) player.anims.play(`player.${key}.animation`, true); else player.setTexture(`player.${key}`);
     	}
 
@@ -26851,12 +26956,15 @@ var app = (function () {
     		game,
     		preloadedData,
     		cursors,
-    		spacebar,
-    		enter,
+    		spacebarKey,
+    		enterKey,
+    		rKey,
     		player,
     		enemies,
     		gameWidth,
     		gameHeight,
+    		levelWidth,
+    		levelHeight,
     		start,
     		destroyGame,
     		preload,
@@ -26883,12 +26991,15 @@ var app = (function () {
     		if ("game" in $$props) game = $$props.game;
     		if ("preloadedData" in $$props) preloadedData = $$props.preloadedData;
     		if ("cursors" in $$props) cursors = $$props.cursors;
-    		if ("spacebar" in $$props) spacebar = $$props.spacebar;
-    		if ("enter" in $$props) enter = $$props.enter;
+    		if ("spacebarKey" in $$props) spacebarKey = $$props.spacebarKey;
+    		if ("enterKey" in $$props) enterKey = $$props.enterKey;
+    		if ("rKey" in $$props) rKey = $$props.rKey;
     		if ("player" in $$props) $$invalidate(7, player = $$props.player);
     		if ("enemies" in $$props) $$invalidate(8, enemies = $$props.enemies);
     		if ("gameWidth" in $$props) gameWidth = $$props.gameWidth;
     		if ("gameHeight" in $$props) gameHeight = $$props.gameHeight;
+    		if ("levelWidth" in $$props) levelWidth = $$props.levelWidth;
+    		if ("levelHeight" in $$props) levelHeight = $$props.levelHeight;
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -26896,7 +27007,7 @@ var app = (function () {
     	}
 
     	$$self.$$.update = () => {
-    		if ($$self.$$.dirty & /*level, character, container*/ 7) {
+    		if ($$self.$$.dirty[0] & /*level, character, container*/ 7) {
     			 if (level != null && character != null && container != null) start();
     		}
     	};
@@ -26918,7 +27029,7 @@ var app = (function () {
     class PhaserGame extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$C, create_fragment$C, safe_not_equal, { level: 0, character: 1 });
+    		init(this, options, instance$C, create_fragment$C, safe_not_equal, { level: 0, character: 1 }, [-1, -1]);
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
