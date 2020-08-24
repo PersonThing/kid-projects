@@ -24,17 +24,13 @@
 			action: 'Spin Attack / Shield',
 		},
 		{
-			key: 'Q',
-			action: 'Heal',
-		},
-		{
 			key: 'Enter',
 			action: 'Restart',
 		},
-		{
-			key: 'P or Escape',
-			action: 'Pause',
-		},
+		// {
+		// 	key: 'P or Escape',
+		// 	action: 'Pause',
+		// },
 	]
 </script>
 

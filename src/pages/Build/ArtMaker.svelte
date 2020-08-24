@@ -65,8 +65,10 @@
 		<QuickDropdown label="Size" dropdownClass="p-2" on:open={startChangeSize}>
 			<form on:submit|preventDefault={applyChangeSize}>
 				<div class="flex">
+					W
 					<input type="number" min={1} max={1000} bind:value={changeSize.width} />
 					<strong>x</strong>
+					H
 					<input type="number" min={1} max={1000} bind:value={changeSize.height} />
 					<button type="submit" class="btn btn-info btn-sm">Apply</button>
 				</div>
