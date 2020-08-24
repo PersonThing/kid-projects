@@ -14,13 +14,13 @@
 							<th>Range</th>
 						{/if}
 						<th>Name</th>
-						<th>Graphic</th>
+						<th>Character graphic</th>
 						<th>Damage per hit</th>
 						<th>Attack rate (MS)</th>
 						<th>Projectile?</th>
 						<th>Projectile Graphic</th>
 						<th>Projectile Velocity</th>
-						<th>Projectile Gravity Multiplier</th>
+						<!-- <th>Projectile Gravity Multiplier</th> -->
 					</tr>
 				</thead>
 
@@ -47,7 +47,6 @@
 							<td>
 								<FieldArtPicker name="ability-graphics-character-{i}" bind:value={a.graphics.character} placeholder="Character graphic" />
 							</td>
-							<td />
 							<td>
 								<input type="number" bind:value={a.damage} />
 							</td>
@@ -68,7 +67,7 @@
 									<input type="number" bind:value={a.projectileGravityMultiplier} min={0} max={1} step={0.01} />
 								</td> -->
 							{:else}
-								<td colspan="4" />
+								<td colspan="2" />
 							{/if}
 						</tr>
 					{/each}
