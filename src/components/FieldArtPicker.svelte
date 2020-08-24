@@ -21,10 +21,6 @@
 	export let spin = 0
 	export let name = 'graphic-picker'
 	export let placeholder = 'Select art'
-	export let blocks = false
 
-	const blockFilter = b => b.height == 40 && (b.width == 40 || (b.animated && b.frameWidth == 40))
-	$: options = Object.keys($project.art)
-		.filter(name => blocks == blockFilter($project.art[name]))
-		.sort()
+	$: options = Object.keys($project.art).sort()
 </script>

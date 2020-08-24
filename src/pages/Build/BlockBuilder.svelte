@@ -1,7 +1,7 @@
 <BuildLayout tab="blocks" activeName={input.name} store={$project.blocks}>
 	<Form on:submit={save} {hasChanges}>
 		<FieldText name="name" bind:value={input.name}>Name</FieldText>
-		<FieldArtPicker bind:value={input.graphic} blocks>Graphic (must be 40x40)</FieldArtPicker>
+		<FieldArtPicker bind:value={input.graphic}>Graphic</FieldArtPicker>
 		<FieldCheckbox name="solid" bind:checked={input.solid}>Solid? (if not checked, things will just move through it)</FieldCheckbox>
 		<FieldCheckbox name="consumable" bind:checked={input.consumable}>Consumable by player?</FieldCheckbox>
 		{#if input.consumable}
