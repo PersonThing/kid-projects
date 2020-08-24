@@ -7,7 +7,6 @@
 		{/if}
 		<div bind:this={container} />
 	{/if}
-	<Status {level} {score} />
 	<Instructions />
 </div>
 
@@ -22,10 +21,14 @@
 	import Paused from './Paused.svelte'
 	import Player from './PhaserGame/Player'
 	import project from '../stores/active-project-store'
-	import Status from './Status.svelte'
 
 	export let level = null
 	export let character = null
+
+	// TODO: status text
+	//   level: {}
+	//   score: {}
+	//   enemies left: {}
 
 	// TODO: make editable in level or on individual enemies
 	const leashRange = 400
@@ -52,17 +55,15 @@
 	let game
 	let preloadedData
 	let cursors
-	let spacebarKey
-	let enterKey
-	let rKey
+	let keys = {}
 	let player
 	let enemies
 
 	let gameWidth = 1200
-	let gameHeight = 600
+	let viewportHeight = 600
 
-	let levelWidth
-	let levelHeight
+	let maxLevelX
+	let maxLevelY
 
 	onMount(() => {
 		// sort blocks by x, then y
@@ -101,8 +102,8 @@
 			score = 0
 			gameWidth = window.innerWidth
 
-			levelWidth = Math.max(...level.blocks.map(b => b.x + b.width * 2))
-			levelHeight = Math.max(...level.blocks.map(b => b.y + b.height * 2))
+			maxLevelX = Math.max(...level.blocks.map(b => b.x + b.width))
+			maxLevelY = Math.max(...level.blocks.map(b => b.y + b.height))
 
 			config = {
 				type: Phaser.AUTO,
@@ -115,11 +116,11 @@
 					default: 'arcade',
 					arcade: {
 						gravity: { y: gravityPixelsPerSecond },
-						debug: false,
+						// debug: true,
 					},
 				},
 				width: gameWidth,
-				height: gameHeight,
+				height: viewportHeight,
 				pixelArt: true,
 			}
 
@@ -184,6 +185,7 @@
 	}
 
 	function onCreate() {
+		// set bg color
 		this.cameras.main.setBackgroundColor(rgbaStringToHex(level.background))
 
 		// set up textures and sprites for all blocks, character, and enemies in level
@@ -216,14 +218,14 @@
 		simpleBlocks.forEach(b => {
 			const template = $project.blocks[b.name]
 			const art = $project.art[template.graphic]
-			const block = worldSimpleBlocks.create(b.x, translateY(b.y, b.height), art.name)
+			const block = worldSimpleBlocks.create(translateX(b.x, b.width), translateY(b.y, b.height), art.name)
 			if (art.animated) block.anims.play(getAnimationKey(art.name), true)
 		})
 		worldEffectBlocks = this.physics.add.staticGroup()
 		effectBlocks.forEach(b => {
 			const template = $project.blocks[b.name]
 			const art = $project.art[template.graphic]
-			const block = worldEffectBlocks.create(b.x, translateY(b.y, b.height), art.name)
+			const block = worldEffectBlocks.create(translateX(b.x, b.width), translateY(b.y, b.height), art.name)
 			if (art.animated) block.anims.play(getAnimationKey(art.name), true)
 			block.damage = b.damage
 			block.throwOnTouch = b.throwOnTouch
@@ -232,7 +234,7 @@
 		consumableBlocks.forEach(b => {
 			const template = $project.blocks[b.name]
 			const art = $project.art[template.graphic]
-			const block = worldConsumableBlocks.create(b.x, translateY(b.y, b.height), art.name)
+			const block = worldConsumableBlocks.create(translateX(b.x, b.width), translateY(b.y, b.height), art.name)
 			if (art.animated) block.anims.play(getAnimationKey(art.name), true)
 			block.damage = b.damage
 			block.throwOnTouch = b.throwOnTouch
@@ -242,21 +244,20 @@
 		})
 
 		// configure input
-		cursors = this.input.keyboard.createCursorKeys()
-		spacebarKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
-		enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
-		rKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R)
+		keys = {
+			cursors: this.input.keyboard.createCursorKeys(),
+		}
+		const keysWeCareAbout = ['SPACE', 'ENTER', 'Q', 'W', 'E', 'R']
+		keysWeCareAbout.forEach(k => {
+			keys[k] = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes[k])
+		})
 
 		// add player
 		const startingY =
 			translateY(Math.max(...blocks.filter(b => b.x == 0).map(b => b.y)), blocks[0].height) - $project.art[character.graphics.still].height
 		const template = hydrateGraphics(character)
 		player = this.physics.add.existing(
-			new Player(this, 0, startingY, character.graphics.still.name, template, {
-				cursors,
-				spacebarKey,
-				rKey,
-			})
+			new Player(this, translateX(0, template.graphics.still.width), startingY, character.graphics.still.name, template, keys)
 		)
 		this.physics.add.collider(player, worldSimpleBlocks)
 		this.physics.add.collider(player, worldEffectBlocks, onEffectBlockCollision)
@@ -267,21 +268,33 @@
 		enemies.runChildUpdate = true
 		level.enemies.forEach(e => {
 			const template = hydrateGraphics($project.enemies[e.name])
-			const enemy = new Enemy(this, e.x, translateY(e.y, template.graphics.still.height), template.graphics.still.name, template, player)
+			const enemy = new Enemy(
+				this,
+				translateX(e.x, template.graphics.still.width),
+				translateY(e.y, template.graphics.still.height),
+				template.graphics.still.name,
+				template,
+				player
+			)
 			enemies.add(enemy)
 		})
 		this.physics.add.collider(enemies, worldSimpleBlocks)
 		this.physics.add.collider(enemies, worldEffectBlocks, onEffectBlockCollision)
 		this.physics.add.overlap(player, enemies, onPlayerEnemyOverlap)
+		player.enemies = enemies
 
 		// camera and player bounds
-		this.physics.world.setBounds(0, -levelHeight, levelWidth, levelHeight + gameHeight + 500)
-		this.cameras.main.setBounds(0, -levelHeight, levelWidth, levelHeight + gameHeight)
+		this.physics.world.setBounds(0, 0, maxLevelX, maxLevelY + viewportHeight)
+		this.cameras.main.setBounds(0, -maxLevelY, maxLevelX, maxLevelY + viewportHeight)
 		this.cameras.main.startFollow(player)
 	}
 
+	function translateX(x, width) {
+		return x + width / 2
+	}
+
 	function translateY(y, height) {
-		return gameHeight - y - height / 2
+		return Math.max(maxLevelY, viewportHeight) - y - height / 2
 	}
 
 	function onEffectBlockCollision(sprite, block) {
@@ -294,19 +307,16 @@
 		if (block.scoreOnConsume) score += block.scoreOnConsume
 		if (block.throwOnTouch) sprite.setVelocityY(-1000)
 		block.disableBody(true, true)
+		block.destroy()
 	}
 
 	function onPlayerEnemyOverlap(player, enemy) {
-		if (player.spinning) {
-			enemy.damage(100 / 60)
-		} else {
-			player.damage(20 / 60)
-		}
+		player.onEnemyOverlap(enemy)
 	}
 
 	function onUpdate() {
 		// restart game
-		if (Phaser.Input.Keyboard.JustDown(enterKey) || (gameOver && Phaser.Input.Keyboard.JustDown(spacebarKey))) start()
+		if (Phaser.Input.Keyboard.JustDown(keys.ENTER) || (gameOver && Phaser.Input.Keyboard.JustDown(keys.SPACE))) start()
 
 		if (gameOver) return
 
@@ -323,10 +333,22 @@
 
 	function hydrateGraphics(template) {
 		const copy = JSON.parse(JSON.stringify(template))
-		Object.keys(template.graphics).forEach(name => {
-			copy.graphics[name] = $project.art[template.graphics[name]]
-		})
+		copy.graphics = hydrateGraphicsObject(copy.graphics)
+		if (copy.abilities != null)
+			copy.abilities = copy.abilities.map(a => ({
+				...a,
+				graphics: hydrateGraphicsObject(a.graphics),
+			}))
 		return copy
+	}
+
+	function hydrateGraphicsObject(graphics) {
+		Object.keys(graphics).forEach(name => {
+			graphics[name] = $project.art[graphics[name]] != null ? JSON.parse(JSON.stringify($project.art[graphics[name]])) : null
+			if (graphics[name] != null && graphics[name].animated) graphics[name].width = graphics[name].frameWidth
+			return graphics[name]
+		})
+		return graphics
 	}
 </script>
 

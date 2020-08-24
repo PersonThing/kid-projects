@@ -9,7 +9,6 @@
 	export let blocks = []
 	export let enemies = null
 	export let playing = false
-	const artScale = 1
 
 	const dispatch = createEventDispatcher()
 	const imageCache = {}
@@ -33,27 +32,32 @@
 	function drawOnCanvas(artName, x, y) {
 		let art = $project.art[artName]
 		let src = art.png
-		let drawing = imageCache[artName]
+		let image = imageCache[artName]
 
 		const drawThisImage = () => {
 			const draw = () => {
-				context.drawImage(drawing, x, height - y - art.height * artScale, drawing.width * artScale, drawing.height * artScale)
+				const dx = x
+				const dy = height - y - art.height
+				// if animated, only draw first frame
+				const dw = art.animated ? art.frameWidth : art.width
+				const dh = art.height
+				context.drawImage(image, 0, 0, dw, dh, dx, dy, dw, dh)
 			}
 			if (playing) setTimeout(draw, 100)
 			else draw()
 		}
 
-		if (drawing == null) {
-			drawing = new Image()
-			drawing.src = src
-			imageCache[artName] = drawing
+		if (image == null) {
+			image = new Image()
+			image.src = src
+			imageCache[artName] = image
 		}
 
-		if (drawing.complete) {
+		if (image.complete) {
 			drawThisImage()
 		} else {
-			const oldOnload = drawing.onload
-			drawing.onload = () => {
+			const oldOnload = image.onload
+			image.onload = () => {
 				if (typeof oldOnload === 'function') oldOnload()
 				drawThisImage()
 			}

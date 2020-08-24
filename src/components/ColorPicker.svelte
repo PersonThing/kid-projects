@@ -27,7 +27,6 @@
 	let isOpen = false
 
 	function select(color) {
-		console.log(color)
 		value = color
 		dispatch('change', color)
 		isOpen = false

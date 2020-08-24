@@ -1658,19 +1658,6 @@ var app = (function () {
     				showGrid: true,
     				selectedColor: null
     			},
-    			"mr smiley": {
-    				name: "mr smiley",
-    				width: 162,
-    				height: 90,
-    				png: "data:image/png;base64,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",
-    				animated: true,
-    				frameWidth: 54,
-    				frameRate: 6,
-    				yoyo: false,
-    				gridSize: 20,
-    				showGrid: true,
-    				selectedColor: "black"
-    			},
     			lava: {
     				name: "lava",
     				width: 160,
@@ -1796,6 +1783,19 @@ var app = (function () {
     				frameWidth: 40,
     				frameRate: 7,
     				yoyo: false
+    			},
+    			warlock: {
+    				name: "warlock",
+    				width: 33,
+    				height: 48,
+    				png: "data:image/png;base64,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",
+    				animated: false,
+    				frameWidth: 2,
+    				frameRate: 6,
+    				yoyo: false,
+    				gridSize: 20,
+    				showGrid: true,
+    				selectedColor: "black"
     			}
     		},
     		blocks: {
@@ -1856,22 +1856,13 @@ var app = (function () {
     				maxVelocity: 350,
     				jumpVelocity: 750,
     				gravityMultiplier: 1,
-    				canFly: false
+    				canFly: false,
+    				canDoubleJump: false,
+    				abilities: [
+    				]
     			}
     		},
     		enemies: {
-    			"mr smiley": {
-    				graphics: {
-    					still: "mr smiley",
-    					moving: null
-    				},
-    				name: "mr smiley",
-    				maxHealth: 250,
-    				maxVelocity: 150,
-    				jumpVelocity: 500,
-    				gravityMultiplier: 1,
-    				score: 10
-    			},
     			alien: {
     				graphics: {
     					still: "alien",
@@ -1883,8 +1874,71 @@ var app = (function () {
     				jumpVelocity: 600,
     				gravityMultiplier: 1,
     				score: 1,
+    				abilities: [
+    					{
+    						name: "bite",
+    						key: "R",
+    						projectile: false,
+    						range: 10,
+    						damage: 5,
+    						projectileVelocityX: 500,
+    						projectileVelocityY: 0,
+    						projectileGravityMultiplier: 0.1,
+    						graphics: {
+    							character: null,
+    							projectile: null
+    						},
+    						attackRateMs: 400
+    					}
+    				],
     				framesPerGraphic: 5,
     				canFly: false
+    			},
+    			warlock: {
+    				graphics: {
+    					still: "warlock",
+    					moving: null
+    				},
+    				name: "warlock",
+    				maxHealth: 100,
+    				maxVelocity: 200,
+    				jumpVelocity: 500,
+    				gravityMultiplier: 1,
+    				score: 1,
+    				abilities: [
+    					{
+    						name: "fireball",
+    						key: "R",
+    						ranged: true,
+    						damage: 5,
+    						projectileVelocityX: 500,
+    						projectileVelocityY: 0,
+    						projectileGravityMultiplier: 0.1,
+    						graphics: {
+    							character: null,
+    							projectile: "fireball"
+    						},
+    						range: 300,
+    						projectile: true,
+    						attackRateMs: 300
+    					},
+    					{
+    						name: "launch alien",
+    						key: "R",
+    						projectile: true,
+    						range: 200,
+    						damage: 10,
+    						attackRateMs: 600,
+    						projectileVelocityX: 500,
+    						projectileVelocityY: 0,
+    						projectileGravityMultiplier: 0.1,
+    						graphics: {
+    							character: null,
+    							projectile: "alien"
+    						}
+    					}
+    				],
+    				canFly: null
     			}
     		},
     		levels: {
@@ -2029,20 +2083,6 @@ var app = (function () {
     						height: 40
     					},
     					{
-    						name: "health globe",
-    						x: 240,
-    						y: -40,
-    						width: 40,
-    						height: 40
-    					},
-    					{
-    						name: "spikes",
-    						x: 280,
-    						y: 160,
-    						width: 40,
-    						height: 40
-    					},
-    					{
     						name: "grass",
     						x: 280,
     						y: 120,
@@ -2144,13 +2184,6 @@ var app = (function () {
     						name: "dirt",
     						x: 360,
     						y: 0,
-    						width: 40,
-    						height: 40
-    					},
-    					{
-    						name: "spikes",
-    						x: 400,
-    						y: 240,
     						width: 40,
     						height: 40
     					},
@@ -2305,13 +2338,6 @@ var app = (function () {
     						name: "dirt",
     						x: 480,
     						y: 0,
-    						width: 40,
-    						height: 40
-    					},
-    					{
-    						name: "spikes",
-    						x: 520,
-    						y: 320,
     						width: 40,
     						height: 40
     					},
@@ -7018,6 +7044,13 @@ var app = (function () {
     						y: 120,
     						width: 40,
     						height: 40
+    					},
+    					{
+    						name: "health globe",
+    						x: 400,
+    						y: 280,
+    						width: 40,
+    						height: 40
     					}
     				],
     				enemies: [
@@ -7050,21 +7083,6 @@ var app = (function () {
     						name: "alien",
     						x: 680,
     						y: 520
-    					},
-    					{
-    						name: "alien",
-    						x: 560,
-    						y: 400
-    					},
-    					{
-    						name: "alien",
-    						x: 440,
-    						y: 360
-    					},
-    					{
-    						name: "mr smiley",
-    						x: 5800,
-    						y: 80
     					},
     					{
     						name: "alien",
@@ -7132,17 +7150,47 @@ var app = (function () {
     						y: 480
     					},
     					{
-    						name: "mr smiley",
-    						x: 640,
-    						y: 400
+    						name: "warlock",
+    						x: 760,
+    						y: 520
     					},
     					{
-    						name: "mr smiley",
-    						x: 320,
-    						y: 200
+    						name: "warlock",
+    						x: 1240,
+    						y: 360
+    					},
+    					{
+    						name: "warlock",
+    						x: 5960,
+    						y: 80
+    					},
+    					{
+    						name: "warlock",
+    						x: 5800,
+    						y: 80
+    					},
+    					{
+    						name: "warlock",
+    						x: 5880,
+    						y: 80
+    					},
+    					{
+    						name: "warlock",
+    						x: 6040,
+    						y: 80
+    					},
+    					{
+    						name: "warlock",
+    						x: 6040,
+    						y: 280
+    					},
+    					{
+    						name: "warlock",
+    						x: 5840,
+    						y: 280
     					}
     				],
-    				thumbnail: "data:image/png;base64,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"
+    				thumbnail: "data:image/png;base64,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"
     			},
     			"test level": {
     				name: "test level",
@@ -7181,6 +7229,41 @@ var app = (function () {
     					},
     					{
     						name: "grass",
+    						x: 80,
+    						y: 40,
+    						width: 40,
+    						height: 40
+    					},
+    					{
+    						name: "dirt",
+    						x: 80,
+    						y: 0,
+    						width: 40,
+    						height: 40
+    					},
+    					{
+    						name: "grass",
+    						x: 120,
+    						y: 40,
+    						width: 40,
+    						height: 40
+    					},
+    					{
+    						name: "dirt",
+    						x: 120,
+    						y: 0,
+    						width: 40,
+    						height: 40
+    					},
+    					{
+    						name: "dirt",
+    						x: 160,
+    						y: 160,
+    						width: 40,
+    						height: 40
+    					},
+    					{
+    						name: "grass",
     						x: 160,
     						y: 40,
     						width: 40,
@@ -7190,6 +7273,13 @@ var app = (function () {
     						name: "dirt",
     						x: 160,
     						y: 0,
+    						width: 40,
+    						height: 40
+    					},
+    					{
+    						name: "dirt",
+    						x: 200,
+    						y: 160,
     						width: 40,
     						height: 40
     					},
@@ -7204,6 +7294,13 @@ var app = (function () {
     						name: "dirt",
     						x: 200,
     						y: 0,
+    						width: 40,
+    						height: 40
+    					},
+    					{
+    						name: "dirt",
+    						x: 240,
+    						y: 160,
     						width: 40,
     						height: 40
     					},
@@ -7418,6 +7515,13 @@ var app = (function () {
     						height: 40
     					},
     					{
+    						name: "dirt",
+    						x: 760,
+    						y: -40,
+    						width: 40,
+    						height: 40
+    					},
+    					{
     						name: "grass",
     						x: 800,
     						y: 40,
@@ -7568,6 +7672,13 @@ var app = (function () {
     						name: "dirt",
     						x: 1080,
     						y: 0,
+    						width: 40,
+    						height: 40
+    					},
+    					{
+    						name: "grass",
+    						x: 1080,
+    						y: -40,
     						width: 40,
     						height: 40
     					},
@@ -7948,6 +8059,230 @@ var app = (function () {
     						y: 0,
     						width: 40,
     						height: 40
+    					},
+    					{
+    						name: "grass",
+    						x: 1880,
+    						y: 40,
+    						width: 40,
+    						height: 40
+    					},
+    					{
+    						name: "dirt",
+    						x: 1880,
+    						y: 0,
+    						width: 40,
+    						height: 40
+    					},
+    					{
+    						name: "grass",
+    						x: 1920,
+    						y: 40,
+    						width: 40,
+    						height: 40
+    					},
+    					{
+    						name: "dirt",
+    						x: 1920,
+    						y: 0,
+    						width: 40,
+    						height: 40
+    					},
+    					{
+    						name: "grass",
+    						x: 1960,
+    						y: 120,
+    						width: 40,
+    						height: 40
+    					},
+    					{
+    						name: "dirt",
+    						x: 1960,
+    						y: 80,
+    						width: 40,
+    						height: 40
+    					},
+    					{
+    						name: "dirt",
+    						x: 1960,
+    						y: 40,
+    						width: 40,
+    						height: 40
+    					},
+    					{
+    						name: "dirt",
+    						x: 1960,
+    						y: 0,
+    						width: 40,
+    						height: 40
+    					},
+    					{
+    						name: "grass",
+    						x: 2000,
+    						y: 120,
+    						width: 40,
+    						height: 40
+    					},
+    					{
+    						name: "dirt",
+    						x: 2000,
+    						y: 80,
+    						width: 40,
+    						height: 40
+    					},
+    					{
+    						name: "dirt",
+    						x: 2000,
+    						y: 40,
+    						width: 40,
+    						height: 40
+    					},
+    					{
+    						name: "dirt",
+    						x: 2000,
+    						y: 0,
+    						width: 40,
+    						height: 40
+    					},
+    					{
+    						name: "grass",
+    						x: 2040,
+    						y: 160,
+    						width: 40,
+    						height: 40
+    					},
+    					{
+    						name: "dirt",
+    						x: 2040,
+    						y: 120,
+    						width: 40,
+    						height: 40
+    					},
+    					{
+    						name: "dirt",
+    						x: 2040,
+    						y: 80,
+    						width: 40,
+    						height: 40
+    					},
+    					{
+    						name: "dirt",
+    						x: 2040,
+    						y: 40,
+    						width: 40,
+    						height: 40
+    					},
+    					{
+    						name: "dirt",
+    						x: 2040,
+    						y: 0,
+    						width: 40,
+    						height: 40
+    					},
+    					{
+    						name: "grass",
+    						x: 2080,
+    						y: 160,
+    						width: 40,
+    						height: 40
+    					},
+    					{
+    						name: "dirt",
+    						x: 2080,
+    						y: 120,
+    						width: 40,
+    						height: 40
+    					},
+    					{
+    						name: "dirt",
+    						x: 2080,
+    						y: 80,
+    						width: 40,
+    						height: 40
+    					},
+    					{
+    						name: "dirt",
+    						x: 2080,
+    						y: 40,
+    						width: 40,
+    						height: 40
+    					},
+    					{
+    						name: "dirt",
+    						x: 2080,
+    						y: 0,
+    						width: 40,
+    						height: 40
+    					},
+    					{
+    						name: "grass",
+    						x: 2120,
+    						y: 160,
+    						width: 40,
+    						height: 40
+    					},
+    					{
+    						name: "dirt",
+    						x: 2120,
+    						y: 120,
+    						width: 40,
+    						height: 40
+    					},
+    					{
+    						name: "dirt",
+    						x: 2120,
+    						y: 80,
+    						width: 40,
+    						height: 40
+    					},
+    					{
+    						name: "dirt",
+    						x: 2120,
+    						y: 40,
+    						width: 40,
+    						height: 40
+    					},
+    					{
+    						name: "dirt",
+    						x: 2120,
+    						y: 0,
+    						width: 40,
+    						height: 40
+    					},
+    					{
+    						name: "grass",
+    						x: 2160,
+    						y: 160,
+    						width: 40,
+    						height: 40
+    					},
+    					{
+    						name: "dirt",
+    						x: 2160,
+    						y: 120,
+    						width: 40,
+    						height: 40
+    					},
+    					{
+    						name: "dirt",
+    						x: 2160,
+    						y: 80,
+    						width: 40,
+    						height: 40
+    					},
+    					{
+    						name: "dirt",
+    						x: 2160,
+    						y: 40,
+    						width: 40,
+    						height: 40
+    					},
+    					{
+    						name: "dirt",
+    						x: 2160,
+    						y: 0,
+    						width: 40,
+    						height: 40
     					}
     				],
     				enemies: [
@@ -8020,71 +8355,6 @@ var app = (function () {
     						name: "alien",
     						x: 560,
     						y: 240
-    					},
-    					{
-    						name: "alien",
-    						x: 520,
-    						y: 240
-    					},
-    					{
-    						name: "alien",
-    						x: 480,
-    						y: 280
-    					},
-    					{
-    						name: "alien",
-    						x: 440,
-    						y: 280
-    					},
-    					{
-    						name: "alien",
-    						x: 400,
-    						y: 320
-    					},
-    					{
-    						name: "alien",
-    						x: 40,
-    						y: 320
-    					},
-    					{
-    						name: "alien",
-    						x: 40,
-    						y: 280
-    					},
-    					{
-    						name: "alien",
-    						x: 80,
-    						y: 240
-    					},
-    					{
-    						name: "alien",
-    						x: 120,
-    						y: 240
-    					},
-    					{
-    						name: "alien",
-    						x: 160,
-    						y: 240
-    					},
-    					{
-    						name: "alien",
-    						x: 200,
-    						y: 240
-    					},
-    					{
-    						name: "alien",
-    						x: 200,
-    						y: 280
-    					},
-    					{
-    						name: "alien",
-    						x: 240,
-    						y: 280
-    					},
-    					{
-    						name: "alien",
-    						x: 240,
-    						y: 320
     					},
     					{
     						name: "alien",
@@ -8185,9 +8455,49 @@ var app = (function () {
     						name: "alien",
     						x: 1160,
     						y: 360
+    					},
+    					{
+    						name: "warlock",
+    						x: 880,
+    						y: 120
+    					},
+    					{
+    						name: "warlock",
+    						x: 1240,
+    						y: 120
+    					},
+    					{
+    						name: "warlock",
+    						x: 680,
+    						y: -40
+    					},
+    					{
+    						name: "warlock",
+    						x: 1520,
+    						y: 160
+    					},
+    					{
+    						name: "warlock",
+    						x: 1680,
+    						y: 80
+    					},
+    					{
+    						name: "warlock",
+    						x: 2160,
+    						y: 200
+    					},
+    					{
+    						name: "warlock",
+    						x: 560,
+    						y: 80
+    					},
+    					{
+    						name: "warlock",
+    						x: 240,
+    						y: 200
     					}
     				],
-    				thumbnail: "data:image/png;base64,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"
+    				thumbnail: "data:image/png;base64,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"
     			},
     			"consumable test": {
     				name: "consumable test",
@@ -8667,13 +8977,8 @@ var app = (function () {
     					}
     				],
     				enemies: [
-    					{
-    						name: "mr smiley",
-    						x: 1280,
-    						y: 200
-    					}
     				],
-    				thumbnail: "data:image/png;base64,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"
+    				thumbnail: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAO0AAABLCAYAAACcCAB8AAAFKElEQVR4Xu1dsWtTYRy8R8Ho0k3IIO627uKW7iIh0E2hS+lc/ANq/4lCt4IFC4EOIq520snBqf+Aw8MOQhepUJ685KVN9BE+8o70d8kFStqP18t9d9/ll3dDm8EPK2AFpBTIpNiarBWwAnBofQisgJgCDq2YYaZrBRxanwErIKaAQytmmOlaAYfWZ8AKiCng0IoZZrpWwKH1GbACYgo4tGKGma4VcGh9BqyAmAIOrZhhpmsFHFqfASsgpoBDK2aY6VoBh9ZnwAqIKeDQihlmulbAofUZsAJiCji0YoaZrhVwaH0GrICYAg6tmGGmawUcWp8BKyCmgEMrZpjpWgGH1mfACogp4NCKGWa6VsCh9RmwAmIKOLRihsnQ/YICZwDWgcHz2tj3rLXt5fwTwA6tTArEiO6iuGF8CaBVfY0WGWsHDq3YqTDd0ApsosAqgDKc5fNV9cVcO3ZoQ58BkxNToAxt+ahC2l5pI7/Oh5tgrZ3kS/lJcSk3LXb8NemOQgtgIrDVbihrfU9azcNh1jEVqCuimhRHbLyYqiWxkp60Lz+j+LCh/267KPuYOHF1RVST4oiNlxSPmBfJhrY86CNJlYO7KPv473jXFVFNiiM2Xsw8JrGSDW25u0WZUIuyj4kTV1dENSmO2HhJ8Yh5kXRoY0pqVgMF6oqoJsURG0/YJodW2LzQ1NnFERsvtHjTyTm0wuaFps4ujth4ocVzaIXtEabOLo7YeMLSetIKmxeaOrs4YuOFFs+TVtgeYers4oiNJyytJ62weaGps4sjNl5o8Txphe0Rps4ujth4wtJ60gqbF5o6uzhi44UWz5NW2B5h6uziiI0nLK0nrbB5oamziyM2XmjxPGmF7RGmzi6O2HjC0nrSCpsXmjq7OGLjhRbPk1bYHmHq7OKIjScsrSetsHmhqbOLIzZeaPE8aYXtEabOLo7YeMLSetIKmxeaOrs4YuOFFs+TVtgeYers4oiNJyytJ62weaGps4sjNl5o8Txphe0Rps4ujth4wtJ60gqbF5o6uzhi44UWz5NW2B5h6uziiI0nLK0nrbB5oamziyM2XmjxPGmF7RGmzi6O2HjC0nrSCpsXmjq7OGLjhRbPk1bYHmHq7OKIjScsrSetsHmhqbOLIzZeaPEWeNIq/g8cNmc2Hu0ss4sjNh5to/MHkp20iv9tjs2ZjUc9fuziiI1H3ex8wWRDW8oUdspM8ZDNmY1HO37s4oiNR9vo/IGkQzt/ufyKyQqwiyM2XvJG4l3o0MbzZDEYsYsjNp6wyg6tsHmhqbOLIzZeaPFit8d7APYrigWA8k2kyVqqFamvkYrn6/5VgF0csfGEHbvTSXt4eFjs7OwMOPRP+8VmbzNrspbqQ+prpOL5uhoF2MURG0/YtDsN7dHxUbH1aivr9rpFt9dF+X2TtVQfUl8jFc/XTQktgPZKG/l1DvQHn6Rme7iIutEtQ90N/jqAMwCj57Wx770WVpfiPjay1wPnbh7FO3RS1iTPwXaDN4HZ3jpC/FaGuhv81hi3SwDlz14Lr0GR4212iv3fX190Hjz/OAhv0cNeyprkOThY1tDW3eBfAVgFUAa2fC5/9lp4DX5+awHnV3j4BMA5gGc4u7hsdVLWssfoyHl+vMyhLd+Sq5De3H94bfhxQ0iX999/VaEdfiy6GH1gGgR5+trG0/JdWWu/+Uk++z1yiA+6s5HIUHeDP4Y1EeJq3Wtj5UogrXY/Dck8+gP8uHf7nLL2pnu7ERl/mxRbs+UlxG/9BZMdI4hqApXUAAAAAElFTkSuQmCC"
     			}
     		}
     	},
@@ -8763,7 +9068,10 @@ var app = (function () {
     				maxVelocity: 600,
     				jumpVelocity: 700,
     				gravityMultiplier: 1,
-    				canFly: false
+    				canFly: false,
+    				canDoubleJump: false,
+    				abilities: [
+    				]
     			}
     		},
     		enemies: {
@@ -15690,8 +15998,6 @@ var app = (function () {
     }
 
     /* src\components\ColorPicker.svelte generated by Svelte v3.24.1 */
-
-    const { console: console_1$2 } = globals;
     const file$8 = "src\\components\\ColorPicker.svelte";
 
     function get_each_context_1$2(ctx, list, i) {
@@ -16083,7 +16389,6 @@ var app = (function () {
     	let isOpen = false;
 
     	function select(color) {
-    		console.log(color);
     		$$invalidate(0, value = color);
     		dispatch("change", color);
     		$$invalidate(1, isOpen = false);
@@ -16103,7 +16408,7 @@ var app = (function () {
     	const writable_props = ["value"];
 
     	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console_1$2.warn(`<ColorPicker> was created with unknown prop '${key}'`);
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<ColorPicker> was created with unknown prop '${key}'`);
     	});
 
     	let { $$slots = {}, $$scope } = $$props;
@@ -18846,8 +19151,6 @@ var app = (function () {
     }
 
     /* src\pages\Build\ArtMaker.svelte generated by Svelte v3.24.1 */
-
-    const { console: console_1$3 } = globals;
     const file$e = "src\\pages\\Build\\ArtMaker.svelte";
 
     function get_each_context_1$4(ctx, list, i) {
@@ -20842,7 +21145,6 @@ var app = (function () {
     	onMount(() => redraw());
 
     	function create() {
-    		console.log("create");
     		$$invalidate(0, input = createDefaultInput());
     		redraw();
     	}
@@ -20935,7 +21237,6 @@ var app = (function () {
 
     	function onPaste(e) {
     		const items = (e.clipboardData || e.originalEvent.clipboardData).items;
-    		console.log("onpaste", JSON.stringify(items)); // will give you the mime types
 
     		for (let index in items) {
     			const item = items[index];
@@ -20945,7 +21246,6 @@ var app = (function () {
     				const reader = new FileReader();
 
     				reader.onload = function (event) {
-    					console.log("onload", event.target.result);
     					const image = new Image();
     					image.src = event.target.result;
 
@@ -20953,15 +21253,12 @@ var app = (function () {
     						$$invalidate(0, input.width = image.width, input);
     						$$invalidate(0, input.height = image.height, input);
     						$$invalidate(0, input.png = event.target.result, input);
-    						console.log(image.width, image.height);
     						redraw();
     					};
     				};
 
     				// data url!
     				// callback(blob)
-    				console.log("blob", blob);
-
     				reader.readAsDataURL(blob);
     			}
     		}
@@ -20974,7 +21271,6 @@ var app = (function () {
     	function getScaledEventCoordinates(e) {
     		const x = e.offsetX + e.target.scrollLeft;
     		const y = e.offsetY + e.target.scrollTop;
-    		console.log(x, y);
 
     		// debugger
     		return {
@@ -20999,8 +21295,6 @@ var app = (function () {
     			],
     			$autoSaveStore
     		);
-
-    		console.log("auto saved");
     	}
 
     	function undo() {
@@ -21199,7 +21493,6 @@ var app = (function () {
 
     		pngContext.putImageData(frameData, input.width, 0);
     		setInputFromCanvas();
-    		console.log(input.png);
     		$$invalidate(0, input.width += input.frameWidth, input);
     	}
 
@@ -21242,7 +21535,6 @@ var app = (function () {
     	}
 
     	function applyChangeSize() {
-    		console.log("yeah yeah");
     		$$invalidate(0, input.width = changeSize.width, input);
     		$$invalidate(0, input.height = changeSize.height, input);
     	}
@@ -21250,7 +21542,7 @@ var app = (function () {
     	const writable_props = ["params"];
 
     	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console_1$3.warn(`<ArtMaker> was created with unknown prop '${key}'`);
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<ArtMaker> was created with unknown prop '${key}'`);
     	});
 
     	let { $$slots = {}, $$scope } = $$props;
@@ -23265,443 +23557,231 @@ var app = (function () {
 
     function get_each_context$5(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[11] = list[i];
-    	child_ctx[12] = list;
-    	child_ctx[13] = i;
+    	child_ctx[17] = list[i];
+    	child_ctx[18] = list;
+    	child_ctx[19] = i;
     	return child_ctx;
     }
 
-    // (8:4) <FieldNumber name="ability-damage-{i}" bind:value={a.damage}>
-    function create_default_slot_6$1(ctx) {
-    	let t;
+    // (13:6) {:else}
+    function create_else_block_2(ctx) {
+    	let th;
 
     	const block = {
     		c: function create() {
-    			t = text("Damage");
+    			th = element("th");
+    			th.textContent = "Range";
+    			attr_dev(th, "class", "svelte-t9dc04");
+    			add_location(th, file$i, 13, 7, 257);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, t, anchor);
+    			insert_dev(target, th, anchor);
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(t);
+    			if (detaching) detach_dev(th);
     		}
     	};
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_6$1.name,
-    		type: "slot",
-    		source: "(8:4) <FieldNumber name=\\\"ability-damage-{i}\\\" bind:value={a.damage}>",
+    		id: create_else_block_2.name,
+    		type: "else",
+    		source: "(13:6) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (9:4) <FieldCheckbox name="ability-ranged-{i}" bind:checked={a.ranged}>
-    function create_default_slot_5$1(ctx) {
-    	let t;
+    // (11:6) {#if requireKeybinds}
+    function create_if_block_2$5(ctx) {
+    	let th;
 
     	const block = {
     		c: function create() {
-    			t = text("Ranged?");
+    			th = element("th");
+    			th.textContent = "Key";
+    			attr_dev(th, "class", "svelte-t9dc04");
+    			add_location(th, file$i, 11, 7, 221);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, t, anchor);
+    			insert_dev(target, th, anchor);
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(t);
+    			if (detaching) detach_dev(th);
     		}
     	};
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_5$1.name,
-    		type: "slot",
-    		source: "(9:4) <FieldCheckbox name=\\\"ability-ranged-{i}\\\" bind:checked={a.ranged}>",
+    		id: create_if_block_2$5.name,
+    		type: "if",
+    		source: "(11:6) {#if requireKeybinds}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (10:4) {#if a.ranged}
-    function create_if_block$a(ctx) {
-    	let fieldnumber0;
+    // (39:7) {:else}
+    function create_else_block_1$1(ctx) {
+    	let td;
+    	let input;
+    	let input_min_value;
+    	let input_max_value;
+    	let mounted;
+    	let dispose;
+
+    	function input_input_handler() {
+    		/*input_input_handler*/ ctx[8].call(input, /*each_value*/ ctx[18], /*i*/ ctx[19]);
+    	}
+
+    	const block = {
+    		c: function create() {
+    			td = element("td");
+    			input = element("input");
+    			attr_dev(input, "type", "number");
+    			attr_dev(input, "min", input_min_value = 0);
+    			attr_dev(input, "max", input_max_value = 10000);
+    			add_location(input, file$i, 40, 9, 1031);
+    			add_location(td, file$i, 39, 8, 1016);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, td, anchor);
+    			append_dev(td, input);
+    			set_input_value(input, /*a*/ ctx[17].range);
+
+    			if (!mounted) {
+    				dispose = listen_dev(input, "input", input_input_handler);
+    				mounted = true;
+    			}
+    		},
+    		p: function update(new_ctx, dirty) {
+    			ctx = new_ctx;
+
+    			if (dirty & /*abilities*/ 1 && to_number(input.value) !== /*a*/ ctx[17].range) {
+    				set_input_value(input, /*a*/ ctx[17].range);
+    			}
+    		},
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(td);
+    			mounted = false;
+    			dispose();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block_1$1.name,
+    		type: "else",
+    		source: "(39:7) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (35:7) {#if requireKeybinds}
+    function create_if_block_1$8(ctx) {
+    	let td;
+    	let inputselect;
     	let updating_value;
-    	let t0;
-    	let fieldnumber1;
-    	let updating_value_1;
-    	let t1;
-    	let fieldnumber2;
-    	let updating_value_2;
-    	let t2;
-    	let fieldartpicker0;
-    	let updating_value_3;
-    	let t3;
-    	let fieldartpicker1;
-    	let updating_value_4;
     	let current;
 
-    	function fieldnumber0_value_binding(value) {
-    		/*fieldnumber0_value_binding*/ ctx[5].call(null, value, /*a*/ ctx[11]);
+    	function inputselect_value_binding(value) {
+    		/*inputselect_value_binding*/ ctx[7].call(null, value, /*a*/ ctx[17]);
     	}
 
-    	let fieldnumber0_props = {
-    		name: "ability-projectile-velocity-x-" + /*i*/ ctx[13],
-    		$$slots: { default: [create_default_slot_4$2] },
+    	let inputselect_props = {
+    		name: "ability-key-" + /*i*/ ctx[19],
+    		inline: true,
+    		options: /*availableKeys*/ ctx[2],
+    		$$slots: {
+    			default: [
+    				create_default_slot$5,
+    				({ option }) => ({ 20: option }),
+    				({ option }) => option ? 1048576 : 0
+    			]
+    		},
     		$$scope: { ctx }
     	};
 
-    	if (/*a*/ ctx[11].projectileVelocityX !== void 0) {
-    		fieldnumber0_props.value = /*a*/ ctx[11].projectileVelocityX;
+    	if (/*a*/ ctx[17].key !== void 0) {
+    		inputselect_props.value = /*a*/ ctx[17].key;
     	}
 
-    	fieldnumber0 = new FieldNumber({
-    			props: fieldnumber0_props,
-    			$$inline: true
-    		});
-
-    	binding_callbacks.push(() => bind(fieldnumber0, "value", fieldnumber0_value_binding));
-
-    	function fieldnumber1_value_binding(value) {
-    		/*fieldnumber1_value_binding*/ ctx[6].call(null, value, /*a*/ ctx[11]);
-    	}
-
-    	let fieldnumber1_props = {
-    		name: "ability-projectile-velocity-y-" + /*i*/ ctx[13],
-    		$$slots: { default: [create_default_slot_3$2] },
-    		$$scope: { ctx }
-    	};
-
-    	if (/*a*/ ctx[11].projectileVelocityY !== void 0) {
-    		fieldnumber1_props.value = /*a*/ ctx[11].projectileVelocityY;
-    	}
-
-    	fieldnumber1 = new FieldNumber({
-    			props: fieldnumber1_props,
-    			$$inline: true
-    		});
-
-    	binding_callbacks.push(() => bind(fieldnumber1, "value", fieldnumber1_value_binding));
-
-    	function fieldnumber2_value_binding(value) {
-    		/*fieldnumber2_value_binding*/ ctx[7].call(null, value, /*a*/ ctx[11]);
-    	}
-
-    	let fieldnumber2_props = {
-    		name: "ability-projectile-gravity-multiplier-" + /*i*/ ctx[13],
-    		min: 0,
-    		step: 0.01,
-    		max: 1,
-    		$$slots: { default: [create_default_slot_2$2] },
-    		$$scope: { ctx }
-    	};
-
-    	if (/*a*/ ctx[11].projectileGravityMultiplier !== void 0) {
-    		fieldnumber2_props.value = /*a*/ ctx[11].projectileGravityMultiplier;
-    	}
-
-    	fieldnumber2 = new FieldNumber({
-    			props: fieldnumber2_props,
-    			$$inline: true
-    		});
-
-    	binding_callbacks.push(() => bind(fieldnumber2, "value", fieldnumber2_value_binding));
-
-    	function fieldartpicker0_value_binding(value) {
-    		/*fieldartpicker0_value_binding*/ ctx[8].call(null, value, /*a*/ ctx[11]);
-    	}
-
-    	let fieldartpicker0_props = {
-    		name: "ability-graphics-projectile-" + /*i*/ ctx[13],
-    		$$slots: { default: [create_default_slot_1$2] },
-    		$$scope: { ctx }
-    	};
-
-    	if (/*a*/ ctx[11].graphics.projectile !== void 0) {
-    		fieldartpicker0_props.value = /*a*/ ctx[11].graphics.projectile;
-    	}
-
-    	fieldartpicker0 = new FieldArtPicker({
-    			props: fieldartpicker0_props,
-    			$$inline: true
-    		});
-
-    	binding_callbacks.push(() => bind(fieldartpicker0, "value", fieldartpicker0_value_binding));
-
-    	function fieldartpicker1_value_binding(value) {
-    		/*fieldartpicker1_value_binding*/ ctx[9].call(null, value, /*a*/ ctx[11]);
-    	}
-
-    	let fieldartpicker1_props = {
-    		name: "ability-graphics-character-" + /*i*/ ctx[13],
-    		$$slots: { default: [create_default_slot$5] },
-    		$$scope: { ctx }
-    	};
-
-    	if (/*a*/ ctx[11].graphics.character !== void 0) {
-    		fieldartpicker1_props.value = /*a*/ ctx[11].graphics.character;
-    	}
-
-    	fieldartpicker1 = new FieldArtPicker({
-    			props: fieldartpicker1_props,
-    			$$inline: true
-    		});
-
-    	binding_callbacks.push(() => bind(fieldartpicker1, "value", fieldartpicker1_value_binding));
+    	inputselect = new InputSelect({ props: inputselect_props, $$inline: true });
+    	binding_callbacks.push(() => bind(inputselect, "value", inputselect_value_binding));
 
     	const block = {
     		c: function create() {
-    			create_component(fieldnumber0.$$.fragment);
-    			t0 = space();
-    			create_component(fieldnumber1.$$.fragment);
-    			t1 = space();
-    			create_component(fieldnumber2.$$.fragment);
-    			t2 = space();
-    			create_component(fieldartpicker0.$$.fragment);
-    			t3 = space();
-    			create_component(fieldartpicker1.$$.fragment);
+    			td = element("td");
+    			create_component(inputselect.$$.fragment);
+    			add_location(td, file$i, 35, 8, 835);
     		},
     		m: function mount(target, anchor) {
-    			mount_component(fieldnumber0, target, anchor);
-    			insert_dev(target, t0, anchor);
-    			mount_component(fieldnumber1, target, anchor);
-    			insert_dev(target, t1, anchor);
-    			mount_component(fieldnumber2, target, anchor);
-    			insert_dev(target, t2, anchor);
-    			mount_component(fieldartpicker0, target, anchor);
-    			insert_dev(target, t3, anchor);
-    			mount_component(fieldartpicker1, target, anchor);
+    			insert_dev(target, td, anchor);
+    			mount_component(inputselect, td, null);
     			current = true;
     		},
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
-    			const fieldnumber0_changes = {};
+    			const inputselect_changes = {};
 
-    			if (dirty & /*$$scope*/ 1024) {
-    				fieldnumber0_changes.$$scope = { dirty, ctx };
+    			if (dirty & /*$$scope, option*/ 1114112) {
+    				inputselect_changes.$$scope = { dirty, ctx };
     			}
 
     			if (!updating_value && dirty & /*abilities*/ 1) {
     				updating_value = true;
-    				fieldnumber0_changes.value = /*a*/ ctx[11].projectileVelocityX;
+    				inputselect_changes.value = /*a*/ ctx[17].key;
     				add_flush_callback(() => updating_value = false);
     			}
 
-    			fieldnumber0.$set(fieldnumber0_changes);
-    			const fieldnumber1_changes = {};
-
-    			if (dirty & /*$$scope*/ 1024) {
-    				fieldnumber1_changes.$$scope = { dirty, ctx };
-    			}
-
-    			if (!updating_value_1 && dirty & /*abilities*/ 1) {
-    				updating_value_1 = true;
-    				fieldnumber1_changes.value = /*a*/ ctx[11].projectileVelocityY;
-    				add_flush_callback(() => updating_value_1 = false);
-    			}
-
-    			fieldnumber1.$set(fieldnumber1_changes);
-    			const fieldnumber2_changes = {};
-
-    			if (dirty & /*$$scope*/ 1024) {
-    				fieldnumber2_changes.$$scope = { dirty, ctx };
-    			}
-
-    			if (!updating_value_2 && dirty & /*abilities*/ 1) {
-    				updating_value_2 = true;
-    				fieldnumber2_changes.value = /*a*/ ctx[11].projectileGravityMultiplier;
-    				add_flush_callback(() => updating_value_2 = false);
-    			}
-
-    			fieldnumber2.$set(fieldnumber2_changes);
-    			const fieldartpicker0_changes = {};
-
-    			if (dirty & /*$$scope*/ 1024) {
-    				fieldartpicker0_changes.$$scope = { dirty, ctx };
-    			}
-
-    			if (!updating_value_3 && dirty & /*abilities*/ 1) {
-    				updating_value_3 = true;
-    				fieldartpicker0_changes.value = /*a*/ ctx[11].graphics.projectile;
-    				add_flush_callback(() => updating_value_3 = false);
-    			}
-
-    			fieldartpicker0.$set(fieldartpicker0_changes);
-    			const fieldartpicker1_changes = {};
-
-    			if (dirty & /*$$scope*/ 1024) {
-    				fieldartpicker1_changes.$$scope = { dirty, ctx };
-    			}
-
-    			if (!updating_value_4 && dirty & /*abilities*/ 1) {
-    				updating_value_4 = true;
-    				fieldartpicker1_changes.value = /*a*/ ctx[11].graphics.character;
-    				add_flush_callback(() => updating_value_4 = false);
-    			}
-
-    			fieldartpicker1.$set(fieldartpicker1_changes);
+    			inputselect.$set(inputselect_changes);
     		},
     		i: function intro(local) {
     			if (current) return;
-    			transition_in(fieldnumber0.$$.fragment, local);
-    			transition_in(fieldnumber1.$$.fragment, local);
-    			transition_in(fieldnumber2.$$.fragment, local);
-    			transition_in(fieldartpicker0.$$.fragment, local);
-    			transition_in(fieldartpicker1.$$.fragment, local);
+    			transition_in(inputselect.$$.fragment, local);
     			current = true;
     		},
     		o: function outro(local) {
-    			transition_out(fieldnumber0.$$.fragment, local);
-    			transition_out(fieldnumber1.$$.fragment, local);
-    			transition_out(fieldnumber2.$$.fragment, local);
-    			transition_out(fieldartpicker0.$$.fragment, local);
-    			transition_out(fieldartpicker1.$$.fragment, local);
+    			transition_out(inputselect.$$.fragment, local);
     			current = false;
     		},
     		d: function destroy(detaching) {
-    			destroy_component(fieldnumber0, detaching);
-    			if (detaching) detach_dev(t0);
-    			destroy_component(fieldnumber1, detaching);
-    			if (detaching) detach_dev(t1);
-    			destroy_component(fieldnumber2, detaching);
-    			if (detaching) detach_dev(t2);
-    			destroy_component(fieldartpicker0, detaching);
-    			if (detaching) detach_dev(t3);
-    			destroy_component(fieldartpicker1, detaching);
+    			if (detaching) detach_dev(td);
+    			destroy_component(inputselect);
     		}
     	};
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block$a.name,
+    		id: create_if_block_1$8.name,
     		type: "if",
-    		source: "(10:4) {#if a.ranged}",
+    		source: "(35:7) {#if requireKeybinds}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (11:5) <FieldNumber name="ability-projectile-velocity-x-{i}" bind:value={a.projectileVelocityX}>
-    function create_default_slot_4$2(ctx) {
-    	let t;
-
-    	const block = {
-    		c: function create() {
-    			t = text("Projectile velocity X");
-    		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, t, anchor);
-    		},
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(t);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_default_slot_4$2.name,
-    		type: "slot",
-    		source: "(11:5) <FieldNumber name=\\\"ability-projectile-velocity-x-{i}\\\" bind:value={a.projectileVelocityX}>",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    // (12:5) <FieldNumber name="ability-projectile-velocity-y-{i}" bind:value={a.projectileVelocityY}>
-    function create_default_slot_3$2(ctx) {
-    	let t;
-
-    	const block = {
-    		c: function create() {
-    			t = text("Projectile velocity Y");
-    		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, t, anchor);
-    		},
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(t);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_default_slot_3$2.name,
-    		type: "slot",
-    		source: "(12:5) <FieldNumber name=\\\"ability-projectile-velocity-y-{i}\\\" bind:value={a.projectileVelocityY}>",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    // (13:5) <FieldNumber name="ability-projectile-gravity-multiplier-{i}" min={0} step={0.01} max={1} bind:value={a.projectileGravityMultiplier}>
-    function create_default_slot_2$2(ctx) {
-    	let t;
-
-    	const block = {
-    		c: function create() {
-    			t = text("Gravity multiplier");
-    		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, t, anchor);
-    		},
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(t);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_default_slot_2$2.name,
-    		type: "slot",
-    		source: "(13:5) <FieldNumber name=\\\"ability-projectile-gravity-multiplier-{i}\\\" min={0} step={0.01} max={1} bind:value={a.projectileGravityMultiplier}>",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    // (16:5) <FieldArtPicker name="ability-graphics-projectile-{i}" bind:value={a.graphics.projectile}>
-    function create_default_slot_1$2(ctx) {
-    	let t;
-
-    	const block = {
-    		c: function create() {
-    			t = text("Projectile graphic");
-    		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, t, anchor);
-    		},
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(t);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_default_slot_1$2.name,
-    		type: "slot",
-    		source: "(16:5) <FieldArtPicker name=\\\"ability-graphics-projectile-{i}\\\" bind:value={a.graphics.projectile}>",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    // (17:5) <FieldArtPicker name="ability-graphics-character-{i}" bind:value={a.graphics.character}>
+    // (37:9) <InputSelect name="ability-key-{i}" inline options={availableKeys} let:option bind:value={a.key}>
     function create_default_slot$5(ctx) {
+    	let t_value = /*option*/ ctx[20].value + "";
     	let t;
 
     	const block = {
     		c: function create() {
-    			t = text("Character graphic");
+    			t = text(t_value);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, t, anchor);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*option*/ 1048576 && t_value !== (t_value = /*option*/ ctx[20].value + "")) set_data_dev(t, t_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(t);
@@ -23712,158 +23792,455 @@ var app = (function () {
     		block,
     		id: create_default_slot$5.name,
     		type: "slot",
-    		source: "(17:5) <FieldArtPicker name=\\\"ability-graphics-character-{i}\\\" bind:value={a.graphics.character}>",
+    		source: "(37:9) <InputSelect name=\\\"ability-key-{i}\\\" inline options={availableKeys} let:option bind:value={a.key}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (5:1) {#each abilities as a, i}
-    function create_each_block$5(ctx) {
-    	let div1;
-    	let div0;
-    	let fieldnumber;
-    	let updating_value;
-    	let t0;
-    	let fieldcheckbox;
-    	let updating_checked;
-    	let t1;
-    	let current;
-
-    	function fieldnumber_value_binding(value) {
-    		/*fieldnumber_value_binding*/ ctx[3].call(null, value, /*a*/ ctx[11]);
-    	}
-
-    	let fieldnumber_props = {
-    		name: "ability-damage-" + /*i*/ ctx[13],
-    		$$slots: { default: [create_default_slot_6$1] },
-    		$$scope: { ctx }
-    	};
-
-    	if (/*a*/ ctx[11].damage !== void 0) {
-    		fieldnumber_props.value = /*a*/ ctx[11].damage;
-    	}
-
-    	fieldnumber = new FieldNumber({ props: fieldnumber_props, $$inline: true });
-    	binding_callbacks.push(() => bind(fieldnumber, "value", fieldnumber_value_binding));
-
-    	function fieldcheckbox_checked_binding(value) {
-    		/*fieldcheckbox_checked_binding*/ ctx[4].call(null, value, /*a*/ ctx[11]);
-    	}
-
-    	let fieldcheckbox_props = {
-    		name: "ability-ranged-" + /*i*/ ctx[13],
-    		$$slots: { default: [create_default_slot_5$1] },
-    		$$scope: { ctx }
-    	};
-
-    	if (/*a*/ ctx[11].ranged !== void 0) {
-    		fieldcheckbox_props.checked = /*a*/ ctx[11].ranged;
-    	}
-
-    	fieldcheckbox = new FieldCheckbox({
-    			props: fieldcheckbox_props,
-    			$$inline: true
-    		});
-
-    	binding_callbacks.push(() => bind(fieldcheckbox, "checked", fieldcheckbox_checked_binding));
-    	let if_block = /*a*/ ctx[11].ranged && create_if_block$a(ctx);
+    // (70:7) {:else}
+    function create_else_block$5(ctx) {
+    	let td;
 
     	const block = {
     		c: function create() {
-    			div1 = element("div");
-    			div0 = element("div");
-    			create_component(fieldnumber.$$.fragment);
-    			t0 = space();
-    			create_component(fieldcheckbox.$$.fragment);
-    			t1 = space();
-    			if (if_block) if_block.c();
-    			attr_dev(div0, "class", "card-body");
-    			add_location(div0, file$i, 6, 3, 121);
-    			attr_dev(div1, "class", "card bg-light");
-    			add_location(div1, file$i, 5, 2, 89);
+    			td = element("td");
+    			attr_dev(td, "colspan", "4");
+    			add_location(td, file$i, 70, 8, 2135);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div1, anchor);
-    			append_dev(div1, div0);
-    			mount_component(fieldnumber, div0, null);
-    			append_dev(div0, t0);
-    			mount_component(fieldcheckbox, div0, null);
-    			append_dev(div0, t1);
-    			if (if_block) if_block.m(div0, null);
+    			insert_dev(target, td, anchor);
+    		},
+    		p: noop,
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(td);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block$5.name,
+    		type: "else",
+    		source: "(70:7) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (60:7) {#if a.projectile}
+    function create_if_block$a(ctx) {
+    	let td0;
+    	let fieldartpicker;
+    	let updating_value;
+    	let t;
+    	let td1;
+    	let input;
+    	let input_min_value;
+    	let input_max_value;
+    	let current;
+    	let mounted;
+    	let dispose;
+
+    	function fieldartpicker_value_binding_1(value) {
+    		/*fieldartpicker_value_binding_1*/ ctx[14].call(null, value, /*a*/ ctx[17]);
+    	}
+
+    	let fieldartpicker_props = {
+    		name: "ability-graphics-projectile-" + /*i*/ ctx[19],
+    		placeholder: "Projectile graphic"
+    	};
+
+    	if (/*a*/ ctx[17].graphics.projectile !== void 0) {
+    		fieldartpicker_props.value = /*a*/ ctx[17].graphics.projectile;
+    	}
+
+    	fieldartpicker = new FieldArtPicker({
+    			props: fieldartpicker_props,
+    			$$inline: true
+    		});
+
+    	binding_callbacks.push(() => bind(fieldartpicker, "value", fieldartpicker_value_binding_1));
+
+    	function input_input_handler_1() {
+    		/*input_input_handler_1*/ ctx[15].call(input, /*each_value*/ ctx[18], /*i*/ ctx[19]);
+    	}
+
+    	const block = {
+    		c: function create() {
+    			td0 = element("td");
+    			create_component(fieldartpicker.$$.fragment);
+    			t = space();
+    			td1 = element("td");
+    			input = element("input");
+    			add_location(td0, file$i, 60, 8, 1694);
+    			attr_dev(input, "type", "number");
+    			attr_dev(input, "min", input_min_value = 0);
+    			attr_dev(input, "max", input_max_value = 10000);
+    			add_location(input, file$i, 64, 9, 1874);
+    			add_location(td1, file$i, 63, 8, 1859);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, td0, anchor);
+    			mount_component(fieldartpicker, td0, null);
+    			insert_dev(target, t, anchor);
+    			insert_dev(target, td1, anchor);
+    			append_dev(td1, input);
+    			set_input_value(input, /*a*/ ctx[17].projectileVelocity);
     			current = true;
+
+    			if (!mounted) {
+    				dispose = listen_dev(input, "input", input_input_handler_1);
+    				mounted = true;
+    			}
     		},
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
-    			const fieldnumber_changes = {};
-
-    			if (dirty & /*$$scope*/ 1024) {
-    				fieldnumber_changes.$$scope = { dirty, ctx };
-    			}
+    			const fieldartpicker_changes = {};
 
     			if (!updating_value && dirty & /*abilities*/ 1) {
     				updating_value = true;
-    				fieldnumber_changes.value = /*a*/ ctx[11].damage;
+    				fieldartpicker_changes.value = /*a*/ ctx[17].graphics.projectile;
     				add_flush_callback(() => updating_value = false);
     			}
 
-    			fieldnumber.$set(fieldnumber_changes);
-    			const fieldcheckbox_changes = {};
+    			fieldartpicker.$set(fieldartpicker_changes);
 
-    			if (dirty & /*$$scope*/ 1024) {
-    				fieldcheckbox_changes.$$scope = { dirty, ctx };
-    			}
-
-    			if (!updating_checked && dirty & /*abilities*/ 1) {
-    				updating_checked = true;
-    				fieldcheckbox_changes.checked = /*a*/ ctx[11].ranged;
-    				add_flush_callback(() => updating_checked = false);
-    			}
-
-    			fieldcheckbox.$set(fieldcheckbox_changes);
-
-    			if (/*a*/ ctx[11].ranged) {
-    				if (if_block) {
-    					if_block.p(ctx, dirty);
-
-    					if (dirty & /*abilities*/ 1) {
-    						transition_in(if_block, 1);
-    					}
-    				} else {
-    					if_block = create_if_block$a(ctx);
-    					if_block.c();
-    					transition_in(if_block, 1);
-    					if_block.m(div0, null);
-    				}
-    			} else if (if_block) {
-    				group_outros();
-
-    				transition_out(if_block, 1, 1, () => {
-    					if_block = null;
-    				});
-
-    				check_outros();
+    			if (dirty & /*abilities*/ 1 && to_number(input.value) !== /*a*/ ctx[17].projectileVelocity) {
+    				set_input_value(input, /*a*/ ctx[17].projectileVelocity);
     			}
     		},
     		i: function intro(local) {
     			if (current) return;
-    			transition_in(fieldnumber.$$.fragment, local);
-    			transition_in(fieldcheckbox.$$.fragment, local);
-    			transition_in(if_block);
+    			transition_in(fieldartpicker.$$.fragment, local);
     			current = true;
     		},
     		o: function outro(local) {
-    			transition_out(fieldnumber.$$.fragment, local);
-    			transition_out(fieldcheckbox.$$.fragment, local);
-    			transition_out(if_block);
+    			transition_out(fieldartpicker.$$.fragment, local);
     			current = false;
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div1);
-    			destroy_component(fieldnumber);
-    			destroy_component(fieldcheckbox);
-    			if (if_block) if_block.d();
+    			if (detaching) detach_dev(td0);
+    			destroy_component(fieldartpicker);
+    			if (detaching) detach_dev(t);
+    			if (detaching) detach_dev(td1);
+    			mounted = false;
+    			dispose();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block$a.name,
+    		type: "if",
+    		source: "(60:7) {#if a.projectile}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (28:5) {#each abilities as a, i}
+    function create_each_block$5(ctx) {
+    	let tr;
+    	let td0;
+    	let button;
+    	let icon;
+    	let t0;
+    	let current_block_type_index;
+    	let if_block0;
+    	let t1;
+    	let td1;
+    	let input0;
+    	let t2;
+    	let td2;
+    	let fieldartpicker;
+    	let updating_value;
+    	let t3;
+    	let td3;
+    	let t4;
+    	let td4;
+    	let input1;
+    	let t5;
+    	let td5;
+    	let input2;
+    	let input2_min_value;
+    	let input2_max_value;
+    	let t6;
+    	let td6;
+    	let input3;
+    	let t7;
+    	let current_block_type_index_1;
+    	let if_block1;
+    	let t8;
+    	let current;
+    	let mounted;
+    	let dispose;
+
+    	icon = new Icon({
+    			props: { data: deleteIcon },
+    			$$inline: true
+    		});
+
+    	function click_handler(...args) {
+    		return /*click_handler*/ ctx[6](/*i*/ ctx[19], ...args);
+    	}
+
+    	const if_block_creators = [create_if_block_1$8, create_else_block_1$1];
+    	const if_blocks = [];
+
+    	function select_block_type_1(ctx, dirty) {
+    		if (/*requireKeybinds*/ ctx[1]) return 0;
+    		return 1;
+    	}
+
+    	current_block_type_index = select_block_type_1(ctx);
+    	if_block0 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+
+    	function input0_input_handler() {
+    		/*input0_input_handler*/ ctx[9].call(input0, /*each_value*/ ctx[18], /*i*/ ctx[19]);
+    	}
+
+    	function fieldartpicker_value_binding(value) {
+    		/*fieldartpicker_value_binding*/ ctx[10].call(null, value, /*a*/ ctx[17]);
+    	}
+
+    	let fieldartpicker_props = {
+    		name: "ability-graphics-character-" + /*i*/ ctx[19],
+    		placeholder: "Character graphic"
+    	};
+
+    	if (/*a*/ ctx[17].graphics.character !== void 0) {
+    		fieldartpicker_props.value = /*a*/ ctx[17].graphics.character;
+    	}
+
+    	fieldartpicker = new FieldArtPicker({
+    			props: fieldartpicker_props,
+    			$$inline: true
+    		});
+
+    	binding_callbacks.push(() => bind(fieldartpicker, "value", fieldartpicker_value_binding));
+
+    	function input1_input_handler() {
+    		/*input1_input_handler*/ ctx[11].call(input1, /*each_value*/ ctx[18], /*i*/ ctx[19]);
+    	}
+
+    	function input2_input_handler() {
+    		/*input2_input_handler*/ ctx[12].call(input2, /*each_value*/ ctx[18], /*i*/ ctx[19]);
+    	}
+
+    	function input3_change_handler() {
+    		/*input3_change_handler*/ ctx[13].call(input3, /*each_value*/ ctx[18], /*i*/ ctx[19]);
+    	}
+
+    	const if_block_creators_1 = [create_if_block$a, create_else_block$5];
+    	const if_blocks_1 = [];
+
+    	function select_block_type_2(ctx, dirty) {
+    		if (/*a*/ ctx[17].projectile) return 0;
+    		return 1;
+    	}
+
+    	current_block_type_index_1 = select_block_type_2(ctx);
+    	if_block1 = if_blocks_1[current_block_type_index_1] = if_block_creators_1[current_block_type_index_1](ctx);
+
+    	const block = {
+    		c: function create() {
+    			tr = element("tr");
+    			td0 = element("td");
+    			button = element("button");
+    			create_component(icon.$$.fragment);
+    			t0 = space();
+    			if_block0.c();
+    			t1 = space();
+    			td1 = element("td");
+    			input0 = element("input");
+    			t2 = space();
+    			td2 = element("td");
+    			create_component(fieldartpicker.$$.fragment);
+    			t3 = space();
+    			td3 = element("td");
+    			t4 = space();
+    			td4 = element("td");
+    			input1 = element("input");
+    			t5 = space();
+    			td5 = element("td");
+    			input2 = element("input");
+    			t6 = space();
+    			td6 = element("td");
+    			input3 = element("input");
+    			t7 = space();
+    			if_block1.c();
+    			t8 = space();
+    			attr_dev(button, "type", "button");
+    			attr_dev(button, "class", "btn btn-danger");
+    			add_location(button, file$i, 30, 8, 646);
+    			add_location(td0, file$i, 29, 7, 632);
+    			attr_dev(input0, "type", "text");
+    			add_location(input0, file$i, 44, 8, 1147);
+    			add_location(td1, file$i, 43, 7, 1133);
+    			add_location(td2, file$i, 46, 7, 1211);
+    			add_location(td3, file$i, 49, 7, 1370);
+    			attr_dev(input1, "type", "number");
+    			add_location(input1, file$i, 51, 8, 1399);
+    			add_location(td4, file$i, 50, 7, 1385);
+    			attr_dev(input2, "type", "number");
+    			attr_dev(input2, "min", input2_min_value = 0);
+    			attr_dev(input2, "max", input2_max_value = 120000);
+    			add_location(input2, file$i, 54, 8, 1481);
+    			add_location(td5, file$i, 53, 7, 1467);
+    			attr_dev(input3, "type", "checkbox");
+    			add_location(input3, file$i, 57, 8, 1590);
+    			add_location(td6, file$i, 56, 7, 1576);
+    			add_location(tr, file$i, 28, 6, 619);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, tr, anchor);
+    			append_dev(tr, td0);
+    			append_dev(td0, button);
+    			mount_component(icon, button, null);
+    			append_dev(tr, t0);
+    			if_blocks[current_block_type_index].m(tr, null);
+    			append_dev(tr, t1);
+    			append_dev(tr, td1);
+    			append_dev(td1, input0);
+    			set_input_value(input0, /*a*/ ctx[17].name);
+    			append_dev(tr, t2);
+    			append_dev(tr, td2);
+    			mount_component(fieldartpicker, td2, null);
+    			append_dev(tr, t3);
+    			append_dev(tr, td3);
+    			append_dev(tr, t4);
+    			append_dev(tr, td4);
+    			append_dev(td4, input1);
+    			set_input_value(input1, /*a*/ ctx[17].damage);
+    			append_dev(tr, t5);
+    			append_dev(tr, td5);
+    			append_dev(td5, input2);
+    			set_input_value(input2, /*a*/ ctx[17].attackRateMs);
+    			append_dev(tr, t6);
+    			append_dev(tr, td6);
+    			append_dev(td6, input3);
+    			input3.checked = /*a*/ ctx[17].projectile;
+    			append_dev(tr, t7);
+    			if_blocks_1[current_block_type_index_1].m(tr, null);
+    			append_dev(tr, t8);
+    			current = true;
+
+    			if (!mounted) {
+    				dispose = [
+    					listen_dev(button, "click", click_handler, false, false, false),
+    					listen_dev(input0, "input", input0_input_handler),
+    					listen_dev(input1, "input", input1_input_handler),
+    					listen_dev(input2, "input", input2_input_handler),
+    					listen_dev(input3, "change", input3_change_handler)
+    				];
+
+    				mounted = true;
+    			}
+    		},
+    		p: function update(new_ctx, dirty) {
+    			ctx = new_ctx;
+    			let previous_block_index = current_block_type_index;
+    			current_block_type_index = select_block_type_1(ctx);
+
+    			if (current_block_type_index === previous_block_index) {
+    				if_blocks[current_block_type_index].p(ctx, dirty);
+    			} else {
+    				group_outros();
+
+    				transition_out(if_blocks[previous_block_index], 1, 1, () => {
+    					if_blocks[previous_block_index] = null;
+    				});
+
+    				check_outros();
+    				if_block0 = if_blocks[current_block_type_index];
+
+    				if (!if_block0) {
+    					if_block0 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    					if_block0.c();
+    				}
+
+    				transition_in(if_block0, 1);
+    				if_block0.m(tr, t1);
+    			}
+
+    			if (dirty & /*abilities*/ 1 && input0.value !== /*a*/ ctx[17].name) {
+    				set_input_value(input0, /*a*/ ctx[17].name);
+    			}
+
+    			const fieldartpicker_changes = {};
+
+    			if (!updating_value && dirty & /*abilities*/ 1) {
+    				updating_value = true;
+    				fieldartpicker_changes.value = /*a*/ ctx[17].graphics.character;
+    				add_flush_callback(() => updating_value = false);
+    			}
+
+    			fieldartpicker.$set(fieldartpicker_changes);
+
+    			if (dirty & /*abilities*/ 1 && to_number(input1.value) !== /*a*/ ctx[17].damage) {
+    				set_input_value(input1, /*a*/ ctx[17].damage);
+    			}
+
+    			if (dirty & /*abilities*/ 1 && to_number(input2.value) !== /*a*/ ctx[17].attackRateMs) {
+    				set_input_value(input2, /*a*/ ctx[17].attackRateMs);
+    			}
+
+    			if (dirty & /*abilities*/ 1) {
+    				input3.checked = /*a*/ ctx[17].projectile;
+    			}
+
+    			let previous_block_index_1 = current_block_type_index_1;
+    			current_block_type_index_1 = select_block_type_2(ctx);
+
+    			if (current_block_type_index_1 === previous_block_index_1) {
+    				if_blocks_1[current_block_type_index_1].p(ctx, dirty);
+    			} else {
+    				group_outros();
+
+    				transition_out(if_blocks_1[previous_block_index_1], 1, 1, () => {
+    					if_blocks_1[previous_block_index_1] = null;
+    				});
+
+    				check_outros();
+    				if_block1 = if_blocks_1[current_block_type_index_1];
+
+    				if (!if_block1) {
+    					if_block1 = if_blocks_1[current_block_type_index_1] = if_block_creators_1[current_block_type_index_1](ctx);
+    					if_block1.c();
+    				}
+
+    				transition_in(if_block1, 1);
+    				if_block1.m(tr, t8);
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(icon.$$.fragment, local);
+    			transition_in(if_block0);
+    			transition_in(fieldartpicker.$$.fragment, local);
+    			transition_in(if_block1);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(icon.$$.fragment, local);
+    			transition_out(if_block0);
+    			transition_out(fieldartpicker.$$.fragment, local);
+    			transition_out(if_block1);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(tr);
+    			destroy_component(icon);
+    			if_blocks[current_block_type_index].d();
+    			destroy_component(fieldartpicker);
+    			if_blocks_1[current_block_type_index_1].d();
+    			mounted = false;
+    			run_all(dispose);
     		}
     	};
 
@@ -23871,7 +24248,7 @@ var app = (function () {
     		block,
     		id: create_each_block$5.name,
     		type: "each",
-    		source: "(5:1) {#each abilities as a, i}",
+    		source: "(28:5) {#each abilities as a, i}",
     		ctx
     	});
 
@@ -23879,19 +24256,52 @@ var app = (function () {
     }
 
     function create_fragment$k(ctx) {
-    	let div1;
+    	let div3;
     	let label;
     	let t0;
-    	let t1;
+    	let div1;
     	let div0;
+    	let table;
+    	let thead;
+    	let tr;
+    	let th0;
+    	let t1;
+    	let t2;
+    	let th1;
+    	let t4;
+    	let th2;
+    	let t6;
+    	let th3;
+    	let t8;
+    	let th4;
+    	let t10;
+    	let th5;
+    	let t12;
+    	let th6;
+    	let t14;
+    	let th7;
+    	let t16;
+    	let th8;
+    	let t18;
+    	let tbody;
+    	let t19;
+    	let div2;
     	let button;
     	let icon;
-    	let t2;
+    	let t20;
     	let current;
     	let mounted;
     	let dispose;
-    	const default_slot_template = /*$$slots*/ ctx[2].default;
-    	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[10], null);
+    	const default_slot_template = /*$$slots*/ ctx[5].default;
+    	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[16], null);
+
+    	function select_block_type(ctx, dirty) {
+    		if (/*requireKeybinds*/ ctx[1]) return create_if_block_2$5;
+    		return create_else_block_2;
+    	}
+
+    	let current_block_type = select_block_type(ctx);
+    	let if_block = current_block_type(ctx);
     	let each_value = /*abilities*/ ctx[0];
     	validate_each_argument(each_value);
     	let each_blocks = [];
@@ -23911,64 +24321,162 @@ var app = (function () {
 
     	const block = {
     		c: function create() {
-    			div1 = element("div");
+    			div3 = element("div");
     			label = element("label");
     			if (default_slot) default_slot.c();
     			t0 = space();
+    			div1 = element("div");
+    			div0 = element("div");
+    			table = element("table");
+    			thead = element("thead");
+    			tr = element("tr");
+    			th0 = element("th");
+    			t1 = space();
+    			if_block.c();
+    			t2 = space();
+    			th1 = element("th");
+    			th1.textContent = "Name";
+    			t4 = space();
+    			th2 = element("th");
+    			th2.textContent = "Graphic";
+    			t6 = space();
+    			th3 = element("th");
+    			th3.textContent = "Damage per hit";
+    			t8 = space();
+    			th4 = element("th");
+    			th4.textContent = "Attack rate (MS)";
+    			t10 = space();
+    			th5 = element("th");
+    			th5.textContent = "Projectile?";
+    			t12 = space();
+    			th6 = element("th");
+    			th6.textContent = "Projectile Graphic";
+    			t14 = space();
+    			th7 = element("th");
+    			th7.textContent = "Projectile Velocity";
+    			t16 = space();
+    			th8 = element("th");
+    			th8.textContent = "Projectile Gravity Multiplier";
+    			t18 = space();
+    			tbody = element("tbody");
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
 
-    			t1 = space();
-    			div0 = element("div");
+    			t19 = space();
+    			div2 = element("div");
     			button = element("button");
     			create_component(icon.$$.fragment);
-    			t2 = text("\r\n\t\t\tAdd ability");
+    			t20 = text("\r\n\t\t\tAdd ability");
     			add_location(label, file$i, 1, 1, 27);
+    			attr_dev(th0, "class", "svelte-t9dc04");
+    			add_location(th0, file$i, 9, 6, 177);
+    			attr_dev(th1, "class", "svelte-t9dc04");
+    			add_location(th1, file$i, 15, 6, 292);
+    			attr_dev(th2, "class", "svelte-t9dc04");
+    			add_location(th2, file$i, 16, 6, 313);
+    			attr_dev(th3, "class", "svelte-t9dc04");
+    			add_location(th3, file$i, 17, 6, 337);
+    			attr_dev(th4, "class", "svelte-t9dc04");
+    			add_location(th4, file$i, 18, 6, 368);
+    			attr_dev(th5, "class", "svelte-t9dc04");
+    			add_location(th5, file$i, 19, 6, 401);
+    			attr_dev(th6, "class", "svelte-t9dc04");
+    			add_location(th6, file$i, 20, 6, 429);
+    			attr_dev(th7, "class", "svelte-t9dc04");
+    			add_location(th7, file$i, 21, 6, 464);
+    			attr_dev(th8, "class", "svelte-t9dc04");
+    			add_location(th8, file$i, 22, 6, 500);
+    			add_location(tr, file$i, 8, 5, 165);
+    			add_location(thead, file$i, 7, 4, 151);
+    			add_location(tbody, file$i, 26, 4, 572);
+    			attr_dev(table, "class", "table svelte-t9dc04");
+    			add_location(table, file$i, 6, 3, 124);
+    			attr_dev(div0, "class", "card-body");
+    			add_location(div0, file$i, 5, 2, 96);
+    			attr_dev(div1, "class", "card bg-light mb-2");
+    			add_location(div1, file$i, 4, 1, 60);
     			attr_dev(button, "class", "btn btn-success btn-sm");
-    			add_location(button, file$i, 22, 2, 1109);
-    			add_location(div0, file$i, 21, 1, 1100);
-    			attr_dev(div1, "class", "form-group");
-    			add_location(div1, file$i, 0, 0, 0);
+    			attr_dev(button, "type", "button");
+    			add_location(button, file$i, 79, 2, 2252);
+    			add_location(div2, file$i, 78, 1, 2243);
+    			attr_dev(div3, "class", "form-group");
+    			add_location(div3, file$i, 0, 0, 0);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div1, anchor);
-    			append_dev(div1, label);
+    			insert_dev(target, div3, anchor);
+    			append_dev(div3, label);
 
     			if (default_slot) {
     				default_slot.m(label, null);
     			}
 
-    			append_dev(div1, t0);
+    			append_dev(div3, t0);
+    			append_dev(div3, div1);
+    			append_dev(div1, div0);
+    			append_dev(div0, table);
+    			append_dev(table, thead);
+    			append_dev(thead, tr);
+    			append_dev(tr, th0);
+    			append_dev(tr, t1);
+    			if_block.m(tr, null);
+    			append_dev(tr, t2);
+    			append_dev(tr, th1);
+    			append_dev(tr, t4);
+    			append_dev(tr, th2);
+    			append_dev(tr, t6);
+    			append_dev(tr, th3);
+    			append_dev(tr, t8);
+    			append_dev(tr, th4);
+    			append_dev(tr, t10);
+    			append_dev(tr, th5);
+    			append_dev(tr, t12);
+    			append_dev(tr, th6);
+    			append_dev(tr, t14);
+    			append_dev(tr, th7);
+    			append_dev(tr, t16);
+    			append_dev(tr, th8);
+    			append_dev(table, t18);
+    			append_dev(table, tbody);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
-    				each_blocks[i].m(div1, null);
+    				each_blocks[i].m(tbody, null);
     			}
 
-    			append_dev(div1, t1);
-    			append_dev(div1, div0);
-    			append_dev(div0, button);
+    			append_dev(div3, t19);
+    			append_dev(div3, div2);
+    			append_dev(div2, button);
     			mount_component(icon, button, null);
-    			append_dev(button, t2);
+    			append_dev(button, t20);
     			current = true;
 
     			if (!mounted) {
-    				dispose = listen_dev(button, "click", /*addAbility*/ ctx[1], false, false, false);
+    				dispose = listen_dev(button, "click", /*addAbility*/ ctx[3], false, false, false);
     				mounted = true;
     			}
     		},
     		p: function update(ctx, [dirty]) {
     			if (default_slot) {
-    				if (default_slot.p && dirty & /*$$scope*/ 1024) {
-    					update_slot(default_slot, default_slot_template, ctx, /*$$scope*/ ctx[10], dirty, null, null);
+    				if (default_slot.p && dirty & /*$$scope*/ 65536) {
+    					update_slot(default_slot, default_slot_template, ctx, /*$$scope*/ ctx[16], dirty, null, null);
     				}
     			}
 
-    			if (dirty & /*abilities*/ 1) {
+    			if (current_block_type !== (current_block_type = select_block_type(ctx))) {
+    				if_block.d(1);
+    				if_block = current_block_type(ctx);
+
+    				if (if_block) {
+    					if_block.c();
+    					if_block.m(tr, t2);
+    				}
+    			}
+
+    			if (dirty & /*abilities, availableKeys, option, requireKeybinds, removeAbility, removeIcon*/ 1048599) {
     				each_value = /*abilities*/ ctx[0];
     				validate_each_argument(each_value);
     				let i;
@@ -23983,7 +24491,7 @@ var app = (function () {
     						each_blocks[i] = create_each_block$5(child_ctx);
     						each_blocks[i].c();
     						transition_in(each_blocks[i], 1);
-    						each_blocks[i].m(div1, t1);
+    						each_blocks[i].m(tbody, null);
     					}
     				}
 
@@ -24019,8 +24527,9 @@ var app = (function () {
     			current = false;
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div1);
+    			if (detaching) detach_dev(div3);
     			if (default_slot) default_slot.d(detaching);
+    			if_block.d();
     			destroy_each(each_blocks, detaching);
     			destroy_component(icon);
     			mounted = false;
@@ -24041,10 +24550,13 @@ var app = (function () {
 
     function createDefaultAbility() {
     	return {
-    		ranged: false,
+    		name: "",
+    		key: "R",
+    		projectile: false,
+    		range: 400,
     		damage: 50,
-    		projectileVelocityX: 500,
-    		projectileVelocityY: 0,
+    		attackRateMs: 500,
+    		projectileVelocity: 500,
     		projectileGravityMultiplier: 0.1,
     		graphics: { character: null, projectile: null }
     	}; // TODO: settings for emitters or other cool stuff Phaser can do?
@@ -24052,12 +24564,19 @@ var app = (function () {
 
     function instance$k($$self, $$props, $$invalidate) {
     	let { abilities = [] } = $$props;
+    	let { requireKeybinds = true } = $$props; // whether to show key bind field
+    	const availableKeys = ["Q", "W", "E", "R"];
 
     	function addAbility() {
     		$$invalidate(0, abilities = abilities.concat(createDefaultAbility()));
     	}
 
-    	const writable_props = ["abilities"];
+    	function removeAbility(i) {
+    		abilities.splice(i, 1);
+    		$$invalidate(0, abilities);
+    	}
+
+    	const writable_props = ["abilities", "requireKeybinds"];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<FieldAbilities> was created with unknown prop '${key}'`);
@@ -24065,60 +24584,79 @@ var app = (function () {
 
     	let { $$slots = {}, $$scope } = $$props;
     	validate_slots("FieldAbilities", $$slots, ['default']);
+    	const click_handler = i => removeAbility(i);
 
-    	function fieldnumber_value_binding(value, a) {
-    		a.damage = value;
+    	function inputselect_value_binding(value, a) {
+    		a.key = value;
     		$$invalidate(0, abilities);
     	}
 
-    	function fieldcheckbox_checked_binding(value, a) {
-    		a.ranged = value;
+    	function input_input_handler(each_value, i) {
+    		each_value[i].range = to_number(this.value);
     		$$invalidate(0, abilities);
     	}
 
-    	function fieldnumber0_value_binding(value, a) {
-    		a.projectileVelocityX = value;
+    	function input0_input_handler(each_value, i) {
+    		each_value[i].name = this.value;
     		$$invalidate(0, abilities);
     	}
 
-    	function fieldnumber1_value_binding(value, a) {
-    		a.projectileVelocityY = value;
+    	function fieldartpicker_value_binding(value, a) {
+    		a.graphics.character = value;
     		$$invalidate(0, abilities);
     	}
 
-    	function fieldnumber2_value_binding(value, a) {
-    		a.projectileGravityMultiplier = value;
+    	function input1_input_handler(each_value, i) {
+    		each_value[i].damage = to_number(this.value);
     		$$invalidate(0, abilities);
     	}
 
-    	function fieldartpicker0_value_binding(value, a) {
+    	function input2_input_handler(each_value, i) {
+    		each_value[i].attackRateMs = to_number(this.value);
+    		$$invalidate(0, abilities);
+    	}
+
+    	function input3_change_handler(each_value, i) {
+    		each_value[i].projectile = this.checked;
+    		$$invalidate(0, abilities);
+    	}
+
+    	function fieldartpicker_value_binding_1(value, a) {
     		a.graphics.projectile = value;
     		$$invalidate(0, abilities);
     	}
 
-    	function fieldartpicker1_value_binding(value, a) {
-    		a.graphics.character = value;
+    	function input_input_handler_1(each_value, i) {
+    		each_value[i].projectileVelocity = to_number(this.value);
     		$$invalidate(0, abilities);
     	}
 
     	$$self.$$set = $$props => {
     		if ("abilities" in $$props) $$invalidate(0, abilities = $$props.abilities);
-    		if ("$$scope" in $$props) $$invalidate(10, $$scope = $$props.$$scope);
+    		if ("requireKeybinds" in $$props) $$invalidate(1, requireKeybinds = $$props.requireKeybinds);
+    		if ("$$scope" in $$props) $$invalidate(16, $$scope = $$props.$$scope);
     	};
 
     	$$self.$capture_state = () => ({
+    		plusIcon: addIcon,
+    		removeIcon: deleteIcon,
+    		FieldArtPicker,
     		FieldCheckbox,
     		FieldNumber,
-    		FieldArtPicker,
+    		FieldText,
     		Icon,
-    		plusIcon: addIcon,
+    		InputSelect,
     		abilities,
+    		requireKeybinds,
+    		availableKeys,
     		addAbility,
+    		removeAbility,
     		createDefaultAbility
     	});
 
     	$$self.$inject_state = $$props => {
     		if ("abilities" in $$props) $$invalidate(0, abilities = $$props.abilities);
+    		if ("requireKeybinds" in $$props) $$invalidate(1, requireKeybinds = $$props.requireKeybinds);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -24127,15 +24665,21 @@ var app = (function () {
 
     	return [
     		abilities,
+    		requireKeybinds,
+    		availableKeys,
     		addAbility,
+    		removeAbility,
     		$$slots,
-    		fieldnumber_value_binding,
-    		fieldcheckbox_checked_binding,
-    		fieldnumber0_value_binding,
-    		fieldnumber1_value_binding,
-    		fieldnumber2_value_binding,
-    		fieldartpicker0_value_binding,
-    		fieldartpicker1_value_binding,
+    		click_handler,
+    		inputselect_value_binding,
+    		input_input_handler,
+    		input0_input_handler,
+    		fieldartpicker_value_binding,
+    		input1_input_handler,
+    		input2_input_handler,
+    		input3_change_handler,
+    		fieldartpicker_value_binding_1,
+    		input_input_handler_1,
     		$$scope
     	];
     }
@@ -24143,7 +24687,7 @@ var app = (function () {
     class FieldAbilities extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$k, create_fragment$k, safe_not_equal, { abilities: 0 });
+    		init(this, options, instance$k, create_fragment$k, safe_not_equal, { abilities: 0, requireKeybinds: 1 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
@@ -24160,11 +24704,18 @@ var app = (function () {
     	set abilities(value) {
     		throw new Error("<FieldAbilities>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
+
+    	get requireKeybinds() {
+    		throw new Error("<FieldAbilities>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set requireKeybinds(value) {
+    		throw new Error("<FieldAbilities>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
     }
 
     /* src\components\InputPngData.svelte generated by Svelte v3.24.1 */
 
-    const { console: console_1$4 } = globals;
     const file$j = "src\\components\\InputPngData.svelte";
 
     // (2:0) {#if value != null}
@@ -24277,7 +24828,6 @@ var app = (function () {
 
     	function onPaste(e) {
     		const items = (e.clipboardData || e.originalEvent.clipboardData).items;
-    		console.log("onpaste", JSON.stringify(items)); // will give you the mime types
 
     		for (let index in items) {
     			const item = items[index];
@@ -24287,14 +24837,11 @@ var app = (function () {
     				const reader = new FileReader();
 
     				reader.onload = function (event) {
-    					console.log("onload", event.target.result);
     					$$invalidate(0, value = event.target.result);
     				};
 
     				// data url!
     				// callback(blob)
-    				console.log("blob", blob);
-
     				reader.readAsDataURL(blob);
     			}
     		}
@@ -24303,7 +24850,7 @@ var app = (function () {
     	const writable_props = ["value"];
 
     	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console_1$4.warn(`<InputPngData> was created with unknown prop '${key}'`);
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<InputPngData> was created with unknown prop '${key}'`);
     	});
 
     	let { $$slots = {}, $$scope } = $$props;
@@ -24804,8 +25351,8 @@ var app = (function () {
     	return block;
     }
 
-    // (14:2) <FieldNumber name="gravityMultiplier" min={0} max={2} step={0.1} bind:value={input.gravityMultiplier}>
-    function create_default_slot_6$2(ctx) {
+    // (14:2) <FieldNumber name="gravityMultiplier" min={0} max={2} step={0.01} bind:value={input.gravityMultiplier}>
+    function create_default_slot_6$1(ctx) {
     	let t;
 
     	const block = {
@@ -24822,9 +25369,9 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_6$2.name,
+    		id: create_default_slot_6$1.name,
     		type: "slot",
-    		source: "(14:2) <FieldNumber name=\\\"gravityMultiplier\\\" min={0} max={2} step={0.1} bind:value={input.gravityMultiplier}>",
+    		source: "(14:2) <FieldNumber name=\\\"gravityMultiplier\\\" min={0} max={2} step={0.01} bind:value={input.gravityMultiplier}>",
     		ctx
     	});
 
@@ -24832,7 +25379,7 @@ var app = (function () {
     }
 
     // (15:2) <FieldNumber name="maxHealth" bind:value={input.maxHealth}>
-    function create_default_slot_5$2(ctx) {
+    function create_default_slot_5$1(ctx) {
     	let t;
 
     	const block = {
@@ -24849,7 +25396,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_5$2.name,
+    		id: create_default_slot_5$1.name,
     		type: "slot",
     		source: "(15:2) <FieldNumber name=\\\"maxHealth\\\" bind:value={input.maxHealth}>",
     		ctx
@@ -24859,7 +25406,7 @@ var app = (function () {
     }
 
     // (17:2) <FieldCheckbox name="canFly" bind:checked={input.canFly}>
-    function create_default_slot_4$3(ctx) {
+    function create_default_slot_4$2(ctx) {
     	let t;
 
     	const block = {
@@ -24876,7 +25423,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_4$3.name,
+    		id: create_default_slot_4$2.name,
     		type: "slot",
     		source: "(17:2) <FieldCheckbox name=\\\"canFly\\\" bind:checked={input.canFly}>",
     		ctx
@@ -24886,7 +25433,7 @@ var app = (function () {
     }
 
     // (18:2) <FieldCheckbox name="canDoubleJump" bind:checked={input.canDoubleJump}>
-    function create_default_slot_3$3(ctx) {
+    function create_default_slot_3$2(ctx) {
     	let t;
 
     	const block = {
@@ -24903,7 +25450,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_3$3.name,
+    		id: create_default_slot_3$2.name,
     		type: "slot",
     		source: "(18:2) <FieldCheckbox name=\\\"canDoubleJump\\\" bind:checked={input.canDoubleJump}>",
     		ctx
@@ -24913,7 +25460,7 @@ var app = (function () {
     }
 
     // (20:2) <FieldAbilities name="abilities" bind:abilities={input.abilities}>
-    function create_default_slot_2$3(ctx) {
+    function create_default_slot_2$2(ctx) {
     	let t;
 
     	const block = {
@@ -24930,7 +25477,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_2$3.name,
+    		id: create_default_slot_2$2.name,
     		type: "slot",
     		source: "(20:2) <FieldAbilities name=\\\"abilities\\\" bind:abilities={input.abilities}>",
     		ctx
@@ -24940,7 +25487,7 @@ var app = (function () {
     }
 
     // (2:1) <Form on:submit={save} {hasChanges}>
-    function create_default_slot_1$3(ctx) {
+    function create_default_slot_1$2(ctx) {
     	let t0;
     	let fieldtext;
     	let updating_value;
@@ -25082,8 +25629,8 @@ var app = (function () {
     		name: "gravityMultiplier",
     		min: 0,
     		max: 2,
-    		step: 0.1,
-    		$$slots: { default: [create_default_slot_6$2] },
+    		step: 0.01,
+    		$$slots: { default: [create_default_slot_6$1] },
     		$$scope: { ctx }
     	};
 
@@ -25104,7 +25651,7 @@ var app = (function () {
 
     	let fieldnumber3_props = {
     		name: "maxHealth",
-    		$$slots: { default: [create_default_slot_5$2] },
+    		$$slots: { default: [create_default_slot_5$1] },
     		$$scope: { ctx }
     	};
 
@@ -25125,7 +25672,7 @@ var app = (function () {
 
     	let fieldcheckbox0_props = {
     		name: "canFly",
-    		$$slots: { default: [create_default_slot_4$3] },
+    		$$slots: { default: [create_default_slot_4$2] },
     		$$scope: { ctx }
     	};
 
@@ -25146,7 +25693,7 @@ var app = (function () {
 
     	let fieldcheckbox1_props = {
     		name: "canDoubleJump",
-    		$$slots: { default: [create_default_slot_3$3] },
+    		$$slots: { default: [create_default_slot_3$2] },
     		$$scope: { ctx }
     	};
 
@@ -25167,7 +25714,7 @@ var app = (function () {
 
     	let fieldabilities_props = {
     		name: "abilities",
-    		$$slots: { default: [create_default_slot_2$3] },
+    		$$slots: { default: [create_default_slot_2$2] },
     		$$scope: { ctx }
     	};
 
@@ -25413,7 +25960,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_1$3.name,
+    		id: create_default_slot_1$2.name,
     		type: "slot",
     		source: "(2:1) <Form on:submit={save} {hasChanges}>",
     		ctx
@@ -25431,7 +25978,7 @@ var app = (function () {
     			props: {
     				hasChanges: /*hasChanges*/ ctx[2],
     				$$slots: {
-    					default: [create_default_slot_1$3],
+    					default: [create_default_slot_1$2],
     					buttons: [create_buttons_slot$1]
     				},
     				$$scope: { ctx }
@@ -25778,7 +26325,7 @@ var app = (function () {
     const file$m = "src\\pages\\Build\\EnemyBuilder.svelte";
 
     // (14:2) <FieldText name="name" bind:value={input.name}>
-    function create_default_slot_10$1(ctx) {
+    function create_default_slot_11$1(ctx) {
     	let t;
 
     	const block = {
@@ -25795,7 +26342,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_10$1.name,
+    		id: create_default_slot_11$1.name,
     		type: "slot",
     		source: "(14:2) <FieldText name=\\\"name\\\" bind:value={input.name}>",
     		ctx
@@ -25805,7 +26352,7 @@ var app = (function () {
     }
 
     // (16:2) <FieldArtPicker bind:value={input.graphics.still}>
-    function create_default_slot_9$2(ctx) {
+    function create_default_slot_10$1(ctx) {
     	let t;
 
     	const block = {
@@ -25822,7 +26369,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_9$2.name,
+    		id: create_default_slot_10$1.name,
     		type: "slot",
     		source: "(16:2) <FieldArtPicker bind:value={input.graphics.still}>",
     		ctx
@@ -25832,7 +26379,7 @@ var app = (function () {
     }
 
     // (17:2) <FieldArtPicker bind:value={input.graphics.moving}>
-    function create_default_slot_8$2(ctx) {
+    function create_default_slot_9$2(ctx) {
     	let t;
 
     	const block = {
@@ -25849,7 +26396,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_8$2.name,
+    		id: create_default_slot_9$2.name,
     		type: "slot",
     		source: "(17:2) <FieldArtPicker bind:value={input.graphics.moving}>",
     		ctx
@@ -25859,7 +26406,7 @@ var app = (function () {
     }
 
     // (18:2) <FieldNumber name="maxVelocity" min={0} bind:value={input.maxVelocity}>
-    function create_default_slot_7$2(ctx) {
+    function create_default_slot_8$2(ctx) {
     	let t;
 
     	const block = {
@@ -25876,7 +26423,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_7$2.name,
+    		id: create_default_slot_8$2.name,
     		type: "slot",
     		source: "(18:2) <FieldNumber name=\\\"maxVelocity\\\" min={0} bind:value={input.maxVelocity}>",
     		ctx
@@ -25886,7 +26433,7 @@ var app = (function () {
     }
 
     // (19:2) <FieldNumber name="jumpVelocity" min={0} bind:value={input.jumpVelocity}>
-    function create_default_slot_6$3(ctx) {
+    function create_default_slot_7$2(ctx) {
     	let t;
 
     	const block = {
@@ -25903,7 +26450,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_6$3.name,
+    		id: create_default_slot_7$2.name,
     		type: "slot",
     		source: "(19:2) <FieldNumber name=\\\"jumpVelocity\\\" min={0} bind:value={input.jumpVelocity}>",
     		ctx
@@ -25912,8 +26459,8 @@ var app = (function () {
     	return block;
     }
 
-    // (20:2) <FieldNumber name="gravityMultiplier" min={0} max={2} step={0.1} bind:value={input.gravityMultiplier}>
-    function create_default_slot_5$3(ctx) {
+    // (20:2) <FieldNumber name="gravityMultiplier" min={0} max={2} step={0.01} bind:value={input.gravityMultiplier}>
+    function create_default_slot_6$2(ctx) {
     	let t;
 
     	const block = {
@@ -25930,9 +26477,9 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_5$3.name,
+    		id: create_default_slot_6$2.name,
     		type: "slot",
-    		source: "(20:2) <FieldNumber name=\\\"gravityMultiplier\\\" min={0} max={2} step={0.1} bind:value={input.gravityMultiplier}>",
+    		source: "(20:2) <FieldNumber name=\\\"gravityMultiplier\\\" min={0} max={2} step={0.01} bind:value={input.gravityMultiplier}>",
     		ctx
     	});
 
@@ -25940,7 +26487,7 @@ var app = (function () {
     }
 
     // (21:2) <FieldNumber name="maxHealth" bind:value={input.maxHealth}>
-    function create_default_slot_4$4(ctx) {
+    function create_default_slot_5$2(ctx) {
     	let t;
 
     	const block = {
@@ -25957,7 +26504,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_4$4.name,
+    		id: create_default_slot_5$2.name,
     		type: "slot",
     		source: "(21:2) <FieldNumber name=\\\"maxHealth\\\" bind:value={input.maxHealth}>",
     		ctx
@@ -25967,7 +26514,7 @@ var app = (function () {
     }
 
     // (22:2) <FieldNumber name="score" bind:value={input.score}>
-    function create_default_slot_3$4(ctx) {
+    function create_default_slot_4$3(ctx) {
     	let t;
 
     	const block = {
@@ -25984,7 +26531,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_3$4.name,
+    		id: create_default_slot_4$3.name,
     		type: "slot",
     		source: "(22:2) <FieldNumber name=\\\"score\\\" bind:value={input.score}>",
     		ctx
@@ -25994,7 +26541,7 @@ var app = (function () {
     }
 
     // (23:2) <FieldCheckbox name="canFly" bind:checked={input.canFly}>
-    function create_default_slot_2$4(ctx) {
+    function create_default_slot_3$3(ctx) {
     	let t;
 
     	const block = {
@@ -26011,7 +26558,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_2$4.name,
+    		id: create_default_slot_3$3.name,
     		type: "slot",
     		source: "(23:2) <FieldCheckbox name=\\\"canFly\\\" bind:checked={input.canFly}>",
     		ctx
@@ -26020,7 +26567,34 @@ var app = (function () {
     	return block;
     }
 
-    // (25:3) {#if !isAdding}
+    // (24:2) <FieldAbilities name="abilities" bind:abilities={input.abilities} requireKeybinds={false}>
+    function create_default_slot_2$3(ctx) {
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			t = text("Abilities");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, t, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(t);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot_2$3.name,
+    		type: "slot",
+    		source: "(24:2) <FieldAbilities name=\\\"abilities\\\" bind:abilities={input.abilities} requireKeybinds={false}>",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (26:3) {#if !isAdding}
     function create_if_block$d(ctx) {
     	let button;
     	let mounted;
@@ -26032,13 +26606,13 @@ var app = (function () {
     			button.textContent = "Delete";
     			attr_dev(button, "type", "button");
     			attr_dev(button, "class", "btn btn-danger");
-    			add_location(button, file$m, 25, 4, 1252);
+    			add_location(button, file$m, 26, 4, 1373);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
 
     			if (!mounted) {
-    				dispose = listen_dev(button, "click", /*click_handler*/ ctx[16], false, false, false);
+    				dispose = listen_dev(button, "click", /*click_handler*/ ctx[17], false, false, false);
     				mounted = true;
     			}
     		},
@@ -26054,14 +26628,14 @@ var app = (function () {
     		block,
     		id: create_if_block$d.name,
     		type: "if",
-    		source: "(25:3) {#if !isAdding}",
+    		source: "(26:3) {#if !isAdding}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (24:2) <span slot="buttons">
+    // (25:2) <span slot="buttons">
     function create_buttons_slot$2(ctx) {
     	let span;
     	let if_block = !/*isAdding*/ ctx[1] && create_if_block$d(ctx);
@@ -26071,7 +26645,7 @@ var app = (function () {
     			span = element("span");
     			if (if_block) if_block.c();
     			attr_dev(span, "slot", "buttons");
-    			add_location(span, file$m, 23, 2, 1205);
+    			add_location(span, file$m, 24, 2, 1326);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -26101,7 +26675,7 @@ var app = (function () {
     		block,
     		id: create_buttons_slot$2.name,
     		type: "slot",
-    		source: "(24:2) <span slot=\\\"buttons\\\">",
+    		source: "(25:2) <span slot=\\\"buttons\\\">",
     		ctx
     	});
 
@@ -26109,7 +26683,7 @@ var app = (function () {
     }
 
     // (13:1) <Form on:submit={save} {hasChanges}>
-    function create_default_slot_1$4(ctx) {
+    function create_default_slot_1$3(ctx) {
     	let fieldtext;
     	let updating_value;
     	let t0;
@@ -26137,6 +26711,9 @@ var app = (function () {
     	let fieldcheckbox;
     	let updating_checked;
     	let t8;
+    	let fieldabilities;
+    	let updating_abilities;
+    	let t9;
     	let current;
 
     	function fieldtext_value_binding(value) {
@@ -26145,7 +26722,7 @@ var app = (function () {
 
     	let fieldtext_props = {
     		name: "name",
-    		$$slots: { default: [create_default_slot_10$1] },
+    		$$slots: { default: [create_default_slot_11$1] },
     		$$scope: { ctx }
     	};
 
@@ -26161,7 +26738,7 @@ var app = (function () {
     	}
 
     	let fieldartpicker0_props = {
-    		$$slots: { default: [create_default_slot_9$2] },
+    		$$slots: { default: [create_default_slot_10$1] },
     		$$scope: { ctx }
     	};
 
@@ -26181,7 +26758,7 @@ var app = (function () {
     	}
 
     	let fieldartpicker1_props = {
-    		$$slots: { default: [create_default_slot_8$2] },
+    		$$slots: { default: [create_default_slot_9$2] },
     		$$scope: { ctx }
     	};
 
@@ -26203,7 +26780,7 @@ var app = (function () {
     	let fieldnumber0_props = {
     		name: "maxVelocity",
     		min: 0,
-    		$$slots: { default: [create_default_slot_7$2] },
+    		$$slots: { default: [create_default_slot_8$2] },
     		$$scope: { ctx }
     	};
 
@@ -26225,7 +26802,7 @@ var app = (function () {
     	let fieldnumber1_props = {
     		name: "jumpVelocity",
     		min: 0,
-    		$$slots: { default: [create_default_slot_6$3] },
+    		$$slots: { default: [create_default_slot_7$2] },
     		$$scope: { ctx }
     	};
 
@@ -26248,8 +26825,8 @@ var app = (function () {
     		name: "gravityMultiplier",
     		min: 0,
     		max: 2,
-    		step: 0.1,
-    		$$slots: { default: [create_default_slot_5$3] },
+    		step: 0.01,
+    		$$slots: { default: [create_default_slot_6$2] },
     		$$scope: { ctx }
     	};
 
@@ -26270,7 +26847,7 @@ var app = (function () {
 
     	let fieldnumber3_props = {
     		name: "maxHealth",
-    		$$slots: { default: [create_default_slot_4$4] },
+    		$$slots: { default: [create_default_slot_5$2] },
     		$$scope: { ctx }
     	};
 
@@ -26291,7 +26868,7 @@ var app = (function () {
 
     	let fieldnumber4_props = {
     		name: "score",
-    		$$slots: { default: [create_default_slot_3$4] },
+    		$$slots: { default: [create_default_slot_4$3] },
     		$$scope: { ctx }
     	};
 
@@ -26312,7 +26889,7 @@ var app = (function () {
 
     	let fieldcheckbox_props = {
     		name: "canFly",
-    		$$slots: { default: [create_default_slot_2$4] },
+    		$$slots: { default: [create_default_slot_3$3] },
     		$$scope: { ctx }
     	};
 
@@ -26326,6 +26903,28 @@ var app = (function () {
     		});
 
     	binding_callbacks.push(() => bind(fieldcheckbox, "checked", fieldcheckbox_checked_binding));
+
+    	function fieldabilities_abilities_binding(value) {
+    		/*fieldabilities_abilities_binding*/ ctx[16].call(null, value);
+    	}
+
+    	let fieldabilities_props = {
+    		name: "abilities",
+    		requireKeybinds: false,
+    		$$slots: { default: [create_default_slot_2$3] },
+    		$$scope: { ctx }
+    	};
+
+    	if (/*input*/ ctx[0].abilities !== void 0) {
+    		fieldabilities_props.abilities = /*input*/ ctx[0].abilities;
+    	}
+
+    	fieldabilities = new FieldAbilities({
+    			props: fieldabilities_props,
+    			$$inline: true
+    		});
+
+    	binding_callbacks.push(() => bind(fieldabilities, "abilities", fieldabilities_abilities_binding));
 
     	const block = {
     		c: function create() {
@@ -26347,6 +26946,8 @@ var app = (function () {
     			t7 = space();
     			create_component(fieldcheckbox.$$.fragment);
     			t8 = space();
+    			create_component(fieldabilities.$$.fragment);
+    			t9 = space();
     		},
     		m: function mount(target, anchor) {
     			mount_component(fieldtext, target, anchor);
@@ -26367,12 +26968,14 @@ var app = (function () {
     			insert_dev(target, t7, anchor);
     			mount_component(fieldcheckbox, target, anchor);
     			insert_dev(target, t8, anchor);
+    			mount_component(fieldabilities, target, anchor);
+    			insert_dev(target, t9, anchor);
     			current = true;
     		},
     		p: function update(ctx, dirty) {
     			const fieldtext_changes = {};
 
-    			if (dirty & /*$$scope*/ 1048576) {
+    			if (dirty & /*$$scope*/ 2097152) {
     				fieldtext_changes.$$scope = { dirty, ctx };
     			}
 
@@ -26385,7 +26988,7 @@ var app = (function () {
     			fieldtext.$set(fieldtext_changes);
     			const fieldartpicker0_changes = {};
 
-    			if (dirty & /*$$scope*/ 1048576) {
+    			if (dirty & /*$$scope*/ 2097152) {
     				fieldartpicker0_changes.$$scope = { dirty, ctx };
     			}
 
@@ -26398,7 +27001,7 @@ var app = (function () {
     			fieldartpicker0.$set(fieldartpicker0_changes);
     			const fieldartpicker1_changes = {};
 
-    			if (dirty & /*$$scope*/ 1048576) {
+    			if (dirty & /*$$scope*/ 2097152) {
     				fieldartpicker1_changes.$$scope = { dirty, ctx };
     			}
 
@@ -26411,7 +27014,7 @@ var app = (function () {
     			fieldartpicker1.$set(fieldartpicker1_changes);
     			const fieldnumber0_changes = {};
 
-    			if (dirty & /*$$scope*/ 1048576) {
+    			if (dirty & /*$$scope*/ 2097152) {
     				fieldnumber0_changes.$$scope = { dirty, ctx };
     			}
 
@@ -26424,7 +27027,7 @@ var app = (function () {
     			fieldnumber0.$set(fieldnumber0_changes);
     			const fieldnumber1_changes = {};
 
-    			if (dirty & /*$$scope*/ 1048576) {
+    			if (dirty & /*$$scope*/ 2097152) {
     				fieldnumber1_changes.$$scope = { dirty, ctx };
     			}
 
@@ -26437,7 +27040,7 @@ var app = (function () {
     			fieldnumber1.$set(fieldnumber1_changes);
     			const fieldnumber2_changes = {};
 
-    			if (dirty & /*$$scope*/ 1048576) {
+    			if (dirty & /*$$scope*/ 2097152) {
     				fieldnumber2_changes.$$scope = { dirty, ctx };
     			}
 
@@ -26450,7 +27053,7 @@ var app = (function () {
     			fieldnumber2.$set(fieldnumber2_changes);
     			const fieldnumber3_changes = {};
 
-    			if (dirty & /*$$scope*/ 1048576) {
+    			if (dirty & /*$$scope*/ 2097152) {
     				fieldnumber3_changes.$$scope = { dirty, ctx };
     			}
 
@@ -26463,7 +27066,7 @@ var app = (function () {
     			fieldnumber3.$set(fieldnumber3_changes);
     			const fieldnumber4_changes = {};
 
-    			if (dirty & /*$$scope*/ 1048576) {
+    			if (dirty & /*$$scope*/ 2097152) {
     				fieldnumber4_changes.$$scope = { dirty, ctx };
     			}
 
@@ -26476,7 +27079,7 @@ var app = (function () {
     			fieldnumber4.$set(fieldnumber4_changes);
     			const fieldcheckbox_changes = {};
 
-    			if (dirty & /*$$scope*/ 1048576) {
+    			if (dirty & /*$$scope*/ 2097152) {
     				fieldcheckbox_changes.$$scope = { dirty, ctx };
     			}
 
@@ -26487,6 +27090,19 @@ var app = (function () {
     			}
 
     			fieldcheckbox.$set(fieldcheckbox_changes);
+    			const fieldabilities_changes = {};
+
+    			if (dirty & /*$$scope*/ 2097152) {
+    				fieldabilities_changes.$$scope = { dirty, ctx };
+    			}
+
+    			if (!updating_abilities && dirty & /*input*/ 1) {
+    				updating_abilities = true;
+    				fieldabilities_changes.abilities = /*input*/ ctx[0].abilities;
+    				add_flush_callback(() => updating_abilities = false);
+    			}
+
+    			fieldabilities.$set(fieldabilities_changes);
     		},
     		i: function intro(local) {
     			if (current) return;
@@ -26499,6 +27115,7 @@ var app = (function () {
     			transition_in(fieldnumber3.$$.fragment, local);
     			transition_in(fieldnumber4.$$.fragment, local);
     			transition_in(fieldcheckbox.$$.fragment, local);
+    			transition_in(fieldabilities.$$.fragment, local);
     			current = true;
     		},
     		o: function outro(local) {
@@ -26511,6 +27128,7 @@ var app = (function () {
     			transition_out(fieldnumber3.$$.fragment, local);
     			transition_out(fieldnumber4.$$.fragment, local);
     			transition_out(fieldcheckbox.$$.fragment, local);
+    			transition_out(fieldabilities.$$.fragment, local);
     			current = false;
     		},
     		d: function destroy(detaching) {
@@ -26532,12 +27150,14 @@ var app = (function () {
     			if (detaching) detach_dev(t7);
     			destroy_component(fieldcheckbox, detaching);
     			if (detaching) detach_dev(t8);
+    			destroy_component(fieldabilities, detaching);
+    			if (detaching) detach_dev(t9);
     		}
     	};
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_1$4.name,
+    		id: create_default_slot_1$3.name,
     		type: "slot",
     		source: "(13:1) <Form on:submit={save} {hasChanges}>",
     		ctx
@@ -26555,7 +27175,7 @@ var app = (function () {
     			props: {
     				hasChanges: /*hasChanges*/ ctx[2],
     				$$slots: {
-    					default: [create_default_slot_1$4],
+    					default: [create_default_slot_1$3],
     					buttons: [create_buttons_slot$2]
     				},
     				$$scope: { ctx }
@@ -26577,7 +27197,7 @@ var app = (function () {
     			const form_changes = {};
     			if (dirty & /*hasChanges*/ 4) form_changes.hasChanges = /*hasChanges*/ ctx[2];
 
-    			if (dirty & /*$$scope, input, isAdding*/ 1048579) {
+    			if (dirty & /*$$scope, input, isAdding*/ 2097155) {
     				form_changes.$$scope = { dirty, ctx };
     			}
 
@@ -26639,7 +27259,7 @@ var app = (function () {
     			if (dirty & /*input*/ 1) buildlayout_changes.activeName = /*input*/ ctx[0].name;
     			if (dirty & /*$project*/ 8) buildlayout_changes.store = /*$project*/ ctx[3].enemies;
 
-    			if (dirty & /*$$scope, hasChanges, input, isAdding*/ 1048583) {
+    			if (dirty & /*$$scope, hasChanges, input, isAdding*/ 2097159) {
     				buildlayout_changes.$$scope = { dirty, ctx };
     			}
 
@@ -26675,10 +27295,11 @@ var app = (function () {
     		graphics: { still: null, moving: null },
     		name: "",
     		maxHealth: 100,
-    		maxVelocity: 5,
-    		jumpVelocity: 10,
+    		maxVelocity: 200,
+    		jumpVelocity: 500,
     		gravityMultiplier: 1,
-    		score: 1
+    		score: 1,
+    		abilities: []
     	};
     }
 
@@ -26774,6 +27395,11 @@ var app = (function () {
     		$$invalidate(0, input);
     	}
 
+    	function fieldabilities_abilities_binding(value) {
+    		input.abilities = value;
+    		$$invalidate(0, input);
+    	}
+
     	const click_handler = () => del(input.name);
 
     	$$self.$$set = $$props => {
@@ -26790,6 +27416,7 @@ var app = (function () {
     		Form,
     		project,
     		validator,
+    		FieldAbilities,
     		params,
     		input,
     		save,
@@ -26806,7 +27433,7 @@ var app = (function () {
     	$$self.$inject_state = $$props => {
     		if ("params" in $$props) $$invalidate(6, params = $$props.params);
     		if ("input" in $$props) $$invalidate(0, input = $$props.input);
-    		if ("paramName" in $$props) $$invalidate(17, paramName = $$props.paramName);
+    		if ("paramName" in $$props) $$invalidate(18, paramName = $$props.paramName);
     		if ("isAdding" in $$props) $$invalidate(1, isAdding = $$props.isAdding);
     		if ("hasChanges" in $$props) $$invalidate(2, hasChanges = $$props.hasChanges);
     	};
@@ -26821,14 +27448,14 @@ var app = (function () {
 
     	$$self.$$.update = () => {
     		if ($$self.$$.dirty & /*params*/ 64) {
-    			 $$invalidate(17, paramName = decodeURIComponent(params.name) || "new");
+    			 $$invalidate(18, paramName = decodeURIComponent(params.name) || "new");
     		}
 
-    		if ($$self.$$.dirty & /*paramName*/ 131072) {
+    		if ($$self.$$.dirty & /*paramName*/ 262144) {
     			 paramName == "new" ? create() : edit(paramName);
     		}
 
-    		if ($$self.$$.dirty & /*paramName*/ 131072) {
+    		if ($$self.$$.dirty & /*paramName*/ 262144) {
     			 $$invalidate(1, isAdding = paramName == "new");
     		}
 
@@ -26854,6 +27481,7 @@ var app = (function () {
     		fieldnumber3_value_binding,
     		fieldnumber4_value_binding,
     		fieldcheckbox_checked_binding,
+    		fieldabilities_abilities_binding,
     		click_handler
     	];
     }
@@ -27499,8 +28127,6 @@ var app = (function () {
     	return block;
     }
 
-    const artScale$1 = 1;
-
     function instance$r($$self, $$props, $$invalidate) {
     	let $project;
     	validate_store(project, "project");
@@ -27518,28 +28144,35 @@ var app = (function () {
     	function drawOnCanvas(artName, x, y) {
     		let art = $project.art[artName];
     		let src = art.png;
-    		let drawing = imageCache[artName];
+    		let image = imageCache[artName];
 
     		const drawThisImage = () => {
     			const draw = () => {
-    				context.drawImage(drawing, x, height - y - art.height * artScale$1, drawing.width * artScale$1, drawing.height * artScale$1);
+    				const dx = x;
+    				const dy = height - y - art.height;
+
+    				// if animated, only draw first frame
+    				const dw = art.animated ? art.frameWidth : art.width;
+
+    				const dh = art.height;
+    				context.drawImage(image, 0, 0, dw, dh, dx, dy, dw, dh);
     			};
 
     			if (playing) setTimeout(draw, 100); else draw();
     		};
 
-    		if (drawing == null) {
-    			drawing = new Image();
-    			drawing.src = src;
-    			imageCache[artName] = drawing;
+    		if (image == null) {
+    			image = new Image();
+    			image.src = src;
+    			imageCache[artName] = image;
     		}
 
-    		if (drawing.complete) {
+    		if (image.complete) {
     			drawThisImage();
     		} else {
-    			const oldOnload = drawing.onload;
+    			const oldOnload = image.onload;
 
-    			drawing.onload = () => {
+    			image.onload = () => {
     				if (typeof oldOnload === "function") oldOnload();
     				drawThisImage();
     			};
@@ -27578,7 +28211,6 @@ var app = (function () {
     		blocks,
     		enemies,
     		playing,
-    		artScale: artScale$1,
     		dispatch,
     		imageCache,
     		canvas,
@@ -27887,7 +28519,7 @@ var app = (function () {
     const file$r = "src\\components\\BuildDrawingTool.svelte";
 
     // (5:3) <InputSelect      name="selected-block"      inline      placeholder="Place a block"      options={Object.keys($project.blocks).map(name => $project.blocks[name])}      let:option      valueProp="name"      bind:value={selectedBlock}      on:change={() => (selectedEnemy = null)}>
-    function create_default_slot_1$5(ctx) {
+    function create_default_slot_1$4(ctx) {
     	let art;
     	let t0;
     	let t1_value = /*option*/ ctx[34].name + "";
@@ -27975,7 +28607,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_1$5.name,
+    		id: create_default_slot_1$4.name,
     		type: "slot",
     		source: "(5:3) <InputSelect      name=\\\"selected-block\\\"      inline      placeholder=\\\"Place a block\\\"      options={Object.keys($project.blocks).map(name => $project.blocks[name])}      let:option      valueProp=\\\"name\\\"      bind:value={selectedBlock}      on:change={() => (selectedEnemy = null)}>",
     		ctx
@@ -28136,7 +28768,7 @@ var app = (function () {
     		valueProp: "name",
     		$$slots: {
     			default: [
-    				create_default_slot_1$5,
+    				create_default_slot_1$4,
     				({ option }) => ({ 34: option }),
     				({ option }) => [0, option ? 8 : 0]
     			]
@@ -28754,7 +29386,7 @@ var app = (function () {
     }
 
     // (5:3) <FieldText name="name" bind:value={input.name}>
-    function create_default_slot_3$5(ctx) {
+    function create_default_slot_3$4(ctx) {
     	let t;
 
     	const block = {
@@ -28771,7 +29403,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_3$5.name,
+    		id: create_default_slot_3$4.name,
     		type: "slot",
     		source: "(5:3) <FieldText name=\\\"name\\\" bind:value={input.name}>",
     		ctx
@@ -28781,7 +29413,7 @@ var app = (function () {
     }
 
     // (6:3) <FieldCharacterPicker name="playableCharacters" bind:value={input.playableCharacters}>
-    function create_default_slot_2$5(ctx) {
+    function create_default_slot_2$4(ctx) {
     	let t;
 
     	const block = {
@@ -28798,7 +29430,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_2$5.name,
+    		id: create_default_slot_2$4.name,
     		type: "slot",
     		source: "(6:3) <FieldCharacterPicker name=\\\"playableCharacters\\\" bind:value={input.playableCharacters}>",
     		ctx
@@ -28808,7 +29440,7 @@ var app = (function () {
     }
 
     // (15:4) {#if !isAdding}
-    function create_if_block_1$8(ctx) {
+    function create_if_block_1$9(ctx) {
     	let button;
     	let mounted;
     	let dispose;
@@ -28839,7 +29471,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_1$8.name,
+    		id: create_if_block_1$9.name,
     		type: "if",
     		source: "(15:4) {#if !isAdding}",
     		ctx
@@ -28851,7 +29483,7 @@ var app = (function () {
     // (14:3) <span slot="buttons">
     function create_buttons_slot$3(ctx) {
     	let span;
-    	let if_block = !/*isAdding*/ ctx[1] && create_if_block_1$8(ctx);
+    	let if_block = !/*isAdding*/ ctx[1] && create_if_block_1$9(ctx);
 
     	const block = {
     		c: function create() {
@@ -28869,7 +29501,7 @@ var app = (function () {
     				if (if_block) {
     					if_block.p(ctx, dirty);
     				} else {
-    					if_block = create_if_block_1$8(ctx);
+    					if_block = create_if_block_1$9(ctx);
     					if_block.c();
     					if_block.m(span, null);
     				}
@@ -28896,7 +29528,7 @@ var app = (function () {
     }
 
     // (4:2) <Form on:submit={save} {hasChanges}>
-    function create_default_slot_1$6(ctx) {
+    function create_default_slot_1$5(ctx) {
     	let fieldtext;
     	let updating_value;
     	let t0;
@@ -28922,7 +29554,7 @@ var app = (function () {
 
     	let fieldtext_props = {
     		name: "name",
-    		$$slots: { default: [create_default_slot_3$5] },
+    		$$slots: { default: [create_default_slot_3$4] },
     		$$scope: { ctx }
     	};
 
@@ -28939,7 +29571,7 @@ var app = (function () {
 
     	let fieldcharacterpicker_props = {
     		name: "playableCharacters",
-    		$$slots: { default: [create_default_slot_2$5] },
+    		$$slots: { default: [create_default_slot_2$4] },
     		$$scope: { ctx }
     	};
 
@@ -29124,7 +29756,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_1$6.name,
+    		id: create_default_slot_1$5.name,
     		type: "slot",
     		source: "(4:2) <Form on:submit={save} {hasChanges}>",
     		ctx
@@ -29142,7 +29774,7 @@ var app = (function () {
     			props: {
     				hasChanges: /*hasChanges*/ ctx[2],
     				$$slots: {
-    					default: [create_default_slot_1$6],
+    					default: [create_default_slot_1$5],
     					buttons: [create_buttons_slot$3]
     				},
     				$$scope: { ctx }
@@ -29697,6 +30329,7 @@ var app = (function () {
     		this.height = 12;
 
     		this.draw();
+    		this.bar.alpha = 0.5;
 
     		scene.add.existing(this.bar);
     	}
@@ -29728,8 +30361,8 @@ var app = (function () {
     		this.bar.y = sprite.body.y - sprite.body.halfHeight; // - 160 // not sure why the 150 is necessary here....
     	}
 
-    	remove() {
-    		this.bar.clear();
+    	destroy() {
+    		this.bar.destroy();
     	}
     }
 
@@ -29745,20 +30378,35 @@ var app = (function () {
     		this.name = template.name;
     		this.hp = new HealthBar(scene, 0, 0, template.maxHealth, template.maxHealth);
     		this.alive = true;
-    		// this.setCollideWorldBounds(true)
+
+    		// sort abilities by range
+    		this.abilities = JSON.parse(JSON.stringify(template.abilities)).sort((a, b) => a.range - b.range);
+
+    		this.graphics = {};
+    		Object.keys(template.graphics).forEach(key => {
+    			this.graphics[key] = template.graphics[key] || template.graphics.still;
+    		});
+
+    		// set size initially and don't change it regardless of graphic (might change later)
+    		this.body.width = template.graphics.still.animated ? template.graphics.still.frameWidth : template.graphics.still.width;
+    		this.body.height = template.graphics.still.height;
     	}
 
     	preUpdate(time, delta) {
     		super.preUpdate(time, delta);
     		this.hp.moveTo(this);
-
     		if (this.body.y > 1000) this.damage(this.template.maxHealth);
     	}
 
-    	setGraphic(key) {
-    		const art = this.template.graphics[key] || this.template.graphics.still;
-    		if (art.animated) this.anims.play(this.getAnimationKey(art.name), true);
-    		else this.setTexture(art.name);
+    	setGraphic(art) {
+    		if (art == null) art = this.graphics.still;
+    		if (this.activeGraphic != null && this.activeGraphic.name == art.name) return
+    		if (art.animated) {
+    			this.anims.play(this.getAnimationKey(art.name), true);
+    		} else {
+    			this.setTexture(art.name);
+    		}
+    		this.activeGraphic = art;
     	}
 
     	getAnimationKey(key) {
@@ -29768,54 +30416,130 @@ var app = (function () {
     	damage(amount) {
     		this.alive = this.hp.adjust(amount);
     	}
+
+    	accelerate(ax) {
+    		let vx = this.body.velocity.x + ax;
+
+    		if (vx > this.template.maxVelocity) vx = this.template.maxVelocity;
+    		else if (vx < -this.template.maxVelocity) vx = -this.template.maxVelocity;
+
+    		this.setVelocityX(vx);
+    		this.flipX = vx < 0;
+    	}
+    }
+
+    class Projectile extends Phaser.Physics.Arcade.Sprite {
+    	constructor(scene, x, y, texture, velocity, target) {
+    		super(scene, x, y, texture);
+
+    		// TODO: consider reusing stuff somehow rather than creating/destroying ad-hoc
+    		scene.add.existing(this);
+    		scene.physics.add.existing(this);
+
+    		scene.physics.moveToObject(this, target, velocity);
+    		var angle = Phaser.Math.RAD_TO_DEG * Phaser.Math.Angle.Between(this.x, this.y, target.x, target.y);
+    		this.setAngle(angle);
+
+    		// this.setVelocityX(vx)
+    		// this.flipX = vx < 0
+    		// this.setVelocityY(vy)
+
+    		// TODO: get gravity multiplier working
+    		this.body.setAllowGravity(false);
+    		// this.setGravityY(1000)
+    		// this.setGravityY(0) //gravity * ability.projectileGravityMultiplier)
+    	}
+
+    	preUpdate() {
+    		// remove if it goes off screen
+    		if (!Phaser.Geom.Rectangle.Overlaps(this.scene.physics.world.bounds, this.getBounds())) {
+    			this.destroy();
+    		}
+    	}
     }
 
     class Enemy extends LivingSprite {
-    	constructor(scene, x, y, texture, template, player, leashRange = 400) {
+    	constructor(scene, x, y, texture, template, player, leashRange = 600) {
     		super(scene, x, y, texture, template);
+
     		this.target = player;
     		this.leashRange = leashRange;
-    		this.moving = false;
+    		this.isMovingGraphic = false;
+    		this.depth = 1;
     	}
 
     	preUpdate(time, delta) {
     		super.preUpdate(time, delta);
 
-    		// move toward player if within leashRange
-    		if (Math.abs(this.target.x - this.x) < this.leashRange) {
-    			if (Math.abs(this.target.x - this.x) < 2) this.setVelocityX(0);
-    			else if (this.target.x < this.x) {
-    				this.setVelocityX(-this.template.maxVelocity);
-    				this.flipX = true;
-    			} else {
-    				this.setVelocityX(this.template.maxVelocity);
-    				this.flipX = false;
-    			}
+    		if (!this.alive) return
+    		this.setDirection();
 
-    			if ((this.body.touching.down || this.template.canFly) && this.target.y < this.y - this.height) {
-    				this.setVelocityY(-this.template.jumpVelocity);
-    			}
-
-    			if (!this.moving) {
-    				this.setGraphic('moving');
-    				this.moving = true;
-    			}
-    		} else {
+    		const distanceFromTarget = Phaser.Math.Distance.Between(this.x, this.y, this.target.x, this.target.y);
+    		const ability = this.abilities.find(a => a.range > distanceFromTarget && (a.nextFire == null || a.nextFire <= time));
+    		if (ability != null) {
+    			// if any are off cooldown, fire them
+    			// fire and set a timer for when they can use ability again
+    			this.doAbility(ability, this.target);
+    			this.setGraphic(ability.graphics.character);
+    			ability.nextFire = time + ability.attackRateMs;
     			this.setVelocityX(0);
-    			if (this.moving) {
-    				this.setGraphic('still');
-    				this.moving = false;
+    		} else if (distanceFromTarget < this.leashRange) {
+    			// if any closer range abilities are off cooldown, move toward them
+    			const closerRangeAbilities = this.abilities.filter(
+    				a => a.projectile == false || (a.range < distanceFromTarget && (a.nextFire == null || a.nextFire <= time))
+    			);
+    			if (closerRangeAbilities.length > 0) {
+    				this.moveTowardTarget();
     			}
     		}
     	}
 
     	damage(amount) {
     		super.damage(amount);
-
     		if (!this.alive) {
-    			this.disableBody(true, true);
-    			this.hp.remove();
+    			this.disableBody(true, false);
+    			this.hp.destroy();
+    			// TODO: fade out and eventually destroy
+    			this.alpha = 0.25;
+    			// this.destroy()
     		}
+    	}
+
+    	doAbility(ability) {
+    		if (ability.projectile) {
+    			const projectile = new Projectile(this.scene, this.x, this.y, ability.graphics.projectile.name, ability.projectileVelocity, this.target);
+    			this.scene.physics.add.overlap(projectile, this.target, () => {
+    				this.target.damage(ability.damage);
+    				projectile.destroy();
+    			});
+    		} else {
+    			this.target.damage(ability.damage);
+    		}
+    	}
+
+    	setDirection() {
+    		if (this.target.x > this.x) {
+    			this.flipX = false;
+    		} else {
+    			this.flipX = true;
+    		}
+    	}
+
+    	moveTowardTarget() {
+    		if (Math.abs(this.target.x - this.x) < 5) {
+    			this.setVelocityX(0);
+    		} else if (this.target.x < this.x) {
+    			this.setVelocityX(-this.template.maxVelocity);
+    		} else {
+    			this.setVelocityX(this.template.maxVelocity);
+    		}
+
+    		if ((this.body.touching.down || this.template.canFly) && this.target.y < this.y - this.height) {
+    			this.setVelocityY(-this.template.jumpVelocity);
+    		}
+
+    		const isMoving = this.body.velocity.x != 0 || this.body.velocity.y != 0;
+    		this.setGraphic(isMoving ? this.graphics.moving : this.graphics.still);
     	}
     }
 
@@ -29834,8 +30558,8 @@ var app = (function () {
     	let p;
 
     	function select_block_type(ctx, dirty) {
-    		if (/*won*/ ctx[2]) return create_if_block_1$9;
-    		return create_else_block$5;
+    		if (/*won*/ ctx[2]) return create_if_block_1$a;
+    		return create_else_block$6;
     	}
 
     	let current_block_type = select_block_type(ctx);
@@ -29907,7 +30631,7 @@ var app = (function () {
     }
 
     // (5:2) {:else}
-    function create_else_block$5(ctx) {
+    function create_else_block$6(ctx) {
     	let h1;
     	let t0_value = /*player*/ ctx[1].name + "";
     	let t0;
@@ -29936,7 +30660,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_else_block$5.name,
+    		id: create_else_block$6.name,
     		type: "else",
     		source: "(5:2) {:else}",
     		ctx
@@ -29946,7 +30670,7 @@ var app = (function () {
     }
 
     // (3:2) {#if won}
-    function create_if_block_1$9(ctx) {
+    function create_if_block_1$a(ctx) {
     	let h1;
     	let t0;
     	let t1_value = /*player*/ ctx[1].name + "";
@@ -29986,7 +30710,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_1$9.name,
+    		id: create_if_block_1$a.name,
     		type: "if",
     		source: "(3:2) {#if won}",
     		ctx
@@ -30411,15 +31135,33 @@ var app = (function () {
     }
 
     class Player extends LivingSprite {
-    	constructor(scene, x, y, texture, template, inputs) {
+    	constructor(scene, x, y, texture, template, keys, enemies) {
     		super(scene, x, y, texture, template);
 
-    		this.inputs = inputs;
+    		this.keys = keys;
 
-    		// TODO: let me jump through bottom of blocks?
+    		// let me jump through bottom of blocks Sonic-style
+    		this.body.checkCollision.up = false;
 
-    		// TODO: ditch when abilities are in place
-    		this.spinning = false;
+    		// show above enemies
+    		this.depth = 2;
+
+    		// abilities
+    		// this felt clunkier than just checking keyDown in frames
+    		// this.abilityKeys = ['Q', 'W', 'E', 'R']
+    		// this.abilityKeys.forEach(k => {
+    		// 	const key = this.keys[k]
+    		// 	key.on('down', event => {
+    		// 		console.log(k, 'pressed')
+    		// 		const ability = this.abilities.find(a => a.key === k && (a.nextFire == null || a.nextFire < scene.time.now))
+    		// 		if (ability != null) {
+    		// 			console.log('firing', ability.name, scene.time.now)
+    		// 			this.doAbility(ability, { x: this.body.velocity.x < 0 ? -10000 : 10000, y: this.y - 100 })
+    		// 			this.setGraphic(ability.graphics.character)
+    		// 			ability.nextFire = scene.time.now + ability.attackRateMs
+    		// 		}
+    		// 	})
+    		// })
     	}
 
     	preUpdate(time, delta) {
@@ -30427,209 +31169,59 @@ var app = (function () {
 
     		// jumping
     		if (this.body.touching.down || this.template.canFly) {
-    			if (Phaser.Input.Keyboard.JustDown(this.inputs.spacebarKey)) this.setVelocityY(-this.template.jumpVelocity);
+    			if (Phaser.Input.Keyboard.JustDown(this.keys.SPACE)) this.setVelocityY(-this.template.jumpVelocity);
     		}
 
-    		// moving left
-    		if (this.inputs.cursors.left.isDown && !this.inputs.cursors.right.isDown) {
-    			const newVelocity =
-    				this.body.touching.down || this.template.canFly
-    					? -this.template.maxVelocity
-    					: Math.max(this.body.velocity.x - this.template.maxVelocity / 15, -this.template.maxVelocity);
-    			this.setVelocityX(newVelocity);
-    			this.flipX = true;
-    			this.setGraphic(this.spinning ? 'spinning' : 'moving');
-    		} else if (this.inputs.cursors.right.isDown && !this.inputs.cursors.isDown) {
-    			// moving right
-    			const newVelocity =
-    				this.body.touching.down || this.template.canFly
-    					? this.template.maxVelocity
-    					: Math.min(this.body.velocity.x + this.template.maxVelocity / 15, this.template.maxVelocity);
-
-    			this.setVelocityX(newVelocity);
-    			this.flipX = false;
-    			this.setGraphic(this.spinning ? 'spinning' : 'moving');
+    		// moving left or right
+    		const ax = this.body.touching.down || this.canFly ? this.template.maxVelocity / 10 : this.template.maxVelocity / 30;
+    		if (this.keys.cursors.left.isDown && !this.keys.cursors.right.isDown) {
+    			this.accelerate(-ax);
+    		} else if (this.keys.cursors.right.isDown && !this.keys.cursors.isDown) {
+    			this.accelerate(ax);
     		} else if (this.body.touching.down) {
     			// stop if touching ground
     			this.setVelocityX(0);
-    			this.setGraphic(this.spinning ? 'spinning' : 'still');
     		}
 
-    		// r key to spin
-    		if (Phaser.Input.Keyboard.JustDown(this.inputs.rKey) && this.template.canSpin) {
-    			this.spinning = true;
-    		} else if (Phaser.Input.Keyboard.JustUp(this.inputs.rKey)) {
-    			this.spinning = false;
-    		}
+    		this.setGraphic(this.body.velocity.x != 0 ? this.graphics.moving : this.graphics.still);
 
-    		if (this.spinning) {
-    			this.setAngularVelocity(1080 * (this.body.velocity.x < 0 ? -1 : 1));
-    		} else {
-    			// rotate player based on y velocity
-    			this.setAngularVelocity(0);
-    			this.setRotation((this.body.velocity.y / 1800) * (this.body.velocity.x < 0 ? -1 : 1));
-    		}
-    	}
-    }
-
-    /* src\components\Status.svelte generated by Svelte v3.24.1 */
-
-    const file$w = "src\\components\\Status.svelte";
-
-    function create_fragment$z(ctx) {
-    	let div;
-    	let p0;
-    	let t0;
-    	let t1_value = /*level*/ ctx[0].name + "";
-    	let t1;
-    	let t2;
-    	let p1;
-    	let t3;
-    	let t4;
-    	let t5;
-    	let p2;
-    	let t6;
-    	let t7;
-
-    	const block = {
-    		c: function create() {
-    			div = element("div");
-    			p0 = element("p");
-    			t0 = text("Level: ");
-    			t1 = text(t1_value);
-    			t2 = space();
-    			p1 = element("p");
-    			t3 = text("Score: ");
-    			t4 = text(/*score*/ ctx[1]);
-    			t5 = space();
-    			p2 = element("p");
-    			t6 = text("Enemies left: ");
-    			t7 = text(/*enemyCount*/ ctx[2]);
-    			attr_dev(p0, "class", "svelte-1ivfn85");
-    			add_location(p0, file$w, 1, 1, 8);
-    			attr_dev(p1, "class", "svelte-1ivfn85");
-    			add_location(p1, file$w, 2, 1, 37);
-    			attr_dev(p2, "class", "svelte-1ivfn85");
-    			add_location(p2, file$w, 3, 1, 61);
-    			attr_dev(div, "class", "svelte-1ivfn85");
-    			add_location(div, file$w, 0, 0, 0);
-    		},
-    		l: function claim(nodes) {
-    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
-    		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, div, anchor);
-    			append_dev(div, p0);
-    			append_dev(p0, t0);
-    			append_dev(p0, t1);
-    			append_dev(div, t2);
-    			append_dev(div, p1);
-    			append_dev(p1, t3);
-    			append_dev(p1, t4);
-    			append_dev(div, t5);
-    			append_dev(div, p2);
-    			append_dev(p2, t6);
-    			append_dev(p2, t7);
-    		},
-    		p: function update(ctx, [dirty]) {
-    			if (dirty & /*level*/ 1 && t1_value !== (t1_value = /*level*/ ctx[0].name + "")) set_data_dev(t1, t1_value);
-    			if (dirty & /*score*/ 2) set_data_dev(t4, /*score*/ ctx[1]);
-    			if (dirty & /*enemyCount*/ 4) set_data_dev(t7, /*enemyCount*/ ctx[2]);
-    		},
-    		i: noop,
-    		o: noop,
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_fragment$z.name,
-    		type: "component",
-    		source: "",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    function instance$z($$self, $$props, $$invalidate) {
-    	let { level = {} } = $$props;
-    	let { score = 0 } = $$props;
-    	let { enemyCount = 0 } = $$props;
-    	const writable_props = ["level", "score", "enemyCount"];
-
-    	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<Status> was created with unknown prop '${key}'`);
-    	});
-
-    	let { $$slots = {}, $$scope } = $$props;
-    	validate_slots("Status", $$slots, []);
-
-    	$$self.$$set = $$props => {
-    		if ("level" in $$props) $$invalidate(0, level = $$props.level);
-    		if ("score" in $$props) $$invalidate(1, score = $$props.score);
-    		if ("enemyCount" in $$props) $$invalidate(2, enemyCount = $$props.enemyCount);
-    	};
-
-    	$$self.$capture_state = () => ({ level, score, enemyCount });
-
-    	$$self.$inject_state = $$props => {
-    		if ("level" in $$props) $$invalidate(0, level = $$props.level);
-    		if ("score" in $$props) $$invalidate(1, score = $$props.score);
-    		if ("enemyCount" in $$props) $$invalidate(2, enemyCount = $$props.enemyCount);
-    	};
-
-    	if ($$props && "$$inject" in $$props) {
-    		$$self.$inject_state($$props.$$inject);
-    	}
-
-    	return [level, score, enemyCount];
-    }
-
-    class Status extends SvelteComponentDev {
-    	constructor(options) {
-    		super(options);
-    		init(this, options, instance$z, create_fragment$z, safe_not_equal, { level: 0, score: 1, enemyCount: 2 });
-
-    		dispatch_dev("SvelteRegisterComponent", {
-    			component: this,
-    			tagName: "Status",
-    			options,
-    			id: create_fragment$z.name
+    		// abilities
+    		this.abilityKeys = ['Q', 'W', 'E', 'R'];
+    		this.abilityKeys.forEach(k => {
+    			const key = this.keys[k];
+    			if (key.isDown) {
+    				const ability = this.abilities.find(a => a.key === k && (a.nextFire == null || a.nextFire < this.scene.time.now));
+    				if (ability != null) {
+    					this.doAbility(ability);
+    					this.setGraphic(ability.graphics.character);
+    					ability.nextFire = this.scene.time.now + ability.attackRateMs;
+    				}
+    			}
     		});
     	}
 
-    	get level() {
-    		throw new Error("<Status>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	doAbility(ability) {
+    		const targetCoords = { x: this.flipX ? -10000 : 10000, y: this.y - 100 };
+    		if (ability.projectile) {
+    			const projectile = new Projectile(this.scene, this.x, this.y, ability.graphics.projectile.name, ability.projectileVelocity, targetCoords);
+    			this.scene.physics.add.overlap(projectile, this.enemies, (projectile, enemy) => {
+    				enemy.damage(ability.damage);
+    				projectile.destroy();
+    			});
+    		}
     	}
 
-    	set level(value) {
-    		throw new Error("<Status>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	get score() {
-    		throw new Error("<Status>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	set score(value) {
-    		throw new Error("<Status>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	get enemyCount() {
-    		throw new Error("<Status>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	set enemyCount(value) {
-    		throw new Error("<Status>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	onEnemyOverlap(enemy) {
+    		// TODO: check for melee abilities??
+    		// enemy.damage(100 / 60)
+    		// this.damage(20 / 60)
     	}
     }
 
     /* src\components\PhaserGame.svelte generated by Svelte v3.24.1 */
 
     const { Object: Object_1$6 } = globals;
-    const file$x = "src\\components\\PhaserGame.svelte";
+    const file$w = "src\\components\\PhaserGame.svelte";
 
     // (2:1) {#if level != null && character != null}
     function create_if_block$i(ctx) {
@@ -30638,7 +31230,7 @@ var app = (function () {
     	let t;
     	let div;
     	let current;
-    	const if_block_creators = [create_if_block_1$a, create_if_block_2$5];
+    	const if_block_creators = [create_if_block_1$b, create_if_block_2$6];
     	const if_blocks = [];
 
     	function select_block_type(ctx, dirty) {
@@ -30656,7 +31248,7 @@ var app = (function () {
     			if (if_block) if_block.c();
     			t = space();
     			div = element("div");
-    			add_location(div, file$x, 7, 2, 191);
+    			add_location(div, file$w, 7, 2, 191);
     		},
     		m: function mount(target, anchor) {
     			if (~current_block_type_index) {
@@ -30734,7 +31326,7 @@ var app = (function () {
     }
 
     // (5:19) 
-    function create_if_block_2$5(ctx) {
+    function create_if_block_2$6(ctx) {
     	let paused_1;
     	let current;
     	paused_1 = new Paused({ $$inline: true });
@@ -30764,7 +31356,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_2$5.name,
+    		id: create_if_block_2$6.name,
     		type: "if",
     		source: "(5:19) ",
     		ctx
@@ -30774,7 +31366,7 @@ var app = (function () {
     }
 
     // (3:2) {#if gameOver}
-    function create_if_block_1$a(ctx) {
+    function create_if_block_1$b(ctx) {
     	let gameover;
     	let current;
 
@@ -30820,7 +31412,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_1$a.name,
+    		id: create_if_block_1$b.name,
     		type: "if",
     		source: "(3:2) {#if gameOver}",
     		ctx
@@ -30829,35 +31421,22 @@ var app = (function () {
     	return block;
     }
 
-    function create_fragment$A(ctx) {
+    function create_fragment$z(ctx) {
     	let div;
-    	let t0;
-    	let status;
-    	let t1;
+    	let t;
     	let instructions;
     	let current;
     	let if_block = /*level*/ ctx[0] != null && /*character*/ ctx[1] != null && create_if_block$i(ctx);
-
-    	status = new Status({
-    			props: {
-    				level: /*level*/ ctx[0],
-    				score: /*score*/ ctx[5]
-    			},
-    			$$inline: true
-    		});
-
     	instructions = new Instructions({ $$inline: true });
 
     	const block = {
     		c: function create() {
     			div = element("div");
     			if (if_block) if_block.c();
-    			t0 = space();
-    			create_component(status.$$.fragment);
-    			t1 = space();
+    			t = space();
     			create_component(instructions.$$.fragment);
     			attr_dev(div, "class", "game-window svelte-177m75j");
-    			add_location(div, file$x, 0, 0, 0);
+    			add_location(div, file$w, 0, 0, 0);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -30865,9 +31444,7 @@ var app = (function () {
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
     			if (if_block) if_block.m(div, null);
-    			append_dev(div, t0);
-    			mount_component(status, div, null);
-    			append_dev(div, t1);
+    			append_dev(div, t);
     			mount_component(instructions, div, null);
     			current = true;
     		},
@@ -30883,7 +31460,7 @@ var app = (function () {
     					if_block = create_if_block$i(ctx);
     					if_block.c();
     					transition_in(if_block, 1);
-    					if_block.m(div, t0);
+    					if_block.m(div, t);
     				}
     			} else if (if_block) {
     				group_outros();
@@ -30894,36 +31471,28 @@ var app = (function () {
 
     				check_outros();
     			}
-
-    			const status_changes = {};
-    			if (dirty[0] & /*level*/ 1) status_changes.level = /*level*/ ctx[0];
-    			if (dirty[0] & /*score*/ 32) status_changes.score = /*score*/ ctx[5];
-    			status.$set(status_changes);
     		},
     		i: function intro(local) {
     			if (current) return;
     			transition_in(if_block);
-    			transition_in(status.$$.fragment, local);
     			transition_in(instructions.$$.fragment, local);
     			current = true;
     		},
     		o: function outro(local) {
     			transition_out(if_block);
-    			transition_out(status.$$.fragment, local);
     			transition_out(instructions.$$.fragment, local);
     			current = false;
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(div);
     			if (if_block) if_block.d();
-    			destroy_component(status);
     			destroy_component(instructions);
     		}
     	};
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$A.name,
+    		id: create_fragment$z.name,
     		type: "component",
     		source: "",
     		ctx
@@ -30935,27 +31504,27 @@ var app = (function () {
     const leashRange = 400;
     const gravityPixelsPerSecond = 2000;
 
+    function translateX(x, width) {
+    	return x + width / 2;
+    }
+
     function onEffectBlockCollision(sprite, block) {
     	sprite.damage(block.damage);
     	if (block.throwOnTouch) sprite.setVelocityY(-1000);
     }
 
     function onPlayerEnemyOverlap(player, enemy) {
-    	if (player.spinning) {
-    		enemy.damage(100 / 60);
-    	} else {
-    		player.damage(20 / 60);
-    	}
+    	player.onEnemyOverlap(enemy);
     }
 
     function getAnimationKey(key) {
     	return `${key}.animation`;
     }
 
-    function instance$A($$self, $$props, $$invalidate) {
+    function instance$z($$self, $$props, $$invalidate) {
     	let $project;
     	validate_store(project, "project");
-    	component_subscribe($$self, project, $$value => $$invalidate(27, $project = $$value));
+    	component_subscribe($$self, project, $$value => $$invalidate(24, $project = $$value));
     	let { level = null } = $$props;
     	let { character = null } = $$props;
     	let container;
@@ -30974,15 +31543,13 @@ var app = (function () {
     	let game;
     	let preloadedData;
     	let cursors;
-    	let spacebarKey;
-    	let enterKey;
-    	let rKey;
+    	let keys = {};
     	let player;
     	let enemies;
     	let gameWidth = 1200;
-    	let gameHeight = 600;
-    	let levelWidth;
-    	let levelHeight;
+    	let viewportHeight = 600;
+    	let maxLevelX;
+    	let maxLevelY;
 
     	onMount(() => {
     		// sort blocks by x, then y
@@ -31009,8 +31576,8 @@ var app = (function () {
     			$$invalidate(6, paused = false);
     			$$invalidate(5, score = 0);
     			gameWidth = window.innerWidth;
-    			levelWidth = Math.max(...level.blocks.map(b => b.x + b.width * 2));
-    			levelHeight = Math.max(...level.blocks.map(b => b.y + b.height * 2));
+    			maxLevelX = Math.max(...level.blocks.map(b => b.x + b.width));
+    			maxLevelY = Math.max(...level.blocks.map(b => b.y + b.height));
 
     			config = {
     				type: Phaser.AUTO,
@@ -31018,13 +31585,11 @@ var app = (function () {
     				scene: { create: onCreate, update: onUpdate },
     				physics: {
     					default: "arcade",
-    					arcade: {
-    						gravity: { y: gravityPixelsPerSecond },
-    						debug: false
-    					}
+    					arcade: { gravity: { y: gravityPixelsPerSecond } }, // debug: true,
+    					
     				},
     				width: gameWidth,
-    				height: gameHeight,
+    				height: viewportHeight,
     				pixelArt: true
     			};
 
@@ -31085,6 +31650,7 @@ var app = (function () {
     	}
 
     	function onCreate() {
+    		// set bg color
     		this.cameras.main.setBackgroundColor(rgbaStringToHex(level.background));
 
     		// set up textures and sprites for all blocks, character, and enemies in level
@@ -31119,7 +31685,7 @@ var app = (function () {
     		simpleBlocks.forEach(b => {
     			const template = $project.blocks[b.name];
     			const art = $project.art[template.graphic];
-    			const block = worldSimpleBlocks.create(b.x, translateY(b.y, b.height), art.name);
+    			const block = worldSimpleBlocks.create(translateX(b.x, b.width), translateY(b.y, b.height), art.name);
     			if (art.animated) block.anims.play(getAnimationKey(art.name), true);
     		});
 
@@ -31128,7 +31694,7 @@ var app = (function () {
     		effectBlocks.forEach(b => {
     			const template = $project.blocks[b.name];
     			const art = $project.art[template.graphic];
-    			const block = worldEffectBlocks.create(b.x, translateY(b.y, b.height), art.name);
+    			const block = worldEffectBlocks.create(translateX(b.x, b.width), translateY(b.y, b.height), art.name);
     			if (art.animated) block.anims.play(getAnimationKey(art.name), true);
     			block.damage = b.damage;
     			block.throwOnTouch = b.throwOnTouch;
@@ -31139,7 +31705,7 @@ var app = (function () {
     		consumableBlocks.forEach(b => {
     			const template = $project.blocks[b.name];
     			const art = $project.art[template.graphic];
-    			const block = worldConsumableBlocks.create(b.x, translateY(b.y, b.height), art.name);
+    			const block = worldConsumableBlocks.create(translateX(b.x, b.width), translateY(b.y, b.height), art.name);
     			if (art.animated) block.anims.play(getAnimationKey(art.name), true);
     			block.damage = b.damage;
     			block.throwOnTouch = b.throwOnTouch;
@@ -31149,17 +31715,21 @@ var app = (function () {
     		});
 
     		// configure input
-    		cursors = this.input.keyboard.createCursorKeys();
+    		keys = {
+    			cursors: this.input.keyboard.createCursorKeys()
+    		};
 
-    		spacebarKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-    		enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
-    		rKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+    		const keysWeCareAbout = ["SPACE", "ENTER", "Q", "W", "E", "R"];
+
+    		keysWeCareAbout.forEach(k => {
+    			keys[k] = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes[k]);
+    		});
 
     		// add player
     		const startingY = translateY(Math.max(...blocks.filter(b => b.x == 0).map(b => b.y)), blocks[0].height) - $project.art[character.graphics.still].height;
 
     		const template = hydrateGraphics(character);
-    		$$invalidate(7, player = this.physics.add.existing(new Player(this, 0, startingY, character.graphics.still.name, template, { cursors, spacebarKey, rKey })));
+    		$$invalidate(7, player = this.physics.add.existing(new Player(this, translateX(0, template.graphics.still.width), startingY, character.graphics.still.name, template, keys)));
     		this.physics.add.collider(player, worldSimpleBlocks);
     		this.physics.add.collider(player, worldEffectBlocks, onEffectBlockCollision);
     		this.physics.add.overlap(player, worldConsumableBlocks, onConsumableBlockOverlap);
@@ -31171,23 +31741,24 @@ var app = (function () {
 
     		level.enemies.forEach(e => {
     			const template = hydrateGraphics($project.enemies[e.name]);
-    			const enemy = new Enemy(this, e.x, translateY(e.y, template.graphics.still.height), template.graphics.still.name, template, player);
+    			const enemy = new Enemy(this, translateX(e.x, template.graphics.still.width), translateY(e.y, template.graphics.still.height), template.graphics.still.name, template, player);
     			enemies.add(enemy);
     		});
 
     		this.physics.add.collider(enemies, worldSimpleBlocks);
     		this.physics.add.collider(enemies, worldEffectBlocks, onEffectBlockCollision);
     		this.physics.add.overlap(player, enemies, onPlayerEnemyOverlap);
+    		$$invalidate(7, player.enemies = enemies, player);
 
     		// camera and player bounds
-    		this.physics.world.setBounds(0, -levelHeight, levelWidth, levelHeight + gameHeight + 500);
+    		this.physics.world.setBounds(0, 0, maxLevelX, maxLevelY + viewportHeight);
 
-    		this.cameras.main.setBounds(0, -levelHeight, levelWidth, levelHeight + gameHeight);
+    		this.cameras.main.setBounds(0, -maxLevelY, maxLevelX, maxLevelY + viewportHeight);
     		this.cameras.main.startFollow(player);
     	}
 
     	function translateY(y, height) {
-    		return gameHeight - y - height / 2;
+    		return Math.max(maxLevelY, viewportHeight) - y - height / 2;
     	}
 
     	function onConsumableBlockOverlap(sprite, block) {
@@ -31195,11 +31766,12 @@ var app = (function () {
     		if (block.scoreOnConsume) $$invalidate(5, score += block.scoreOnConsume);
     		if (block.throwOnTouch) sprite.setVelocityY(-1000);
     		block.disableBody(true, true);
+    		block.destroy();
     	}
 
     	function onUpdate() {
     		// restart game
-    		if (Phaser.Input.Keyboard.JustDown(enterKey) || gameOver && Phaser.Input.Keyboard.JustDown(spacebarKey)) start();
+    		if (Phaser.Input.Keyboard.JustDown(keys.ENTER) || gameOver && Phaser.Input.Keyboard.JustDown(keys.SPACE)) start();
 
     		if (gameOver) return;
 
@@ -31212,12 +31784,27 @@ var app = (function () {
 
     	function hydrateGraphics(template) {
     		const copy = JSON.parse(JSON.stringify(template));
+    		copy.graphics = hydrateGraphicsObject(copy.graphics);
 
-    		Object.keys(template.graphics).forEach(name => {
-    			copy.graphics[name] = $project.art[template.graphics[name]];
-    		});
+    		if (copy.abilities != null) copy.abilities = copy.abilities.map(a => ({
+    			...a,
+    			graphics: hydrateGraphicsObject(a.graphics)
+    		}));
 
     		return copy;
+    	}
+
+    	function hydrateGraphicsObject(graphics) {
+    		Object.keys(graphics).forEach(name => {
+    			graphics[name] = $project.art[graphics[name]] != null
+    			? JSON.parse(JSON.stringify($project.art[graphics[name]]))
+    			: null;
+
+    			if (graphics[name] != null && graphics[name].animated) graphics[name].width = graphics[name].frameWidth;
+    			return graphics[name];
+    		});
+
+    		return graphics;
     	}
 
     	const writable_props = ["level", "character"];
@@ -31254,7 +31841,6 @@ var app = (function () {
     		Paused,
     		Player,
     		project,
-    		Status,
     		level,
     		character,
     		leashRange,
@@ -31275,20 +31861,19 @@ var app = (function () {
     		game,
     		preloadedData,
     		cursors,
-    		spacebarKey,
-    		enterKey,
-    		rKey,
+    		keys,
     		player,
     		enemies,
     		gameWidth,
-    		gameHeight,
-    		levelWidth,
-    		levelHeight,
+    		viewportHeight,
+    		maxLevelX,
+    		maxLevelY,
     		start,
     		destroyGame,
     		preload,
     		preloadArt,
     		onCreate,
+    		translateX,
     		translateY,
     		onEffectBlockCollision,
     		onConsumableBlockOverlap,
@@ -31296,6 +31881,7 @@ var app = (function () {
     		onUpdate,
     		getAnimationKey,
     		hydrateGraphics,
+    		hydrateGraphicsObject,
     		$project
     	});
 
@@ -31318,15 +31904,13 @@ var app = (function () {
     		if ("game" in $$props) game = $$props.game;
     		if ("preloadedData" in $$props) preloadedData = $$props.preloadedData;
     		if ("cursors" in $$props) cursors = $$props.cursors;
-    		if ("spacebarKey" in $$props) spacebarKey = $$props.spacebarKey;
-    		if ("enterKey" in $$props) enterKey = $$props.enterKey;
-    		if ("rKey" in $$props) rKey = $$props.rKey;
+    		if ("keys" in $$props) keys = $$props.keys;
     		if ("player" in $$props) $$invalidate(7, player = $$props.player);
     		if ("enemies" in $$props) enemies = $$props.enemies;
     		if ("gameWidth" in $$props) gameWidth = $$props.gameWidth;
-    		if ("gameHeight" in $$props) gameHeight = $$props.gameHeight;
-    		if ("levelWidth" in $$props) levelWidth = $$props.levelWidth;
-    		if ("levelHeight" in $$props) levelHeight = $$props.levelHeight;
+    		if ("viewportHeight" in $$props) viewportHeight = $$props.viewportHeight;
+    		if ("maxLevelX" in $$props) maxLevelX = $$props.maxLevelX;
+    		if ("maxLevelY" in $$props) maxLevelY = $$props.maxLevelY;
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -31349,13 +31933,13 @@ var app = (function () {
     class PhaserGame extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$A, create_fragment$A, safe_not_equal, { level: 0, character: 1 }, [-1, -1]);
+    		init(this, options, instance$z, create_fragment$z, safe_not_equal, { level: 0, character: 1 }, [-1, -1]);
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "PhaserGame",
     			options,
-    			id: create_fragment$A.name
+    			id: create_fragment$z.name
     		});
     	}
 
@@ -31379,7 +31963,7 @@ var app = (function () {
     /* src\pages\Play\Index.svelte generated by Svelte v3.24.1 */
 
     const { Object: Object_1$7 } = globals;
-    const file$y = "src\\pages\\Play\\Index.svelte";
+    const file$x = "src\\pages\\Play\\Index.svelte";
 
     function get_each_context_1$5(ctx, list, i) {
     	const child_ctx = ctx.slice();
@@ -31394,7 +31978,7 @@ var app = (function () {
     }
 
     // (9:0) {:else}
-    function create_else_block$6(ctx) {
+    function create_else_block$7(ctx) {
     	let div;
     	let current;
     	let each_value = /*sortedLevelNames*/ ctx[0];
@@ -31418,7 +32002,7 @@ var app = (function () {
     			}
 
     			attr_dev(div, "class", "list-group");
-    			add_location(div, file$y, 9, 1, 553);
+    			add_location(div, file$x, 9, 1, 558);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -31484,7 +32068,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_else_block$6.name,
+    		id: create_else_block$7.name,
     		type: "else",
     		source: "(9:0) {:else}",
     		ctx
@@ -31537,18 +32121,18 @@ var app = (function () {
     			t7 = space();
     			create_component(phasergame.$$.fragment);
     			attr_dev(button, "type", "button");
-    			attr_dev(button, "class", "btn btn-info");
-    			add_location(button, file$y, 2, 2, 48);
+    			attr_dev(button, "class", "btn btn-secondary");
+    			add_location(button, file$x, 2, 2, 48);
     			attr_dev(a0, "href", a0_href_value = "#/" + /*$project*/ ctx[1].name + "/build/levels/" + encodeURIComponent(/*levelName*/ ctx[2]));
     			attr_dev(a0, "class", "btn btn-light");
     			attr_dev(a0, "role", "button");
-    			add_location(a0, file$y, 3, 2, 157);
+    			add_location(a0, file$x, 3, 2, 162);
     			attr_dev(a1, "href", a1_href_value = "#/" + /*$project*/ ctx[1].name + "/build/characters/" + encodeURIComponent(/*characterName*/ ctx[3]));
     			attr_dev(a1, "class", "btn btn-light");
     			attr_dev(a1, "role", "button");
-    			add_location(a1, file$y, 4, 2, 290);
+    			add_location(a1, file$x, 4, 2, 295);
     			attr_dev(div, "class", "mb-2");
-    			add_location(div, file$y, 1, 1, 26);
+    			add_location(div, file$x, 1, 1, 26);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -31648,7 +32232,7 @@ var app = (function () {
     			t1 = text(t1_value);
     			t2 = space();
     			attr_dev(button, "class", "btn btn-light m-1");
-    			add_location(button, file$y, 16, 6, 940);
+    			add_location(button, file$x, 16, 6, 945);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
@@ -31739,15 +32323,15 @@ var app = (function () {
 
     			t3 = space();
     			attr_dev(h4, "class", "mb-0");
-    			add_location(h4, file$y, 12, 4, 658);
+    			add_location(h4, file$x, 12, 4, 663);
     			if (img.src !== (img_src_value = /*$project*/ ctx[1].levels[/*levelName*/ ctx[2]].thumbnail)) attr_dev(img, "src", img_src_value);
     			set_style(img, "background", /*$project*/ ctx[1].levels[/*levelName*/ ctx[2]].background);
     			attr_dev(img, "alt", "level preview");
-    			add_location(img, file$y, 13, 4, 697);
+    			add_location(img, file$x, 13, 4, 702);
     			attr_dev(div0, "class", "flex-row");
-    			add_location(div0, file$y, 14, 4, 833);
+    			add_location(div0, file$x, 14, 4, 838);
     			attr_dev(div1, "class", "list-group-item");
-    			add_location(div1, file$y, 11, 3, 623);
+    			add_location(div1, file$x, 11, 3, 628);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div1, anchor);
@@ -31839,12 +32423,12 @@ var app = (function () {
     	return block;
     }
 
-    function create_fragment$B(ctx) {
+    function create_fragment$A(ctx) {
     	let current_block_type_index;
     	let if_block;
     	let if_block_anchor;
     	let current;
-    	const if_block_creators = [create_if_block$j, create_else_block$6];
+    	const if_block_creators = [create_if_block$j, create_else_block$7];
     	const if_blocks = [];
 
     	function select_block_type(ctx, dirty) {
@@ -31910,7 +32494,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$B.name,
+    		id: create_fragment$A.name,
     		type: "component",
     		source: "",
     		ctx
@@ -31919,7 +32503,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$B($$self, $$props, $$invalidate) {
+    function instance$A($$self, $$props, $$invalidate) {
     	let $project;
     	validate_store(project, "project");
     	component_subscribe($$self, project, $$value => $$invalidate(1, $project = $$value));
@@ -31986,13 +32570,13 @@ var app = (function () {
     class Index$1 extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$B, create_fragment$B, safe_not_equal, {});
+    		init(this, options, instance$A, create_fragment$A, safe_not_equal, {});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "Index",
     			options,
-    			id: create_fragment$B.name
+    			id: create_fragment$A.name
     		});
     	}
     }
@@ -32001,7 +32585,7 @@ var app = (function () {
 
     const { Object: Object_1$8 } = globals;
 
-    const file$z = "src\\pages\\Project.svelte";
+    const file$y = "src\\pages\\Project.svelte";
 
     // (1:0) {#if $project != null}
     function create_if_block$k(ctx) {
@@ -32027,7 +32611,7 @@ var app = (function () {
     	let current;
     	let mounted;
     	let dispose;
-    	let if_block0 = show_if && create_if_block_2$6(ctx);
+    	let if_block0 = show_if && create_if_block_2$7(ctx);
 
     	icon0 = new Icon({
     			props: { data: editIcon },
@@ -32039,7 +32623,7 @@ var app = (function () {
     			$$inline: true
     		});
 
-    	let if_block1 = /*prefix*/ ctx[1] != null && create_if_block_1$b(ctx);
+    	let if_block1 = /*prefix*/ ctx[1] != null && create_if_block_1$c(ctx);
 
     	const block = {
     		c: function create() {
@@ -32062,16 +32646,16 @@ var app = (function () {
     			if_block1_anchor = empty();
     			attr_dev(a0, "class", "nav-link text-warning");
     			attr_dev(a0, "href", a0_href_value = "#/" + /*$project*/ ctx[0].name + "/build/art/new");
-    			add_location(a0, file$z, 12, 3, 309);
+    			add_location(a0, file$y, 12, 3, 309);
     			attr_dev(li0, "class", "nav-item");
-    			add_location(li0, file$z, 11, 2, 283);
+    			add_location(li0, file$y, 11, 2, 283);
     			attr_dev(a1, "class", "nav-link text-danger");
     			attr_dev(a1, "href", "#/");
-    			add_location(a1, file$z, 19, 3, 487);
+    			add_location(a1, file$y, 19, 3, 487);
     			attr_dev(li1, "class", "nav-item");
-    			add_location(li1, file$z, 18, 2, 461);
+    			add_location(li1, file$y, 18, 2, 461);
     			attr_dev(ul, "class", "nav my-1");
-    			add_location(ul, file$z, 1, 1, 25);
+    			add_location(ul, file$y, 1, 1, 25);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, ul, anchor);
@@ -32109,7 +32693,7 @@ var app = (function () {
     						transition_in(if_block0, 1);
     					}
     				} else {
-    					if_block0 = create_if_block_2$6(ctx);
+    					if_block0 = create_if_block_2$7(ctx);
     					if_block0.c();
     					transition_in(if_block0, 1);
     					if_block0.m(ul, t0);
@@ -32140,7 +32724,7 @@ var app = (function () {
     						transition_in(if_block1, 1);
     					}
     				} else {
-    					if_block1 = create_if_block_1$b(ctx);
+    					if_block1 = create_if_block_1$c(ctx);
     					if_block1.c();
     					transition_in(if_block1, 1);
     					if_block1.m(if_block1_anchor.parentNode, if_block1_anchor);
@@ -32195,7 +32779,7 @@ var app = (function () {
     }
 
     // (3:2) {#if Object.keys($project.levels).length > 0}
-    function create_if_block_2$6(ctx) {
+    function create_if_block_2$7(ctx) {
     	let li;
     	let a;
     	let icon;
@@ -32219,9 +32803,9 @@ var app = (function () {
     			t1 = text(t1_value);
     			attr_dev(a, "class", "nav-link text-success");
     			attr_dev(a, "href", a_href_value = "#/" + /*$project*/ ctx[0].name + "/play");
-    			add_location(a, file$z, 4, 4, 127);
+    			add_location(a, file$y, 4, 4, 127);
     			attr_dev(li, "class", "nav-item");
-    			add_location(li, file$z, 3, 3, 100);
+    			add_location(li, file$y, 3, 3, 100);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -32255,7 +32839,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_2$6.name,
+    		id: create_if_block_2$7.name,
     		type: "if",
     		source: "(3:2) {#if Object.keys($project.levels).length > 0}",
     		ctx
@@ -32265,7 +32849,7 @@ var app = (function () {
     }
 
     // (27:1) {#if prefix != null}
-    function create_if_block_1$b(ctx) {
+    function create_if_block_1$c(ctx) {
     	let router;
     	let current;
 
@@ -32306,7 +32890,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_1$b.name,
+    		id: create_if_block_1$c.name,
     		type: "if",
     		source: "(27:1) {#if prefix != null}",
     		ctx
@@ -32315,7 +32899,7 @@ var app = (function () {
     	return block;
     }
 
-    function create_fragment$C(ctx) {
+    function create_fragment$B(ctx) {
     	let if_block_anchor;
     	let current;
     	let if_block = /*$project*/ ctx[0] != null && create_if_block$k(ctx);
@@ -32374,7 +32958,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$C.name,
+    		id: create_fragment$B.name,
     		type: "component",
     		source: "",
     		ctx
@@ -32394,7 +32978,7 @@ var app = (function () {
     	};
     }
 
-    function instance$C($$self, $$props, $$invalidate) {
+    function instance$B($$self, $$props, $$invalidate) {
     	let $project;
     	let $projects;
     	validate_store(project, "project");
@@ -32479,13 +33063,13 @@ var app = (function () {
     class Project extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$C, create_fragment$C, safe_not_equal, { params: 4 });
+    		init(this, options, instance$B, create_fragment$B, safe_not_equal, { params: 4 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "Project",
     			options,
-    			id: create_fragment$C.name
+    			id: create_fragment$B.name
     		});
     	}
 
@@ -32499,7 +33083,7 @@ var app = (function () {
     }
 
     /* src\App.svelte generated by Svelte v3.24.1 */
-    const file$A = "src\\App.svelte";
+    const file$z = "src\\App.svelte";
 
     function get_each_context$9(ctx, list, i) {
     	const child_ctx = ctx.slice();
@@ -32525,9 +33109,9 @@ var app = (function () {
     			t = text(t_value);
     			attr_dev(a, "class", "nav-link");
     			attr_dev(a, "href", a_href_value = "#/" + encodeURIComponent(/*p*/ ctx[3].name) + "/");
-    			add_location(a, file$A, 3, 3, 80);
+    			add_location(a, file$z, 3, 3, 80);
     			attr_dev(li, "class", "nav-item");
-    			add_location(li, file$A, 2, 2, 54);
+    			add_location(li, file$z, 2, 2, 54);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -32567,7 +33151,7 @@ var app = (function () {
     	return block;
     }
 
-    function create_fragment$D(ctx) {
+    function create_fragment$C(ctx) {
     	let ul;
     	let t0;
     	let li;
@@ -32613,12 +33197,12 @@ var app = (function () {
     			create_component(router.$$.fragment);
     			attr_dev(a, "class", "nav-link");
     			attr_dev(a, "href", "#/new");
-    			add_location(a, file$A, 7, 2, 246);
+    			add_location(a, file$z, 7, 2, 246);
     			attr_dev(li, "class", "nav-item");
-    			add_location(li, file$A, 6, 1, 221);
+    			add_location(li, file$z, 6, 1, 221);
     			attr_dev(ul, "class", "nav nav-tabs");
-    			add_location(ul, file$A, 0, 0, 0);
-    			add_location(main, file$A, 14, 0, 396);
+    			add_location(ul, file$z, 0, 0, 0);
+    			add_location(main, file$z, 14, 0, 396);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -32695,7 +33279,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$D.name,
+    		id: create_fragment$C.name,
     		type: "component",
     		source: "",
     		ctx
@@ -32704,7 +33288,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$D($$self, $$props, $$invalidate) {
+    function instance$C($$self, $$props, $$invalidate) {
     	let $projects;
     	validate_store(projects, "projects");
     	component_subscribe($$self, projects, $$value => $$invalidate(0, $projects = $$value));
@@ -32743,13 +33327,13 @@ var app = (function () {
     class App extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$D, create_fragment$D, safe_not_equal, {});
+    		init(this, options, instance$C, create_fragment$C, safe_not_equal, {});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "App",
     			options,
-    			id: create_fragment$D.name
+    			id: create_fragment$C.name
     		});
     	}
     }

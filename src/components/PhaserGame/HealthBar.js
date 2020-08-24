@@ -9,6 +9,7 @@ export default class HealthBar {
 		this.height = 12
 
 		this.draw()
+		this.bar.alpha = 0.5
 
 		scene.add.existing(this.bar)
 	}
@@ -40,7 +41,7 @@ export default class HealthBar {
 		this.bar.y = sprite.body.y - sprite.body.halfHeight // - 160 // not sure why the 150 is necessary here....
 	}
 
-	remove() {
-		this.bar.clear()
+	destroy() {
+		this.bar.destroy()
 	}
 }

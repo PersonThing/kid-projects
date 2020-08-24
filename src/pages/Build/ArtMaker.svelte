@@ -277,7 +277,6 @@
 	onMount(() => redraw())
 
 	function create() {
-		console.log('create')
 		input = createDefaultInput()
 		redraw()
 	}
@@ -384,27 +383,23 @@
 
 	function onPaste(e) {
 		const items = (e.clipboardData || e.originalEvent.clipboardData).items
-		console.log('onpaste', JSON.stringify(items)) // will give you the mime types
 		for (let index in items) {
 			const item = items[index]
 			if (item.kind === 'file') {
 				const blob = item.getAsFile()
 				const reader = new FileReader()
 				reader.onload = function (event) {
-					console.log('onload', event.target.result)
 					const image = new Image()
 					image.src = event.target.result
 					image.onload = () => {
 						input.width = image.width
 						input.height = image.height
 						input.png = event.target.result
-						console.log(image.width, image.height)
 						redraw()
 					}
 				}
 				// data url!
 				// callback(blob)
-				console.log('blob', blob)
 				reader.readAsDataURL(blob)
 			}
 		}
@@ -417,7 +412,6 @@
 	function getScaledEventCoordinates(e) {
 		const x = e.offsetX + e.target.scrollLeft
 		const y = e.offsetY + e.target.scrollTop
-		console.log(x, y)
 		// debugger
 		return {
 			x: Math.floor(x / zoom),
@@ -438,7 +432,6 @@
 		// auto save
 		// todo consider making undo/redo store local storaged?
 		$autoSaveStore[input.name] = [JSON.parse(JSON.stringify(input)), ...($autoSaveStore[input.name] || []).slice(0, 10)]
-		console.log('auto saved')
 	}
 
 	function undo() {
@@ -659,7 +652,6 @@
 		pngContext.putImageData(existingFramesData, 0, 0)
 		pngContext.putImageData(frameData, input.width, 0)
 		setInputFromCanvas()
-		console.log(input.png)
 		input.width += input.frameWidth
 	}
 
@@ -702,7 +694,6 @@
 	}
 
 	function applyChangeSize() {
-		console.log('yeah yeah')
 		input.width = changeSize.width
 		input.height = changeSize.height
 	}

@@ -17,10 +17,11 @@
 		<FieldArtPicker bind:value={input.graphics.moving}>Moving graphics</FieldArtPicker>
 		<FieldNumber name="maxVelocity" min={0} bind:value={input.maxVelocity}>Max velocity</FieldNumber>
 		<FieldNumber name="jumpVelocity" min={0} bind:value={input.jumpVelocity}>Jump velocity</FieldNumber>
-		<FieldNumber name="gravityMultiplier" min={0} max={2} step={0.1} bind:value={input.gravityMultiplier}>Gravity multiplier</FieldNumber>
+		<FieldNumber name="gravityMultiplier" min={0} max={2} step={0.01} bind:value={input.gravityMultiplier}>Gravity multiplier</FieldNumber>
 		<FieldNumber name="maxHealth" bind:value={input.maxHealth}>Max health</FieldNumber>
 		<FieldNumber name="score" bind:value={input.score}>Score (How many points you get when this enemy dies)</FieldNumber>
 		<FieldCheckbox name="canFly" bind:checked={input.canFly}>Can fly?</FieldCheckbox>
+		<FieldAbilities name="abilities" bind:abilities={input.abilities} requireKeybinds={false}>Abilities</FieldAbilities>
 		<span slot="buttons">
 			{#if !isAdding}
 				<button type="button" class="btn btn-danger" on:click={() => del(input.name)}>Delete</button>
@@ -39,6 +40,7 @@
 	import Form from '../../components/Form.svelte'
 	import project from '../../stores/active-project-store'
 	import validator from '../../services/validator'
+	import FieldAbilities from '../../components/FieldAbilities.svelte'
 
 	export let params = {}
 	let input
@@ -76,10 +78,11 @@
 			},
 			name: '',
 			maxHealth: 100,
-			maxVelocity: 5,
-			jumpVelocity: 10,
+			maxVelocity: 200,
+			jumpVelocity: 500,
 			gravityMultiplier: 1,
 			score: 1,
+			abilities: [],
 		}
 	}
 
