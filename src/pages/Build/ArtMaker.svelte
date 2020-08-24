@@ -115,16 +115,14 @@
 
 	</div>
 	<div class="my-1">
-		{#if isBlockSize}
-			<div class="flex">
-				<div>
-					<label>
-						Animated
-						<input type="checkbox" bind:checked={input.animated} on:change={animatedChanged} />
-					</label>
-				</div>
+		<div class="flex">
+			<div>
+				<label>
+					Animated
+					<input type="checkbox" bind:checked={input.animated} on:change={animatedChanged} />
+				</label>
 			</div>
-		{/if}
+		</div>
 
 		<div class="preview flex">
 			{#if input.animated}
