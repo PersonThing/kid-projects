@@ -16,7 +16,7 @@ export default class HealthBar {
 	adjust(amount) {
 		this.health = Math.max(Math.min(this.maxHealth, this.health - amount), 0)
 		this.draw()
-		return this.health === 0
+		return this.health > 0
 	}
 
 	draw() {

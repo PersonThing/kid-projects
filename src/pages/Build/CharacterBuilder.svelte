@@ -12,9 +12,12 @@
 		<FieldNumber name="maxVelocity" min={0} bind:value={input.maxVelocity}>Max velocity</FieldNumber>
 		<FieldNumber name="jumpVelocity" min={0} bind:value={input.jumpVelocity}>Jump velocity</FieldNumber>
 		<FieldNumber name="gravityMultiplier" min={0} max={2} step={0.1} bind:value={input.gravityMultiplier}>Gravity multiplier</FieldNumber>
-		<FieldNumber name="fallDamageMultiplier" min={0} max={1} step={0.1} bind:value={input.fallDamageMultiplier}>Fall damage multiplier</FieldNumber>
 		<FieldNumber name="maxHealth" bind:value={input.maxHealth}>Max health</FieldNumber>
-		<FieldAbilities name="abilities" bind:input>Abilities</FieldAbilities>
+
+		<FieldCheckbox name="canFly" bind:checked={input.canFly}>Can fly?</FieldCheckbox>
+		<FieldCheckbox name="canDoubleJump" bind:checked={input.canDoubleJump}>Can double jump?</FieldCheckbox>
+
+		<FieldAbilities name="abilities" bind:abilities={input.abilities}>Abilities</FieldAbilities>
 	</Form>
 </BuildLayout>
 
@@ -70,25 +73,15 @@
 				still: null,
 				moving: null,
 				spinning: null,
-				// jumping: null,
 			},
 			name: '',
 			maxHealth: 100,
 			maxVelocity: 5,
 			jumpVelocity: 10,
 			gravityMultiplier: 1,
-			fallDamageMultiplier: 1,
-			dps: 100,
 			canFly: false,
-
-			canSpin: true,
-			spinDegreesPerFrame: 15,
-
-			canFireProjectiles: false,
-			projectileDamage: 50,
-			projectileYStart: 20,
-			projectileVelocity: 20,
-			projectileGravityMultiplier: 0.1,
+			canDoubleJump: false,
+			abilities: [],
 		}
 	}
 

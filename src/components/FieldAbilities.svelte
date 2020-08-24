@@ -1,13 +1,63 @@
-<FieldNumber name="dps" bind:value={input.dps}>DPS (when in contact with enemies - we will replace this with abilities later)</FieldNumber>
+<div class="form-group">
+	<label>
+		<slot />
+	</label>
+	{#each abilities as a, i}
+		<div class="card bg-light">
+			<div class="card-body">
+				<FieldNumber name="ability-damage-{i}" bind:value={a.damage}>Damage</FieldNumber>
+				<FieldCheckbox name="ability-ranged-{i}" bind:checked={a.ranged}>Ranged?</FieldCheckbox>
+				{#if a.ranged}
+					<FieldNumber name="ability-projectile-velocity-x-{i}" bind:value={a.projectileVelocityX}>Projectile velocity X</FieldNumber>
+					<FieldNumber name="ability-projectile-velocity-y-{i}" bind:value={a.projectileVelocityY}>Projectile velocity Y</FieldNumber>
+					<FieldNumber name="ability-projectile-gravity-multiplier-{i}" min={0} step={0.01} max={1} bind:value={a.projectileGravityMultiplier}>
+						Gravity multiplier
+					</FieldNumber>
+					<FieldArtPicker name="ability-graphics-projectile-{i}" bind:value={a.graphics.projectile}>Projectile graphic</FieldArtPicker>
+					<FieldArtPicker name="ability-graphics-character-{i}" bind:value={a.graphics.character}>Character graphic</FieldArtPicker>
+				{/if}
+			</div>
+		</div>
+	{/each}
+	<div>
+		<button on:click={addAbility} class="btn btn-success btn-sm">
+			<Icon data={plusIcon} />
+			Add ability
+		</button>
+	</div>
+</div>
 
-<FieldCheckbox name="canFly" bind:checked={input.canFly}>Can fly?</FieldCheckbox>
+<script>
+	import FieldCheckbox from './FieldCheckbox.svelte'
+	import FieldNumber from './FieldNumber.svelte'
+	import FieldArtPicker from './FieldArtPicker.svelte'
+	import Icon from 'svelte-awesome'
+	import { plus as plusIcon } from 'svelte-awesome/icons'
 
-<FieldCheckbox name="canSpin" bind:checked={input.canSpin}>Can spin attack?</FieldCheckbox>
-{#if input.canSpin}
-	<div class="card bg-light mb-3">
-		<div class="card-body">
-			<FieldNumber name="spinDegreesPerFrame" bind:value={input.spinDegreesPerFrame} min={0} max={25}>Spin degrees per frame</FieldNumber>
-			<FieldArtPicker bind:value={input.graphics.spinning} spin={previewFrame * input.spinDegreesPerFrame}>Spinning graphics</FieldArtPicker>
+	export let abilities = []
+
+	function addAbility() {
+		abilities = abilities.concat(createDefaultAbility())
+	}
+
+	function createDefaultAbility() {
+		return {
+			ranged: false,
+			damage: 50,
+			projectileVelocityX: 500,
+			projectileVelocityY: 0,
+			projectileGravityMultiplier: 0.1,
+
+			graphics: {
+				character: null,
+				projectile: null,
+			},
+
+			// TODO: settings for emitters or other cool stuff Phaser can do?
+		}
+	}
+
+	/*
 		</div>
 	</div>
 {/if}
@@ -34,9 +84,7 @@
 			</div>
 		{/if}
 	</div>
-{/if}
-
-<script>
+{/if}<script>
 	import { onDestroy } from 'svelte'
 	import Icon from 'svelte-awesome'
 	import { spinner } from 'svelte-awesome/icons'
@@ -79,9 +127,7 @@
 	onDestroy(() => {
 		window.cancelAnimationFrame(lastRequestedFrame)
 	})
-</script>
 
-<style lang="scss">
 	.motion-preview {
 		position: relative;
 		background: #eee;
@@ -95,4 +141,5 @@
 	:global(.motion-graphics-fields > div) {
 		margin-right: 5px;
 	}
-</style>
+*/
+</script>

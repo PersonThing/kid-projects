@@ -12,15 +12,27 @@ export default class LivingSprite extends Phaser.Physics.Arcade.Sprite {
 		this.name = template.name
 		this.hp = new HealthBar(scene, 0, 0, template.maxHealth, template.maxHealth)
 		this.alive = true
-		this.setCollideWorldBounds(true)
+		// this.setCollideWorldBounds(true)
 	}
 
 	preUpdate(time, delta) {
 		super.preUpdate(time, delta)
 		this.hp.moveTo(this)
 
-		if (this.body.y > 1000) {
-			this.damage(1000000) // lol
-		}
+		if (this.body.y > 1000) this.damage(this.template.maxHealth)
+	}
+
+	setGraphic(key) {
+		const art = this.template.graphics[key] || this.template.graphics.still
+		if (art.animated) this.anims.play(this.getAnimationKey(art.name), true)
+		else this.setTexture(art.name)
+	}
+
+	getAnimationKey(key) {
+		return `${key}.animation`
+	}
+
+	damage(amount) {
+		this.alive = this.hp.adjust(amount)
 	}
 }

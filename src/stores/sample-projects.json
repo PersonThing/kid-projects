@@ -159,8 +159,6 @@
 			"grass": {
 				"name": "grass",
 				"solid": true,
-				"dps": 0,
-				"dpsToPlayers": null,
 				"graphic": "grass",
 				"width": 30,
 				"height": 30,
@@ -169,21 +167,19 @@
 			"spikes": {
 				"name": "spikes",
 				"solid": true,
-				"dps": 1000,
-				"dpsToPlayers": 100,
 				"graphic": "spike",
 				"width": 30,
 				"height": 30,
-				"throwOnTouch": true
+				"throwOnTouch": true,
+				"damage": 20
 			},
-			"lava": { "name": "lava", "solid": true, "dps": 10000, "dpsToPlayers": 1000, "graphic": "lava", "throwOnTouch": true },
-			"dirt": { "name": "dirt", "solid": true, "dps": 0, "dpsToPlayers": null, "graphic": "dirt" },
-			"bouncer": { "name": "bouncer", "solid": false, "throwOnTouch": true, "dps": 0, "graphic": "bouncer" },
+			"lava": { "name": "lava", "solid": true, "graphic": "lava", "throwOnTouch": true, "damage": 200 },
+			"dirt": { "name": "dirt", "solid": true, "graphic": "dirt" },
+			"bouncer": { "name": "bouncer", "solid": false, "throwOnTouch": true, "damage": 0, "graphic": "bouncer" },
 			"health globe": {
 				"name": "health globe",
 				"solid": true,
 				"throwOnTouch": false,
-				"dps": 0,
 				"consumable": true,
 				"healthOnConsume": 50,
 				"graphic": "health globe"
@@ -197,18 +193,7 @@
 				"maxVelocity": 350,
 				"jumpVelocity": 750,
 				"gravityMultiplier": 1,
-				"fallDamageMultiplier": 1,
-				"dps": 100,
-				"canFly": false,
-				"canSpin": true,
-				"spinDegreesPerFrame": 15,
-				"canFireProjectiles": true,
-				"projectileDamage": 50,
-				"projectileYStart": 20,
-				"projectileVelocity": 20,
-				"projectileGravityMultiplier": 0.1,
-				"graphicSpinning": null,
-				"graphicProjectile": "fireball"
+				"canFly": false
 			}
 		},
 		"enemies": {
@@ -219,8 +204,6 @@
 				"maxVelocity": 150,
 				"jumpVelocity": 500,
 				"gravityMultiplier": 1,
-				"fallDamageMultiplier": 1,
-				"dps": 120,
 				"score": 10
 			},
 			"alien": {
@@ -230,10 +213,7 @@
 				"maxVelocity": 250,
 				"jumpVelocity": 600,
 				"gravityMultiplier": 1,
-				"fallDamageMultiplier": 0.5,
-				"dps": 20,
 				"score": 1,
-				"dpsToPlayers": 50,
 				"framesPerGraphic": 5,
 				"canFly": false
 			}
@@ -1320,7 +1300,7 @@
 				"yoyo": false
 			}
 		},
-		"blocks": { "grass": { "name": "grass", "solid": true, "throwOnTouch": false, "dps": 0, "graphic": "grass" } },
+		"blocks": { "grass": { "name": "grass", "solid": true, "throwOnTouch": false, "graphic": "grass" } },
 		"characters": {
 			"sonic": {
 				"graphics": { "still": "sonic bored 1", "moving": "sonic moving", "spinning": "sonic spin" },
@@ -1329,17 +1309,7 @@
 				"maxVelocity": 600,
 				"jumpVelocity": 700,
 				"gravityMultiplier": 1,
-				"fallDamageMultiplier": 1,
-				"dps": 100,
-				"canFly": false,
-				"canSpin": true,
-				"spinDegreesPerFrame": 0,
-				"canFireProjectiles": false,
-				"projectileDamage": 50,
-				"projectileYStart": 20,
-				"projectileVelocity": 20,
-				"projectileGravityMultiplier": 0.1,
-				"graphicSpinning": "sonic spin"
+				"canFly": false
 			}
 		},
 		"enemies": {
@@ -1350,8 +1320,6 @@
 				"maxVelocity": 250,
 				"jumpVelocity": 700,
 				"gravityMultiplier": 1,
-				"fallDamageMultiplier": 1,
-				"dps": 120,
 				"score": 1
 			}
 		},

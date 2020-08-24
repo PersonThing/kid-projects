@@ -81,8 +81,8 @@
 				...b,
 			}))
 
-		effectBlocks = blocks.filter(b => (b.dps > 0 || b.throwOnTouch) && !b.consumable)
-		simpleBlocks = blocks.filter(b => b.dps == 0 && !b.throwOnTouch && !b.consumable)
+		effectBlocks = blocks.filter(b => (b.damage > 0 || b.throwOnTouch) && !b.consumable)
+		simpleBlocks = blocks.filter(b => (b.damage == null || b.damage == 0) && !b.throwOnTouch && !b.consumable)
 		consumableBlocks = blocks.filter(b => b.consumable)
 
 		start()
@@ -140,28 +140,29 @@
 
 	function preload() {
 		return new Promise((resolve, reject) => {
-			// load block art
-			const distinctBlockArt = [...new Set(level.blocks.map(b => $project.blocks[b.name].graphic))]
-			let loadingPromises = distinctBlockArt.map(name => preloadArt(name))
+			const distinctBlocks = [...new Set(level.blocks.map(b => b.name))].map(n => $project.blocks[n]).filter(b => b != null)
+			const distinctEnemies = [...new Set(level.enemies.map(e => e.name))].map(n => $project.enemies[n]).filter(e => e != null)
+			const allArt = [
+				...new Set([
+					// blocks
+					...distinctBlocks.map(b => b.graphic),
 
-			// load player art
-			loadingPromises = loadingPromises.concat(
-				Object.keys(character.graphics)
-					.filter(key => character.graphics[key] != null)
-					.map(key => preloadArt(character.graphics[key]))
-			)
+					// player
+					...Object.keys(character.graphics).map(key => character.graphics[key]),
 
-			// load enemy art
-			const distinctEnemies = [...new Set(level.enemies.map(e => e.name))].map(name => $project.enemies[name])
-			loadingPromises = loadingPromises.concat(
-				distinctEnemies.flatMap(enemy =>
-					Object.keys(enemy.graphics)
-						.filter(key => enemy.graphics[key] != null)
-						.map(key => preloadArt(enemy.graphics[key]))
-				)
-			)
+					// player abilities
+					...character.abilities.flatMap(a => Object.keys(a.graphics).map(key => a.graphics[key])),
 
-			Promise.all(loadingPromises).then(data => {
+					// enemies
+					...distinctEnemies.flatMap(e => Object.keys(e.graphics).map(key => e.graphics[key])),
+
+					// enemy abilities
+					...distinctEnemies
+						.filter(e => e.abilities != null)
+						.flatMap(e => e.abilities.flatMap(a => Object.keys(a.graphics).map(key => a.graphics[key]))),
+				]),
+			].filter(name => name != null)
+			Promise.all(allArt.map(name => preloadArt(name))).then(data => {
 				preloadedData = data
 				resolve()
 			})
@@ -172,11 +173,12 @@
 		const art = $project.art[name]
 		return new Promise((res, rej) => {
 			const image = new Image()
-			image.onload = () =>
+			image.onload = () => {
 				res({
 					...art,
 					image,
 				})
+			}
 			image.src = art.png
 		})
 	}
@@ -215,7 +217,6 @@
 			const template = $project.blocks[b.name]
 			const art = $project.art[template.graphic]
 			const block = worldSimpleBlocks.create(b.x, translateY(b.y, b.height), art.name)
-			console.log(art.name, art.animated)
 			if (art.animated) block.anims.play(getAnimationKey(art.name), true)
 		})
 		worldEffectBlocks = this.physics.add.staticGroup()
@@ -224,7 +225,7 @@
 			const art = $project.art[template.graphic]
 			const block = worldEffectBlocks.create(b.x, translateY(b.y, b.height), art.name)
 			if (art.animated) block.anims.play(getAnimationKey(art.name), true)
-			block.dps = b.dps
+			block.damage = b.damage
 			block.throwOnTouch = b.throwOnTouch
 		})
 		worldConsumableBlocks = this.physics.add.staticGroup()
@@ -233,18 +234,30 @@
 			const art = $project.art[template.graphic]
 			const block = worldConsumableBlocks.create(b.x, translateY(b.y, b.height), art.name)
 			if (art.animated) block.anims.play(getAnimationKey(art.name), true)
-			block.dps = b.dps
+			block.damage = b.damage
 			block.throwOnTouch = b.throwOnTouch
 			block.consumable = true
 			block.healthOnConsume = b.healthOnConsume
 			block.scoreOnConsume = b.scoreOnConsume
 		})
 
+		// configure input
+		cursors = this.input.keyboard.createCursorKeys()
+		spacebarKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
+		enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
+		rKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R)
+
 		// add player
 		const startingY =
 			translateY(Math.max(...blocks.filter(b => b.x == 0).map(b => b.y)), blocks[0].height) - $project.art[character.graphics.still].height
-		console.log(startingY)
-		player = this.physics.add.existing(new Player(this, 0, startingY, character.graphics.still, character))
+		const template = hydrateGraphics(character)
+		player = this.physics.add.existing(
+			new Player(this, 0, startingY, character.graphics.still.name, template, {
+				cursors,
+				spacebarKey,
+				rKey,
+			})
+		)
 		this.physics.add.collider(player, worldSimpleBlocks)
 		this.physics.add.collider(player, worldEffectBlocks, onEffectBlockCollision)
 		this.physics.add.overlap(player, worldConsumableBlocks, onConsumableBlockOverlap)
@@ -253,8 +266,9 @@
 		enemies = this.physics.add.group()
 		enemies.runChildUpdate = true
 		level.enemies.forEach(e => {
-			const template = $project.enemies[e.name]
-			enemies.add(new Enemy(this, e.x, translateY(e.y, $project.art[template.graphics.still].height), template.graphics.still, template, player))
+			const template = hydrateGraphics($project.enemies[e.name])
+			const enemy = new Enemy(this, e.x, translateY(e.y, template.graphics.still.height), template.graphics.still.name, template, player)
+			enemies.add(enemy)
 		})
 		this.physics.add.collider(enemies, worldSimpleBlocks)
 		this.physics.add.collider(enemies, worldEffectBlocks, onEffectBlockCollision)
@@ -264,12 +278,6 @@
 		this.physics.world.setBounds(0, -levelHeight, levelWidth, levelHeight + gameHeight + 500)
 		this.cameras.main.setBounds(0, -levelHeight, levelWidth, levelHeight + gameHeight)
 		this.cameras.main.startFollow(player)
-
-		// configure input
-		cursors = this.input.keyboard.createCursorKeys()
-		spacebarKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
-		enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
-		rKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R)
 	}
 
 	function translateY(y, height) {
@@ -277,7 +285,7 @@
 	}
 
 	function onEffectBlockCollision(sprite, block) {
-		sprite.damage(block.dps / 60)
+		sprite.damage(block.damage)
 		if (block.throwOnTouch) sprite.setVelocityY(-1000)
 	}
 
@@ -290,9 +298,9 @@
 
 	function onPlayerEnemyOverlap(player, enemy) {
 		if (player.spinning) {
-			enemy.damage(player.template.dps / 60)
+			enemy.damage(100 / 60)
 		} else {
-			player.damage(enemy.template.dps / 60)
+			player.damage(20 / 60)
 		}
 	}
 
@@ -302,50 +310,6 @@
 
 		if (gameOver) return
 
-		// jumping
-		if (player.body.touching.down || character.canFly) {
-			if (Phaser.Input.Keyboard.JustDown(spacebarKey)) player.setVelocityY(-character.jumpVelocity)
-		}
-
-		// moving left
-		if (cursors.left.isDown && !cursors.right.isDown) {
-			const newVelocity =
-				player.body.touching.down || character.canFly
-					? -character.maxVelocity
-					: Math.max(player.body.velocity.x - character.maxVelocity / 15, -character.maxVelocity)
-			player.setVelocityX(newVelocity)
-			player.flipX = true
-			setGraphic(player.spinning ? 'spinning' : 'moving')
-		} else if (cursors.right.isDown && !cursors.isDown) {
-			// moving right
-			const newVelocity =
-				player.body.touching.down || character.canFly
-					? character.maxVelocity
-					: Math.min(player.body.velocity.x + character.maxVelocity / 15, character.maxVelocity)
-			player.setVelocityX(newVelocity)
-			player.flipX = false
-			setGraphic(player.spinning ? 'spinning' : 'moving')
-		} else if (player.body.touching.down) {
-			// stop if touching ground
-			player.setVelocityX(0)
-			setGraphic(player.spinning ? 'spinning' : 'still')
-		}
-
-		// r key to spin
-		if (Phaser.Input.Keyboard.JustDown(rKey) && character.canSpin) {
-			player.spinning = true
-		} else if (Phaser.Input.Keyboard.JustUp(rKey)) {
-			player.spinning = false
-		}
-
-		if (player.spinning) {
-			player.setAngularVelocity(1080 * (player.body.velocity.x < 0 ? -1 : 1))
-		} else {
-			// rotate player based on y velocity
-			player.setAngularVelocity(0)
-			player.setRotation((player.body.velocity.y / 1800) * (player.body.velocity.x < 0 ? -1 : 1))
-		}
-
 		// if player is dead or fell out bottom of world, they lost
 		if (!player.alive) {
 			this.physics.pause()
@@ -353,15 +317,16 @@
 		}
 	}
 
-	function setGraphic(key) {
-		if (character.graphics[key] == null) key = 'still'
-		const art = $project.art[character.graphics[key]]
-		if (art.animated) player.anims.play(getAnimationKey(art.name), true)
-		else player.setTexture(art.name)
-	}
-
 	function getAnimationKey(key) {
 		return `${key}.animation`
+	}
+
+	function hydrateGraphics(template) {
+		const copy = JSON.parse(JSON.stringify(template))
+		Object.keys(template.graphics).forEach(name => {
+			copy.graphics[name] = $project.art[template.graphics[name]]
+		})
+		return copy
 	}
 </script>
 

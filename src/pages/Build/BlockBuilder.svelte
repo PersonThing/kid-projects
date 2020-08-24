@@ -9,8 +9,8 @@
 			<FieldNumber name="scoreOnConsume" bind:value={input.scoreOnConsume}>Score on consume?</FieldNumber>
 		{/if}
 		<FieldCheckbox name="throwOnTouch" bind:checked={input.throwOnTouch}>Throw things that touch it?</FieldCheckbox>
-		<FieldNumber name="dps" bind:value={input.dps}>
-			DPS (when players or enemies touch this block, how much damage should they take per second?)
+		<FieldNumber name="damage" bind:value={input.damage}>
+			Damage (when players or enemies touch this block, how much damage should they take?)
 		</FieldNumber>
 		<span slot="buttons">
 			{#if !isAdding}
@@ -64,7 +64,7 @@
 			name: '',
 			solid: true,
 			throwOnTouch: false,
-			dps: 0,
+			damage: 0,
 			consumable: false,
 			healthOnConsume: 0,
 			scoreOnConsume: 0,
