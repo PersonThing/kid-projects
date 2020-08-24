@@ -26,10 +26,10 @@
 		</div>
 		{#if input.graphicProjectile != null}
 			<div class="motion-preview">
-				<img src={$project.art[input.asdf].png} alt="" />
+				<Art name={input.graphics.still} />
 				<img
 					src={$project.art[input.graphicProjectile].png}
-					style="position: absolute; bottom: {projectileY}px; left: {$project.art[input.asdf].width * 2 + projectileX}px"
+					style="position: absolute; bottom: {projectileY}px; left: {$project.art[input.graphicProjectile].width * 2 + projectileX}px"
 					alt="" />
 			</div>
 		{/if}
@@ -44,6 +44,7 @@
 	import FieldArtPicker from './FieldArtPicker.svelte'
 	import FieldCheckbox from './FieldCheckbox.svelte'
 	import project from '../stores/active-project-store'
+	import Art from './Art.svelte'
 
 	// export let abilities = {}
 

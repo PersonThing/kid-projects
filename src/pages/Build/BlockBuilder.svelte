@@ -3,6 +3,10 @@
 		<FieldText name="name" bind:value={input.name}>Name</FieldText>
 		<FieldArtPicker bind:value={input.graphic} blocks>Graphic (must be 40x40)</FieldArtPicker>
 		<FieldCheckbox name="solid" bind:checked={input.solid}>Solid? (if not checked, things will just move through it)</FieldCheckbox>
+		<FieldCheckbox name="consumable" bind:checked={input.consumable}>Consumable by player?</FieldCheckbox>
+		{#if input.consumable}
+			<FieldNumber name="healthOnConsume" bind:value={input.healthOnConsume}>Consuming gives how much health?</FieldNumber>
+		{/if}
 		<FieldCheckbox name="throwOnTouch" bind:checked={input.throwOnTouch}>Throw things that touch it?</FieldCheckbox>
 		<FieldNumber name="dps" bind:value={input.dps}>
 			DPS (when players or enemies touch this block, how much damage should they take per second?)
@@ -44,15 +48,24 @@
 
 	function edit(name) {
 		if (!$project.blocks.hasOwnProperty(name)) return
-		input = JSON.parse(JSON.stringify($project.blocks[name]))
+		input = {
+			...createDefaultInput(),
+			...JSON.parse(JSON.stringify($project.blocks[name])),
+		}
 	}
 
 	function create() {
-		input = {
+		input = createDefaultInput()
+	}
+
+	function createDefaultInput() {
+		return {
 			name: '',
 			solid: true,
 			throwOnTouch: false,
 			dps: 0,
+			consumable: false,
+			healthOnConsume: 0,
 		}
 	}
 

@@ -23,7 +23,7 @@
 	export let placeholder = 'Select art'
 	export let blocks = false
 
-	const blockFilter = b => b.width == 40 && b.height == 40
+	const blockFilter = b => b.height == 40 && (b.width == 40 || (b.animated && b.frameWidth == 40))
 	$: options = Object.keys($project.art)
 		.filter(name => blocks == blockFilter($project.art[name]))
 		.sort()

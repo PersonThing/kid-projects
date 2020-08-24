@@ -15,10 +15,12 @@
 	import { magnet, image } from 'svelte-awesome/icons'
 	import { onMount, onDestroy } from 'svelte'
 	import { rgbaStringToHex } from '../services/rgba-to-hex'
+	import Enemy from './PhaserGame/Enemy'
 	import GameOver from './GameOver.svelte'
-	import HealthBar from './HealthBar.svelte'
+	import HealthBar from './PhaserGame/HealthBar'
 	import Instructions from './Instructions.svelte'
 	import Paused from './Paused.svelte'
+	import Player from './PhaserGame/Player'
 	import project from '../stores/active-project-store'
 	import Status from './Status.svelte'
 
@@ -27,9 +29,6 @@
 
 	// TODO: make editable in level or on individual enemies
 	const leashRange = 400
-
-	// TODO: make this a project setting
-	const artScale = 1
 
 	const gravityPixelsPerSecond = 2000
 
@@ -43,9 +42,11 @@
 	let blocks
 	let simpleBlocks
 	let effectBlocks
+	let consumableBlocks
 
 	let worldSimpleBlocks
 	let worldEffectBlocks
+	let worldConsumableBlocks
 
 	let config
 	let game
@@ -76,15 +77,13 @@
 				return 0
 			})
 			.map(b => ({
+				...$project.blocks[b.name],
 				...b,
-				solid: $project.blocks[b.name].solid,
-				png: $project.art[$project.blocks[b.name].graphic].png,
-				dps: $project.blocks[b.name].dps,
-				throwOnTouch: $project.blocks[b.name].throwOnTouch,
 			}))
 
-		effectBlocks = blocks.filter(b => b.dps > 0 || b.throwOnTouch)
-		simpleBlocks = blocks.filter(b => b.dps == 0 && !b.throwOnTouch)
+		effectBlocks = blocks.filter(b => (b.dps > 0 || b.throwOnTouch) && !b.consumable)
+		simpleBlocks = blocks.filter(b => b.dps == 0 && !b.throwOnTouch && !b.consumable)
+		consumableBlocks = blocks.filter(b => b.consumable)
 
 		start()
 	})
@@ -210,66 +209,55 @@
 		})
 
 		// add blocks as static objects
+		// TODO: block class to abstract this...
 		worldSimpleBlocks = this.physics.add.staticGroup()
 		simpleBlocks.forEach(b => {
-			worldSimpleBlocks
-				.create(b.x, gameHeight - b.y - b.height / 2, $project.blocks[b.name].graphic)
-				.setScale(artScale)
-				.refreshBody()
+			const template = $project.blocks[b.name]
+			const art = $project.art[template.graphic]
+			const block = worldSimpleBlocks.create(b.x, translateY(b.y, b.height), art.name)
+			console.log(art.name, art.animated)
+			if (art.animated) block.anims.play(getAnimationKey(art.name), true)
 		})
 		worldEffectBlocks = this.physics.add.staticGroup()
 		effectBlocks.forEach(b => {
-			const block = worldEffectBlocks
-				.create(b.x, gameHeight - b.y - b.height / 2, $project.blocks[b.name].graphic)
-				.setScale(artScale)
-				.refreshBody()
+			const template = $project.blocks[b.name]
+			const art = $project.art[template.graphic]
+			const block = worldEffectBlocks.create(b.x, translateY(b.y, b.height), art.name)
+			if (art.animated) block.anims.play(getAnimationKey(art.name), true)
 			block.dps = b.dps
 			block.throwOnTouch = b.throwOnTouch
 		})
+		worldConsumableBlocks = this.physics.add.staticGroup()
+		consumableBlocks.forEach(b => {
+			const template = $project.blocks[b.name]
+			const art = $project.art[template.graphic]
+			const block = worldConsumableBlocks.create(b.x, translateY(b.y, b.height), art.name)
+			if (art.animated) block.anims.play(getAnimationKey(art.name), true)
+			block.dps = b.dps
+			block.throwOnTouch = b.throwOnTouch
+			block.consumable = true
+			block.healthOnConsume = b.healthOnConsume
+		})
 
 		// add player
-		player = this.physics.add.sprite(0, 300, character.graphics.still)
-		player.body.checkCollision.top = false
-		player.health = character.maxHealth
-		player.setScale(artScale)
-		// TODO: gravity multiplier
-
-		// player should collide with simple blocks
+		const startingY =
+			translateY(Math.max(...blocks.filter(b => b.x == 0).map(b => b.y)), blocks[0].height) - $project.art[character.graphics.still].height
+		console.log(startingY)
+		player = this.physics.add.existing(new Player(this, 0, startingY, character.graphics.still, character))
 		this.physics.add.collider(player, worldSimpleBlocks)
-		player.setCollideWorldBounds(true)
-
-		// player should collide with effect blocks and do something when it happens
 		this.physics.add.collider(player, worldEffectBlocks, onEffectBlockCollision)
+		this.physics.add.overlap(player, worldConsumableBlocks, onConsumableBlockOverlap)
 
 		// add enemies
 		enemies = this.physics.add.group()
 		enemies.runChildUpdate = true
 		level.enemies.forEach(e => {
 			const template = $project.enemies[e.name]
-			let enemy = enemies.create(e.x, gameHeight - e.y, template.graphics.still)
-			enemy.setScale(artScale)
-			enemy.health = template.maxHealth
-			enemy.update = () => {
-				// move toward player if within leashRange
-				if (Math.abs(player.x - enemy.x) < leashRange) {
-					// x axis
-					if (Math.abs(player.x - enemy.x) < 2) enemy.setVelocityX(0)
-					else if (player.x < enemy.x) enemy.setVelocityX(-template.maxVelocity)
-					else enemy.setVelocityX(template.maxVelocity)
-
-					// y axis
-					if ((enemy.body.touching.down || template.canFly) && player.y < enemy.y - enemy.height) {
-						enemy.setVelocityY(-template.jumpVelocity)
-					}
-				} else {
-					// stop moving
-					enemy.setVelocityX(0)
-				}
-			}
-			// TODO: gravity multiplier
+			enemies.add(new Enemy(this, e.x, translateY(e.y, $project.art[template.graphics.still].height), template.graphics.still, template, player))
 		})
 		this.physics.add.collider(enemies, worldSimpleBlocks)
 		this.physics.add.collider(enemies, worldEffectBlocks, onEffectBlockCollision)
+		this.physics.add.overlap(player, enemies, onPlayerEnemyOverlap)
 
 		// camera and player bounds
 		this.physics.world.setBounds(0, -levelHeight, levelWidth, levelHeight + gameHeight + 500)
@@ -283,9 +271,27 @@
 		rKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R)
 	}
 
+	function translateY(y, height) {
+		return gameHeight - y - height / 2
+	}
+
 	function onEffectBlockCollision(sprite, block) {
-		sprite.health -= block.dps / 60
+		sprite.damage(block.dps / 60)
 		if (block.throwOnTouch) sprite.setVelocityY(-1000)
+	}
+
+	function onConsumableBlockOverlap(sprite, block) {
+		if (block.healthOnConsume) sprite.damage(-block.healthOnConsume)
+		if (block.throwOnTouch) sprite.setVelocityY(-1000)
+		block.disableBody(true, true)
+	}
+
+	function onPlayerEnemyOverlap(player, enemy) {
+		if (player.spinning) {
+			enemy.damage(player.template.dps / 60)
+		} else {
+			player.damage(enemy.template.dps / 60)
+		}
 	}
 
 	function onUpdate() {
@@ -339,7 +345,7 @@
 		}
 
 		// if player is dead or fell out bottom of world, they lost
-		if (player.health < 0 || player.body.y > this.physics.world.bounds.bottom - 100) {
+		if (!player.alive) {
 			this.physics.pause()
 			gameOver = true
 		}

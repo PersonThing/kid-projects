@@ -11,8 +11,8 @@
 				valueProp="name"
 				bind:value={selectedBlock}
 				on:change={() => (selectedEnemy = null)}>
-				<Art name={$project.blocks[option.name].graphic} simple scale={2} />
-				{option.name}: {option.dps} dps, {option.solid ? 'solid' : 'background'}
+				<Art name={$project.blocks[option.name].graphic} simple />
+				{option.name}: {option.dps} dps, {option.solid ? 'solid' : 'background'}, {option.consumable ? 'consumable (' + option.healthOnConsume + ' health)' : ''}
 			</InputSelect>
 		</div>
 		<div>
@@ -25,7 +25,7 @@
 				valueProp="name"
 				bind:value={selectedEnemy}
 				on:change={() => (selectedBlock = null)}>
-				<Art name={$project.enemies[option.name].graphics.still} simple scale={2} />
+				<Art name={$project.enemies[option.name].graphics.still} simple />
 				<strong>{option.name}</strong>
 				{option.dps} dps, {option.maxHealth} health, {option.maxVelocity} speed, {option.score} score
 			</InputSelect>
