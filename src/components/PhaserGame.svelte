@@ -237,6 +237,7 @@
 			block.throwOnTouch = b.throwOnTouch
 			block.consumable = true
 			block.healthOnConsume = b.healthOnConsume
+			block.scoreOnConsume = b.scoreOnConsume
 		})
 
 		// add player
@@ -282,6 +283,7 @@
 
 	function onConsumableBlockOverlap(sprite, block) {
 		if (block.healthOnConsume) sprite.damage(-block.healthOnConsume)
+		if (block.scoreOnConsume) score += block.scoreOnConsume
 		if (block.throwOnTouch) sprite.setVelocityY(-1000)
 		block.disableBody(true, true)
 	}

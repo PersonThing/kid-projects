@@ -5,7 +5,8 @@
 		<FieldCheckbox name="solid" bind:checked={input.solid}>Solid? (if not checked, things will just move through it)</FieldCheckbox>
 		<FieldCheckbox name="consumable" bind:checked={input.consumable}>Consumable by player?</FieldCheckbox>
 		{#if input.consumable}
-			<FieldNumber name="healthOnConsume" bind:value={input.healthOnConsume}>Consuming gives how much health?</FieldNumber>
+			<FieldNumber name="healthOnConsume" bind:value={input.healthOnConsume}>Health on consume?</FieldNumber>
+			<FieldNumber name="scoreOnConsume" bind:value={input.scoreOnConsume}>Score on consume?</FieldNumber>
 		{/if}
 		<FieldCheckbox name="throwOnTouch" bind:checked={input.throwOnTouch}>Throw things that touch it?</FieldCheckbox>
 		<FieldNumber name="dps" bind:value={input.dps}>
@@ -66,6 +67,7 @@
 			dps: 0,
 			consumable: false,
 			healthOnConsume: 0,
+			scoreOnConsume: 0,
 		}
 	}
 

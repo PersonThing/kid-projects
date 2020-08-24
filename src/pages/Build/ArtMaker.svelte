@@ -113,7 +113,7 @@
 
 	</div>
 	<div class="my-1">
-		{#if input.width != 40 || input.height != 40}
+		{#if isBlockSize}
 			<div class="flex">
 				<div>
 					<label>
@@ -168,7 +168,7 @@
 			{/if}
 
 			<!-- if block size, show repeated in x and y-->
-			{#if input.width == 40 && input.height == 40}
+			{#if isBlockSize}
 				<div class="ml-2">
 					{#each [0, 0] as r}
 						<div>
@@ -272,6 +272,7 @@
 	$: hasChanges = !validator.equals(input, $project.art[input.name])
 	$: numFrames = input.width != null && input.frameWidth != null ? Math.ceil(input.width / input.frameWidth) : 0
 	$: if (inputWidth != 0 && inputHeight != 0 && showGrid != null && zoom != null) debouncedRedraw()
+	$: isBlockSize = input.height == 40 && (input.width == 40 || (input.animated && input.frameWidth == 40))
 
 	onMount(() => redraw())
 

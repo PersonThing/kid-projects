@@ -12,7 +12,7 @@
 				bind:value={selectedBlock}
 				on:change={() => (selectedEnemy = null)}>
 				<Art name={$project.blocks[option.name].graphic} simple />
-				{option.name}: {option.dps} dps, {option.solid ? 'solid' : 'background'}, {option.consumable ? 'consumable (' + option.healthOnConsume + ' health)' : ''}
+				{option.name}: {option.dps} dps, {option.solid ? 'solid' : 'background'}, {option.consumable ? 'consumable for ' + option.healthOnConsume + ' health, ' + option.healthOnConsume + ' score' : ''}
 			</InputSelect>
 		</div>
 		<div>
