@@ -316,7 +316,7 @@
 
 	function onConsumableBlockOverlap(sprite, block) {
 		if (block.healthOnConsume) sprite.damage(-block.healthOnConsume)
-		if (block.scoreOnConsume) score += block.scoreOnConsume
+		if (block.scoreOnConsume) sprite.scene.addScore(block.scoreOnConsume)
 		if (block.throwOnTouch) sprite.setVelocityY(-1000)
 		block.disableBody(true, true)
 		block.destroy()

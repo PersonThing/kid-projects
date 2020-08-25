@@ -11,8 +11,20 @@
 				valueProp="name"
 				bind:value={selectedBlock}
 				on:change={() => (selectedEnemy = null)}>
-				<Art name={$project.blocks[option.name].graphic} simple />
-				{option.name}: {option.damage} damage, {option.solid ? 'solid' : 'background'}, {option.consumable ? 'consumable for ' + option.healthOnConsume + ' health, ' + option.healthOnConsume + ' score' : ''}
+				<div class="flex">
+					<Art name={$project.blocks[option.name].graphic} simple />
+					<div class="ml-1">
+						<strong>{option.name}</strong>
+						{option.solid ? 'solid' : 'non-physical'}
+						{#if option.damage != null}, {option.damage} damage{/if}
+						{#if option.throwOnTouch}, throws on touch{/if}
+						{#if option.consumable}
+							, consumable for
+							{#if option.healthOnConsume > 0}{option.healthOnConsume} health{/if}
+							{#if option.scoreOnConsume > 0}{option.scoreOnConsume} score{/if}
+						{/if}
+					</div>
+				</div>
 			</InputSelect>
 		</div>
 		<div>
@@ -25,9 +37,13 @@
 				valueProp="name"
 				bind:value={selectedEnemy}
 				on:change={() => (selectedBlock = null)}>
-				<Art name={$project.enemies[option.name].graphics.still} simple />
-				<strong>{option.name}</strong>
-				{option.damage} damage, {option.maxHealth} health, {option.maxVelocity} speed, {option.score} score
+				<div class="flex">
+					<Art name={$project.enemies[option.name].graphics.still} simple />
+					<div class="ml-1">
+						<strong>{option.name}</strong>
+						{option.maxHealth} health, {option.maxVelocity} speed, {option.score} score, {option.abilities.length} abilit{option.abilities.length != 1 ? 'ies' : 'y'}
+					</div>
+				</div>
 			</InputSelect>
 		</div>
 	</div>
