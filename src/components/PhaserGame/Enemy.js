@@ -2,7 +2,7 @@ import LivingSprite from './LivingSprite'
 import Projectile from './Projectile'
 
 export default class Enemy extends LivingSprite {
-	constructor(scene, x, y, texture, template, player, leashRange = 600, scoreStore) {
+	constructor(scene, x, y, texture, template, player, leashRange = 600) {
 		super(scene, x, y, texture, template)
 
 		this.target = player
@@ -32,7 +32,20 @@ export default class Enemy extends LivingSprite {
 				a => a.projectile == false || (a.range < distanceFromTarget && (a.nextFire == null || a.nextFire <= time))
 			)
 			if (closerRangeAbilities.length > 0) {
-				this.moveTowardTarget()
+				if (distanceFromTarget < 1) {
+					this.setVelocityX(0)
+				} else if (this.target.x < this.x) {
+					this.setVelocityX(-this.template.maxVelocity)
+				} else {
+					this.setVelocityX(this.template.maxVelocity)
+				}
+
+				if ((this.body.touching.down || this.template.canFly) && this.target.y < this.y - this.height) {
+					this.setVelocityY(-this.template.jumpVelocity)
+				}
+
+				const isMoving = this.body.velocity.x != 0 || this.body.velocity.y != 0
+				this.setGraphic(isMoving ? this.graphics.moving : this.graphics.still)
 			}
 		}
 	}
@@ -53,7 +66,15 @@ export default class Enemy extends LivingSprite {
 
 	doAbility(ability) {
 		if (ability.projectile) {
-			const projectile = new Projectile(this.scene, this.x, this.y, ability.graphics.projectile, ability.projectileVelocity, this.target)
+			const projectile = new Projectile(
+				this.scene,
+				this.x,
+				this.y,
+				ability.graphics.projectile,
+				ability.projectileVelocity,
+				ability.projectileGravityMultiplier,
+				this.target
+			)
 			this.scene.physics.add.overlap(projectile, this.target, () => {
 				this.target.damage(ability.damage)
 				projectile.destroy()
@@ -69,22 +90,5 @@ export default class Enemy extends LivingSprite {
 		} else {
 			this.flipX = true
 		}
-	}
-
-	moveTowardTarget() {
-		if (Math.abs(this.target.x - this.x) < 5) {
-			this.setVelocityX(0)
-		} else if (this.target.x < this.x) {
-			this.setVelocityX(-this.template.maxVelocity)
-		} else {
-			this.setVelocityX(this.template.maxVelocity)
-		}
-
-		if ((this.body.touching.down || this.template.canFly) && this.target.y < this.y - this.height) {
-			this.setVelocityY(-this.template.jumpVelocity)
-		}
-
-		const isMoving = this.body.velocity.x != 0 || this.body.velocity.y != 0
-		this.setGraphic(isMoving ? this.graphics.moving : this.graphics.still)
 	}
 }

@@ -162,6 +162,8 @@
 	}
 
 	function placeItem(x, y) {
+		if (y < 0) return
+
 		eraseItemAt(x, y)
 		if (selectedBlock != null) {
 			const template = $project.blocks[selectedBlock]

@@ -22,6 +22,7 @@
 	import Player from './PhaserGame/Player'
 	import project from '../stores/active-project-store'
 	import getAnimationKey from './PhaserGame/GetAnimationKey'
+	import gravityPixelsPerSecond from './PhaserGame/Gravity'
 
 	export let level = null
 	export let character = null
@@ -33,8 +34,6 @@
 
 	// TODO: make editable in level or on individual enemies
 	const leashRange = 400
-
-	const gravityPixelsPerSecond = 2000
 
 	let container
 
@@ -266,7 +265,6 @@
 
 		// add enemies
 		enemies = this.physics.add.group()
-		enemies.runChildUpdate = true
 		level.enemies.forEach(e => {
 			const template = hydrateGraphics($project.enemies[e.name])
 			const enemy = new Enemy(

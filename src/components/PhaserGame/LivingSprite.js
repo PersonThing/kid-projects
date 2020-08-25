@@ -1,5 +1,6 @@
 import getAnimationKey from './GetAnimationKey'
 import HealthBar from './HealthBar'
+import gravityPixelsPerSecond from './Gravity'
 
 export default class LivingSprite extends Phaser.Physics.Arcade.Sprite {
 	constructor(scene, x, y, texture, template) {
@@ -9,6 +10,10 @@ export default class LivingSprite extends Phaser.Physics.Arcade.Sprite {
 
 		scene.add.existing(this)
 		scene.physics.add.existing(this)
+
+		// gravity affects everything differently
+		// todo figure out why this doesn't work for enemies...
+		// this.setGravityY(-gravityPixelsPerSecond + gravityPixelsPerSecond * template.gravityMultiplier)
 
 		this.name = template.name
 		this.hp = new HealthBar(scene, 0, 0, template.maxHealth, template.maxHealth)
@@ -49,7 +54,10 @@ export default class LivingSprite extends Phaser.Physics.Arcade.Sprite {
 	}
 
 	accelerate(ax) {
-		let vx = this.body.velocity.x + ax
+		// if they're changing directions, accelerate immediately
+		let vx = this.body.velocity.x
+		if ((ax > 0 && vx < 0) || (ax < 0 && vx > 0)) vx = ax
+		else vx = vx + ax
 
 		if (vx > this.template.maxVelocity) vx = this.template.maxVelocity
 		else if (vx < -this.template.maxVelocity) vx = -this.template.maxVelocity

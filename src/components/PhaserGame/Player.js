@@ -12,7 +12,6 @@ export default class Player extends LivingSprite {
 
 		// show above enemies
 		this.depth = 2
-
 		// abilities
 		// this felt clunkier than just checking keyDown in frames
 		// this.abilityKeys = ['Q', 'W', 'E', 'R']
@@ -70,7 +69,15 @@ export default class Player extends LivingSprite {
 	doAbility(ability) {
 		const targetCoords = { x: this.flipX ? -10000 : 10000, y: this.y - 100 }
 		if (ability.projectile) {
-			const projectile = new Projectile(this.scene, this.x, this.y, ability.graphics.projectile, ability.projectileVelocity, targetCoords)
+			const projectile = new Projectile(
+				this.scene,
+				this.x,
+				this.y,
+				ability.graphics.projectile,
+				ability.projectileVelocity + Math.abs(this.body.velocity.x), // add player velocity to the projectile
+				ability.projectileGravityMultiplier,
+				targetCoords
+			)
 			this.scene.physics.add.overlap(projectile, this.enemies, (projectile, enemy) => {
 				enemy.damage(ability.damage)
 				projectile.destroy()
