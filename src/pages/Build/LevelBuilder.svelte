@@ -1,4 +1,3 @@
-Level builder
 {#if input != null}
 	<BuildLayout tab="levels" activeName={input.name} store={$project.levels}>
 		<Form on:submit={save} {hasChanges}>
