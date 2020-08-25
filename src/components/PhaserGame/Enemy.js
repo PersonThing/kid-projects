@@ -2,7 +2,7 @@ import LivingSprite from './LivingSprite'
 import Projectile from './Projectile'
 
 export default class Enemy extends LivingSprite {
-	constructor(scene, x, y, texture, template, player, leashRange = 600) {
+	constructor(scene, x, y, texture, template, player, leashRange = 600, scoreStore) {
 		super(scene, x, y, texture, template)
 
 		this.target = player
@@ -40,6 +40,9 @@ export default class Enemy extends LivingSprite {
 	damage(amount) {
 		super.damage(amount)
 		if (!this.alive) {
+			// award score to player
+			this.scene.addScore(this.template.score)
+
 			this.disableBody(true, false)
 			this.hp.destroy()
 			// TODO: fade out and eventually destroy
@@ -50,7 +53,7 @@ export default class Enemy extends LivingSprite {
 
 	doAbility(ability) {
 		if (ability.projectile) {
-			const projectile = new Projectile(this.scene, this.x, this.y, ability.graphics.projectile.name, ability.projectileVelocity, this.target)
+			const projectile = new Projectile(this.scene, this.x, this.y, ability.graphics.projectile, ability.projectileVelocity, this.target)
 			this.scene.physics.add.overlap(projectile, this.target, () => {
 				this.target.damage(ability.damage)
 				projectile.destroy()

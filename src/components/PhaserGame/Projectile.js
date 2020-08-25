@@ -1,6 +1,8 @@
+import getAnimationKey from './GetAnimationKey'
+
 export default class Projectile extends Phaser.Physics.Arcade.Sprite {
-	constructor(scene, x, y, texture, velocity, target) {
-		super(scene, x, y, texture)
+	constructor(scene, x, y, art, velocity, target) {
+		super(scene, x, y, art.name)
 
 		// TODO: consider reusing stuff somehow rather than creating/destroying ad-hoc
 		scene.add.existing(this)
@@ -18,6 +20,12 @@ export default class Projectile extends Phaser.Physics.Arcade.Sprite {
 		this.body.setAllowGravity(false)
 		// this.setGravityY(1000)
 		// this.setGravityY(0) //gravity * ability.projectileGravityMultiplier)
+
+		// use animation
+		if (art.animated) {
+			console.log('animating projectile art')
+			this.anims.play(getAnimationKey(art.name), true)
+		}
 	}
 
 	preUpdate() {

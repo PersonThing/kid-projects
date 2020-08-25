@@ -21,6 +21,7 @@
 	import Paused from './Paused.svelte'
 	import Player from './PhaserGame/Player'
 	import project from '../stores/active-project-store'
+	import getAnimationKey from './PhaserGame/GetAnimationKey'
 
 	export let level = null
 	export let character = null
@@ -284,9 +285,20 @@
 		player.enemies = enemies
 
 		// camera and player bounds
-		this.physics.world.setBounds(0, 0, maxLevelX, maxLevelY + viewportHeight)
+		this.physics.world.setBounds(0, -maxLevelY, maxLevelX, maxLevelY + viewportHeight)
 		this.cameras.main.setBounds(0, -maxLevelY, maxLevelX, maxLevelY + viewportHeight)
 		this.cameras.main.startFollow(player)
+
+		// score method
+		let scoreText = this.add.text(10, 10, '')
+		scoreText.setScrollFactor(0)
+		scoreText.setColor('black')
+		scoreText.setAlpha(0.8)
+		this.addScore = function (s) {
+			score += s
+			scoreText.setText(`Score: ${score}`)
+		}
+		this.addScore(0)
 	}
 
 	function translateX(x, width) {
@@ -325,10 +337,13 @@
 			this.physics.pause()
 			gameOver = true
 		}
-	}
 
-	function getAnimationKey(key) {
-		return `${key}.animation`
+		// if all enemies dead, you win
+		if (enemies.countActive() == 0) {
+			this.physics.pause()
+			gameWon = true
+			gameOver = true
+		}
 	}
 
 	function hydrateGraphics(template) {

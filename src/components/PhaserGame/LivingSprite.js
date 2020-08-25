@@ -1,3 +1,4 @@
+import getAnimationKey from './GetAnimationKey'
 import HealthBar from './HealthBar'
 
 export default class LivingSprite extends Phaser.Physics.Arcade.Sprite {
@@ -36,15 +37,11 @@ export default class LivingSprite extends Phaser.Physics.Arcade.Sprite {
 		if (art == null) art = this.graphics.still
 		if (this.activeGraphic != null && this.activeGraphic.name == art.name) return
 		if (art.animated) {
-			this.anims.play(this.getAnimationKey(art.name), true)
+			this.anims.play(getAnimationKey(art.name), true)
 		} else {
 			this.setTexture(art.name)
 		}
 		this.activeGraphic = art
-	}
-
-	getAnimationKey(key) {
-		return `${key}.animation`
 	}
 
 	damage(amount) {

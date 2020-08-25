@@ -70,7 +70,7 @@ export default class Player extends LivingSprite {
 	doAbility(ability) {
 		const targetCoords = { x: this.flipX ? -10000 : 10000, y: this.y - 100 }
 		if (ability.projectile) {
-			const projectile = new Projectile(this.scene, this.x, this.y, ability.graphics.projectile.name, ability.projectileVelocity, targetCoords)
+			const projectile = new Projectile(this.scene, this.x, this.y, ability.graphics.projectile, ability.projectileVelocity, targetCoords)
 			this.scene.physics.add.overlap(projectile, this.enemies, (projectile, enemy) => {
 				enemy.damage(ability.damage)
 				projectile.destroy()
