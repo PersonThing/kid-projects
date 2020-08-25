@@ -6,7 +6,7 @@
 			<h1>{player.name} is dead now. You really let him down.</h1>
 		{/if}
 		<h1>Final score: {score}</h1>
-		<p>Press enter or space to restart.</p>
+		<p>Press enter to restart.</p>
 	</div>
 {/if}
 

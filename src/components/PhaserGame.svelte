@@ -327,12 +327,10 @@
 	}
 
 	function onUpdate() {
-		// restart game
-		if (Phaser.Input.Keyboard.JustDown(keys.ENTER) || (gameOver && Phaser.Input.Keyboard.JustDown(keys.SPACE))) start()
-
+		if (Phaser.Input.Keyboard.JustDown(keys.ENTER)) start()
 		if (gameOver) return
 
-		// if player is dead or fell out bottom of world, they lost
+		// if player is dead or fell out bottom of world, you lose
 		if (!player.alive) {
 			this.physics.pause()
 			gameOver = true
