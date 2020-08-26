@@ -467,13 +467,29 @@
 			// recursively loop around this pixel setting pixels that were the same color this one used to be to the new color
 			// needs revision
 			// right now it works well for filling outlines, but overfills through outlines that only touch on corners
-			for (let xn = x - 1; xn <= x + 1; xn += 1) {
-				for (let yn = y - 1; yn <= y + 1; yn += 1) {
-					if (yn < 0 || yn > input.height - 1 || xn < 0 || xn > input.width * 1 - 1) continue
-					const currentColor = getColorAt(xn, yn)
-					if (currentColor == oldColor) setColor(xn, yn, color, true)
-				}
+			const coords = [
+				{x: -1, y: 0},
+				{x: 1, y: 0},
+				{x: 0, y: -1},
+				{x: 0, y: 1}
+			].map(c => ({
+				xn: x + c.x,
+				yn: y + c.y
+			}))
+			for (let c of coords) {
+				if (c.yn < 0 || c.yn > input.height - 1 || c.xn < 0 || c.xn > input.width -1) continue
+
+				const currentColor = getColorAt(c.xn, c.yn)
+				if (currentColor == oldColor) setColor(c.xn, c.yn, color, true)
 			}
+
+			// for (let xn = x - 1; xn <= x + 1; xn += 1) {
+			// 	for (let yn = y - 1; yn <= y + 1; yn += 1) {
+			// 		if (yn < 0 || yn > input.height - 1 || xn < 0 || xn > input.width * 1 - 1) continue
+			// 		const currentColor = getColorAt(xn, yn)
+			// 		if (currentColor == oldColor) setColor(xn, yn, color, true)
+			// 	}
+			// }
 		}
 
 		if (!recursing) setInputFromCanvas()
