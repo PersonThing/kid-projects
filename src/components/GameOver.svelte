@@ -3,9 +3,9 @@
 		{#if won}
 			<h1>You have guided {player.name} to victory. {level.name} complete!</h1>
 		{:else}
-			<h1>{player.name} is dead now. You really let him down.</h1>
+			<h1>Game over.</h1>
 		{/if}
-		<h1>Final score: {score}</h1>
+		<h2>Final score: {score}</h2>
 		<p>Press enter to restart.</p>
 	</div>
 {/if}
@@ -37,6 +37,11 @@
 		color: #fff;
 		font-size: 50px;
 		font-weight: 100;
+	}
+
+	h2 {
+		color: #fff;
+		font-size: 30px;
 	}
 
 	p {
