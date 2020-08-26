@@ -38,11 +38,14 @@ export default class LivingSprite extends Phaser.Physics.Arcade.Sprite {
 		if (this.body.y > 1000) this.damage(this.template.maxHealth)
 	}
 
-	setGraphic(art) {
+	setGraphic(art, ignoreIfPlaying = true) {
 		if (art == null) art = this.graphics.still
-		if (this.activeGraphic != null && this.activeGraphic.name == art.name) return
+
+		if (ignoreIfPlaying && this.activeGraphic != null && this.activeGraphic.name == art.name) return
+		else this.anims.stop()
+
 		if (art.animated) {
-			this.anims.play(getAnimationKey(art.name), true)
+			this.anims.play(getAnimationKey(art.name), ignoreIfPlaying, 0)
 		} else {
 			this.setTexture(art.name)
 		}

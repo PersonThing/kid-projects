@@ -9,8 +9,6 @@ export default class Enemy extends LivingSprite {
 		this.leashRange = leashRange
 		this.isMovingGraphic = false
 		this.depth = 1
-
-		this.attackingGraphics = false
 	}
 
 	preUpdate(time, delta) {
@@ -47,7 +45,7 @@ export default class Enemy extends LivingSprite {
 				}
 
 				const isMoving = this.body.velocity.x != 0 || this.body.velocity.y != 0
-				if (!this.attackingGraphics) {
+				if (this.attackingGraphicTimeout == null) {
 					this.setGraphic(isMoving ? this.graphics.moving : this.graphics.still)
 				}
 			}
@@ -71,13 +69,17 @@ export default class Enemy extends LivingSprite {
 	doAbility(ability) {
 		if (ability.graphics.character != null) {
 			this.attackingGraphics = true
-			this.setGraphic(ability.graphics.character)
+			this.setGraphic(ability.graphics.character, false)
 
 			// TODO: use anim end event instead...
-			setTimeout(() => {
-				this.attackingGraphics = false
+			// TODO: damage @ end of attack animation instead of beginning - make sure character still in range @ end of animation...
+			clearTimeout(this.attackingGraphicTimeout)
+			this.attackingGraphicTimeout = setTimeout(() => {
+				this.attackingGraphic = false
+				this.attackingGraphicTimeout = null
 			}, ability.attackRateMs)
 		}
+
 		if (ability.projectile) {
 			const projectile = new Projectile(
 				this.scene,

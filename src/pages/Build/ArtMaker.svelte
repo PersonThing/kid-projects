@@ -62,14 +62,14 @@
 			</button>
 		</div>
 
-		<QuickDropdown label="Size" dropdownClass="p-2" on:open={startChangeSize}>
+		<QuickDropdown label="{input.width}W x {input.height}H" dropdownClass="p-2" on:open={startChangeSize}>
 			<form on:submit|preventDefault={applyChangeSize}>
 				<div class="flex">
 					W
-					<input type="number" min={1} max={1000} bind:value={changeSize.width} />
+					<input type="number" min={1} max={1500} bind:value={changeSize.width} />
 					<strong>x</strong>
 					H
-					<input type="number" min={1} max={1000} bind:value={changeSize.height} />
+					<input type="number" min={1} max={1500} bind:value={changeSize.height} />
 					<button type="submit" class="btn btn-info btn-sm">Apply</button>
 				</div>
 			</form>
@@ -468,28 +468,28 @@
 			// needs revision
 			// right now it works well for filling outlines, but overfills through outlines that only touch on corners
 			const coords = [
-				{x: -1, y: 0},
-				{x: 1, y: 0},
-				{x: 0, y: -1},
-				{x: 0, y: 1}
+				{ x: -1, y: 0 },
+				{ x: 1, y: 0 },
+				{ x: 0, y: -1 },
+				{ x: 0, y: 1 },
 			].map(c => ({
 				xn: x + c.x,
-				yn: y + c.y
+				yn: y + c.y,
 			}))
-			for (let c of coords) {
-				if (c.yn < 0 || c.yn > input.height - 1 || c.xn < 0 || c.xn > input.width -1) continue
+			// for (let c of coords) {
+			// 	if (c.yn < 0 || c.yn > input.height - 1 || c.xn < 0 || c.xn > input.width - 1) continue
 
-				const currentColor = getColorAt(c.xn, c.yn)
-				if (currentColor == oldColor) setColor(c.xn, c.yn, color, true)
-			}
-
-			// for (let xn = x - 1; xn <= x + 1; xn += 1) {
-			// 	for (let yn = y - 1; yn <= y + 1; yn += 1) {
-			// 		if (yn < 0 || yn > input.height - 1 || xn < 0 || xn > input.width * 1 - 1) continue
-			// 		const currentColor = getColorAt(xn, yn)
-			// 		if (currentColor == oldColor) setColor(xn, yn, color, true)
-			// 	}
+			// 	const currentColor = getColorAt(c.xn, c.yn)
+			// 	if (currentColor == oldColor) setColor(c.xn, c.yn, color, true)
 			// }
+
+			for (let xn = x - 1; xn <= x + 1; xn += 1) {
+				for (let yn = y - 1; yn <= y + 1; yn += 1) {
+					if (yn < 0 || yn > input.height - 1 || xn < 0 || xn > input.width * 1 - 1) continue
+					const currentColor = getColorAt(xn, yn)
+					if (currentColor == oldColor) setColor(xn, yn, color, true)
+				}
+			}
 		}
 
 		if (!recursing) setInputFromCanvas()

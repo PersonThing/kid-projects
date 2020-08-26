@@ -49,7 +49,9 @@ export default class Player extends LivingSprite {
 			this.setVelocityX(0)
 		}
 
-		this.setGraphic(this.body.velocity.x != 0 ? this.graphics.moving : this.graphics.still)
+		if (this.attackingGraphicTimeout == null) {
+			this.setGraphic(this.body.velocity.x != 0 ? this.graphics.moving : this.graphics.still)
+		}
 
 		// abilities
 		this.abilityKeys = ['Q', 'W', 'E', 'R']
@@ -59,7 +61,6 @@ export default class Player extends LivingSprite {
 				const ability = this.abilities.find(a => a.key === k && (a.nextFire == null || a.nextFire < this.scene.time.now))
 				if (ability != null) {
 					this.doAbility(ability)
-					this.setGraphic(ability.graphics.character)
 					ability.nextFire = this.scene.time.now + ability.attackRateMs
 				}
 			}
@@ -67,6 +68,17 @@ export default class Player extends LivingSprite {
 	}
 
 	doAbility(ability) {
+		if (ability.graphics.character != null) {
+			this.setGraphic(ability.graphics.character, false)
+
+			// TODO: use anim end event instead...
+			clearTimeout(this.attackingGraphicTimeout)
+			this.attackingGraphicTimeout = setTimeout(() => {
+				this.attackingGraphic = false
+				this.attackingGraphicTimeout = null
+			}, ability.attackRateMs)
+		}
+
 		const targetCoords = { x: this.flipX ? -10000 : 10000, y: this.y - 100 }
 		if (ability.projectile) {
 			const projectile = new Projectile(
