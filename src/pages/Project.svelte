@@ -4,7 +4,7 @@
 			<li class="nav-item">
 				<a class="nav-link text-success" href="#/{$project.name}/play">
 					<Icon data={playIcon} />
-					Play {$project.name}
+					Play game
 				</a>
 			</li>
 		{/if}
@@ -12,14 +12,14 @@
 		<li class="nav-item">
 			<a class="nav-link text-warning" href="#/{$project.name}/build/art/new">
 				<Icon data={editIcon} />
-				Edit {$project.name}
+				Edit game
 			</a>
 		</li>
 
 		<li class="nav-item">
 			<a class="nav-link text-danger" href="#/" on:click|preventDefault={deleteProject}>
 				<Icon data={deleteIcon} />
-				Delete {$project.name}
+				Delete game
 			</a>
 		</li>
 	</ul>
