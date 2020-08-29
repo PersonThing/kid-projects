@@ -34,7 +34,7 @@
 	//   enemies left: {}
 
 	// TODO: make editable in level or on individual enemies
-	const leashRange = 400
+	const attackRange = 400
 
 	let container
 
@@ -288,7 +288,7 @@
 				translateY(e.y, template.graphics.still.height),
 				template.graphics.still.name,
 				template,
-				[player, ...this.followers.getChildren()]
+				attackRange
 			)
 			this.enemies.add(enemy)
 		})

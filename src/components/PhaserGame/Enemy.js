@@ -1,11 +1,10 @@
 import LivingSprite from './LivingSprite'
-import Projectile from './Projectile'
 
 export default class Enemy extends LivingSprite {
-	constructor(scene, x, y, texture, template, leashRange = 600) {
+	constructor(scene, x, y, texture, template, attackRange) {
 		super(scene, x, y, texture, template)
 
-		this.leashRange = leashRange
+		this.attackRange = attackRange
 		this.isMovingGraphic = false
 		this.depth = 1
 	}
@@ -21,7 +20,7 @@ export default class Enemy extends LivingSprite {
 
 		this.assignTargetIfNone(this.attackRange)
 		if (this.target != null) {
-			this.attackTarget(this.target, this.leashRange)
+			this.attackTarget(this.target, this.attackRange)
 		} else {
 			// TODO: make them wander or something?
 		}

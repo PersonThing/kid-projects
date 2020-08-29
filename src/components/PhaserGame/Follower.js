@@ -1,7 +1,7 @@
 import LivingSprite from './LivingSprite'
 
 export default class Follower extends LivingSprite {
-	constructor(scene, x, y, texture, template, owner, leashRange = 600, attackRange = 600) {
+	constructor(scene, x, y, texture, template, owner, leashRange, attackRange) {
 		super(scene, x, y, texture, template)
 
 		this.owner = owner

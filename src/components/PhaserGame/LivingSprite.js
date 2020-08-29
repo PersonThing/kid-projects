@@ -104,6 +104,7 @@ export default class LivingSprite extends Phaser.Physics.Arcade.Sprite {
 				a => a.projectile == false || (a.range < distanceFromTarget && (a.nextFire == null || a.nextFire <= time))
 			)
 			if (closerRangeAbilities.length > 0) {
+				console.log(this.template.name, 'moving toward', this.target.template.name, 'for other abilities')
 				this.moveTowardSprite(target, closerRangeAbilities[0].range - 1)
 
 				const isMoving = this.body.velocity.x != 0 || this.body.velocity.y != 0
