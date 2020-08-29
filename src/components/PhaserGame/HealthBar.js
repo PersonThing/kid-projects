@@ -6,7 +6,7 @@ export default class HealthBar {
 		this.health = health
 		this.maxHealth = maxHealth
 		this.width = 80
-		this.height = 8
+		this.height = 12
 
 		this.draw()
 		this.bar.alpha = 0.5
@@ -20,6 +20,15 @@ export default class HealthBar {
 		return this.health > 0
 	}
 
+	reset() {
+		this.health = this.maxHealth
+		this.draw()
+	}
+
+	hide() {
+		this.bar.clear()
+	}
+
 	draw() {
 		this.bar.clear()
 
@@ -28,13 +37,12 @@ export default class HealthBar {
 		this.bar.fillRect(this.x, this.y, this.width, this.height)
 
 		// Health
-		const percent = this.health / this.maxHealth
-		if (percent < 0.3) {
+		if (this.health < 30) {
 			this.bar.fillStyle(0xff0000)
 		} else {
 			this.bar.fillStyle(0x00ff00)
 		}
-		this.bar.fillRect(this.x, this.y, Math.floor(percent * this.width), this.height)
+		this.bar.fillRect(this.x + 1, this.y + 1, Math.floor((this.health / this.maxHealth) * (this.width - 2)), this.height - 2)
 	}
 
 	moveTo(sprite) {

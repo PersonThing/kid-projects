@@ -23,6 +23,7 @@
 	import project from '../stores/active-project-store'
 	import getAnimationKey from './PhaserGame/GetAnimationKey'
 	import gravityPixelsPerSecond from './PhaserGame/Gravity'
+	import Follower from './PhaserGame/Follower'
 
 	export let level = null
 	export let character = null
@@ -143,16 +144,18 @@
 		return new Promise((resolve, reject) => {
 			const distinctBlocks = [...new Set(level.blocks.map(b => b.name))].map(n => $project.blocks[n]).filter(b => b != null)
 			const distinctEnemies = [...new Set(level.enemies.map(e => e.name))].map(n => $project.enemies[n]).filter(e => e != null)
+
+			const characters = [character, ...character.followers.map(c => $project.characters[c])]
 			const allArt = [
 				...new Set([
 					// blocks
 					...distinctBlocks.map(b => b.graphic),
 
-					// player
-					...Object.keys(character.graphics).map(key => character.graphics[key]),
+					// characters
+					...characters.flatMap(c => Object.keys(c.graphics).map(key => c.graphics[key])),
 
-					// player abilities
-					...character.abilities.flatMap(a => Object.keys(a.graphics).map(key => a.graphics[key])),
+					// character abilities
+					...characters.flatMap(c => c.abilities.flatMap(a => Object.keys(a.graphics).map(key => a.graphics[key]))),
 
 					// enemies
 					...distinctEnemies.flatMap(e => Object.keys(e.graphics).map(key => e.graphics[key])),
@@ -262,6 +265,18 @@
 		this.physics.add.collider(player, worldSimpleBlocks)
 		this.physics.add.collider(player, worldEffectBlocks, onEffectBlockCollision)
 		this.physics.add.overlap(player, worldConsumableBlocks, onConsumableBlockOverlap)
+
+		// add player followers
+		this.followers = this.physics.add.group()
+		character.followers
+			.map(h => hydrateGraphics($project.characters[h]))
+			.forEach(h => {
+				const y = player.body.y - (h.graphics.still.height - player.graphics.still.height)
+				const follower = new Follower(this, player.x, y, h.graphics.still.name, h, player, 300, 600)
+				this.followers.add(follower)
+			})
+		this.physics.add.collider(this.followers, worldSimpleBlocks)
+		this.physics.add.collider(this.followers, worldEffectBlocks, onEffectBlockCollision)
 
 		// add enemies
 		enemies = this.physics.add.group()

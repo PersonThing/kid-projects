@@ -11,7 +11,7 @@ export default class Player extends LivingSprite {
 		this.body.checkCollision.up = false
 
 		// show above enemies
-		this.depth = 2
+		this.depth = 3
 		// abilities
 		// this felt clunkier than just checking keyDown in frames
 		// this.abilityKeys = ['Q', 'W', 'E', 'R']
@@ -100,8 +100,6 @@ export default class Player extends LivingSprite {
 	}
 
 	onEnemyOverlap(enemy) {
-		// TODO: check for melee abilities??
-		// enemy.damage(100 / 60)
-		// this.damage(20 / 60)
+		// we don't really need overlap checking at all anymore if we're doing ability distance checking instead...
 	}
 }

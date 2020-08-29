@@ -1,5 +1,6 @@
-import getAnimationKey from './GetAnimationKey'
 import HealthBar from './HealthBar'
+import Projectile from './Projectile'
+import getAnimationKey from './GetAnimationKey'
 import gravityPixelsPerSecond from './Gravity'
 
 export default class LivingSprite extends Phaser.Physics.Arcade.Sprite {
@@ -67,5 +68,97 @@ export default class LivingSprite extends Phaser.Physics.Arcade.Sprite {
 
 		this.setVelocityX(vx)
 		this.flipX = vx < 0
+	}
+
+	moveTowardSprite(sprite, desiredDistance = 5) {
+		const distanceFromTarget = this.getDistanceFrom(sprite)
+		if (distanceFromTarget <= desiredDistance) {
+			this.setVelocityX(0)
+		} else if (sprite.x < this.x) {
+			this.setVelocityX(-this.template.maxVelocity)
+			this.flipX = true
+		} else {
+			this.setVelocityX(this.template.maxVelocity)
+			this.flipX = false
+		}
+
+		if ((this.body.touching.down || this.template.canFly) && sprite.y < this.y - this.height) {
+			this.setVelocityY(-this.template.jumpVelocity)
+		}
+	}
+
+	attackTarget(target, range, eligibleTargets) {
+		const distanceFromTarget = this.getDistanceFrom(target)
+		const time = this.scene.time.now
+		const ability = this.abilities.find(a => a.range > distanceFromTarget && (a.nextFire == null || a.nextFire <= time))
+		if (ability != null) {
+			// if any are off cooldown, fire them
+			// fire and set a timer for when they can use ability again
+			this.doAbility(ability, target, eligibleTargets)
+			this.setGraphic(ability.graphics.character)
+			ability.nextFire = time + ability.attackRateMs
+			this.setVelocityX(0)
+		} else if (distanceFromTarget < range) {
+			// if any closer range abilities are off cooldown, move toward them
+			const closerRangeAbilities = this.abilities.filter(
+				a => a.projectile == false || (a.range < distanceFromTarget && (a.nextFire == null || a.nextFire <= time))
+			)
+			if (closerRangeAbilities.length > 0) {
+				this.moveTowardSprite(target, closerRangeAbilities[0].range - 1)
+
+				const isMoving = this.body.velocity.x != 0 || this.body.velocity.y != 0
+				if (this.attackingGraphicTimeout == null) {
+					this.setGraphic(isMoving ? this.graphics.moving : this.graphics.still)
+				}
+			}
+		}
+	}
+
+	findTargetInRange(targets, range) {
+		const targetsInRange = targets
+			.filter(t => t.alive)
+			.map(t => ({
+				sprite: t,
+				distance: this.getDistanceFrom(t),
+			}))
+			.filter(t => t.distance < range)
+			.sort((a, b) => a.distance - b.distance)
+		return targetsInRange.length > 0 ? targetsInRange[0].sprite : null
+	}
+
+	getDistanceFrom(sprite) {
+		return Phaser.Math.Distance.Between(this.x, this.y, sprite.x, sprite.y)
+	}
+
+	doAbility(ability, target, eligibleTargets) {
+		if (ability.graphics.character != null) {
+			this.setGraphic(ability.graphics.character, false)
+
+			// TODO: use anim end event instead...
+			// TODO: damage @ end of attack animation instead of beginning - make sure character still in range @ end of animation...
+			clearTimeout(this.attackingGraphicTimeout)
+			this.attackingGraphicTimeout = setTimeout(() => {
+				this.attackingGraphic = false
+				this.attackingGraphicTimeout = null
+			}, ability.attackRateMs)
+		}
+
+		if (ability.projectile) {
+			const projectile = new Projectile(
+				this.scene,
+				this.x,
+				this.y,
+				ability.graphics.projectile,
+				ability.projectileVelocity,
+				ability.projectileGravityMultiplier,
+				target
+			)
+			this.scene.physics.add.overlap(projectile, eligibleTargets, (projectile, spriteHit) => {
+				spriteHit.damage(ability.damage)
+				projectile.destroy()
+			})
+		} else {
+			target.damage(ability.damage)
+		}
 	}
 }

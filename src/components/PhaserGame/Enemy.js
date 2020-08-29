@@ -15,41 +15,10 @@ export default class Enemy extends LivingSprite {
 		super.preUpdate(time, delta)
 
 		if (!this.alive) return
-		this.setDirection()
 
-		const distanceFromTarget = Phaser.Math.Distance.Between(this.x, this.y, this.target.x, this.target.y)
-		const ability = this.abilities.find(a => a.range > distanceFromTarget && (a.nextFire == null || a.nextFire <= time))
-		if (ability != null) {
-			// if any are off cooldown, fire them
-			// fire and set a timer for when they can use ability again
-			this.doAbility(ability, this.target)
-			this.setGraphic(ability.graphics.character)
-			ability.nextFire = time + ability.attackRateMs
-			this.setVelocityX(0)
-		} else if (distanceFromTarget < this.leashRange) {
-			// if any closer range abilities are off cooldown, move toward them
-			const closerRangeAbilities = this.abilities.filter(
-				a => a.projectile == false || (a.range < distanceFromTarget && (a.nextFire == null || a.nextFire <= time))
-			)
-			if (closerRangeAbilities.length > 0) {
-				if (distanceFromTarget < 1) {
-					this.setVelocityX(0)
-				} else if (this.target.x < this.x) {
-					this.setVelocityX(-this.template.maxVelocity)
-				} else {
-					this.setVelocityX(this.template.maxVelocity)
-				}
+		// TODO: enemies should be able to target followers too
 
-				if ((this.body.touching.down || this.template.canFly) && this.target.y < this.y - this.height) {
-					this.setVelocityY(-this.template.jumpVelocity)
-				}
-
-				const isMoving = this.body.velocity.x != 0 || this.body.velocity.y != 0
-				if (this.attackingGraphicTimeout == null) {
-					this.setGraphic(isMoving ? this.graphics.moving : this.graphics.still)
-				}
-			}
-		}
+		this.attackTarget(this.target, this.leashRange, [this.target, ...this.scene.followers.getChildren()])
 	}
 
 	damage(amount) {
@@ -63,47 +32,6 @@ export default class Enemy extends LivingSprite {
 			// TODO: fade out and eventually destroy
 			this.alpha = 0.25
 			// this.destroy()
-		}
-	}
-
-	doAbility(ability) {
-		if (ability.graphics.character != null) {
-			this.attackingGraphics = true
-			this.setGraphic(ability.graphics.character, false)
-
-			// TODO: use anim end event instead...
-			// TODO: damage @ end of attack animation instead of beginning - make sure character still in range @ end of animation...
-			clearTimeout(this.attackingGraphicTimeout)
-			this.attackingGraphicTimeout = setTimeout(() => {
-				this.attackingGraphic = false
-				this.attackingGraphicTimeout = null
-			}, ability.attackRateMs)
-		}
-
-		if (ability.projectile) {
-			const projectile = new Projectile(
-				this.scene,
-				this.x,
-				this.y,
-				ability.graphics.projectile,
-				ability.projectileVelocity,
-				ability.projectileGravityMultiplier,
-				this.target
-			)
-			this.scene.physics.add.overlap(projectile, this.target, () => {
-				this.target.damage(ability.damage)
-				projectile.destroy()
-			})
-		} else {
-			this.target.damage(ability.damage)
-		}
-	}
-
-	setDirection() {
-		if (this.target.x > this.x) {
-			this.flipX = false
-		} else {
-			this.flipX = true
 		}
 	}
 }

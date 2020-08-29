@@ -18,6 +18,7 @@
 		<FieldCheckbox name="canDoubleJump" bind:checked={input.canDoubleJump}>Can double jump?</FieldCheckbox>
 
 		<FieldAbilities name="abilities" bind:abilities={input.abilities}>Abilities</FieldAbilities>
+		<FieldCharacterPicker name="followers" bind:value={input.followers}>Followers / Pets</FieldCharacterPicker>
 	</Form>
 </BuildLayout>
 
@@ -38,6 +39,7 @@
 	import Icon from 'svelte-awesome'
 	import project from '../../stores/active-project-store'
 	import validator from '../../services/validator'
+	import FieldCharacterPicker from '../../components/FieldCharacterPicker.svelte'
 
 	export let params = {}
 	let input = {}
@@ -82,6 +84,7 @@
 			canFly: false,
 			canDoubleJump: false,
 			abilities: [],
+			followers: [],
 		}
 	}
 
