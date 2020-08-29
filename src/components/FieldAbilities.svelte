@@ -10,9 +10,8 @@
 						<th />
 						{#if requireKeybinds}
 							<th>Key</th>
-						{:else}
-							<th>Range</th>
 						{/if}
+						<th>Range</th>
 						<th>Name</th>
 						<th>Character graphic</th>
 						<th>Damage per hit</th>
@@ -36,11 +35,10 @@
 								<td>
 									<InputSelect name="ability-key-{i}" inline options={availableKeys} let:option bind:value={a.key}>{option.value}</InputSelect>
 								</td>
-							{:else}
-								<td>
-									<input type="number" min={0} max={10000} bind:value={a.range} />
-								</td>
 							{/if}
+							<td>
+								<input type="number" min={0} max={10000} bind:value={a.range} />
+							</td>
 							<td>
 								<input type="text" bind:value={a.name} />
 							</td>

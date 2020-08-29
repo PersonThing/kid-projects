@@ -2,13 +2,16 @@ import LivingSprite from './LivingSprite'
 import Projectile from './Projectile'
 
 export default class Enemy extends LivingSprite {
-	constructor(scene, x, y, texture, template, player, leashRange = 600) {
+	constructor(scene, x, y, texture, template, leashRange = 600) {
 		super(scene, x, y, texture, template)
 
-		this.target = player
 		this.leashRange = leashRange
 		this.isMovingGraphic = false
 		this.depth = 1
+	}
+
+	getEligibleTargets() {
+		return [this.scene.player, ...this.scene.followers.getChildren()]
 	}
 
 	preUpdate(time, delta) {
@@ -16,9 +19,12 @@ export default class Enemy extends LivingSprite {
 
 		if (!this.alive) return
 
-		// TODO: enemies should be able to target followers too
-
-		this.attackTarget(this.target, this.leashRange, [this.target, ...this.scene.followers.getChildren()])
+		this.assignTargetIfNone(this.attackRange)
+		if (this.target != null) {
+			this.attackTarget(this.target, this.leashRange)
+		} else {
+			// TODO: make them wander or something?
+		}
 	}
 
 	damage(amount) {
@@ -29,9 +35,15 @@ export default class Enemy extends LivingSprite {
 
 			this.disableBody(true, false)
 			this.hp.destroy()
-			// TODO: fade out and eventually destroy
-			this.alpha = 0.25
-			// this.destroy()
+			this.fadeOut(0)
+		}
+	}
+
+	fadeOut(n) {
+		if (n >= 10) this.destroy()
+		else {
+			this.alpha = 1 - n / 10
+			setTimeout(() => this.fadeOut(n + 1), 10)
 		}
 	}
 }

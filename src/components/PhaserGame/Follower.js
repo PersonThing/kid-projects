@@ -12,6 +12,10 @@ export default class Follower extends LivingSprite {
 		this.framesOutsideLeashRange = 0
 	}
 
+	getEligibleTargets() {
+		return this.scene.enemies.getChildren()
+	}
+
 	preUpdate(time, delta) {
 		super.preUpdate(time, delta)
 
@@ -26,15 +30,13 @@ export default class Follower extends LivingSprite {
 		} else {
 			this.framesOutsideLeashRange = 0
 
-			const enemies = this.owner.enemies.getChildren()
 			// 2. pick a target and stick to them until they're dead or out of range
-			if (this.target == null || !this.target.alive || this.getDistanceFrom(this.target) > this.attackRange)
-				this.target = this.findTargetInRange(enemies, this.attackRange)
+			this.assignTargetIfNone(this.attackRange)
 
 			// 3. attack target
 			if (this.target != null) {
 				// console.log('FOLLOWER', this.template.name, 'attacking', this.target?.template.name)
-				this.attackTarget(this.target, this.attackRange, enemies)
+				this.attackTarget(this.target, this.attackRange)
 			} else {
 				// 4. move toward owner
 				// console.log('FOLLOWER', this.template.name, 'moving toward owner')

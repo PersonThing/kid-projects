@@ -2,7 +2,7 @@ import LivingSprite from './LivingSprite'
 import Projectile from './Projectile'
 
 export default class Player extends LivingSprite {
-	constructor(scene, x, y, texture, template, keys, enemies) {
+	constructor(scene, x, y, texture, template, keys) {
 		super(scene, x, y, texture, template)
 
 		this.keys = keys
@@ -90,16 +90,12 @@ export default class Player extends LivingSprite {
 				ability.projectileGravityMultiplier,
 				targetCoords
 			)
-			this.scene.physics.add.overlap(projectile, this.enemies, (projectile, enemy) => {
+			this.scene.physics.add.overlap(projectile, this.scene.enemies, (projectile, enemy) => {
 				enemy.damage(ability.damage)
 				projectile.destroy()
 			})
 		} else {
 			// TODO: how will melee non-projectile abilities work for player... ?
 		}
-	}
-
-	onEnemyOverlap(enemy) {
-		// we don't really need overlap checking at all anymore if we're doing ability distance checking instead...
 	}
 }

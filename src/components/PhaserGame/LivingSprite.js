@@ -87,14 +87,14 @@ export default class LivingSprite extends Phaser.Physics.Arcade.Sprite {
 		}
 	}
 
-	attackTarget(target, range, eligibleTargets) {
+	attackTarget(target, range) {
 		const distanceFromTarget = this.getDistanceFrom(target)
 		const time = this.scene.time.now
 		const ability = this.abilities.find(a => a.range > distanceFromTarget && (a.nextFire == null || a.nextFire <= time))
 		if (ability != null) {
 			// if any are off cooldown, fire them
 			// fire and set a timer for when they can use ability again
-			this.doAbility(ability, target, eligibleTargets)
+			this.doAbility(ability, target)
 			this.setGraphic(ability.graphics.character)
 			ability.nextFire = time + ability.attackRateMs
 			this.setVelocityX(0)
@@ -114,14 +114,20 @@ export default class LivingSprite extends Phaser.Physics.Arcade.Sprite {
 		}
 	}
 
-	findTargetInRange(targets, range) {
-		const targetsInRange = targets
+	assignTargetIfNone(range) {
+		if (this.target == null || !this.target.alive || this.getDistanceFrom(this.target) > range) {
+			this.target = this.findTargetInRange(range)
+		}
+	}
+
+	findTargetInRange(range) {
+		const targetsInRange = this.getEligibleTargets()
 			.filter(t => t.alive)
 			.map(t => ({
 				sprite: t,
 				distance: this.getDistanceFrom(t),
 			}))
-			.filter(t => t.distance < range)
+			// .filter(t => t.distance < range)
 			.sort((a, b) => a.distance - b.distance)
 		return targetsInRange.length > 0 ? targetsInRange[0].sprite : null
 	}
@@ -130,7 +136,7 @@ export default class LivingSprite extends Phaser.Physics.Arcade.Sprite {
 		return Phaser.Math.Distance.Between(this.x, this.y, sprite.x, sprite.y)
 	}
 
-	doAbility(ability, target, eligibleTargets) {
+	doAbility(ability, target) {
 		if (ability.graphics.character != null) {
 			this.setGraphic(ability.graphics.character, false)
 
@@ -153,6 +159,7 @@ export default class LivingSprite extends Phaser.Physics.Arcade.Sprite {
 				ability.projectileGravityMultiplier,
 				target
 			)
+			const eligibleTargets = this.getEligibleTargets()
 			this.scene.physics.add.overlap(projectile, eligibleTargets, (projectile, spriteHit) => {
 				spriteHit.damage(ability.damage)
 				projectile.destroy()

@@ -476,20 +476,20 @@
 				xn: x + c.x,
 				yn: y + c.y,
 			}))
-			// for (let c of coords) {
-			// 	if (c.yn < 0 || c.yn > input.height - 1 || c.xn < 0 || c.xn > input.width - 1) continue
+			for (let c of coords) {
+				if (c.yn < 0 || c.yn > input.height - 1 || c.xn < 0 || c.xn > input.width - 1) continue
 
-			// 	const currentColor = getColorAt(c.xn, c.yn)
-			// 	if (currentColor == oldColor) setColor(c.xn, c.yn, color, true)
-			// }
-
-			for (let xn = x - 1; xn <= x + 1; xn += 1) {
-				for (let yn = y - 1; yn <= y + 1; yn += 1) {
-					if (yn < 0 || yn > input.height - 1 || xn < 0 || xn > input.width * 1 - 1) continue
-					const currentColor = getColorAt(xn, yn)
-					if (currentColor == oldColor) setColor(xn, yn, color, true)
-				}
+				const currentColor = getColorAt(c.xn, c.yn)
+				if (currentColor == oldColor) setColor(c.xn, c.yn, color, true)
 			}
+
+			// for (let xn = x - 1; xn <= x + 1; xn += 1) {
+			// 	for (let yn = y - 1; yn <= y + 1; yn += 1) {
+			// 		if (yn < 0 || yn > input.height - 1 || xn < 0 || xn > input.width * 1 - 1) continue
+			// 		const currentColor = getColorAt(xn, yn)
+			// 		if (currentColor == oldColor) setColor(xn, yn, color, true)
+			// 	}
+			// }
 		}
 
 		if (!recursing) setInputFromCanvas()

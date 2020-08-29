@@ -26095,20 +26095,19 @@ var app = (function () {
     			// right now it works well for filling outlines, but overfills through outlines that only touch on corners
     			const coords = [{ x: -1, y: 0 }, { x: 1, y: 0 }, { x: 0, y: -1 }, { x: 0, y: 1 }].map(c => ({ xn: x + c.x, yn: y + c.y }));
 
-    			// for (let c of coords) {
-    			// 	if (c.yn < 0 || c.yn > input.height - 1 || c.xn < 0 || c.xn > input.width - 1) continue
-    			// 	const currentColor = getColorAt(c.xn, c.yn)
-    			// 	if (currentColor == oldColor) setColor(c.xn, c.yn, color, true)
-    			// }
-    			for (let xn = x - 1; xn <= x + 1; xn += 1) {
-    				for (let yn = y - 1; yn <= y + 1; yn += 1) {
-    					if (yn < 0 || yn > input.height - 1 || xn < 0 || xn > input.width * 1 - 1) continue;
-    					const currentColor = getColorAt(xn, yn);
-    					if (currentColor == oldColor) setColor(xn, yn, color, true);
-    				}
+    			for (let c of coords) {
+    				if (c.yn < 0 || c.yn > input.height - 1 || c.xn < 0 || c.xn > input.width - 1) continue;
+    				const currentColor = getColorAt(c.xn, c.yn);
+    				if (currentColor == oldColor) setColor(c.xn, c.yn, color, true);
     			}
-    		}
+    		} // for (let xn = x - 1; xn <= x + 1; xn += 1) {
+    		// 	for (let yn = y - 1; yn <= y + 1; yn += 1) {
 
+    		// 		if (yn < 0 || yn > input.height - 1 || xn < 0 || xn > input.width * 1 - 1) continue
+    		// 		const currentColor = getColorAt(xn, yn)
+    		// 		if (currentColor == oldColor) setColor(xn, yn, color, true)
+    		// 	}
+    		// }
     		if (!recursing) setInputFromCanvas();
     	}
 
@@ -28341,36 +28340,6 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (13:6) {:else}
-    function create_else_block_2(ctx) {
-    	let th;
-
-    	const block = {
-    		c: function create() {
-    			th = element("th");
-    			th.textContent = "Range";
-    			attr_dev(th, "class", "svelte-t9dc04");
-    			add_location(th, file$i, 13, 7, 257);
-    		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, th, anchor);
-    		},
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(th);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_else_block_2.name,
-    		type: "else",
-    		source: "(13:6) {:else}",
-    		ctx
-    	});
-
-    	return block;
-    }
-
     // (11:6) {#if requireKeybinds}
     function create_if_block_2$5(ctx) {
     	let th;
@@ -28401,67 +28370,7 @@ var app = (function () {
     	return block;
     }
 
-    // (39:7) {:else}
-    function create_else_block_1$1(ctx) {
-    	let td;
-    	let input;
-    	let input_min_value;
-    	let input_max_value;
-    	let mounted;
-    	let dispose;
-
-    	function input_input_handler() {
-    		/*input_input_handler*/ ctx[8].call(input, /*each_value*/ ctx[19], /*i*/ ctx[20]);
-    	}
-
-    	const block = {
-    		c: function create() {
-    			td = element("td");
-    			input = element("input");
-    			attr_dev(input, "type", "number");
-    			attr_dev(input, "min", input_min_value = 0);
-    			attr_dev(input, "max", input_max_value = 10000);
-    			add_location(input, file$i, 40, 9, 1041);
-    			add_location(td, file$i, 39, 8, 1026);
-    		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, td, anchor);
-    			append_dev(td, input);
-    			set_input_value(input, /*a*/ ctx[18].range);
-
-    			if (!mounted) {
-    				dispose = listen_dev(input, "input", input_input_handler);
-    				mounted = true;
-    			}
-    		},
-    		p: function update(new_ctx, dirty) {
-    			ctx = new_ctx;
-
-    			if (dirty & /*abilities*/ 1 && to_number(input.value) !== /*a*/ ctx[18].range) {
-    				set_input_value(input, /*a*/ ctx[18].range);
-    			}
-    		},
-    		i: noop,
-    		o: noop,
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(td);
-    			mounted = false;
-    			dispose();
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_else_block_1$1.name,
-    		type: "else",
-    		source: "(39:7) {:else}",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    // (35:7) {#if requireKeybinds}
+    // (34:7) {#if requireKeybinds}
     function create_if_block_1$8(ctx) {
     	let td;
     	let inputselect;
@@ -28497,7 +28406,7 @@ var app = (function () {
     		c: function create() {
     			td = element("td");
     			create_component(inputselect.$$.fragment);
-    			add_location(td, file$i, 35, 8, 845);
+    			add_location(td, file$i, 34, 8, 829);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, td, anchor);
@@ -28539,14 +28448,14 @@ var app = (function () {
     		block,
     		id: create_if_block_1$8.name,
     		type: "if",
-    		source: "(35:7) {#if requireKeybinds}",
+    		source: "(34:7) {#if requireKeybinds}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (37:9) <InputSelect name="ability-key-{i}" inline options={availableKeys} let:option bind:value={a.key}>
+    // (36:9) <InputSelect name="ability-key-{i}" inline options={availableKeys} let:option bind:value={a.key}>
     function create_default_slot$5(ctx) {
     	let t_value = /*option*/ ctx[21].value + "";
     	let t;
@@ -28570,14 +28479,14 @@ var app = (function () {
     		block,
     		id: create_default_slot$5.name,
     		type: "slot",
-    		source: "(37:9) <InputSelect name=\\\"ability-key-{i}\\\" inline options={availableKeys} let:option bind:value={a.key}>",
+    		source: "(36:9) <InputSelect name=\\\"ability-key-{i}\\\" inline options={availableKeys} let:option bind:value={a.key}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (69:7) {:else}
+    // (67:7) {:else}
     function create_else_block$5(ctx) {
     	let td;
 
@@ -28585,7 +28494,7 @@ var app = (function () {
     		c: function create() {
     			td = element("td");
     			attr_dev(td, "colspan", "2");
-    			add_location(td, file$i, 69, 8, 2121);
+    			add_location(td, file$i, 67, 8, 2086);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, td, anchor);
@@ -28602,14 +28511,14 @@ var app = (function () {
     		block,
     		id: create_else_block$5.name,
     		type: "else",
-    		source: "(69:7) {:else}",
+    		source: "(67:7) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (59:7) {#if a.projectile}
+    // (57:7) {#if a.projectile}
     function create_if_block$a(ctx) {
     	let td0;
     	let fieldartpicker;
@@ -28667,18 +28576,18 @@ var app = (function () {
     			t1 = space();
     			td2 = element("td");
     			input1 = element("input");
-    			add_location(td0, file$i, 59, 8, 1689);
+    			add_location(td0, file$i, 57, 8, 1654);
     			attr_dev(input0, "type", "number");
     			attr_dev(input0, "min", input0_min_value = 0);
     			attr_dev(input0, "max", input0_max_value = 10000);
-    			add_location(input0, file$i, 63, 9, 1869);
-    			add_location(td1, file$i, 62, 8, 1854);
+    			add_location(input0, file$i, 61, 9, 1834);
+    			add_location(td1, file$i, 60, 8, 1819);
     			attr_dev(input1, "type", "number");
     			attr_dev(input1, "min", input1_min_value = 0);
     			attr_dev(input1, "max", input1_max_value = 1);
     			attr_dev(input1, "step", input1_step_value = 0.01);
-    			add_location(input1, file$i, 66, 9, 1986);
-    			add_location(td2, file$i, 65, 8, 1971);
+    			add_location(input1, file$i, 64, 9, 1951);
+    			add_location(td2, file$i, 63, 8, 1936);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, td0, anchor);
@@ -28747,44 +28656,47 @@ var app = (function () {
     		block,
     		id: create_if_block$a.name,
     		type: "if",
-    		source: "(59:7) {#if a.projectile}",
+    		source: "(57:7) {#if a.projectile}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (28:5) {#each abilities as a, i}
+    // (27:5) {#each abilities as a, i}
     function create_each_block$5(ctx) {
     	let tr;
     	let td0;
     	let button;
     	let icon;
     	let t0;
-    	let current_block_type_index;
-    	let if_block0;
     	let t1;
     	let td1;
     	let input0;
+    	let input0_min_value;
+    	let input0_max_value;
     	let t2;
     	let td2;
-    	let fieldartpicker;
-    	let updating_value;
+    	let input1;
     	let t3;
     	let td3;
-    	let input1;
+    	let fieldartpicker;
+    	let updating_value;
     	let t4;
     	let td4;
     	let input2;
-    	let input2_min_value;
-    	let input2_max_value;
     	let t5;
     	let td5;
     	let input3;
+    	let input3_min_value;
+    	let input3_max_value;
     	let t6;
-    	let current_block_type_index_1;
-    	let if_block1;
+    	let td6;
+    	let input4;
     	let t7;
+    	let current_block_type_index;
+    	let if_block1;
+    	let t8;
     	let current;
     	let mounted;
     	let dispose;
@@ -28798,19 +28710,14 @@ var app = (function () {
     		return /*click_handler*/ ctx[6](/*i*/ ctx[20], ...args);
     	}
 
-    	const if_block_creators = [create_if_block_1$8, create_else_block_1$1];
-    	const if_blocks = [];
-
-    	function select_block_type_1(ctx, dirty) {
-    		if (/*requireKeybinds*/ ctx[1]) return 0;
-    		return 1;
-    	}
-
-    	current_block_type_index = select_block_type_1(ctx);
-    	if_block0 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    	let if_block0 = /*requireKeybinds*/ ctx[1] && create_if_block_1$8(ctx);
 
     	function input0_input_handler() {
-    		/*input0_input_handler*/ ctx[9].call(input0, /*each_value*/ ctx[19], /*i*/ ctx[20]);
+    		/*input0_input_handler*/ ctx[8].call(input0, /*each_value*/ ctx[19], /*i*/ ctx[20]);
+    	}
+
+    	function input1_input_handler() {
+    		/*input1_input_handler*/ ctx[9].call(input1, /*each_value*/ ctx[19], /*i*/ ctx[20]);
     	}
 
     	function fieldartpicker_value_binding(value) {
@@ -28833,28 +28740,28 @@ var app = (function () {
 
     	binding_callbacks.push(() => bind(fieldartpicker, "value", fieldartpicker_value_binding));
 
-    	function input1_input_handler() {
-    		/*input1_input_handler*/ ctx[11].call(input1, /*each_value*/ ctx[19], /*i*/ ctx[20]);
-    	}
-
     	function input2_input_handler() {
-    		/*input2_input_handler*/ ctx[12].call(input2, /*each_value*/ ctx[19], /*i*/ ctx[20]);
+    		/*input2_input_handler*/ ctx[11].call(input2, /*each_value*/ ctx[19], /*i*/ ctx[20]);
     	}
 
-    	function input3_change_handler() {
-    		/*input3_change_handler*/ ctx[13].call(input3, /*each_value*/ ctx[19], /*i*/ ctx[20]);
+    	function input3_input_handler() {
+    		/*input3_input_handler*/ ctx[12].call(input3, /*each_value*/ ctx[19], /*i*/ ctx[20]);
     	}
 
-    	const if_block_creators_1 = [create_if_block$a, create_else_block$5];
-    	const if_blocks_1 = [];
+    	function input4_change_handler() {
+    		/*input4_change_handler*/ ctx[13].call(input4, /*each_value*/ ctx[19], /*i*/ ctx[20]);
+    	}
 
-    	function select_block_type_2(ctx, dirty) {
+    	const if_block_creators = [create_if_block$a, create_else_block$5];
+    	const if_blocks = [];
+
+    	function select_block_type(ctx, dirty) {
     		if (/*a*/ ctx[18].projectile) return 0;
     		return 1;
     	}
 
-    	current_block_type_index_1 = select_block_type_2(ctx);
-    	if_block1 = if_blocks_1[current_block_type_index_1] = if_block_creators_1[current_block_type_index_1](ctx);
+    	current_block_type_index = select_block_type(ctx);
+    	if_block1 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
 
     	const block = {
     		c: function create() {
@@ -28863,16 +28770,16 @@ var app = (function () {
     			button = element("button");
     			create_component(icon.$$.fragment);
     			t0 = space();
-    			if_block0.c();
+    			if (if_block0) if_block0.c();
     			t1 = space();
     			td1 = element("td");
     			input0 = element("input");
     			t2 = space();
     			td2 = element("td");
-    			create_component(fieldartpicker.$$.fragment);
+    			input1 = element("input");
     			t3 = space();
     			td3 = element("td");
-    			input1 = element("input");
+    			create_component(fieldartpicker.$$.fragment);
     			t4 = space();
     			td4 = element("td");
     			input2 = element("input");
@@ -28880,28 +28787,36 @@ var app = (function () {
     			td5 = element("td");
     			input3 = element("input");
     			t6 = space();
-    			if_block1.c();
+    			td6 = element("td");
+    			input4 = element("input");
     			t7 = space();
+    			if_block1.c();
+    			t8 = space();
     			attr_dev(button, "type", "button");
     			attr_dev(button, "class", "btn btn-danger");
-    			add_location(button, file$i, 30, 8, 656);
-    			add_location(td0, file$i, 29, 7, 642);
-    			attr_dev(input0, "type", "text");
-    			add_location(input0, file$i, 44, 8, 1157);
-    			add_location(td1, file$i, 43, 7, 1143);
-    			add_location(td2, file$i, 46, 7, 1221);
-    			attr_dev(input1, "type", "number");
-    			add_location(input1, file$i, 50, 8, 1394);
-    			add_location(td3, file$i, 49, 7, 1380);
+    			add_location(button, file$i, 29, 8, 640);
+    			add_location(td0, file$i, 28, 7, 626);
+    			attr_dev(input0, "type", "number");
+    			attr_dev(input0, "min", input0_min_value = 0);
+    			attr_dev(input0, "max", input0_max_value = 10000);
+    			add_location(input0, file$i, 39, 8, 1021);
+    			add_location(td1, file$i, 38, 7, 1007);
+    			attr_dev(input1, "type", "text");
+    			add_location(input1, file$i, 42, 8, 1122);
+    			add_location(td2, file$i, 41, 7, 1108);
+    			add_location(td3, file$i, 44, 7, 1186);
     			attr_dev(input2, "type", "number");
-    			attr_dev(input2, "min", input2_min_value = 0);
-    			attr_dev(input2, "max", input2_max_value = 120000);
-    			add_location(input2, file$i, 53, 8, 1476);
-    			add_location(td4, file$i, 52, 7, 1462);
-    			attr_dev(input3, "type", "checkbox");
-    			add_location(input3, file$i, 56, 8, 1585);
-    			add_location(td5, file$i, 55, 7, 1571);
-    			add_location(tr, file$i, 28, 6, 629);
+    			add_location(input2, file$i, 48, 8, 1359);
+    			add_location(td4, file$i, 47, 7, 1345);
+    			attr_dev(input3, "type", "number");
+    			attr_dev(input3, "min", input3_min_value = 0);
+    			attr_dev(input3, "max", input3_max_value = 120000);
+    			add_location(input3, file$i, 51, 8, 1441);
+    			add_location(td5, file$i, 50, 7, 1427);
+    			attr_dev(input4, "type", "checkbox");
+    			add_location(input4, file$i, 54, 8, 1550);
+    			add_location(td6, file$i, 53, 7, 1536);
+    			add_location(tr, file$i, 27, 6, 613);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, tr, anchor);
@@ -28909,29 +28824,33 @@ var app = (function () {
     			append_dev(td0, button);
     			mount_component(icon, button, null);
     			append_dev(tr, t0);
-    			if_blocks[current_block_type_index].m(tr, null);
+    			if (if_block0) if_block0.m(tr, null);
     			append_dev(tr, t1);
     			append_dev(tr, td1);
     			append_dev(td1, input0);
-    			set_input_value(input0, /*a*/ ctx[18].name);
+    			set_input_value(input0, /*a*/ ctx[18].range);
     			append_dev(tr, t2);
     			append_dev(tr, td2);
-    			mount_component(fieldartpicker, td2, null);
+    			append_dev(td2, input1);
+    			set_input_value(input1, /*a*/ ctx[18].name);
     			append_dev(tr, t3);
     			append_dev(tr, td3);
-    			append_dev(td3, input1);
-    			set_input_value(input1, /*a*/ ctx[18].damage);
+    			mount_component(fieldartpicker, td3, null);
     			append_dev(tr, t4);
     			append_dev(tr, td4);
     			append_dev(td4, input2);
-    			set_input_value(input2, /*a*/ ctx[18].attackRateMs);
+    			set_input_value(input2, /*a*/ ctx[18].damage);
     			append_dev(tr, t5);
     			append_dev(tr, td5);
     			append_dev(td5, input3);
-    			input3.checked = /*a*/ ctx[18].projectile;
+    			set_input_value(input3, /*a*/ ctx[18].attackRateMs);
     			append_dev(tr, t6);
-    			if_blocks_1[current_block_type_index_1].m(tr, null);
+    			append_dev(tr, td6);
+    			append_dev(td6, input4);
+    			input4.checked = /*a*/ ctx[18].projectile;
     			append_dev(tr, t7);
+    			if_blocks[current_block_type_index].m(tr, null);
+    			append_dev(tr, t8);
     			current = true;
 
     			if (!mounted) {
@@ -28940,7 +28859,8 @@ var app = (function () {
     					listen_dev(input0, "input", input0_input_handler),
     					listen_dev(input1, "input", input1_input_handler),
     					listen_dev(input2, "input", input2_input_handler),
-    					listen_dev(input3, "change", input3_change_handler)
+    					listen_dev(input3, "input", input3_input_handler),
+    					listen_dev(input4, "change", input4_change_handler)
     				];
 
     				mounted = true;
@@ -28948,32 +28868,36 @@ var app = (function () {
     		},
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
-    			let previous_block_index = current_block_type_index;
-    			current_block_type_index = select_block_type_1(ctx);
 
-    			if (current_block_type_index === previous_block_index) {
-    				if_blocks[current_block_type_index].p(ctx, dirty);
-    			} else {
+    			if (/*requireKeybinds*/ ctx[1]) {
+    				if (if_block0) {
+    					if_block0.p(ctx, dirty);
+
+    					if (dirty & /*requireKeybinds*/ 2) {
+    						transition_in(if_block0, 1);
+    					}
+    				} else {
+    					if_block0 = create_if_block_1$8(ctx);
+    					if_block0.c();
+    					transition_in(if_block0, 1);
+    					if_block0.m(tr, t1);
+    				}
+    			} else if (if_block0) {
     				group_outros();
 
-    				transition_out(if_blocks[previous_block_index], 1, 1, () => {
-    					if_blocks[previous_block_index] = null;
+    				transition_out(if_block0, 1, 1, () => {
+    					if_block0 = null;
     				});
 
     				check_outros();
-    				if_block0 = if_blocks[current_block_type_index];
-
-    				if (!if_block0) {
-    					if_block0 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
-    					if_block0.c();
-    				}
-
-    				transition_in(if_block0, 1);
-    				if_block0.m(tr, t1);
     			}
 
-    			if (dirty & /*abilities*/ 1 && input0.value !== /*a*/ ctx[18].name) {
-    				set_input_value(input0, /*a*/ ctx[18].name);
+    			if (dirty & /*abilities*/ 1 && to_number(input0.value) !== /*a*/ ctx[18].range) {
+    				set_input_value(input0, /*a*/ ctx[18].range);
+    			}
+
+    			if (dirty & /*abilities*/ 1 && input1.value !== /*a*/ ctx[18].name) {
+    				set_input_value(input1, /*a*/ ctx[18].name);
     			}
 
     			const fieldartpicker_changes = {};
@@ -28986,40 +28910,40 @@ var app = (function () {
 
     			fieldartpicker.$set(fieldartpicker_changes);
 
-    			if (dirty & /*abilities*/ 1 && to_number(input1.value) !== /*a*/ ctx[18].damage) {
-    				set_input_value(input1, /*a*/ ctx[18].damage);
+    			if (dirty & /*abilities*/ 1 && to_number(input2.value) !== /*a*/ ctx[18].damage) {
+    				set_input_value(input2, /*a*/ ctx[18].damage);
     			}
 
-    			if (dirty & /*abilities*/ 1 && to_number(input2.value) !== /*a*/ ctx[18].attackRateMs) {
-    				set_input_value(input2, /*a*/ ctx[18].attackRateMs);
+    			if (dirty & /*abilities*/ 1 && to_number(input3.value) !== /*a*/ ctx[18].attackRateMs) {
+    				set_input_value(input3, /*a*/ ctx[18].attackRateMs);
     			}
 
     			if (dirty & /*abilities*/ 1) {
-    				input3.checked = /*a*/ ctx[18].projectile;
+    				input4.checked = /*a*/ ctx[18].projectile;
     			}
 
-    			let previous_block_index_1 = current_block_type_index_1;
-    			current_block_type_index_1 = select_block_type_2(ctx);
+    			let previous_block_index = current_block_type_index;
+    			current_block_type_index = select_block_type(ctx);
 
-    			if (current_block_type_index_1 === previous_block_index_1) {
-    				if_blocks_1[current_block_type_index_1].p(ctx, dirty);
+    			if (current_block_type_index === previous_block_index) {
+    				if_blocks[current_block_type_index].p(ctx, dirty);
     			} else {
     				group_outros();
 
-    				transition_out(if_blocks_1[previous_block_index_1], 1, 1, () => {
-    					if_blocks_1[previous_block_index_1] = null;
+    				transition_out(if_blocks[previous_block_index], 1, 1, () => {
+    					if_blocks[previous_block_index] = null;
     				});
 
     				check_outros();
-    				if_block1 = if_blocks_1[current_block_type_index_1];
+    				if_block1 = if_blocks[current_block_type_index];
 
     				if (!if_block1) {
-    					if_block1 = if_blocks_1[current_block_type_index_1] = if_block_creators_1[current_block_type_index_1](ctx);
+    					if_block1 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     					if_block1.c();
     				}
 
     				transition_in(if_block1, 1);
-    				if_block1.m(tr, t7);
+    				if_block1.m(tr, t8);
     			}
     		},
     		i: function intro(local) {
@@ -29040,9 +28964,9 @@ var app = (function () {
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(tr);
     			destroy_component(icon);
-    			if_blocks[current_block_type_index].d();
+    			if (if_block0) if_block0.d();
     			destroy_component(fieldartpicker);
-    			if_blocks_1[current_block_type_index_1].d();
+    			if_blocks[current_block_type_index].d();
     			mounted = false;
     			run_all(dispose);
     		}
@@ -29052,7 +28976,7 @@ var app = (function () {
     		block,
     		id: create_each_block$5.name,
     		type: "each",
-    		source: "(28:5) {#each abilities as a, i}",
+    		source: "(27:5) {#each abilities as a, i}",
     		ctx
     	});
 
@@ -29087,25 +29011,20 @@ var app = (function () {
     	let t16;
     	let th8;
     	let t18;
+    	let th9;
+    	let t20;
     	let tbody;
-    	let t19;
+    	let t21;
     	let div2;
     	let button;
     	let icon;
-    	let t20;
+    	let t22;
     	let current;
     	let mounted;
     	let dispose;
     	const default_slot_template = /*$$slots*/ ctx[5].default;
     	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[17], null);
-
-    	function select_block_type(ctx, dirty) {
-    		if (/*requireKeybinds*/ ctx[1]) return create_if_block_2$5;
-    		return create_else_block_2;
-    	}
-
-    	let current_block_type = select_block_type(ctx);
-    	let if_block = current_block_type(ctx);
+    	let if_block = /*requireKeybinds*/ ctx[1] && create_if_block_2$5(ctx);
     	let each_value = /*abilities*/ ctx[0];
     	validate_each_argument(each_value);
     	let each_blocks = [];
@@ -29136,65 +29055,70 @@ var app = (function () {
     			tr = element("tr");
     			th0 = element("th");
     			t1 = space();
-    			if_block.c();
+    			if (if_block) if_block.c();
     			t2 = space();
     			th1 = element("th");
-    			th1.textContent = "Name";
+    			th1.textContent = "Range";
     			t4 = space();
     			th2 = element("th");
-    			th2.textContent = "Character graphic";
+    			th2.textContent = "Name";
     			t6 = space();
     			th3 = element("th");
-    			th3.textContent = "Damage per hit";
+    			th3.textContent = "Character graphic";
     			t8 = space();
     			th4 = element("th");
-    			th4.textContent = "Attack rate (MS)";
+    			th4.textContent = "Damage per hit";
     			t10 = space();
     			th5 = element("th");
-    			th5.textContent = "Projectile?";
+    			th5.textContent = "Attack rate (MS)";
     			t12 = space();
     			th6 = element("th");
-    			th6.textContent = "Projectile Graphic";
+    			th6.textContent = "Projectile?";
     			t14 = space();
     			th7 = element("th");
-    			th7.textContent = "Projectile Velocity";
+    			th7.textContent = "Projectile Graphic";
     			t16 = space();
     			th8 = element("th");
-    			th8.textContent = "Projectile Gravity Multiplier";
+    			th8.textContent = "Projectile Velocity";
     			t18 = space();
+    			th9 = element("th");
+    			th9.textContent = "Projectile Gravity Multiplier";
+    			t20 = space();
     			tbody = element("tbody");
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
 
-    			t19 = space();
+    			t21 = space();
     			div2 = element("div");
     			button = element("button");
     			create_component(icon.$$.fragment);
-    			t20 = text("\r\n\t\t\tAdd ability");
+    			t22 = text("\r\n\t\t\tAdd ability");
     			add_location(label, file$i, 1, 1, 27);
     			attr_dev(th0, "class", "svelte-t9dc04");
     			add_location(th0, file$i, 9, 6, 177);
     			attr_dev(th1, "class", "svelte-t9dc04");
-    			add_location(th1, file$i, 15, 6, 292);
+    			add_location(th1, file$i, 13, 6, 254);
     			attr_dev(th2, "class", "svelte-t9dc04");
-    			add_location(th2, file$i, 16, 6, 313);
+    			add_location(th2, file$i, 14, 6, 276);
     			attr_dev(th3, "class", "svelte-t9dc04");
-    			add_location(th3, file$i, 17, 6, 347);
+    			add_location(th3, file$i, 15, 6, 297);
     			attr_dev(th4, "class", "svelte-t9dc04");
-    			add_location(th4, file$i, 18, 6, 378);
+    			add_location(th4, file$i, 16, 6, 331);
     			attr_dev(th5, "class", "svelte-t9dc04");
-    			add_location(th5, file$i, 19, 6, 411);
+    			add_location(th5, file$i, 17, 6, 362);
     			attr_dev(th6, "class", "svelte-t9dc04");
-    			add_location(th6, file$i, 20, 6, 439);
+    			add_location(th6, file$i, 18, 6, 395);
     			attr_dev(th7, "class", "svelte-t9dc04");
-    			add_location(th7, file$i, 21, 6, 474);
+    			add_location(th7, file$i, 19, 6, 423);
     			attr_dev(th8, "class", "svelte-t9dc04");
-    			add_location(th8, file$i, 22, 6, 510);
+    			add_location(th8, file$i, 20, 6, 458);
+    			attr_dev(th9, "class", "svelte-t9dc04");
+    			add_location(th9, file$i, 21, 6, 494);
     			add_location(tr, file$i, 8, 5, 165);
     			add_location(thead, file$i, 7, 4, 151);
-    			add_location(tbody, file$i, 26, 4, 582);
+    			add_location(tbody, file$i, 25, 4, 566);
     			attr_dev(table, "class", "table svelte-t9dc04");
     			add_location(table, file$i, 6, 3, 124);
     			attr_dev(div0, "class", "card-body");
@@ -29203,8 +29127,8 @@ var app = (function () {
     			add_location(div1, file$i, 4, 1, 60);
     			attr_dev(button, "class", "btn btn-success btn-sm");
     			attr_dev(button, "type", "button");
-    			add_location(button, file$i, 78, 2, 2238);
-    			add_location(div2, file$i, 77, 1, 2229);
+    			add_location(button, file$i, 76, 2, 2203);
+    			add_location(div2, file$i, 75, 1, 2194);
     			attr_dev(div3, "class", "form-group");
     			add_location(div3, file$i, 0, 0, 0);
     		},
@@ -29227,7 +29151,7 @@ var app = (function () {
     			append_dev(thead, tr);
     			append_dev(tr, th0);
     			append_dev(tr, t1);
-    			if_block.m(tr, null);
+    			if (if_block) if_block.m(tr, null);
     			append_dev(tr, t2);
     			append_dev(tr, th1);
     			append_dev(tr, t4);
@@ -29244,18 +29168,20 @@ var app = (function () {
     			append_dev(tr, th7);
     			append_dev(tr, t16);
     			append_dev(tr, th8);
-    			append_dev(table, t18);
+    			append_dev(tr, t18);
+    			append_dev(tr, th9);
+    			append_dev(table, t20);
     			append_dev(table, tbody);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].m(tbody, null);
     			}
 
-    			append_dev(div3, t19);
+    			append_dev(div3, t21);
     			append_dev(div3, div2);
     			append_dev(div2, button);
     			mount_component(icon, button, null);
-    			append_dev(button, t20);
+    			append_dev(button, t22);
     			current = true;
 
     			if (!mounted) {
@@ -29270,14 +29196,15 @@ var app = (function () {
     				}
     			}
 
-    			if (current_block_type !== (current_block_type = select_block_type(ctx))) {
-    				if_block.d(1);
-    				if_block = current_block_type(ctx);
-
-    				if (if_block) {
+    			if (/*requireKeybinds*/ ctx[1]) {
+    				if (if_block) ; else {
+    					if_block = create_if_block_2$5(ctx);
     					if_block.c();
     					if_block.m(tr, t2);
     				}
+    			} else if (if_block) {
+    				if_block.d(1);
+    				if_block = null;
     			}
 
     			if (dirty & /*abilities, availableKeys, option, requireKeybinds, removeAbility, removeIcon*/ 2097175) {
@@ -29333,7 +29260,7 @@ var app = (function () {
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(div3);
     			if (default_slot) default_slot.d(detaching);
-    			if_block.d();
+    			if (if_block) if_block.d();
     			destroy_each(each_blocks, detaching);
     			destroy_component(icon);
     			mounted = false;
@@ -29395,12 +29322,12 @@ var app = (function () {
     		$$invalidate(0, abilities);
     	}
 
-    	function input_input_handler(each_value, i) {
+    	function input0_input_handler(each_value, i) {
     		each_value[i].range = to_number(this.value);
     		$$invalidate(0, abilities);
     	}
 
-    	function input0_input_handler(each_value, i) {
+    	function input1_input_handler(each_value, i) {
     		each_value[i].name = this.value;
     		$$invalidate(0, abilities);
     	}
@@ -29410,17 +29337,17 @@ var app = (function () {
     		$$invalidate(0, abilities);
     	}
 
-    	function input1_input_handler(each_value, i) {
+    	function input2_input_handler(each_value, i) {
     		each_value[i].damage = to_number(this.value);
     		$$invalidate(0, abilities);
     	}
 
-    	function input2_input_handler(each_value, i) {
+    	function input3_input_handler(each_value, i) {
     		each_value[i].attackRateMs = to_number(this.value);
     		$$invalidate(0, abilities);
     	}
 
-    	function input3_change_handler(each_value, i) {
+    	function input4_change_handler(each_value, i) {
     		each_value[i].projectile = this.checked;
     		$$invalidate(0, abilities);
     	}
@@ -29481,12 +29408,12 @@ var app = (function () {
     		$$slots,
     		click_handler,
     		inputselect_value_binding,
-    		input_input_handler,
     		input0_input_handler,
-    		fieldartpicker_value_binding,
     		input1_input_handler,
+    		fieldartpicker_value_binding,
     		input2_input_handler,
-    		input3_change_handler,
+    		input3_input_handler,
+    		input4_change_handler,
     		fieldartpicker_value_binding_1,
     		input0_input_handler_1,
     		input1_input_handler_1,
@@ -31279,8 +31206,8 @@ var app = (function () {
     		},
     		name: "",
     		maxHealth: 100,
-    		maxVelocity: 5,
-    		jumpVelocity: 10,
+    		maxVelocity: 500,
+    		jumpVelocity: 600,
     		gravityMultiplier: 1,
     		canFly: false,
     		canDoubleJump: false,
@@ -35643,14 +35570,14 @@ var app = (function () {
     		}
     	}
 
-    	attackTarget(target, range, eligibleTargets) {
+    	attackTarget(target, range) {
     		const distanceFromTarget = this.getDistanceFrom(target);
     		const time = this.scene.time.now;
     		const ability = this.abilities.find(a => a.range > distanceFromTarget && (a.nextFire == null || a.nextFire <= time));
     		if (ability != null) {
     			// if any are off cooldown, fire them
     			// fire and set a timer for when they can use ability again
-    			this.doAbility(ability, target, eligibleTargets);
+    			this.doAbility(ability, target);
     			this.setGraphic(ability.graphics.character);
     			ability.nextFire = time + ability.attackRateMs;
     			this.setVelocityX(0);
@@ -35670,14 +35597,20 @@ var app = (function () {
     		}
     	}
 
-    	findTargetInRange(targets, range) {
-    		const targetsInRange = targets
+    	assignTargetIfNone(range) {
+    		if (this.target == null || !this.target.alive || this.getDistanceFrom(this.target) > range) {
+    			this.target = this.findTargetInRange(range);
+    		}
+    	}
+
+    	findTargetInRange(range) {
+    		const targetsInRange = this.getEligibleTargets()
     			.filter(t => t.alive)
     			.map(t => ({
     				sprite: t,
     				distance: this.getDistanceFrom(t),
     			}))
-    			.filter(t => t.distance < range)
+    			// .filter(t => t.distance < range)
     			.sort((a, b) => a.distance - b.distance);
     		return targetsInRange.length > 0 ? targetsInRange[0].sprite : null
     	}
@@ -35686,7 +35619,7 @@ var app = (function () {
     		return Phaser.Math.Distance.Between(this.x, this.y, sprite.x, sprite.y)
     	}
 
-    	doAbility(ability, target, eligibleTargets) {
+    	doAbility(ability, target) {
     		if (ability.graphics.character != null) {
     			this.setGraphic(ability.graphics.character, false);
 
@@ -35709,6 +35642,7 @@ var app = (function () {
     				ability.projectileGravityMultiplier,
     				target
     			);
+    			const eligibleTargets = this.getEligibleTargets();
     			this.scene.physics.add.overlap(projectile, eligibleTargets, (projectile, spriteHit) => {
     				spriteHit.damage(ability.damage);
     				projectile.destroy();
@@ -35720,13 +35654,16 @@ var app = (function () {
     }
 
     class Enemy extends LivingSprite {
-    	constructor(scene, x, y, texture, template, player, leashRange = 600) {
+    	constructor(scene, x, y, texture, template, leashRange = 600) {
     		super(scene, x, y, texture, template);
 
-    		this.target = player;
     		this.leashRange = leashRange;
     		this.isMovingGraphic = false;
     		this.depth = 1;
+    	}
+
+    	getEligibleTargets() {
+    		return [this.scene.player, ...this.scene.followers.getChildren()]
     	}
 
     	preUpdate(time, delta) {
@@ -35734,9 +35671,10 @@ var app = (function () {
 
     		if (!this.alive) return
 
-    		// TODO: enemies should be able to target followers too
-
-    		this.attackTarget(this.target, this.leashRange, [this.target, ...this.scene.followers.getChildren()]);
+    		this.assignTargetIfNone(this.attackRange);
+    		if (this.target != null) {
+    			this.attackTarget(this.target, this.leashRange);
+    		}
     	}
 
     	damage(amount) {
@@ -35747,9 +35685,15 @@ var app = (function () {
 
     			this.disableBody(true, false);
     			this.hp.destroy();
-    			// TODO: fade out and eventually destroy
-    			this.alpha = 0.25;
-    			// this.destroy()
+    			this.fadeOut(0);
+    		}
+    	}
+
+    	fadeOut(n) {
+    		if (n >= 10) this.destroy();
+    		else {
+    			this.alpha = 1 - n / 10;
+    			setTimeout(() => this.fadeOut(n + 1), 10);
     		}
     	}
     }
@@ -36338,7 +36282,7 @@ var app = (function () {
     }
 
     class Player extends LivingSprite {
-    	constructor(scene, x, y, texture, template, keys, enemies) {
+    	constructor(scene, x, y, texture, template, keys) {
     		super(scene, x, y, texture, template);
 
     		this.keys = keys;
@@ -36426,15 +36370,11 @@ var app = (function () {
     				ability.projectileGravityMultiplier,
     				targetCoords
     			);
-    			this.scene.physics.add.overlap(projectile, this.enemies, (projectile, enemy) => {
+    			this.scene.physics.add.overlap(projectile, this.scene.enemies, (projectile, enemy) => {
     				enemy.damage(ability.damage);
     				projectile.destroy();
     			});
     		}
-    	}
-
-    	onEnemyOverlap(enemy) {
-    		// we don't really need overlap checking at all anymore if we're doing ability distance checking instead...
     	}
     }
 
@@ -36448,6 +36388,10 @@ var app = (function () {
     		this.isMovingGraphic = false;
     		this.depth = 2;
     		this.framesOutsideLeashRange = 0;
+    	}
+
+    	getEligibleTargets() {
+    		return this.scene.enemies.getChildren()
     	}
 
     	preUpdate(time, delta) {
@@ -36464,15 +36408,13 @@ var app = (function () {
     		} else {
     			this.framesOutsideLeashRange = 0;
 
-    			const enemies = this.owner.enemies.getChildren();
     			// 2. pick a target and stick to them until they're dead or out of range
-    			if (this.target == null || !this.target.alive || this.getDistanceFrom(this.target) > this.attackRange)
-    				this.target = this.findTargetInRange(enemies, this.attackRange);
+    			this.assignTargetIfNone(this.attackRange);
 
     			// 3. attack target
     			if (this.target != null) {
     				// console.log('FOLLOWER', this.template.name, 'attacking', this.target?.template.name)
-    				this.attackTarget(this.target, this.attackRange, enemies);
+    				this.attackTarget(this.target, this.attackRange);
     			} else {
     				// 4. move toward owner
     				// console.log('FOLLOWER', this.template.name, 'moving toward owner')
@@ -36807,14 +36749,10 @@ var app = (function () {
     	block.destroy();
     }
 
-    function onPlayerEnemyOverlap(player, enemy) {
-    	player.onEnemyOverlap(enemy);
-    }
-
     function instance$z($$self, $$props, $$invalidate) {
     	let $project;
     	validate_store(project, "project");
-    	component_subscribe($$self, project, $$value => $$invalidate(24, $project = $$value));
+    	component_subscribe($$self, project, $$value => $$invalidate(23, $project = $$value));
     	let { level = null } = $$props;
     	let { character = null } = $$props;
     	let container;
@@ -36834,12 +36772,11 @@ var app = (function () {
     	let preloadedData;
     	let cursors;
     	let keys = {};
-    	let player;
-    	let enemies;
     	let gameWidth = 1200;
     	let viewportHeight = 600;
     	let maxLevelX;
     	let maxLevelY;
+    	let player;
 
     	onMount(() => {
     		// sort blocks by x, then y
@@ -37021,6 +36958,7 @@ var app = (function () {
 
     		const template = hydrateGraphics(character);
     		$$invalidate(7, player = this.physics.add.existing(new Player(this, translateX(0, template.graphics.still.width), startingY, character.graphics.still.name, template, keys)));
+    		this.player = player;
     		this.physics.add.collider(player, worldSimpleBlocks);
     		this.physics.add.collider(player, worldEffectBlocks, onEffectBlockCollision);
     		this.physics.add.overlap(player, worldConsumableBlocks, onConsumableBlockOverlap);
@@ -37038,18 +36976,16 @@ var app = (function () {
     		this.physics.add.collider(this.followers, worldEffectBlocks, onEffectBlockCollision);
 
     		// add enemies
-    		enemies = this.physics.add.group();
+    		this.enemies = this.physics.add.group();
 
     		level.enemies.forEach(e => {
     			const template = hydrateGraphics($project.enemies[e.name]);
-    			const enemy = new Enemy(this, translateX(e.x, template.graphics.still.width), translateY(e.y, template.graphics.still.height), template.graphics.still.name, template, player);
-    			enemies.add(enemy);
+    			const enemy = new Enemy(this, translateX(e.x, template.graphics.still.width), translateY(e.y, template.graphics.still.height), template.graphics.still.name, template, [player, ...this.followers.getChildren()]);
+    			this.enemies.add(enemy);
     		});
 
-    		this.physics.add.collider(enemies, worldSimpleBlocks);
-    		this.physics.add.collider(enemies, worldEffectBlocks, onEffectBlockCollision);
-    		this.physics.add.overlap(player, enemies, onPlayerEnemyOverlap);
-    		$$invalidate(7, player.enemies = enemies, player);
+    		this.physics.add.collider(this.enemies, worldSimpleBlocks);
+    		this.physics.add.collider(this.enemies, worldEffectBlocks, onEffectBlockCollision);
 
     		// camera and player bounds
     		this.physics.world.setBounds(0, -maxLevelY, maxLevelX, maxLevelY + viewportHeight);
@@ -37087,7 +37023,7 @@ var app = (function () {
     		}
 
     		// if all enemies dead, you win
-    		if (enemies.countActive() == 0) {
+    		if (this.enemies.countActive() == 0) {
     			this.physics.pause();
     			$$invalidate(4, gameWon = true);
     			$$invalidate(3, gameOver = true);
@@ -37176,12 +37112,11 @@ var app = (function () {
     		preloadedData,
     		cursors,
     		keys,
-    		player,
-    		enemies,
     		gameWidth,
     		viewportHeight,
     		maxLevelX,
     		maxLevelY,
+    		player,
     		start,
     		destroyGame,
     		preload,
@@ -37191,7 +37126,6 @@ var app = (function () {
     		translateY,
     		onEffectBlockCollision,
     		onConsumableBlockOverlap,
-    		onPlayerEnemyOverlap,
     		onUpdate,
     		hydrateGraphics,
     		hydrateGraphicsObject,
@@ -37218,12 +37152,11 @@ var app = (function () {
     		if ("preloadedData" in $$props) preloadedData = $$props.preloadedData;
     		if ("cursors" in $$props) cursors = $$props.cursors;
     		if ("keys" in $$props) keys = $$props.keys;
-    		if ("player" in $$props) $$invalidate(7, player = $$props.player);
-    		if ("enemies" in $$props) enemies = $$props.enemies;
     		if ("gameWidth" in $$props) gameWidth = $$props.gameWidth;
     		if ("viewportHeight" in $$props) viewportHeight = $$props.viewportHeight;
     		if ("maxLevelX" in $$props) maxLevelX = $$props.maxLevelX;
     		if ("maxLevelY" in $$props) maxLevelY = $$props.maxLevelY;
+    		if ("player" in $$props) $$invalidate(7, player = $$props.player);
     	};
 
     	if ($$props && "$$inject" in $$props) {

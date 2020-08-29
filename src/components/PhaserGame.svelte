@@ -57,14 +57,13 @@
 	let preloadedData
 	let cursors
 	let keys = {}
-	let player
-	let enemies
 
 	let gameWidth = 1200
 	let viewportHeight = 600
 
 	let maxLevelX
 	let maxLevelY
+	let player
 
 	onMount(() => {
 		// sort blocks by x, then y
@@ -262,6 +261,7 @@
 		player = this.physics.add.existing(
 			new Player(this, translateX(0, template.graphics.still.width), startingY, character.graphics.still.name, template, keys)
 		)
+		this.player = player
 		this.physics.add.collider(player, worldSimpleBlocks)
 		this.physics.add.collider(player, worldEffectBlocks, onEffectBlockCollision)
 		this.physics.add.overlap(player, worldConsumableBlocks, onConsumableBlockOverlap)
@@ -279,7 +279,7 @@
 		this.physics.add.collider(this.followers, worldEffectBlocks, onEffectBlockCollision)
 
 		// add enemies
-		enemies = this.physics.add.group()
+		this.enemies = this.physics.add.group()
 		level.enemies.forEach(e => {
 			const template = hydrateGraphics($project.enemies[e.name])
 			const enemy = new Enemy(
@@ -288,14 +288,12 @@
 				translateY(e.y, template.graphics.still.height),
 				template.graphics.still.name,
 				template,
-				player
+				[player, ...this.followers.getChildren()]
 			)
-			enemies.add(enemy)
+			this.enemies.add(enemy)
 		})
-		this.physics.add.collider(enemies, worldSimpleBlocks)
-		this.physics.add.collider(enemies, worldEffectBlocks, onEffectBlockCollision)
-		this.physics.add.overlap(player, enemies, onPlayerEnemyOverlap)
-		player.enemies = enemies
+		this.physics.add.collider(this.enemies, worldSimpleBlocks)
+		this.physics.add.collider(this.enemies, worldEffectBlocks, onEffectBlockCollision)
 
 		// camera and player bounds
 		this.physics.world.setBounds(0, -maxLevelY, maxLevelX, maxLevelY + viewportHeight)
@@ -335,10 +333,6 @@
 		block.destroy()
 	}
 
-	function onPlayerEnemyOverlap(player, enemy) {
-		player.onEnemyOverlap(enemy)
-	}
-
 	function onUpdate() {
 		if (Phaser.Input.Keyboard.JustDown(keys.ENTER)) start()
 		if (gameOver) return
@@ -350,7 +344,7 @@
 		}
 
 		// if all enemies dead, you win
-		if (enemies.countActive() == 0) {
+		if (this.enemies.countActive() == 0) {
 			this.physics.pause()
 			gameWon = true
 			gameOver = true
