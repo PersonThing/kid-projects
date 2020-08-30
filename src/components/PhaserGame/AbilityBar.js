@@ -25,19 +25,17 @@ export default class AbilityBar {
 	draw() {
 		this.bar.clear()
 
-		for (let i = 0; i < this.abilities.length; i++) {
-			const ability = this.abilities[i]
-
-			// draw a background square
-			this.bar.fillStyle(0x000000)
-			this.bar.fillRect(10 + i * (buttonSize + buttonSpacing), this.bar.scene.cameras.main.height - buttonSize - 10, buttonSize, buttonSize)
-
-			// TODO: finish this...
-
-			// text hotkey in white text in top left
-			// texture projectile graphic if any, otherwise character graphic
-			// draw a border if it's active
-		}
+		// TODO: replace Svelte-based ability bar graphics with this...
+		// for (let i = 0; i < this.abilities.length; i++) {
+		// 	const ability = this.abilities[i]
+		// 	// draw a background square
+		// 	this.bar.fillStyle(0x000000)
+		// 	this.bar.fillRect(10 + i * (buttonSize + buttonSpacing), this.bar.scene.cameras.main.height - buttonSize - 10, buttonSize, buttonSize)
+		// 	// text hotkey in white text in top left
+		// 	// texture projectile graphic if any, otherwise character graphic
+		// 	// draw a border if it's active
+		//	// draw a cooldown indicator if nextFire is set
+		// }
 	}
 
 	setActiveKey(key) {

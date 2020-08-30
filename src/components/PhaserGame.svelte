@@ -5,10 +5,11 @@
 		{:else if paused}
 			<Paused />
 		{/if}
+		<TemporaryAbilityBar abilities={character.abilities} />
 		<div bind:this={container} />
 	{/if}
-	<Instructions />
 </div>
+<Instructions />
 
 <script>
 	import { magnet, image } from 'svelte-awesome/icons'
@@ -25,6 +26,7 @@
 	import gravityPixelsPerSecond from './PhaserGame/Gravity'
 	import Follower from './PhaserGame/Follower'
 	import SkillKeys from './PhaserGame/SkillKeys'
+	import TemporaryAbilityBar from './PhaserGame/TemporaryAbilityBar.svelte'
 
 	export let levelName = null
 	let level
