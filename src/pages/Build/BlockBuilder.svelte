@@ -7,6 +7,7 @@
 		{#if input.consumable}
 			<FieldNumber name="healthOnConsume" bind:value={input.healthOnConsume}>Health on consume?</FieldNumber>
 			<FieldNumber name="scoreOnConsume" bind:value={input.scoreOnConsume}>Score on consume?</FieldNumber>
+			<FieldCharacterPicker name="followerOnConsume" bind:value={input.followerOnConsume}>Spawn follower on consume?</FieldCharacterPicker>
 		{/if}
 		<FieldCheckbox name="throwOnTouch" bind:checked={input.throwOnTouch}>Throw things that touch it?</FieldCheckbox>
 		<FieldNumber name="damage" bind:value={input.damage}>
@@ -30,6 +31,7 @@
 	import Form from '../../components/Form.svelte'
 	import project from '../../stores/active-project-store'
 	import validator from '../../services/validator'
+	import FieldCharacterPicker from '../../components/FieldCharacterPicker.svelte'
 
 	export let params = {}
 	let input
@@ -68,6 +70,7 @@
 			consumable: false,
 			healthOnConsume: 0,
 			scoreOnConsume: 0,
+			followerOnConsume: [],
 		}
 	}
 

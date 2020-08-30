@@ -88,6 +88,9 @@ export default class LivingSprite extends Phaser.Physics.Arcade.Sprite {
 	}
 
 	attackTarget(target, range) {
+		// face target
+		this.flipX = this.target.x < this.x
+
 		const distanceFromTarget = this.getDistanceFrom(target)
 		const time = this.scene.time.now
 		const ability = this.abilities.find(a => a.range > distanceFromTarget && (a.nextFire == null || a.nextFire <= time))

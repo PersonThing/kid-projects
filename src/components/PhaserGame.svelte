@@ -25,8 +25,13 @@
 	import gravityPixelsPerSecond from './PhaserGame/Gravity'
 	import Follower from './PhaserGame/Follower'
 
-	export let level = null
-	export let character = null
+	export let levelName = null
+	let level
+
+	export let characterName = null
+	let character
+
+	let scene
 
 	// TODO: status text
 	//   level: {}
@@ -66,6 +71,9 @@
 	let player
 
 	onMount(() => {
+		character = $project.characters[characterName]
+		level = $project.levels[levelName]
+
 		// sort blocks by x, then y
 		blocks = level.blocks
 			.sort((a, b) => {
@@ -88,8 +96,6 @@
 
 		start()
 	})
-
-	// $: if (level != null && character != null && container != null) start()
 
 	function start() {
 		destroyGame()
@@ -143,18 +149,19 @@
 		return new Promise((resolve, reject) => {
 			const distinctBlocks = [...new Set(level.blocks.map(b => b.name))].map(n => $project.blocks[n]).filter(b => b != null)
 			const distinctEnemies = [...new Set(level.enemies.map(e => e.name))].map(n => $project.enemies[n]).filter(e => e != null)
-
-			const characters = [character, ...character.followers.map(c => $project.characters[c])]
+			const distinctCharacters = [...new Set([characterName, ...character.followers, ...distinctBlocks.flatMap(b => b.followerOnConsume || [])])].map(
+				c => $project.characters[c]
+			)
 			const allArt = [
 				...new Set([
 					// blocks
 					...distinctBlocks.map(b => b.graphic),
 
 					// characters
-					...characters.flatMap(c => Object.keys(c.graphics).map(key => c.graphics[key])),
+					...distinctCharacters.flatMap(c => Object.keys(c.graphics).map(key => c.graphics[key])),
 
 					// character abilities
-					...characters.flatMap(c => c.abilities.flatMap(a => Object.keys(a.graphics).map(key => a.graphics[key]))),
+					...distinctCharacters.flatMap(c => c.abilities.flatMap(a => Object.keys(a.graphics).map(key => a.graphics[key]))),
 
 					// enemies
 					...distinctEnemies.flatMap(e => Object.keys(e.graphics).map(key => e.graphics[key])),
@@ -187,6 +194,7 @@
 	}
 
 	function onCreate() {
+		scene = this
 		// set bg color
 		this.cameras.main.setBackgroundColor(rgbaStringToHex(level.background))
 
@@ -229,8 +237,7 @@
 			const art = $project.art[template.graphic]
 			const block = worldEffectBlocks.create(translateX(b.x, b.width), translateY(b.y, b.height), art.name)
 			if (art.animated) block.anims.play(getAnimationKey(art.name), true)
-			block.damage = b.damage
-			block.throwOnTouch = b.throwOnTouch
+			block.template = b
 		})
 		worldConsumableBlocks = this.physics.add.staticGroup()
 		consumableBlocks.forEach(b => {
@@ -238,11 +245,7 @@
 			const art = $project.art[template.graphic]
 			const block = worldConsumableBlocks.create(translateX(b.x, b.width), translateY(b.y, b.height), art.name)
 			if (art.animated) block.anims.play(getAnimationKey(art.name), true)
-			block.damage = b.damage
-			block.throwOnTouch = b.throwOnTouch
-			block.consumable = true
-			block.healthOnConsume = b.healthOnConsume
-			block.scoreOnConsume = b.scoreOnConsume
+			block.template = template
 		})
 
 		// configure input
@@ -268,13 +271,7 @@
 
 		// add player followers
 		this.followers = this.physics.add.group()
-		character.followers
-			.map(h => hydrateGraphics($project.characters[h]))
-			.forEach(h => {
-				const y = player.body.y - (h.graphics.still.height - player.graphics.still.height)
-				const follower = new Follower(this, player.x, y, h.graphics.still.name, h, player, 300, 600)
-				this.followers.add(follower)
-			})
+		addFollowers(character.followers)
 		this.physics.add.collider(this.followers, worldSimpleBlocks)
 		this.physics.add.collider(this.followers, worldEffectBlocks, onEffectBlockCollision)
 
@@ -312,6 +309,16 @@
 		this.addScore(0)
 	}
 
+	function addFollowers(followerNames) {
+		if (followerNames == null || followerNames.length == 0) return
+		followerNames.forEach(f => {
+			const template = hydrateGraphics($project.characters[f])
+			const y = player.body.y - (template.graphics.still.height - player.graphics.still.height)
+			const follower = new Follower(scene, player.x, y, template.graphics.still.name, template, player, 600, 300)
+			scene.followers.add(follower)
+		})
+	}
+
 	function translateX(x, width) {
 		return x + width / 2
 	}
@@ -321,14 +328,15 @@
 	}
 
 	function onEffectBlockCollision(sprite, block) {
-		sprite.damage(block.damage)
-		if (block.throwOnTouch) sprite.setVelocityY(-1000)
+		sprite.damage(block.template.damage)
+		if (block.template.throwOnTouch) sprite.setVelocityY(-1000)
 	}
 
 	function onConsumableBlockOverlap(sprite, block) {
-		if (block.healthOnConsume) sprite.damage(-block.healthOnConsume)
-		if (block.scoreOnConsume) sprite.scene.addScore(block.scoreOnConsume)
-		if (block.throwOnTouch) sprite.setVelocityY(-1000)
+		if (block.template.healthOnConsume) sprite.damage(-block.template.healthOnConsume)
+		if (block.template.scoreOnConsume) sprite.scene.addScore(block.template.scoreOnConsume)
+		if (block.template.throwOnTouch) sprite.setVelocityY(-1000)
+		if (block.template.followerOnConsume != null) addFollowers(block.template.followerOnConsume)
 		block.disableBody(true, true)
 		block.destroy()
 	}

@@ -5,7 +5,7 @@
 		<a href="#/{$project.name}/build/characters/{encodeURIComponent(characterName)}" class="btn btn-light" role="button">Edit {characterName}</a>
 	</div>
 
-	<PhaserGame level={$project.levels[levelName]} character={$project.characters[characterName]} />
+	<PhaserGame {levelName} {characterName} />
 {:else}
 	<div class="list-group">
 		{#each sortedLevelNames as levelName}
