@@ -20,8 +20,12 @@
 			action: 'Jump',
 		},
 		{
-			key: 'R',
-			action: 'Spin Attack / Shield',
+			key: 'Q, W, E, R, S, F',
+			action: 'Change selected ability',
+		},
+		{
+			key: 'Left or Right click',
+			action: 'Attack (uses your selected ability)',
 		},
 		{
 			key: 'Enter',

@@ -24,6 +24,7 @@
 	import getAnimationKey from './PhaserGame/GetAnimationKey'
 	import gravityPixelsPerSecond from './PhaserGame/Gravity'
 	import Follower from './PhaserGame/Follower'
+	import SkillKeys from './PhaserGame/SkillKeys'
 
 	export let levelName = null
 	let level
@@ -40,6 +41,8 @@
 
 	// TODO: make editable in level or on individual enemies
 	const attackRange = 400
+	const followerLeashRange = 400
+	const followerAttackRange = 800
 
 	let container
 
@@ -52,10 +55,6 @@
 	let simpleBlocks
 	let effectBlocks
 	let consumableBlocks
-
-	let worldSimpleBlocks
-	let worldEffectBlocks
-	let worldConsumableBlocks
 
 	let config
 	let game
@@ -224,26 +223,26 @@
 
 		// add blocks as static objects
 		// TODO: block class to abstract this...
-		worldSimpleBlocks = this.physics.add.staticGroup()
+		this.simpleBlocksGroup = this.physics.add.staticGroup()
 		simpleBlocks.forEach(b => {
 			const template = $project.blocks[b.name]
 			const art = $project.art[template.graphic]
-			const block = worldSimpleBlocks.create(translateX(b.x, b.width), translateY(b.y, b.height), art.name)
+			const block = this.simpleBlocksGroup.create(translateX(b.x, b.width), translateY(b.y, b.height), art.name)
 			if (art.animated) block.anims.play(getAnimationKey(art.name), true)
 		})
-		worldEffectBlocks = this.physics.add.staticGroup()
+		this.effectBlocksGroup = this.physics.add.staticGroup()
 		effectBlocks.forEach(b => {
 			const template = $project.blocks[b.name]
 			const art = $project.art[template.graphic]
-			const block = worldEffectBlocks.create(translateX(b.x, b.width), translateY(b.y, b.height), art.name)
+			const block = this.effectBlocksGroup.create(translateX(b.x, b.width), translateY(b.y, b.height), art.name)
 			if (art.animated) block.anims.play(getAnimationKey(art.name), true)
 			block.template = b
 		})
-		worldConsumableBlocks = this.physics.add.staticGroup()
+		this.consumableBlocksGroup = this.physics.add.staticGroup()
 		consumableBlocks.forEach(b => {
 			const template = $project.blocks[b.name]
 			const art = $project.art[template.graphic]
-			const block = worldConsumableBlocks.create(translateX(b.x, b.width), translateY(b.y, b.height), art.name)
+			const block = this.consumableBlocksGroup.create(translateX(b.x, b.width), translateY(b.y, b.height), art.name)
 			if (art.animated) block.anims.play(getAnimationKey(art.name), true)
 			block.template = template
 		})
@@ -252,10 +251,11 @@
 		keys = {
 			cursors: this.input.keyboard.createCursorKeys(),
 		}
-		const keysWeCareAbout = ['SPACE', 'ENTER', 'Q', 'W', 'E', 'R']
+		const keysWeCareAbout = ['SPACE', 'ENTER', 'A', 'D', ...SkillKeys]
 		keysWeCareAbout.forEach(k => {
 			keys[k] = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes[k])
 		})
+		this.input.mouse.disableContextMenu()
 
 		// add player
 		const startingY =
@@ -265,15 +265,15 @@
 			new Player(this, translateX(0, template.graphics.still.width), startingY, character.graphics.still.name, template, keys)
 		)
 		this.player = player
-		this.physics.add.collider(player, worldSimpleBlocks)
-		this.physics.add.collider(player, worldEffectBlocks, onEffectBlockCollision)
-		this.physics.add.overlap(player, worldConsumableBlocks, onConsumableBlockOverlap)
+		this.physics.add.collider(player, this.simpleBlocksGroup)
+		this.physics.add.collider(player, this.effectBlocksGroup, onEffectBlockCollision)
+		this.physics.add.overlap(player, this.consumableBlocksGroup, onConsumableBlockOverlap)
 
 		// add player followers
 		this.followers = this.physics.add.group()
 		addFollowers(character.followers)
-		this.physics.add.collider(this.followers, worldSimpleBlocks)
-		this.physics.add.collider(this.followers, worldEffectBlocks, onEffectBlockCollision)
+		this.physics.add.collider(this.followers, this.simpleBlocksGroup)
+		this.physics.add.collider(this.followers, this.effectBlocksGroup, onEffectBlockCollision)
 
 		// add enemies
 		this.enemies = this.physics.add.group()
@@ -289,8 +289,8 @@
 			)
 			this.enemies.add(enemy)
 		})
-		this.physics.add.collider(this.enemies, worldSimpleBlocks)
-		this.physics.add.collider(this.enemies, worldEffectBlocks, onEffectBlockCollision)
+		this.physics.add.collider(this.enemies, this.simpleBlocksGroup)
+		this.physics.add.collider(this.enemies, this.effectBlocksGroup, onEffectBlockCollision)
 
 		// camera and player bounds
 		this.physics.world.setBounds(0, -maxLevelY, maxLevelX, maxLevelY + viewportHeight)
@@ -309,12 +309,30 @@
 		this.addScore(0)
 	}
 
+	function onUpdate() {
+		if (Phaser.Input.Keyboard.JustDown(keys.ENTER)) start()
+		if (gameOver) return
+
+		// if player is dead or fell out bottom of world, you lose
+		if (!player.alive) {
+			this.physics.pause()
+			gameOver = true
+		}
+
+		// if all enemies dead, you win
+		if (this.enemies.countActive() == 0) {
+			this.physics.pause()
+			gameWon = true
+			gameOver = true
+		}
+	}
+
 	function addFollowers(followerNames) {
 		if (followerNames == null || followerNames.length == 0) return
 		followerNames.forEach(f => {
 			const template = hydrateGraphics($project.characters[f])
 			const y = player.body.y - (template.graphics.still.height - player.graphics.still.height)
-			const follower = new Follower(scene, player.x, y, template.graphics.still.name, template, player, 600, 300)
+			const follower = new Follower(scene, player.x, y, template.graphics.still.name, template, player, followerLeashRange, followerAttackRange)
 			scene.followers.add(follower)
 		})
 	}
@@ -333,30 +351,12 @@
 	}
 
 	function onConsumableBlockOverlap(sprite, block) {
-		if (block.template.healthOnConsume) sprite.damage(-block.template.healthOnConsume)
+		if (block.template.healthOnConsume) sprite.heal(block.template.healthOnConsume)
 		if (block.template.scoreOnConsume) sprite.scene.addScore(block.template.scoreOnConsume)
 		if (block.template.throwOnTouch) sprite.setVelocityY(-1000)
 		if (block.template.followerOnConsume != null) addFollowers(block.template.followerOnConsume)
 		block.disableBody(true, true)
 		block.destroy()
-	}
-
-	function onUpdate() {
-		if (Phaser.Input.Keyboard.JustDown(keys.ENTER)) start()
-		if (gameOver) return
-
-		// if player is dead or fell out bottom of world, you lose
-		if (!player.alive) {
-			this.physics.pause()
-			gameOver = true
-		}
-
-		// if all enemies dead, you win
-		if (this.enemies.countActive() == 0) {
-			this.physics.pause()
-			gameWon = true
-			gameOver = true
-		}
 	}
 
 	function hydrateGraphics(template) {

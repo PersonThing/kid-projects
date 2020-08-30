@@ -19,7 +19,7 @@
 						<th>Projectile?</th>
 						<th>Projectile Graphic</th>
 						<th>Projectile Velocity</th>
-						<th>Projectile Gravity Multiplier</th>
+						<th>Projectile pass through blocks?</th>
 					</tr>
 				</thead>
 
@@ -62,7 +62,7 @@
 									<input type="number" bind:value={a.projectileVelocity} min={0} max={10000} />
 								</td>
 								<td>
-									<input type="number" bind:value={a.projectileGravityMultiplier} min={0} max={1} step={0.01} />
+									<input type="checkbox" bind:checked={a.projectilePassThroughBlocks} />
 								</td>
 							{:else}
 								<td colspan="2" />
@@ -93,7 +93,7 @@
 	export let abilities = []
 	export let requireKeybinds = true // whether to show key bind field
 
-	const availableKeys = ['Q', 'W', 'E', 'R']
+	const availableKeys = ['Q', 'W', 'E', 'R', 'S', 'F', 'T']
 
 	function addAbility() {
 		abilities = abilities.concat(createDefaultAbility())
@@ -113,7 +113,7 @@
 			damage: 50,
 			attackRateMs: 500,
 			projectileVelocity: 500,
-			projectileGravityMultiplier: 0.1,
+			projectilePassThroughBlocks: false,
 
 			graphics: {
 				character: null,

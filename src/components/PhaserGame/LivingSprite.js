@@ -57,6 +57,15 @@ export default class LivingSprite extends Phaser.Physics.Arcade.Sprite {
 		this.alive = this.hp.adjust(amount)
 	}
 
+	heal(amount) {
+		this.damage(-amount)
+		// heal any pets too
+		this.scene.followers
+			.getChildren()
+			.filter(f => f.owner == this && f.alive)
+			.forEach(f => f.heal(amount * 0.5))
+	}
+
 	accelerate(ax) {
 		// if they're changing directions, accelerate immediately
 		let vx = this.body.velocity.x
@@ -107,7 +116,6 @@ export default class LivingSprite extends Phaser.Physics.Arcade.Sprite {
 				a => a.projectile == false || (a.range < distanceFromTarget && (a.nextFire == null || a.nextFire <= time))
 			)
 			if (closerRangeAbilities.length > 0) {
-				console.log(this.template.name, 'moving toward', this.target.template.name, 'for other abilities')
 				this.moveTowardSprite(target, closerRangeAbilities[0].range - 1)
 
 				const isMoving = this.body.velocity.x != 0 || this.body.velocity.y != 0
@@ -160,7 +168,8 @@ export default class LivingSprite extends Phaser.Physics.Arcade.Sprite {
 				this.y,
 				ability.graphics.projectile,
 				ability.projectileVelocity,
-				ability.projectileGravityMultiplier,
+				ability.range,
+				ability.projectilePassThroughBlocks,
 				target
 			)
 			const eligibleTargets = this.getEligibleTargets()

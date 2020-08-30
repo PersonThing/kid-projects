@@ -14,8 +14,11 @@
 		<FieldNumber name="gravityMultiplier" min={0} max={2} step={0.01} bind:value={input.gravityMultiplier}>Gravity multiplier</FieldNumber>
 		<FieldNumber name="maxHealth" bind:value={input.maxHealth}>Max health</FieldNumber>
 
-		<FieldCheckbox name="canFly" bind:checked={input.canFly}>Can fly?</FieldCheckbox>
 		<FieldCheckbox name="canDoubleJump" bind:checked={input.canDoubleJump}>Can double jump?</FieldCheckbox>
+		<FieldCheckbox name="canFly" bind:checked={input.canFly}>Can fly?</FieldCheckbox>
+		<FieldCheckbox name="canJumpThroughBlocks" bind:checked={input.canJumpThroughBlocks}>
+			Can jump through bottom of blocks sonic-style?
+		</FieldCheckbox>
 
 		<FieldAbilities name="abilities" bind:abilities={input.abilities}>Abilities</FieldAbilities>
 		<FieldCharacterPicker name="followers" bind:value={input.followers}>Followers / Pets</FieldCharacterPicker>
@@ -83,6 +86,7 @@
 			gravityMultiplier: 1,
 			canFly: false,
 			canDoubleJump: false,
+			canJumpThroughBlocks: false,
 			abilities: [],
 			followers: [],
 		}

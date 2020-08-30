@@ -1,5 +1,6 @@
 import LivingSprite from './LivingSprite'
 import Projectile from './Projectile'
+import AbilityBar from './AbilityBar'
 
 export default class Player extends LivingSprite {
 	constructor(scene, x, y, texture, template, keys) {
@@ -8,41 +9,42 @@ export default class Player extends LivingSprite {
 		this.keys = keys
 
 		// let me jump through bottom of blocks Sonic-style
-		this.body.checkCollision.up = false
+		this.body.checkCollision.up = !template.canJumpThroughBlocks
 
 		// show above enemies
 		this.depth = 3
-		// abilities
-		// this felt clunkier than just checking keyDown in frames
-		// this.abilityKeys = ['Q', 'W', 'E', 'R']
-		// this.abilityKeys.forEach(k => {
-		// 	const key = this.keys[k]
-		// 	key.on('down', event => {
-		// 		console.log(k, 'pressed')
-		// 		const ability = this.abilities.find(a => a.key === k && (a.nextFire == null || a.nextFire < scene.time.now))
-		// 		if (ability != null) {
-		// 			console.log('firing', ability.name, scene.time.now)
-		// 			this.doAbility(ability, { x: this.body.velocity.x < 0 ? -10000 : 10000, y: this.y - 100 })
-		// 			this.setGraphic(ability.graphics.character)
-		// 			ability.nextFire = scene.time.now + ability.attackRateMs
-		// 		}
-		// 	})
-		// })
+
+		// manage user input for abilities & show a little widget
+		this.abilityBar = new AbilityBar(scene, this.abilities, keys)
+
+		this.pointerIsDown = false
+		this.scene.input.on('pointerdown', pointer => this.setPointerDown(pointer))
+		this.scene.input.on('pointerup', pointer => this.setPointerDown(pointer))
 	}
 
 	preUpdate(time, delta) {
 		super.preUpdate(time, delta)
 
 		// jumping
-		if (this.body.touching.down || this.template.canFly) {
-			if (Phaser.Input.Keyboard.JustDown(this.keys.SPACE)) this.setVelocityY(-this.template.jumpVelocity)
+		if (Phaser.Input.Keyboard.JustDown(this.keys.SPACE)) {
+			// initial jump, or flying
+			if (this.body.touching.down || this.template.canFly) {
+				// maybe do a triple jump or something in the future (like "it lurks below" unique pants bonus)
+				this.remainingJumpsAvailable = this.template.canDoubleJump ? 1 : 0
+				this.jump()
+			}
+			// double jump if character template allows it
+			else if (this.remainingJumpsAvailable > 0) {
+				this.remainingJumpsAvailable--
+				this.jump()
+			}
 		}
 
 		// moving left or right
 		const ax = this.body.touching.down || this.canFly ? this.template.maxVelocity / 10 : this.template.maxVelocity / 30
-		if (this.keys.cursors.left.isDown && !this.keys.cursors.right.isDown) {
+		if (this.keys.cursors.left.isDown || this.keys.A.isDown) {
 			this.accelerate(-ax)
-		} else if (this.keys.cursors.right.isDown && !this.keys.cursors.isDown) {
+		} else if (this.keys.cursors.right.isDown || this.keys.D.isDown) {
 			this.accelerate(ax)
 		} else if (this.body.touching.down) {
 			// stop if touching ground
@@ -53,18 +55,25 @@ export default class Player extends LivingSprite {
 			this.setGraphic(this.body.velocity.x != 0 ? this.graphics.moving : this.graphics.still)
 		}
 
-		// abilities
-		this.abilityKeys = ['Q', 'W', 'E', 'R']
-		this.abilityKeys.forEach(k => {
-			const key = this.keys[k]
-			if (key.isDown) {
-				const ability = this.abilities.find(a => a.key === k && (a.nextFire == null || a.nextFire < this.scene.time.now))
-				if (ability != null) {
-					this.doAbility(ability)
-					ability.nextFire = this.scene.time.now + ability.attackRateMs
-				}
-			}
-		})
+		// do abilities if pointer down
+		if (this.pointerIsDown) {
+			// fire any active abilities that are off cooldown
+			this.abilityBar
+				.getActiveAbilities()
+				.filter(a => a.nextFire == null || a.nextFire < this.scene.time.now)
+				.forEach(a => {
+					this.doAbility(a)
+					a.nextFire = this.scene.time.now + a.attackRateMs
+				})
+		}
+	}
+
+	jump() {
+		this.setVelocityY(-this.template.jumpVelocity)
+	}
+
+	setPointerDown(pointer) {
+		this.pointerIsDown = pointer.leftButtonDown() || pointer.rightButtonDown()
 	}
 
 	doAbility(ability) {
@@ -79,7 +88,15 @@ export default class Player extends LivingSprite {
 			}, ability.attackRateMs)
 		}
 
-		const targetCoords = { x: this.flipX ? -10000 : 10000, y: this.y - 100 }
+		// OLD: target in front of character
+		// const targetCoords = { x: this.flipX ? -10000 : 10000, y: this.y - 100 }
+
+		// NEW: target mouse pointer
+		const targetCoords = {
+			x: this.scene.input.mousePointer.x + this.scene.cameras.main.worldView.x,
+			y: this.scene.input.mousePointer.y + this.scene.cameras.main.worldView.y,
+		}
+
 		if (ability.projectile) {
 			const projectile = new Projectile(
 				this.scene,
@@ -87,7 +104,8 @@ export default class Player extends LivingSprite {
 				this.y,
 				ability.graphics.projectile,
 				ability.projectileVelocity + Math.abs(this.body.velocity.x), // add player velocity to the projectile
-				ability.projectileGravityMultiplier,
+				ability.range,
+				ability.projectilePassThroughBlocks,
 				targetCoords
 			)
 			this.scene.physics.add.overlap(projectile, this.scene.enemies, (projectile, enemy) => {
