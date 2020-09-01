@@ -125,7 +125,7 @@
 					default: 'arcade',
 					arcade: {
 						gravity: { y: gravityPixelsPerSecond },
-						debug: true,
+						// debug: true,
 					},
 				},
 				width: gameWidth,
