@@ -36076,26 +36076,26 @@ var app = (function () {
     		}
     	}
 
-    	assignTargetIfNone(range) {
-    		if (this.target == null || !this.target.alive || this.getDistanceFrom(this.target) > range) {
-    			this.target = this.findTargetInRange(range);
+    	assignTargetIfNone(range, origin = this) {
+    		if (this.target == null || !this.target.alive || this.getDistanceFrom(this.target, origin) > range) {
+    			this.target = this.findTargetInRange(range, origin);
     		}
     	}
 
-    	findTargetInRange(range) {
+    	findTargetInRange(range, origin = this) {
     		const targetsInRange = this.getEligibleTargets()
     			.filter(t => t.alive)
     			.map(t => ({
     				sprite: t,
-    				distance: this.getDistanceFrom(t),
+    				distance: this.getDistanceFrom(t, origin),
     			}))
     			.filter(t => t.distance < range)
     			.sort((a, b) => a.distance - b.distance);
     		return targetsInRange.length > 0 ? targetsInRange[0].sprite : null
     	}
 
-    	getDistanceFrom(sprite) {
-    		return Phaser.Math.Distance.Between(this.x, this.y, sprite.x, sprite.y)
+    	getDistanceFrom(sprite, origin = this) {
+    		return Phaser.Math.Distance.Between(origin.x, origin.y, sprite.x, sprite.y)
     	}
 
     	doAbility(ability, target) {
@@ -36489,7 +36489,7 @@ var app = (function () {
 
     function get_each_context$7(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[1] = list[i];
+    	child_ctx[3] = list[i];
     	return child_ctx;
     }
 
@@ -36497,14 +36497,14 @@ var app = (function () {
     function create_each_block$7(ctx) {
     	let tr;
     	let td0;
-    	let t0_value = /*bind*/ ctx[1].key + "";
+    	let t0_value = /*bind*/ ctx[3].key + "";
     	let t0;
     	let t1;
     	let td1;
     	let t2;
-    	let t3_value = /*bind*/ ctx[1].action + "";
+    	let html_tag;
+    	let raw_value = /*bind*/ ctx[3].action + "";
     	let t3;
-    	let t4;
 
     	const block = {
     		c: function create() {
@@ -36513,11 +36513,11 @@ var app = (function () {
     			t0 = text(t0_value);
     			t1 = space();
     			td1 = element("td");
-    			t2 = text("= ");
-    			t3 = text(t3_value);
-    			t4 = space();
+    			t2 = text("=\r\n\t\t\t\t\t");
+    			t3 = space();
     			attr_dev(td0, "class", "svelte-1d0wu93");
     			add_location(td0, file$u, 4, 4, 79);
+    			html_tag = new HtmlTag(null);
     			attr_dev(td1, "class", "svelte-1d0wu93");
     			add_location(td1, file$u, 5, 4, 104);
     			add_location(tr, file$u, 3, 3, 69);
@@ -36529,10 +36529,13 @@ var app = (function () {
     			append_dev(tr, t1);
     			append_dev(tr, td1);
     			append_dev(td1, t2);
-    			append_dev(td1, t3);
-    			append_dev(tr, t4);
+    			html_tag.m(raw_value, td1);
+    			append_dev(tr, t3);
     		},
-    		p: noop,
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*keyBinds*/ 1 && t0_value !== (t0_value = /*bind*/ ctx[3].key + "")) set_data_dev(t0, t0_value);
+    			if (dirty & /*keyBinds*/ 1 && raw_value !== (raw_value = /*bind*/ ctx[3].action + "")) html_tag.p(raw_value);
+    		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(tr);
     		}
@@ -36630,26 +36633,9 @@ var app = (function () {
     }
 
     function instance$x($$self, $$props, $$invalidate) {
-    	const keyBinds = [
-    		{
-    			key: "Left + Right Arrow",
-    			action: "Move"
-    		},
-    		{ key: "Space", action: "Jump" },
-    		{
-    			key: "Q, W, E, R, S, F",
-    			action: "Change selected ability"
-    		},
-    		{
-    			key: "Left or Right click",
-    			action: "Attack (uses your selected ability)"
-    		},
-    		{ key: "Enter", action: "Restart" }
-    	]; // {
-    	// 	key: 'P or Escape',
-    	// 	action: 'Pause',
-
-    	const writable_props = [];
+    	let { canDoubleJump } = $$props;
+    	let { abilities } = $$props;
+    	const writable_props = ["canDoubleJump", "abilities"];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<Instructions> was created with unknown prop '${key}'`);
@@ -36657,14 +36643,64 @@ var app = (function () {
 
     	let { $$slots = {}, $$scope } = $$props;
     	validate_slots("Instructions", $$slots, []);
-    	$$self.$capture_state = () => ({ keyBinds });
-    	return [keyBinds];
+
+    	$$self.$$set = $$props => {
+    		if ("canDoubleJump" in $$props) $$invalidate(1, canDoubleJump = $$props.canDoubleJump);
+    		if ("abilities" in $$props) $$invalidate(2, abilities = $$props.abilities);
+    	};
+
+    	$$self.$capture_state = () => ({ canDoubleJump, abilities, keyBinds });
+
+    	$$self.$inject_state = $$props => {
+    		if ("canDoubleJump" in $$props) $$invalidate(1, canDoubleJump = $$props.canDoubleJump);
+    		if ("abilities" in $$props) $$invalidate(2, abilities = $$props.abilities);
+    		if ("keyBinds" in $$props) $$invalidate(0, keyBinds = $$props.keyBinds);
+    	};
+
+    	let keyBinds;
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	$$self.$$.update = () => {
+    		if ($$self.$$.dirty & /*canDoubleJump, abilities*/ 6) {
+    			 $$invalidate(0, keyBinds = [
+    				{
+    					key: "A or Left Arrow",
+    					action: "Move Left"
+    				},
+    				{
+    					key: "D or Right Arrow",
+    					action: "Move Right"
+    				},
+    				{
+    					key: "Space",
+    					action: `Jump${canDoubleJump ? ", press again to double jump" : ""}`
+    				},
+    				...abilities.map(a => ({
+    					key: a.key,
+    					action: `Select ability: <strong>${a.name}</strong>`
+    				})),
+    				{
+    					key: "Left or right click",
+    					action: "Use selected ability"
+    				},
+    				{ key: "Enter", action: "Restart" }
+    			]); // {
+    			// 	key: 'P or Escape',
+    			// 	action: 'Pause',
+    			// },
+    		}
+    	};
+
+    	return [keyBinds, canDoubleJump, abilities];
     }
 
     class Instructions extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$x, create_fragment$x, safe_not_equal, {});
+    		init(this, options, instance$x, create_fragment$x, safe_not_equal, { canDoubleJump: 1, abilities: 2 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
@@ -36672,6 +36708,33 @@ var app = (function () {
     			options,
     			id: create_fragment$x.name
     		});
+
+    		const { ctx } = this.$$;
+    		const props = options.props || {};
+
+    		if (/*canDoubleJump*/ ctx[1] === undefined && !("canDoubleJump" in props)) {
+    			console.warn("<Instructions> was created without expected prop 'canDoubleJump'");
+    		}
+
+    		if (/*abilities*/ ctx[2] === undefined && !("abilities" in props)) {
+    			console.warn("<Instructions> was created without expected prop 'abilities'");
+    		}
+    	}
+
+    	get canDoubleJump() {
+    		throw new Error("<Instructions>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set canDoubleJump(value) {
+    		throw new Error("<Instructions>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get abilities() {
+    		throw new Error("<Instructions>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set abilities(value) {
+    		throw new Error("<Instructions>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
     }
 
@@ -36908,12 +36971,13 @@ var app = (function () {
     }
 
     class Follower extends LivingSprite {
-    	constructor(scene, x, y, texture, template, owner, leashRange, attackRange) {
+    	constructor(scene, x, y, texture, template, owner, leashRange) {
     		super(scene, x, y, texture, template);
 
     		this.owner = owner;
     		this.leashRange = leashRange;
-    		this.attackRange = attackRange;
+    		// set attack range from leash range + max ability range
+    		this.attackRange = this.leashRange + Math.max(...template.abilities.map(a => a.range)) - 100; // 100 less because they run into blocks and such
     		this.isMovingGraphic = false;
     		this.depth = 2;
     		this.framesOutsideLeashRange = 0;
@@ -36938,7 +37002,7 @@ var app = (function () {
     			this.framesOutsideLeashRange = 0;
 
     			// 2. pick a target and stick to them until they're dead or out of range
-    			this.assignTargetIfNone(this.attackRange);
+    			this.assignTargetIfNone(this.attackRange, this.owner);
 
     			// 3. attack target
     			if (this.target != null) {
@@ -37332,7 +37396,7 @@ var app = (function () {
     const file$x = "src\\components\\PhaserGame.svelte";
 
     // (2:1) {#if level != null && character != null}
-    function create_if_block$k(ctx) {
+    function create_if_block_1$c(ctx) {
     	let current_block_type_index;
     	let if_block;
     	let t0;
@@ -37340,7 +37404,7 @@ var app = (function () {
     	let t1;
     	let div;
     	let current;
-    	const if_block_creators = [create_if_block_1$c, create_if_block_2$7];
+    	const if_block_creators = [create_if_block_2$7, create_if_block_3$3];
     	const if_blocks = [];
 
     	function select_block_type(ctx, dirty) {
@@ -37445,7 +37509,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block$k.name,
+    		id: create_if_block_1$c.name,
     		type: "if",
     		source: "(2:1) {#if level != null && character != null}",
     		ctx
@@ -37455,7 +37519,7 @@ var app = (function () {
     }
 
     // (5:19) 
-    function create_if_block_2$7(ctx) {
+    function create_if_block_3$3(ctx) {
     	let paused_1;
     	let current;
     	paused_1 = new Paused({ $$inline: true });
@@ -37485,7 +37549,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_2$7.name,
+    		id: create_if_block_3$3.name,
     		type: "if",
     		source: "(5:19) ",
     		ctx
@@ -37495,7 +37559,7 @@ var app = (function () {
     }
 
     // (3:2) {#if gameOver}
-    function create_if_block_1$c(ctx) {
+    function create_if_block_2$7(ctx) {
     	let gameover;
     	let current;
 
@@ -37541,9 +37605,61 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_1$c.name,
+    		id: create_if_block_2$7.name,
     		type: "if",
     		source: "(3:2) {#if gameOver}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (13:0) {#if character != null}
+    function create_if_block$k(ctx) {
+    	let instructions;
+    	let current;
+
+    	instructions = new Instructions({
+    			props: {
+    				abilities: /*character*/ ctx[1].abilities,
+    				canDoubleJump: /*character*/ ctx[1].canDoubleJump
+    			},
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			create_component(instructions.$$.fragment);
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(instructions, target, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const instructions_changes = {};
+    			if (dirty[0] & /*character*/ 2) instructions_changes.abilities = /*character*/ ctx[1].abilities;
+    			if (dirty[0] & /*character*/ 2) instructions_changes.canDoubleJump = /*character*/ ctx[1].canDoubleJump;
+    			instructions.$set(instructions_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(instructions.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(instructions.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(instructions, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block$k.name,
+    		type: "if",
+    		source: "(13:0) {#if character != null}",
     		ctx
     	});
 
@@ -37553,17 +37669,18 @@ var app = (function () {
     function create_fragment$A(ctx) {
     	let div;
     	let t;
-    	let instructions;
+    	let if_block1_anchor;
     	let current;
-    	let if_block = /*level*/ ctx[0] != null && /*character*/ ctx[1] != null && create_if_block$k(ctx);
-    	instructions = new Instructions({ $$inline: true });
+    	let if_block0 = /*level*/ ctx[0] != null && /*character*/ ctx[1] != null && create_if_block_1$c(ctx);
+    	let if_block1 = /*character*/ ctx[1] != null && create_if_block$k(ctx);
 
     	const block = {
     		c: function create() {
     			div = element("div");
-    			if (if_block) if_block.c();
+    			if (if_block0) if_block0.c();
     			t = space();
-    			create_component(instructions.$$.fragment);
+    			if (if_block1) if_block1.c();
+    			if_block1_anchor = empty();
     			attr_dev(div, "class", "game-window svelte-177m75j");
     			add_location(div, file$x, 0, 0, 0);
     		},
@@ -37572,30 +37689,54 @@ var app = (function () {
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
-    			if (if_block) if_block.m(div, null);
+    			if (if_block0) if_block0.m(div, null);
     			insert_dev(target, t, anchor);
-    			mount_component(instructions, target, anchor);
+    			if (if_block1) if_block1.m(target, anchor);
+    			insert_dev(target, if_block1_anchor, anchor);
     			current = true;
     		},
     		p: function update(ctx, dirty) {
     			if (/*level*/ ctx[0] != null && /*character*/ ctx[1] != null) {
-    				if (if_block) {
-    					if_block.p(ctx, dirty);
+    				if (if_block0) {
+    					if_block0.p(ctx, dirty);
 
     					if (dirty[0] & /*level, character*/ 3) {
-    						transition_in(if_block, 1);
+    						transition_in(if_block0, 1);
     					}
     				} else {
-    					if_block = create_if_block$k(ctx);
-    					if_block.c();
-    					transition_in(if_block, 1);
-    					if_block.m(div, null);
+    					if_block0 = create_if_block_1$c(ctx);
+    					if_block0.c();
+    					transition_in(if_block0, 1);
+    					if_block0.m(div, null);
     				}
-    			} else if (if_block) {
+    			} else if (if_block0) {
     				group_outros();
 
-    				transition_out(if_block, 1, 1, () => {
-    					if_block = null;
+    				transition_out(if_block0, 1, 1, () => {
+    					if_block0 = null;
+    				});
+
+    				check_outros();
+    			}
+
+    			if (/*character*/ ctx[1] != null) {
+    				if (if_block1) {
+    					if_block1.p(ctx, dirty);
+
+    					if (dirty[0] & /*character*/ 2) {
+    						transition_in(if_block1, 1);
+    					}
+    				} else {
+    					if_block1 = create_if_block$k(ctx);
+    					if_block1.c();
+    					transition_in(if_block1, 1);
+    					if_block1.m(if_block1_anchor.parentNode, if_block1_anchor);
+    				}
+    			} else if (if_block1) {
+    				group_outros();
+
+    				transition_out(if_block1, 1, 1, () => {
+    					if_block1 = null;
     				});
 
     				check_outros();
@@ -37603,20 +37744,21 @@ var app = (function () {
     		},
     		i: function intro(local) {
     			if (current) return;
-    			transition_in(if_block);
-    			transition_in(instructions.$$.fragment, local);
+    			transition_in(if_block0);
+    			transition_in(if_block1);
     			current = true;
     		},
     		o: function outro(local) {
-    			transition_out(if_block);
-    			transition_out(instructions.$$.fragment, local);
+    			transition_out(if_block0);
+    			transition_out(if_block1);
     			current = false;
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(div);
-    			if (if_block) if_block.d();
+    			if (if_block0) if_block0.d();
     			if (detaching) detach_dev(t);
-    			destroy_component(instructions, detaching);
+    			if (if_block1) if_block1.d(detaching);
+    			if (detaching) detach_dev(if_block1_anchor);
     		}
     	};
 
@@ -37632,8 +37774,7 @@ var app = (function () {
     }
 
     const attackRange = 400;
-    const followerLeashRange = 400;
-    const followerAttackRange = 800;
+    const followerLeashRange = 600;
 
     function translateX(x, width) {
     	return x + width / 2;
@@ -37941,7 +38082,7 @@ var app = (function () {
     		followerNames.forEach(f => {
     			const template = hydrateGraphics($project.characters[f]);
     			const y = player.body.y - (template.graphics.still.height - player.graphics.still.height);
-    			const follower = new Follower(scene, player.x, y, template.graphics.still.name, template, player, followerLeashRange, followerAttackRange);
+    			const follower = new Follower(scene, player.x, y, template.graphics.still.name, template, player, followerLeashRange);
     			scene.followers.add(follower);
     		});
     	}
@@ -38030,7 +38171,6 @@ var app = (function () {
     		scene,
     		attackRange,
     		followerLeashRange,
-    		followerAttackRange,
     		container,
     		gameOver,
     		gameWon,

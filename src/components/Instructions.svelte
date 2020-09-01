@@ -3,29 +3,39 @@
 		{#each keyBinds as bind}
 			<tr>
 				<td>{bind.key}</td>
-				<td>= {bind.action}</td>
+				<td>
+					=
+					{@html bind.action}
+				</td>
 			</tr>
 		{/each}
 	</table>
 </div>
 
 <script>
-	const keyBinds = [
+	export let canDoubleJump
+	export let abilities
+
+	$: keyBinds = [
 		{
-			key: 'Left + Right Arrow',
-			action: 'Move',
+			key: 'A or Left Arrow',
+			action: 'Move Left',
+		},
+		{
+			key: 'D or Right Arrow',
+			action: 'Move Right',
 		},
 		{
 			key: 'Space',
-			action: 'Jump',
+			action: `Jump${canDoubleJump ? ', press again to double jump' : ''}`,
 		},
+		...abilities.map(a => ({
+			key: a.key,
+			action: `Select ability: <strong>${a.name}</strong>`,
+		})),
 		{
-			key: 'Q, W, E, R, S, F',
-			action: 'Change selected ability',
-		},
-		{
-			key: 'Left or Right click',
-			action: 'Attack (uses your selected ability)',
+			key: 'Left or right click',
+			action: 'Use selected ability',
 		},
 		{
 			key: 'Enter',

@@ -9,7 +9,10 @@
 		<div bind:this={container} />
 	{/if}
 </div>
-<Instructions />
+
+{#if character != null}
+	<Instructions abilities={character.abilities} canDoubleJump={character.canDoubleJump} />
+{/if}
 
 <script>
 	import { magnet, image } from 'svelte-awesome/icons'
@@ -43,8 +46,7 @@
 
 	// TODO: make editable in level or on individual enemies
 	const attackRange = 400
-	const followerLeashRange = 400
-	const followerAttackRange = 800
+	const followerLeashRange = 600
 
 	let container
 
@@ -343,7 +345,7 @@
 		followerNames.forEach(f => {
 			const template = hydrateGraphics($project.characters[f])
 			const y = player.body.y - (template.graphics.still.height - player.graphics.still.height)
-			const follower = new Follower(scene, player.x, y, template.graphics.still.name, template, player, followerLeashRange, followerAttackRange)
+			const follower = new Follower(scene, player.x, y, template.graphics.still.name, template, player, followerLeashRange)
 			scene.followers.add(follower)
 		})
 	}

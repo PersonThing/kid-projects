@@ -126,26 +126,26 @@ export default class LivingSprite extends Phaser.Physics.Arcade.Sprite {
 		}
 	}
 
-	assignTargetIfNone(range) {
-		if (this.target == null || !this.target.alive || this.getDistanceFrom(this.target) > range) {
-			this.target = this.findTargetInRange(range)
+	assignTargetIfNone(range, origin = this) {
+		if (this.target == null || !this.target.alive || this.getDistanceFrom(this.target, origin) > range) {
+			this.target = this.findTargetInRange(range, origin)
 		}
 	}
 
-	findTargetInRange(range) {
+	findTargetInRange(range, origin = this) {
 		const targetsInRange = this.getEligibleTargets()
 			.filter(t => t.alive)
 			.map(t => ({
 				sprite: t,
-				distance: this.getDistanceFrom(t),
+				distance: this.getDistanceFrom(t, origin),
 			}))
 			.filter(t => t.distance < range)
 			.sort((a, b) => a.distance - b.distance)
 		return targetsInRange.length > 0 ? targetsInRange[0].sprite : null
 	}
 
-	getDistanceFrom(sprite) {
-		return Phaser.Math.Distance.Between(this.x, this.y, sprite.x, sprite.y)
+	getDistanceFrom(sprite, origin = this) {
+		return Phaser.Math.Distance.Between(origin.x, origin.y, sprite.x, sprite.y)
 	}
 
 	doAbility(ability, target) {

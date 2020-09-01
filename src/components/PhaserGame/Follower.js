@@ -1,12 +1,13 @@
 import LivingSprite from './LivingSprite'
 
 export default class Follower extends LivingSprite {
-	constructor(scene, x, y, texture, template, owner, leashRange, attackRange) {
+	constructor(scene, x, y, texture, template, owner, leashRange) {
 		super(scene, x, y, texture, template)
 
 		this.owner = owner
 		this.leashRange = leashRange
-		this.attackRange = attackRange
+		// set attack range from leash range + max ability range
+		this.attackRange = this.leashRange + Math.max(...template.abilities.map(a => a.range)) - 100 // 100 less because they run into blocks and such
 		this.isMovingGraphic = false
 		this.depth = 2
 		this.framesOutsideLeashRange = 0
@@ -31,7 +32,7 @@ export default class Follower extends LivingSprite {
 			this.framesOutsideLeashRange = 0
 
 			// 2. pick a target and stick to them until they're dead or out of range
-			this.assignTargetIfNone(this.attackRange)
+			this.assignTargetIfNone(this.attackRange, this.owner)
 
 			// 3. attack target
 			if (this.target != null) {
