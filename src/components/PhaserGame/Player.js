@@ -1,6 +1,6 @@
-import LivingSprite from './LivingSprite'
-import Projectile from './Projectile'
+import AbilityAttack from './AbilityAttack'
 import AbilityBar from './AbilityBar'
+import LivingSprite from './LivingSprite'
 
 export default class Player extends LivingSprite {
 	constructor(scene, x, y, texture, template, keys) {
@@ -88,32 +88,23 @@ export default class Player extends LivingSprite {
 			}, ability.attackRateMs)
 		}
 
-		// OLD: target in front of character
-		// const targetCoords = { x: this.flipX ? -10000 : 10000, y: this.y - 100 }
+		// target mouse pointer
+		let targetCoords = this.getCursorCoordinates()
 
-		// NEW: target mouse pointer
-		const targetCoords = {
+		// make character look toward target coords
+		this.flipX = targetCoords.x < this.x
+
+		const attack = new AbilityAttack(this.scene, this.x, this.y, ability, targetCoords)
+		this.scene.physics.add.overlap(attack, this.scene.enemies, (attack, enemy) => {
+			enemy.damage(ability.damage)
+			attack.destroy()
+		})
+	}
+
+	getCursorCoordinates() {
+		return {
 			x: this.scene.input.mousePointer.x + this.scene.cameras.main.worldView.x,
 			y: this.scene.input.mousePointer.y + this.scene.cameras.main.worldView.y,
-		}
-
-		if (ability.projectile) {
-			const projectile = new Projectile(
-				this.scene,
-				this.x,
-				this.y,
-				ability.graphics.projectile,
-				ability.projectileVelocity + Math.abs(this.body.velocity.x), // add player velocity to the projectile
-				ability.range,
-				ability.projectilePassThroughBlocks,
-				targetCoords
-			)
-			this.scene.physics.add.overlap(projectile, this.scene.enemies, (projectile, enemy) => {
-				enemy.damage(ability.damage)
-				projectile.destroy()
-			})
-		} else {
-			// TODO: how will melee non-projectile abilities work for player... ?
 		}
 	}
 }

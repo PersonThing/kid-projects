@@ -54,6 +54,7 @@
 	let paused
 
 	let blocks
+	let backgroundBlocks
 	let simpleBlocks
 	let effectBlocks
 	let consumableBlocks
@@ -92,7 +93,8 @@
 			}))
 
 		effectBlocks = blocks.filter(b => (b.damage > 0 || b.throwOnTouch) && !b.consumable)
-		simpleBlocks = blocks.filter(b => (b.damage == null || b.damage == 0) && !b.throwOnTouch && !b.consumable)
+		simpleBlocks = blocks.filter(b => (b.damage == null || b.damage == 0) && !b.throwOnTouch && !b.consumable && b.solid)
+		backgroundBlocks = blocks.filter(b => (b.damage == null || b.damage == 0) && !b.throwOnTouch && !b.consumable && !b.solid)
 		consumableBlocks = blocks.filter(b => b.consumable)
 
 		start()
@@ -123,7 +125,7 @@
 					default: 'arcade',
 					arcade: {
 						gravity: { y: gravityPixelsPerSecond },
-						// debug: true,
+						debug: true,
 					},
 				},
 				width: gameWidth,
@@ -225,6 +227,13 @@
 
 		// add blocks as static objects
 		// TODO: block class to abstract this...
+		this.backgroundBlocksGroup = this.physics.add.staticGroup()
+		backgroundBlocks.forEach(b => {
+			const template = $project.blocks[b.name]
+			const art = $project.art[template.graphic]
+			const block = this.backgroundBlocksGroup.create(translateX(b.x, b.width), translateY(b.y, b.height), art.name)
+			if (art.animated) block.anims.play(getAnimationKey(art.name), true)
+		})
 		this.simpleBlocksGroup = this.physics.add.staticGroup()
 		simpleBlocks.forEach(b => {
 			const template = $project.blocks[b.name]

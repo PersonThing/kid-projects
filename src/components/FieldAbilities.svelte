@@ -15,6 +15,7 @@
 						<th>Name</th>
 						<th>Character graphic</th>
 						<th>Damage per hit</th>
+						<th>Damage blocks on hit</th>
 						<th>Attack rate (MS)</th>
 						<th>Projectile?</th>
 						<th>Projectile Graphic</th>
@@ -47,6 +48,9 @@
 							</td>
 							<td>
 								<input type="number" bind:value={a.damage} />
+							</td>
+							<td>
+								<input type="checkbox" bind:checked={a.damageBlocksOnHit} />
 							</td>
 							<td>
 								<input type="number" bind:value={a.attackRateMs} min={0} max={120000} />
@@ -108,12 +112,13 @@
 		return {
 			name: '',
 			key: 'R',
-			projectile: false,
 			range: 400,
 			damage: 50,
 			attackRateMs: 500,
+			projectile: false,
 			projectileVelocity: 500,
 			projectilePassThroughBlocks: false,
+			damageBlocksOnHit: false,
 
 			graphics: {
 				character: null,

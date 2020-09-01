@@ -1,5 +1,5 @@
+import AbilityAttack from './AbilityAttack'
 import HealthBar from './HealthBar'
-import Projectile from './Projectile'
 import getAnimationKey from './GetAnimationKey'
 import gravityPixelsPerSecond from './Gravity'
 
@@ -139,7 +139,7 @@ export default class LivingSprite extends Phaser.Physics.Arcade.Sprite {
 				sprite: t,
 				distance: this.getDistanceFrom(t),
 			}))
-			// .filter(t => t.distance < range)
+			.filter(t => t.distance < range)
 			.sort((a, b) => a.distance - b.distance)
 		return targetsInRange.length > 0 ? targetsInRange[0].sprite : null
 	}
@@ -161,24 +161,11 @@ export default class LivingSprite extends Phaser.Physics.Arcade.Sprite {
 			}, ability.attackRateMs)
 		}
 
-		if (ability.projectile) {
-			const projectile = new Projectile(
-				this.scene,
-				this.x,
-				this.y,
-				ability.graphics.projectile,
-				ability.projectileVelocity,
-				ability.range,
-				ability.projectilePassThroughBlocks,
-				target
-			)
-			const eligibleTargets = this.getEligibleTargets()
-			this.scene.physics.add.overlap(projectile, eligibleTargets, (projectile, spriteHit) => {
-				spriteHit.damage(ability.damage)
-				projectile.destroy()
-			})
-		} else {
-			target.damage(ability.damage)
-		}
+		const attack = new AbilityAttack(this.scene, this.x, this.y, ability, target)
+		const eligibleTargets = this.getEligibleTargets()
+		this.scene.physics.add.overlap(attack, eligibleTargets, (projectile, spriteHit) => {
+			spriteHit.damage(ability.damage)
+			projectile.destroy()
+		})
 	}
 }
