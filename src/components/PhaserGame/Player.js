@@ -83,7 +83,6 @@ export default class Player extends LivingSprite {
 			// TODO: use anim end event instead...
 			clearTimeout(this.attackingGraphicTimeout)
 			this.attackingGraphicTimeout = setTimeout(() => {
-				this.attackingGraphic = false
 				this.attackingGraphicTimeout = null
 			}, ability.attackRateMs)
 		}

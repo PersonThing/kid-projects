@@ -25,7 +25,6 @@
 	let activeKey = null
 
 	function onKeyDown(e) {
-		console.log(e)
 		const keyName = e.code.replace(/^Key/, '')
 		if (SkillKeys.indexOf(keyName) > -1) activeKey = keyName
 	}

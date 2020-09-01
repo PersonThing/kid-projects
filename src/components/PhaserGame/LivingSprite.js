@@ -156,7 +156,6 @@ export default class LivingSprite extends Phaser.Physics.Arcade.Sprite {
 			// TODO: damage @ end of attack animation instead of beginning - make sure character still in range @ end of animation...
 			clearTimeout(this.attackingGraphicTimeout)
 			this.attackingGraphicTimeout = setTimeout(() => {
-				this.attackingGraphic = false
 				this.attackingGraphicTimeout = null
 			}, ability.attackRateMs)
 		}
