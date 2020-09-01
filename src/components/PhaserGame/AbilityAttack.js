@@ -29,15 +29,10 @@ export default class AbilityAttack extends Phaser.Physics.Arcade.Sprite {
 			this.y = target.y
 		}
 
-		// this.setVelocityX(vx)
-		// this.flipX = vx < 0
-		// this.setVelocityY(vy)
 		this.body.setAllowGravity(false)
-		// this.setGravityY(-gravityPixelsPerSecond + gravityPixelsPerSecond * gravityMultiplier)
 
 		// use animation
 		if (ability.projectile && art?.animated) {
-			// console.log('animating projectile art')
 			this.anims.play(getAnimationKey(art.name), true)
 		}
 
