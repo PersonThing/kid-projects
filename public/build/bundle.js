@@ -37831,6 +37831,15 @@ var app = (function () {
     		$$invalidate(1, character = $project.characters[characterName]);
     		$$invalidate(0, level = $project.levels[levelName]);
 
+    		// convert old format
+    		if (level.blocks.some(b => b.x != null) === true) {
+    			$$invalidate(0, level.blocks = level.blocks.map(b => [b.name, b.x / gridSize, b.y / gridSize]), level);
+    		}
+
+    		if (level.enemies.some(e => e.x != null) === true) {
+    			$$invalidate(0, level.enemies = level.enemies.map(e => [e.name, e.x / gridSize, e.y / gridSize]), level);
+    		}
+
     		blocks = level.blocks.map(([name, x, y]) => ({
     			...$project.blocks[name],
     			x: x * gridSize,
