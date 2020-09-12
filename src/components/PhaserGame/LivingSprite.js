@@ -1,7 +1,7 @@
 import AbilityAttack from './AbilityAttack'
 import HealthBar from './HealthBar'
 import getAnimationKey from './GetAnimationKey'
-import gravityPixelsPerSecond from './Gravity'
+import { gravityPixelsPerSecond } from './Constants'
 
 export default class LivingSprite extends Phaser.Physics.Arcade.Sprite {
 	constructor(scene, x, y, texture, template) {
@@ -76,7 +76,7 @@ export default class LivingSprite extends Phaser.Physics.Arcade.Sprite {
 		else if (vx < -this.template.maxVelocity) vx = -this.template.maxVelocity
 
 		this.setVelocityX(vx)
-		this.flipX = vx < 0
+		if (this.attackingGraphicTimeout == null) this.flipX = vx < 0
 	}
 
 	moveTowardSprite(sprite, desiredDistance = 5) {

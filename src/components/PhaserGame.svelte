@@ -26,10 +26,10 @@
 	import Player from './PhaserGame/Player'
 	import project from '../stores/active-project-store'
 	import getAnimationKey from './PhaserGame/GetAnimationKey'
-	import gravityPixelsPerSecond from './PhaserGame/Gravity'
 	import Follower from './PhaserGame/Follower'
 	import SkillKeys from './PhaserGame/SkillKeys'
 	import TemporaryAbilityBar from './PhaserGame/TemporaryAbilityBar.svelte'
+	import { gridSize, gravityPixelsPerSecond } from './PhaserGame/Constants'
 
 	export let levelName = null
 	let level
@@ -78,20 +78,11 @@
 		character = $project.characters[characterName]
 		level = $project.levels[levelName]
 
-		// sort blocks by x, then y
 		blocks = level.blocks
-			.sort((a, b) => {
-				if (a.x > b.x) return 1
-				else if (b.x > a.x) return -1
-
-				if (a.y > b.y) return -1
-				else if (b.y > a.y) return 1
-
-				return 0
-			})
-			.map(b => ({
-				...$project.blocks[b.name],
-				...b,
+			.map(([name, x, y]) => ({
+				...$project.blocks[name],
+				x: x * gridSize,
+				y: y * gridSize
 			}))
 
 		effectBlocks = blocks.filter(b => (b.damage > 0 || b.throwOnTouch) && !b.consumable)
@@ -113,8 +104,8 @@
 			score = 0
 			gameWidth = window.innerWidth
 
-			maxLevelX = Math.max(...level.blocks.map(b => b.x + b.width))
-			maxLevelY = Math.max(...level.blocks.map(b => b.y + b.height))
+			maxLevelX = Math.max(...level.blocks.map(b => b[1] + 1)) * gridSize
+			maxLevelY = Math.max(...level.blocks.map(b => b[2] + 1)) * gridSize
 
 			config = {
 				type: Phaser.AUTO,
@@ -152,8 +143,8 @@
 
 	function preload() {
 		return new Promise((resolve, reject) => {
-			const distinctBlocks = [...new Set(level.blocks.map(b => b.name))].map(n => $project.blocks[n]).filter(b => b != null)
-			const distinctEnemies = [...new Set(level.enemies.map(e => e.name))].map(n => $project.enemies[n]).filter(e => e != null)
+			const distinctBlocks = [...new Set(level.blocks.map(b => b[0]))].map(n => $project.blocks[n]).filter(b => b != null)
+			const distinctEnemies = [...new Set(level.enemies.map(e => e[0]))].map(n => $project.enemies[n]).filter(e => e != null)
 			const distinctCharacters = [...new Set([characterName, ...character.followers, ...distinctBlocks.flatMap(b => b.followerOnConsume || [])])].map(
 				c => $project.characters[c]
 			)
@@ -233,21 +224,21 @@
 		backgroundBlocks.forEach(b => {
 			const template = $project.blocks[b.name]
 			const art = $project.art[template.graphic]
-			const block = this.backgroundBlocksGroup.create(translateX(b.x, b.width), translateY(b.y, b.height), art.name)
+			const block = this.backgroundBlocksGroup.create(translateX(b.x, gridSize), translateY(b.y, gridSize), art.name)
 			if (art.animated) block.anims.play(getAnimationKey(art.name), true)
 		})
 		this.simpleBlocksGroup = this.physics.add.staticGroup()
 		simpleBlocks.forEach(b => {
 			const template = $project.blocks[b.name]
 			const art = $project.art[template.graphic]
-			const block = this.simpleBlocksGroup.create(translateX(b.x, b.width), translateY(b.y, b.height), art.name)
+			const block = this.simpleBlocksGroup.create(translateX(b.x, gridSize), translateY(b.y, gridSize), art.name)
 			if (art.animated) block.anims.play(getAnimationKey(art.name), true)
 		})
 		this.effectBlocksGroup = this.physics.add.staticGroup()
 		effectBlocks.forEach(b => {
 			const template = $project.blocks[b.name]
 			const art = $project.art[template.graphic]
-			const block = this.effectBlocksGroup.create(translateX(b.x, b.width), translateY(b.y, b.height), art.name)
+			const block = this.effectBlocksGroup.create(translateX(b.x, gridSize), translateY(b.y, gridSize), art.name)
 			if (art.animated) block.anims.play(getAnimationKey(art.name), true)
 			block.template = b
 		})
@@ -255,7 +246,7 @@
 		consumableBlocks.forEach(b => {
 			const template = $project.blocks[b.name]
 			const art = $project.art[template.graphic]
-			const block = this.consumableBlocksGroup.create(translateX(b.x, b.width), translateY(b.y, b.height), art.name)
+			const block = this.consumableBlocksGroup.create(translateX(b.x, gridSize), translateY(b.y, gridSize), art.name)
 			if (art.animated) block.anims.play(getAnimationKey(art.name), true)
 			block.template = template
 		})
@@ -272,7 +263,7 @@
 
 		// add player
 		const startingY =
-			translateY(Math.max(...blocks.filter(b => b.x == 0).map(b => b.y)), blocks[0].height) - $project.art[character.graphics.still].height
+			translateY(Math.max(...blocks.filter(b => b.x == 0).map(b => b.y)), gridSize) - $project.art[character.graphics.still].height
 		const template = hydrateGraphics(character)
 		player = this.physics.add.existing(
 			new Player(this, translateX(0, template.graphics.still.width), startingY, character.graphics.still.name, template, keys)
@@ -290,12 +281,12 @@
 
 		// add enemies
 		this.enemies = this.physics.add.group()
-		level.enemies.forEach(e => {
-			const template = hydrateGraphics($project.enemies[e.name])
+		level.enemies.forEach(([name, x, y]) => {
+			const template = hydrateGraphics($project.enemies[name])
 			const enemy = new Enemy(
 				this,
-				translateX(e.x, template.graphics.still.width),
-				translateY(e.y, template.graphics.still.height),
+				translateX(x * gridSize, template.graphics.still.width),
+				translateY(y * gridSize, template.graphics.still.height),
 				template.graphics.still.name,
 				template,
 				attackRange

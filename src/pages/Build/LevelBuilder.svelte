@@ -48,10 +48,6 @@
 			document.getElementById('name').focus()
 			return
 		}
-		// strip out anything below 0 y, and sort by x
-		input.blocks = input.blocks.filter(b => b.y >= 0).sort((a, b) => a.x - b.x)
-		input.enemies = input.enemies.filter(e => e.y >= 0).sort((a, b) => a.x - b.x)
-
 		$project.levels[input.name] = JSON.parse(JSON.stringify(input))
 		push(`/${$project.name}/build/levels/${encodeURIComponent(input.name)}`)
 	}

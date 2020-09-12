@@ -7,6 +7,7 @@
 	export let width = 0
 	export let height = 0
 	export let blocks = []
+	export let gridSize = 40
 	export let enemies = null
 	export let playing = false
 
@@ -22,9 +23,9 @@
 	$: if (blocks != null && width != null && height != null && context != null) {
 		context.clearRect(0, 0, width, height)
 		context.imageSmoothingEnabled = false
-		blocks.forEach(b => drawOnCanvas($project.blocks[b.name].graphic, b.x, b.y))
+		blocks.forEach(([name, x, y]) => drawOnCanvas($project.blocks[name].graphic, x * gridSize, y * gridSize))
 		if (enemies != null) {
-			enemies.forEach(e => drawOnCanvas($project.enemies[e.name].graphics.still, e.x, e.y))
+			enemies.forEach(([name, x, y]) => drawOnCanvas($project.enemies[name].graphics.still, x * gridSize, y * gridSize))
 		}
 		dispatch('draw', canvas)
 	}

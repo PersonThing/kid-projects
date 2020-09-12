@@ -56,8 +56,10 @@
 		on:mouseup={onMouseUp}
 		on:mousemove={onMouseMove}
 		on:contextmenu|preventDefault>
-		<Level {blocks} {enemies} {width} {height} on:draw={onLevelDraw} />
+		<Level {blocks} {gridSize} {enemies} {width} {height} on:draw={onLevelDraw} />
 	</div>
+
+	<pre>{JSON.stringify(blocks)}</pre>
 </div>
 
 <script>
@@ -67,6 +69,7 @@
 	import makeThumbnail from '../services/make-thumbnail'
 	import LevelPreview from './LevelPreview.svelte'
 	import InputSelect from './InputSelect.svelte'
+	import { gridSize } from './PhaserGame/Constants'
 
 	export let background = null
 
@@ -75,14 +78,13 @@
 	export let blocks = []
 	export let enemies = []
 
-	$: if (blocks != null && blocks.some(b => b.png != null)) {
-		blocks = blocks.map(b => {
-			const { png, ...otherProps } = b
-			return otherProps
-		})
+	// convert old format
+	$: if (blocks.some(b => b.x != null) === true) {
+		blocks = blocks.map(b => [b.name, b.x/gridSize, b.y/gridSize])
 	}
-
-	const blockSize = 40
+	$: if (enemies.some(e => e.x != null) === true) {
+		enemies = enemies.map(e => [e.name, e.x/gridSize, e.y/gridSize])
+	}
 
 	let selectedBlock = null
 	let selectedEnemy = null
@@ -100,8 +102,8 @@
 	// $: highestYUsed = blocks.length > 0 ? Math.max(...blocks.map(b => b.y + b.height)) : 0
 	$: height = 600 //Math.max(400, highestYUsed + 300)
 
-	$: highestXUsed = blocks.length > 0 ? Math.max(...blocks.map(b => b.x + b.width)) : 0
-	$: width = Math.max(800, highestXUsed + 500)
+	$: highestXUsed = blocks.length > 0 ? Math.max(...blocks.map(b => b[1] + 1)) : 0
+	$: width = Math.max(800, highestXUsed * gridSize + 500)
 
 	function selectBlock(name) {
 		selectedBlock = name
@@ -144,20 +146,20 @@
 
 	function findBlockAtPosition(e) {
 		const { x, y } = getEventItemPosition(e)
-		const block = blocks.find(b => b.x == x && b.y == y)
-		return block == null ? null : block.name
+		const block = blocks.find(b => b[1] == x && b[2] == y)
+		return block == null ? null : block[0]
 	}
 
 	function findEnemyAtPosition(e) {
 		const { x, y } = getEventItemPosition(e)
-		const enemy = enemies.find(e => e.x == x && e.y == y)
-		return enemy == null ? null : enemy.name
+		const enemy = enemies.find(e => e[1] == x && e[2] == y)
+		return enemy == null ? null : enemy[0]
 	}
 
 	function getEventItemPosition(e) {
 		return {
-			x: Math.floor(e.offsetX / blockSize) * blockSize,
-			y: Math.floor((height - e.offsetY) / blockSize) * blockSize,
+			x: Math.floor(e.offsetX / gridSize),
+			y: Math.floor((height - e.offsetY) / gridSize),
 		}
 	}
 
@@ -167,42 +169,40 @@
 		eraseItemAt(x, y)
 		if (selectedBlock != null) {
 			const template = $project.blocks[selectedBlock]
-			blocks = [
+			console.log(template.name, x, y)
+			blocks = stripOutliersAndSort([
 				...blocks,
-				{
-					name: selectedBlock,
-					x,
-					y,
-					width: blockSize,
-					height: blockSize,
-				},
-			]
+				[selectedBlock, x, y]
+			])
+			console.log(blocks.length)
 		} else if (selectedEnemy != null) {
 			const template = $project.enemies[selectedEnemy]
-			enemies = [
+			enemies = stripOutliersAndSort([
 				...enemies,
-				{
-					name: selectedEnemy,
-					x,
-					y,
-					width: template.width,
-					height: template.height,
-				},
-			]
+				[selectedEnemy, x, y]
+			])
 		}
+
+		// strip out anything below 0 y, and sort by x
+	}
+
+	function stripOutliersAndSort(a) {
+		return a
+			.filter(e => e[2] >= 0)
+			.sort(([n1, x1, y1], [n2, x2, y2]) => {
+				if (x1 > x2) return 1
+				else if (x2 > x1) return -1
+
+				if (y1 > y2) return -1
+				else if (y2 > y1) return 1
+
+				return 0
+			})
 	}
 
 	function eraseItemAt(x, y) {
-		blocks = blocks.filter(b => b.x != x || b.y != y)
-		enemies = enemies.filter(e => e.x != x || e.y != y)
-	}
-
-	function hydrateEnemy(enemy) {
-		const template = $project.enemies[enemy.name]
-		return {
-			...template,
-			...enemy,
-		}
+		blocks = blocks.filter(b => b[1] != x || b[2] != y)
+		enemies = enemies.filter(e => e[1] != x || e[2] != y)
 	}
 </script>
 

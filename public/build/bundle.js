@@ -33350,7 +33350,7 @@ var app = (function () {
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, canvas_1, anchor);
-    			/*canvas_1_binding*/ ctx[6](canvas_1);
+    			/*canvas_1_binding*/ ctx[7](canvas_1);
     		},
     		p: function update(ctx, [dirty]) {
     			if (dirty & /*width*/ 1) {
@@ -33365,7 +33365,7 @@ var app = (function () {
     		o: noop,
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(canvas_1);
-    			/*canvas_1_binding*/ ctx[6](null);
+    			/*canvas_1_binding*/ ctx[7](null);
     		}
     	};
 
@@ -33383,10 +33383,11 @@ var app = (function () {
     function instance$r($$self, $$props, $$invalidate) {
     	let $project;
     	validate_store(project, "project");
-    	component_subscribe($$self, project, $$value => $$invalidate(9, $project = $$value));
+    	component_subscribe($$self, project, $$value => $$invalidate(10, $project = $$value));
     	let { width = 0 } = $$props;
     	let { height = 0 } = $$props;
     	let { blocks = [] } = $$props;
+    	let { gridSize = 40 } = $$props;
     	let { enemies = null } = $$props;
     	let { playing = false } = $$props;
     	const dispatch = createEventDispatcher();
@@ -33432,7 +33433,7 @@ var app = (function () {
     		}
     	}
 
-    	const writable_props = ["width", "height", "blocks", "enemies", "playing"];
+    	const writable_props = ["width", "height", "blocks", "gridSize", "enemies", "playing"];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<Level> was created with unknown prop '${key}'`);
@@ -33452,8 +33453,9 @@ var app = (function () {
     		if ("width" in $$props) $$invalidate(0, width = $$props.width);
     		if ("height" in $$props) $$invalidate(1, height = $$props.height);
     		if ("blocks" in $$props) $$invalidate(3, blocks = $$props.blocks);
-    		if ("enemies" in $$props) $$invalidate(4, enemies = $$props.enemies);
-    		if ("playing" in $$props) $$invalidate(5, playing = $$props.playing);
+    		if ("gridSize" in $$props) $$invalidate(4, gridSize = $$props.gridSize);
+    		if ("enemies" in $$props) $$invalidate(5, enemies = $$props.enemies);
+    		if ("playing" in $$props) $$invalidate(6, playing = $$props.playing);
     	};
 
     	$$self.$capture_state = () => ({
@@ -33462,6 +33464,7 @@ var app = (function () {
     		width,
     		height,
     		blocks,
+    		gridSize,
     		enemies,
     		playing,
     		dispatch,
@@ -33476,10 +33479,11 @@ var app = (function () {
     		if ("width" in $$props) $$invalidate(0, width = $$props.width);
     		if ("height" in $$props) $$invalidate(1, height = $$props.height);
     		if ("blocks" in $$props) $$invalidate(3, blocks = $$props.blocks);
-    		if ("enemies" in $$props) $$invalidate(4, enemies = $$props.enemies);
-    		if ("playing" in $$props) $$invalidate(5, playing = $$props.playing);
+    		if ("gridSize" in $$props) $$invalidate(4, gridSize = $$props.gridSize);
+    		if ("enemies" in $$props) $$invalidate(5, enemies = $$props.enemies);
+    		if ("playing" in $$props) $$invalidate(6, playing = $$props.playing);
     		if ("canvas" in $$props) $$invalidate(2, canvas = $$props.canvas);
-    		if ("context" in $$props) $$invalidate(8, context = $$props.context);
+    		if ("context" in $$props) $$invalidate(9, context = $$props.context);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -33489,18 +33493,18 @@ var app = (function () {
     	$$self.$$.update = () => {
     		if ($$self.$$.dirty & /*canvas*/ 4) {
     			 if (canvas != null) {
-    				$$invalidate(8, context = canvas.getContext("2d"));
+    				$$invalidate(9, context = canvas.getContext("2d"));
     			}
     		}
 
-    		if ($$self.$$.dirty & /*blocks, width, height, context, $project, enemies, canvas*/ 799) {
+    		if ($$self.$$.dirty & /*blocks, width, height, context, $project, gridSize, enemies, canvas*/ 1599) {
     			 if (blocks != null && width != null && height != null && context != null) {
     				context.clearRect(0, 0, width, height);
-    				$$invalidate(8, context.imageSmoothingEnabled = false, context);
-    				blocks.forEach(b => drawOnCanvas($project.blocks[b.name].graphic, b.x, b.y));
+    				$$invalidate(9, context.imageSmoothingEnabled = false, context);
+    				blocks.forEach(([name, x, y]) => drawOnCanvas($project.blocks[name].graphic, x * gridSize, y * gridSize));
 
     				if (enemies != null) {
-    					enemies.forEach(e => drawOnCanvas($project.enemies[e.name].graphics.still, e.x, e.y));
+    					enemies.forEach(([name, x, y]) => drawOnCanvas($project.enemies[name].graphics.still, x * gridSize, y * gridSize));
     				}
 
     				dispatch("draw", canvas);
@@ -33508,7 +33512,7 @@ var app = (function () {
     		}
     	};
 
-    	return [width, height, canvas, blocks, enemies, playing, canvas_1_binding];
+    	return [width, height, canvas, blocks, gridSize, enemies, playing, canvas_1_binding];
     }
 
     class Level extends SvelteComponentDev {
@@ -33519,8 +33523,9 @@ var app = (function () {
     			width: 0,
     			height: 1,
     			blocks: 3,
-    			enemies: 4,
-    			playing: 5
+    			gridSize: 4,
+    			enemies: 5,
+    			playing: 6
     		});
 
     		dispatch_dev("SvelteRegisterComponent", {
@@ -33552,6 +33557,14 @@ var app = (function () {
     	}
 
     	set blocks(value) {
+    		throw new Error("<Level>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get gridSize() {
+    		throw new Error("<Level>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set gridSize(value) {
     		throw new Error("<Level>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
 
@@ -33766,15 +33779,18 @@ var app = (function () {
     	}
     }
 
+    const gravityPixelsPerSecond = 2000;
+    const gridSize = 40;
+
     /* src\components\BuildDrawingTool.svelte generated by Svelte v3.24.1 */
 
-    const { Object: Object_1$5 } = globals;
+    const { Object: Object_1$5, console: console_1$2 } = globals;
     const file$r = "src\\components\\BuildDrawingTool.svelte";
 
     // (19:6) {#if option.damage != null}
     function create_if_block_4$1(ctx) {
     	let t0;
-    	let t1_value = /*option*/ ctx[34].damage + "";
+    	let t1_value = /*option*/ ctx[33].damage + "";
     	let t1;
     	let t2;
 
@@ -33790,7 +33806,7 @@ var app = (function () {
     			insert_dev(target, t2, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[1] & /*option*/ 8 && t1_value !== (t1_value = /*option*/ ctx[34].damage + "")) set_data_dev(t1, t1_value);
+    			if (dirty[1] & /*option*/ 4 && t1_value !== (t1_value = /*option*/ ctx[33].damage + "")) set_data_dev(t1, t1_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(t0);
@@ -33842,8 +33858,8 @@ var app = (function () {
     	let t0;
     	let t1;
     	let if_block1_anchor;
-    	let if_block0 = /*option*/ ctx[34].healthOnConsume > 0 && create_if_block_2$6(ctx);
-    	let if_block1 = /*option*/ ctx[34].scoreOnConsume > 0 && create_if_block_1$9(ctx);
+    	let if_block0 = /*option*/ ctx[33].healthOnConsume > 0 && create_if_block_2$6(ctx);
+    	let if_block1 = /*option*/ ctx[33].scoreOnConsume > 0 && create_if_block_1$9(ctx);
 
     	const block = {
     		c: function create() {
@@ -33861,7 +33877,7 @@ var app = (function () {
     			insert_dev(target, if_block1_anchor, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (/*option*/ ctx[34].healthOnConsume > 0) {
+    			if (/*option*/ ctx[33].healthOnConsume > 0) {
     				if (if_block0) {
     					if_block0.p(ctx, dirty);
     				} else {
@@ -33874,7 +33890,7 @@ var app = (function () {
     				if_block0 = null;
     			}
 
-    			if (/*option*/ ctx[34].scoreOnConsume > 0) {
+    			if (/*option*/ ctx[33].scoreOnConsume > 0) {
     				if (if_block1) {
     					if_block1.p(ctx, dirty);
     				} else {
@@ -33909,7 +33925,7 @@ var app = (function () {
 
     // (23:7) {#if option.healthOnConsume > 0}
     function create_if_block_2$6(ctx) {
-    	let t0_value = /*option*/ ctx[34].healthOnConsume + "";
+    	let t0_value = /*option*/ ctx[33].healthOnConsume + "";
     	let t0;
     	let t1;
 
@@ -33923,7 +33939,7 @@ var app = (function () {
     			insert_dev(target, t1, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[1] & /*option*/ 8 && t0_value !== (t0_value = /*option*/ ctx[34].healthOnConsume + "")) set_data_dev(t0, t0_value);
+    			if (dirty[1] & /*option*/ 4 && t0_value !== (t0_value = /*option*/ ctx[33].healthOnConsume + "")) set_data_dev(t0, t0_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(t0);
@@ -33944,7 +33960,7 @@ var app = (function () {
 
     // (24:7) {#if option.scoreOnConsume > 0}
     function create_if_block_1$9(ctx) {
-    	let t0_value = /*option*/ ctx[34].scoreOnConsume + "";
+    	let t0_value = /*option*/ ctx[33].scoreOnConsume + "";
     	let t0;
     	let t1;
 
@@ -33958,7 +33974,7 @@ var app = (function () {
     			insert_dev(target, t1, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[1] & /*option*/ 8 && t0_value !== (t0_value = /*option*/ ctx[34].scoreOnConsume + "")) set_data_dev(t0, t0_value);
+    			if (dirty[1] & /*option*/ 4 && t0_value !== (t0_value = /*option*/ ctx[33].scoreOnConsume + "")) set_data_dev(t0, t0_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(t0);
@@ -33984,10 +34000,10 @@ var app = (function () {
     	let t0;
     	let div0;
     	let strong;
-    	let t1_value = /*option*/ ctx[34].name + "";
+    	let t1_value = /*option*/ ctx[33].name + "";
     	let t1;
     	let t2;
-    	let t3_value = (/*option*/ ctx[34].solid ? "solid" : "non-physical") + "";
+    	let t3_value = (/*option*/ ctx[33].solid ? "solid" : "non-physical") + "";
     	let t3;
     	let t4;
     	let t5;
@@ -33996,15 +34012,15 @@ var app = (function () {
 
     	art = new Art({
     			props: {
-    				name: /*$project*/ ctx[9].blocks[/*option*/ ctx[34].name].graphic,
+    				name: /*$project*/ ctx[9].blocks[/*option*/ ctx[33].name].graphic,
     				simple: true
     			},
     			$$inline: true
     		});
 
-    	let if_block0 = /*option*/ ctx[34].damage != null && create_if_block_4$1(ctx);
-    	let if_block1 = /*option*/ ctx[34].throwOnTouch && create_if_block_3$2(ctx);
-    	let if_block2 = /*option*/ ctx[34].consumable && create_if_block$f(ctx);
+    	let if_block0 = /*option*/ ctx[33].damage != null && create_if_block_4$1(ctx);
+    	let if_block1 = /*option*/ ctx[33].throwOnTouch && create_if_block_3$2(ctx);
+    	let if_block2 = /*option*/ ctx[33].consumable && create_if_block$f(ctx);
 
     	const block = {
     		c: function create() {
@@ -34047,12 +34063,12 @@ var app = (function () {
     		},
     		p: function update(ctx, dirty) {
     			const art_changes = {};
-    			if (dirty[0] & /*$project*/ 512 | dirty[1] & /*option*/ 8) art_changes.name = /*$project*/ ctx[9].blocks[/*option*/ ctx[34].name].graphic;
+    			if (dirty[0] & /*$project*/ 512 | dirty[1] & /*option*/ 4) art_changes.name = /*$project*/ ctx[9].blocks[/*option*/ ctx[33].name].graphic;
     			art.$set(art_changes);
-    			if ((!current || dirty[1] & /*option*/ 8) && t1_value !== (t1_value = /*option*/ ctx[34].name + "")) set_data_dev(t1, t1_value);
-    			if ((!current || dirty[1] & /*option*/ 8) && t3_value !== (t3_value = (/*option*/ ctx[34].solid ? "solid" : "non-physical") + "")) set_data_dev(t3, t3_value);
+    			if ((!current || dirty[1] & /*option*/ 4) && t1_value !== (t1_value = /*option*/ ctx[33].name + "")) set_data_dev(t1, t1_value);
+    			if ((!current || dirty[1] & /*option*/ 4) && t3_value !== (t3_value = (/*option*/ ctx[33].solid ? "solid" : "non-physical") + "")) set_data_dev(t3, t3_value);
 
-    			if (/*option*/ ctx[34].damage != null) {
+    			if (/*option*/ ctx[33].damage != null) {
     				if (if_block0) {
     					if_block0.p(ctx, dirty);
     				} else {
@@ -34065,7 +34081,7 @@ var app = (function () {
     				if_block0 = null;
     			}
 
-    			if (/*option*/ ctx[34].throwOnTouch) {
+    			if (/*option*/ ctx[33].throwOnTouch) {
     				if (if_block1) ; else {
     					if_block1 = create_if_block_3$2(ctx);
     					if_block1.c();
@@ -34076,7 +34092,7 @@ var app = (function () {
     				if_block1 = null;
     			}
 
-    			if (/*option*/ ctx[34].consumable) {
+    			if (/*option*/ ctx[33].consumable) {
     				if (if_block2) {
     					if_block2.p(ctx, dirty);
     				} else {
@@ -34125,28 +34141,28 @@ var app = (function () {
     	let t0;
     	let div0;
     	let strong;
-    	let t1_value = /*option*/ ctx[34].name + "";
+    	let t1_value = /*option*/ ctx[33].name + "";
     	let t1;
     	let t2;
-    	let t3_value = /*option*/ ctx[34].maxHealth + "";
+    	let t3_value = /*option*/ ctx[33].maxHealth + "";
     	let t3;
     	let t4;
-    	let t5_value = /*option*/ ctx[34].maxVelocity + "";
+    	let t5_value = /*option*/ ctx[33].maxVelocity + "";
     	let t5;
     	let t6;
-    	let t7_value = /*option*/ ctx[34].score + "";
+    	let t7_value = /*option*/ ctx[33].score + "";
     	let t7;
     	let t8;
-    	let t9_value = /*option*/ ctx[34].abilities.length + "";
+    	let t9_value = /*option*/ ctx[33].abilities.length + "";
     	let t9;
     	let t10;
-    	let t11_value = (/*option*/ ctx[34].abilities.length != 1 ? "ies" : "y") + "";
+    	let t11_value = (/*option*/ ctx[33].abilities.length != 1 ? "ies" : "y") + "";
     	let t11;
     	let current;
 
     	art = new Art({
     			props: {
-    				name: /*$project*/ ctx[9].enemies[/*option*/ ctx[34].name].graphics.still,
+    				name: /*$project*/ ctx[9].enemies[/*option*/ ctx[33].name].graphics.still,
     				simple: true
     			},
     			$$inline: true
@@ -34197,14 +34213,14 @@ var app = (function () {
     		},
     		p: function update(ctx, dirty) {
     			const art_changes = {};
-    			if (dirty[0] & /*$project*/ 512 | dirty[1] & /*option*/ 8) art_changes.name = /*$project*/ ctx[9].enemies[/*option*/ ctx[34].name].graphics.still;
+    			if (dirty[0] & /*$project*/ 512 | dirty[1] & /*option*/ 4) art_changes.name = /*$project*/ ctx[9].enemies[/*option*/ ctx[33].name].graphics.still;
     			art.$set(art_changes);
-    			if ((!current || dirty[1] & /*option*/ 8) && t1_value !== (t1_value = /*option*/ ctx[34].name + "")) set_data_dev(t1, t1_value);
-    			if ((!current || dirty[1] & /*option*/ 8) && t3_value !== (t3_value = /*option*/ ctx[34].maxHealth + "")) set_data_dev(t3, t3_value);
-    			if ((!current || dirty[1] & /*option*/ 8) && t5_value !== (t5_value = /*option*/ ctx[34].maxVelocity + "")) set_data_dev(t5, t5_value);
-    			if ((!current || dirty[1] & /*option*/ 8) && t7_value !== (t7_value = /*option*/ ctx[34].score + "")) set_data_dev(t7, t7_value);
-    			if ((!current || dirty[1] & /*option*/ 8) && t9_value !== (t9_value = /*option*/ ctx[34].abilities.length + "")) set_data_dev(t9, t9_value);
-    			if ((!current || dirty[1] & /*option*/ 8) && t11_value !== (t11_value = (/*option*/ ctx[34].abilities.length != 1 ? "ies" : "y") + "")) set_data_dev(t11, t11_value);
+    			if ((!current || dirty[1] & /*option*/ 4) && t1_value !== (t1_value = /*option*/ ctx[33].name + "")) set_data_dev(t1, t1_value);
+    			if ((!current || dirty[1] & /*option*/ 4) && t3_value !== (t3_value = /*option*/ ctx[33].maxHealth + "")) set_data_dev(t3, t3_value);
+    			if ((!current || dirty[1] & /*option*/ 4) && t5_value !== (t5_value = /*option*/ ctx[33].maxVelocity + "")) set_data_dev(t5, t5_value);
+    			if ((!current || dirty[1] & /*option*/ 4) && t7_value !== (t7_value = /*option*/ ctx[33].score + "")) set_data_dev(t7, t7_value);
+    			if ((!current || dirty[1] & /*option*/ 4) && t9_value !== (t9_value = /*option*/ ctx[33].abilities.length + "")) set_data_dev(t9, t9_value);
+    			if ((!current || dirty[1] & /*option*/ 4) && t11_value !== (t11_value = (/*option*/ ctx[33].abilities.length != 1 ? "ies" : "y") + "")) set_data_dev(t11, t11_value);
     		},
     		i: function intro(local) {
     			if (current) return;
@@ -34247,6 +34263,10 @@ var app = (function () {
     	let t2;
     	let div3;
     	let level;
+    	let t3;
+    	let pre;
+    	let t4_value = JSON.stringify(/*blocks*/ ctx[1]) + "";
+    	let t4;
     	let current;
     	let mounted;
     	let dispose;
@@ -34276,8 +34296,8 @@ var app = (function () {
     		$$slots: {
     			default: [
     				create_default_slot_1$4,
-    				({ option }) => ({ 34: option }),
-    				({ option }) => [0, option ? 8 : 0]
+    				({ option }) => ({ 33: option }),
+    				({ option }) => [0, option ? 4 : 0]
     			]
     		},
     		$$scope: { ctx }
@@ -34308,8 +34328,8 @@ var app = (function () {
     		$$slots: {
     			default: [
     				create_default_slot$9,
-    				({ option }) => ({ 34: option }),
-    				({ option }) => [0, option ? 8 : 0]
+    				({ option }) => ({ 33: option }),
+    				({ option }) => [0, option ? 4 : 0]
     			]
     		},
     		$$scope: { ctx }
@@ -34330,6 +34350,7 @@ var app = (function () {
     	level = new Level({
     			props: {
     				blocks: /*blocks*/ ctx[1],
+    				gridSize,
     				enemies: /*enemies*/ ctx[2],
     				width: /*width*/ ctx[7],
     				height: /*height*/ ctx[8]
@@ -34353,6 +34374,9 @@ var app = (function () {
     			t2 = space();
     			div3 = element("div");
     			create_component(level.$$.fragment);
+    			t3 = space();
+    			pre = element("pre");
+    			t4 = text(t4_value);
     			attr_dev(div0, "class", "svelte-74cv1g");
     			add_location(div0, file$r, 3, 2, 133);
     			attr_dev(div1, "class", "svelte-74cv1g");
@@ -34363,6 +34387,7 @@ var app = (function () {
     			set_style(div3, "background", /*background*/ ctx[3]);
     			set_style(div3, "height", /*height*/ ctx[8] + 18 + "px");
     			add_location(div3, file$r, 50, 1, 1703);
+    			add_location(pre, file$r, 61, 1, 2042);
     			attr_dev(div4, "class", "drawing-tool svelte-74cv1g");
     			add_location(div4, file$r, 0, 0, 0);
     		},
@@ -34383,6 +34408,9 @@ var app = (function () {
     			append_dev(div4, div3);
     			mount_component(level, div3, null);
     			/*div3_binding*/ ctx[22](div3);
+    			append_dev(div4, t3);
+    			append_dev(div4, pre);
+    			append_dev(pre, t4);
     			current = true;
 
     			if (!mounted) {
@@ -34408,7 +34436,7 @@ var app = (function () {
     			const inputselect0_changes = {};
     			if (dirty[0] & /*$project*/ 512) inputselect0_changes.options = Object.keys(/*$project*/ ctx[9].blocks).map(/*func*/ ctx[16]);
 
-    			if (dirty[0] & /*$project*/ 512 | dirty[1] & /*$$scope, option*/ 24) {
+    			if (dirty[0] & /*$project*/ 512 | dirty[1] & /*$$scope, option*/ 12) {
     				inputselect0_changes.$$scope = { dirty, ctx };
     			}
 
@@ -34422,7 +34450,7 @@ var app = (function () {
     			const inputselect1_changes = {};
     			if (dirty[0] & /*$project*/ 512) inputselect1_changes.options = Object.keys(/*$project*/ ctx[9].enemies).map(/*func_1*/ ctx[19]);
 
-    			if (dirty[0] & /*$project*/ 512 | dirty[1] & /*$$scope, option*/ 24) {
+    			if (dirty[0] & /*$project*/ 512 | dirty[1] & /*$$scope, option*/ 12) {
     				inputselect1_changes.$$scope = { dirty, ctx };
     			}
 
@@ -34447,6 +34475,8 @@ var app = (function () {
     			if (!current || dirty[0] & /*height*/ 256) {
     				set_style(div3, "height", /*height*/ ctx[8] + 18 + "px");
     			}
+
+    			if ((!current || dirty[0] & /*blocks*/ 2) && t4_value !== (t4_value = JSON.stringify(/*blocks*/ ctx[1]) + "")) set_data_dev(t4, t4_value);
     		},
     		i: function intro(local) {
     			if (current) return;
@@ -34486,8 +34516,15 @@ var app = (function () {
     	return block;
     }
 
-    const blockSize = 40;
     const thumbnailScale = 8;
+
+    function stripOutliersAndSort(a) {
+    	return a.filter(e => e[2] >= 0).sort(([n1, x1, y1], [n2, x2, y2]) => {
+    		if (x1 > x2) return 1; else if (x2 > x1) return -1;
+    		if (y1 > y2) return -1; else if (y2 > y1) return 1;
+    		return 0;
+    	});
+    }
 
     function instance$t($$self, $$props, $$invalidate) {
     	let $project;
@@ -34549,20 +34586,20 @@ var app = (function () {
 
     	function findBlockAtPosition(e) {
     		const { x, y } = getEventItemPosition(e);
-    		const block = blocks.find(b => b.x == x && b.y == y);
-    		return block == null ? null : block.name;
+    		const block = blocks.find(b => b[1] == x && b[2] == y);
+    		return block == null ? null : block[0];
     	}
 
     	function findEnemyAtPosition(e) {
     		const { x, y } = getEventItemPosition(e);
-    		const enemy = enemies.find(e => e.x == x && e.y == y);
-    		return enemy == null ? null : enemy.name;
+    		const enemy = enemies.find(e => e[1] == x && e[2] == y);
+    		return enemy == null ? null : enemy[0];
     	}
 
     	function getEventItemPosition(e) {
     		return {
-    			x: Math.floor(e.offsetX / blockSize) * blockSize,
-    			y: Math.floor((height - e.offsetY) / blockSize) * blockSize
+    			x: Math.floor(e.offsetX / gridSize),
+    			y: Math.floor((height - e.offsetY) / gridSize)
     		};
     	}
 
@@ -34572,47 +34609,24 @@ var app = (function () {
 
     		if (selectedBlock != null) {
     			const template = $project.blocks[selectedBlock];
-
-    			$$invalidate(1, blocks = [
-    				...blocks,
-    				{
-    					name: selectedBlock,
-    					x,
-    					y,
-    					width: blockSize,
-    					height: blockSize
-    				}
-    			]);
+    			console.log(template.name, x, y);
+    			$$invalidate(1, blocks = stripOutliersAndSort([...blocks, [selectedBlock, x, y]]));
+    			console.log(blocks.length);
     		} else if (selectedEnemy != null) {
     			const template = $project.enemies[selectedEnemy];
-
-    			$$invalidate(2, enemies = [
-    				...enemies,
-    				{
-    					name: selectedEnemy,
-    					x,
-    					y,
-    					width: template.width,
-    					height: template.height
-    				}
-    			]);
+    			$$invalidate(2, enemies = stripOutliersAndSort([...enemies, [selectedEnemy, x, y]]));
     		}
-    	}
+    	} // strip out anything below 0 y, and sort by x
 
     	function eraseItemAt(x, y) {
-    		$$invalidate(1, blocks = blocks.filter(b => b.x != x || b.y != y));
-    		$$invalidate(2, enemies = enemies.filter(e => e.x != x || e.y != y));
-    	}
-
-    	function hydrateEnemy(enemy) {
-    		const template = $project.enemies[enemy.name];
-    		return { ...template, ...enemy };
+    		$$invalidate(1, blocks = blocks.filter(b => b[1] != x || b[2] != y));
+    		$$invalidate(2, enemies = enemies.filter(e => e[1] != x || e[2] != y));
     	}
 
     	const writable_props = ["background", "thumbnail", "blocks", "enemies"];
 
     	Object_1$5.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<BuildDrawingTool> was created with unknown prop '${key}'`);
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console_1$2.warn(`<BuildDrawingTool> was created with unknown prop '${key}'`);
     	});
 
     	let { $$slots = {}, $$scope } = $$props;
@@ -34660,11 +34674,11 @@ var app = (function () {
     		makeThumbnail,
     		LevelPreview,
     		InputSelect,
+    		gridSize,
     		background,
     		thumbnail,
     		blocks,
     		enemies,
-    		blockSize,
     		selectedBlock,
     		selectedEnemy,
     		mouseDown,
@@ -34682,8 +34696,8 @@ var app = (function () {
     		findEnemyAtPosition,
     		getEventItemPosition,
     		placeItem,
+    		stripOutliersAndSort,
     		eraseItemAt,
-    		hydrateEnemy,
     		width,
     		height,
     		highestXUsed,
@@ -34715,22 +34729,26 @@ var app = (function () {
 
     	$$self.$$.update = () => {
     		if ($$self.$$.dirty[0] & /*blocks*/ 2) {
-    			 if (blocks != null && blocks.some(b => b.png != null)) {
-    				$$invalidate(1, blocks = blocks.map(b => {
-    					const { png, ...otherProps } = b;
-    					return otherProps;
-    				}));
+    			// convert old format
+    			 if (blocks.some(b => b.x != null) === true) {
+    				$$invalidate(1, blocks = blocks.map(b => [b.name, b.x / gridSize, b.y / gridSize]));
+    			}
+    		}
+
+    		if ($$self.$$.dirty[0] & /*enemies*/ 4) {
+    			 if (enemies.some(e => e.x != null) === true) {
+    				$$invalidate(2, enemies = enemies.map(e => [e.name, e.x / gridSize, e.y / gridSize]));
     			}
     		}
 
     		if ($$self.$$.dirty[0] & /*blocks*/ 2) {
     			 $$invalidate(24, highestXUsed = blocks.length > 0
-    			? Math.max(...blocks.map(b => b.x + b.width))
+    			? Math.max(...blocks.map(b => b[1] + 1))
     			: 0);
     		}
 
     		if ($$self.$$.dirty[0] & /*highestXUsed*/ 16777216) {
-    			 $$invalidate(7, width = Math.max(800, highestXUsed + 500));
+    			 $$invalidate(7, width = Math.max(800, highestXUsed * gridSize + 500));
     		}
     	};
 
@@ -34793,7 +34811,7 @@ var app = (function () {
     		const props = options.props || {};
 
     		if (/*thumbnail*/ ctx[0] === undefined && !("thumbnail" in props)) {
-    			console.warn("<BuildDrawingTool> was created without expected prop 'thumbnail'");
+    			console_1$2.warn("<BuildDrawingTool> was created without expected prop 'thumbnail'");
     		}
     	}
 
@@ -35416,10 +35434,6 @@ var app = (function () {
     			return;
     		}
 
-    		// strip out anything below 0 y, and sort by x
-    		$$invalidate(0, input.blocks = input.blocks.filter(b => b.y >= 0).sort((a, b) => a.x - b.x), input);
-
-    		$$invalidate(0, input.enemies = input.enemies.filter(e => e.y >= 0).sort((a, b) => a.x - b.x), input);
     		set_store_value(project, $project.levels[input.name] = JSON.parse(JSON.stringify(input)), $project);
     		push(`/${$project.name}/build/levels/${encodeURIComponent(input.name)}`);
     	}
@@ -35951,8 +35965,6 @@ var app = (function () {
     	}
     }
 
-    const gravityPixelsPerSecond = 2000;
-
     class LivingSprite extends Phaser.Physics.Arcade.Sprite {
     	constructor(scene, x, y, texture, template) {
     		super(scene, x, y, texture);
@@ -36026,7 +36038,7 @@ var app = (function () {
     		else if (vx < -this.template.maxVelocity) vx = -this.template.maxVelocity;
 
     		this.setVelocityX(vx);
-    		this.flipX = vx < 0;
+    		if (this.attackingGraphicTimeout == null) this.flipX = vx < 0;
     	}
 
     	moveTowardSprite(sprite, desiredDistance = 5) {
@@ -37819,12 +37831,11 @@ var app = (function () {
     		$$invalidate(1, character = $project.characters[characterName]);
     		$$invalidate(0, level = $project.levels[levelName]);
 
-    		// sort blocks by x, then y
-    		blocks = level.blocks.sort((a, b) => {
-    			if (a.x > b.x) return 1; else if (b.x > a.x) return -1;
-    			if (a.y > b.y) return -1; else if (b.y > a.y) return 1;
-    			return 0;
-    		}).map(b => ({ ...$project.blocks[b.name], ...b }));
+    		blocks = level.blocks.map(([name, x, y]) => ({
+    			...$project.blocks[name],
+    			x: x * gridSize,
+    			y: y * gridSize
+    		}));
 
     		effectBlocks = blocks.filter(b => (b.damage > 0 || b.throwOnTouch) && !b.consumable);
     		simpleBlocks = blocks.filter(b => (b.damage == null || b.damage == 0) && !b.throwOnTouch && !b.consumable && b.solid);
@@ -37843,8 +37854,8 @@ var app = (function () {
     			$$invalidate(6, paused = false);
     			$$invalidate(5, score = 0);
     			gameWidth = window.innerWidth;
-    			maxLevelX = Math.max(...level.blocks.map(b => b.x + b.width));
-    			maxLevelY = Math.max(...level.blocks.map(b => b.y + b.height));
+    			maxLevelX = Math.max(...level.blocks.map(b => b[1] + 1)) * gridSize;
+    			maxLevelY = Math.max(...level.blocks.map(b => b[2] + 1)) * gridSize;
 
     			config = {
     				type: Phaser.AUTO,
@@ -37877,8 +37888,8 @@ var app = (function () {
 
     	function preload() {
     		return new Promise((resolve, reject) => {
-    				const distinctBlocks = [...new Set(level.blocks.map(b => b.name))].map(n => $project.blocks[n]).filter(b => b != null);
-    				const distinctEnemies = [...new Set(level.enemies.map(e => e.name))].map(n => $project.enemies[n]).filter(e => e != null);
+    				const distinctBlocks = [...new Set(level.blocks.map(b => b[0]))].map(n => $project.blocks[n]).filter(b => b != null);
+    				const distinctEnemies = [...new Set(level.enemies.map(e => e[0]))].map(n => $project.enemies[n]).filter(e => e != null);
 
     				const distinctCharacters = [
     					...new Set([
@@ -37962,7 +37973,7 @@ var app = (function () {
     		backgroundBlocks.forEach(b => {
     			const template = $project.blocks[b.name];
     			const art = $project.art[template.graphic];
-    			const block = this.backgroundBlocksGroup.create(translateX(b.x, b.width), translateY(b.y, b.height), art.name);
+    			const block = this.backgroundBlocksGroup.create(translateX(b.x, gridSize), translateY(b.y, gridSize), art.name);
     			if (art.animated) block.anims.play(getAnimationKey(art.name), true);
     		});
 
@@ -37971,7 +37982,7 @@ var app = (function () {
     		simpleBlocks.forEach(b => {
     			const template = $project.blocks[b.name];
     			const art = $project.art[template.graphic];
-    			const block = this.simpleBlocksGroup.create(translateX(b.x, b.width), translateY(b.y, b.height), art.name);
+    			const block = this.simpleBlocksGroup.create(translateX(b.x, gridSize), translateY(b.y, gridSize), art.name);
     			if (art.animated) block.anims.play(getAnimationKey(art.name), true);
     		});
 
@@ -37980,7 +37991,7 @@ var app = (function () {
     		effectBlocks.forEach(b => {
     			const template = $project.blocks[b.name];
     			const art = $project.art[template.graphic];
-    			const block = this.effectBlocksGroup.create(translateX(b.x, b.width), translateY(b.y, b.height), art.name);
+    			const block = this.effectBlocksGroup.create(translateX(b.x, gridSize), translateY(b.y, gridSize), art.name);
     			if (art.animated) block.anims.play(getAnimationKey(art.name), true);
     			block.template = b;
     		});
@@ -37990,7 +38001,7 @@ var app = (function () {
     		consumableBlocks.forEach(b => {
     			const template = $project.blocks[b.name];
     			const art = $project.art[template.graphic];
-    			const block = this.consumableBlocksGroup.create(translateX(b.x, b.width), translateY(b.y, b.height), art.name);
+    			const block = this.consumableBlocksGroup.create(translateX(b.x, gridSize), translateY(b.y, gridSize), art.name);
     			if (art.animated) block.anims.play(getAnimationKey(art.name), true);
     			block.template = template;
     		});
@@ -38009,7 +38020,7 @@ var app = (function () {
     		this.input.mouse.disableContextMenu();
 
     		// add player
-    		const startingY = translateY(Math.max(...blocks.filter(b => b.x == 0).map(b => b.y)), blocks[0].height) - $project.art[character.graphics.still].height;
+    		const startingY = translateY(Math.max(...blocks.filter(b => b.x == 0).map(b => b.y)), gridSize) - $project.art[character.graphics.still].height;
 
     		const template = hydrateGraphics(character);
     		$$invalidate(7, player = this.physics.add.existing(new Player(this, translateX(0, template.graphics.still.width), startingY, character.graphics.still.name, template, keys)));
@@ -38028,9 +38039,9 @@ var app = (function () {
     		// add enemies
     		this.enemies = this.physics.add.group();
 
-    		level.enemies.forEach(e => {
-    			const template = hydrateGraphics($project.enemies[e.name]);
-    			const enemy = new Enemy(this, translateX(e.x, template.graphics.still.width), translateY(e.y, template.graphics.still.height), template.graphics.still.name, template, attackRange);
+    		level.enemies.forEach(([name, x, y]) => {
+    			const template = hydrateGraphics($project.enemies[name]);
+    			const enemy = new Enemy(this, translateX(x * gridSize, template.graphics.still.width), translateY(y * gridSize, template.graphics.still.height), template.graphics.still.name, template, attackRange);
     			this.enemies.add(enemy);
     		});
 
@@ -38160,10 +38171,11 @@ var app = (function () {
     		Player,
     		project,
     		getAnimationKey,
-    		gravityPixelsPerSecond,
     		Follower,
     		SkillKeys,
     		TemporaryAbilityBar,
+    		gridSize,
+    		gravityPixelsPerSecond,
     		levelName,
     		level,
     		characterName,
