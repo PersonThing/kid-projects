@@ -30,6 +30,7 @@
 	import SkillKeys from './PhaserGame/SkillKeys'
 	import TemporaryAbilityBar from './PhaserGame/TemporaryAbilityBar.svelte'
 	import { gridSize, gravityPixelsPerSecond } from './PhaserGame/Constants'
+	import { migrateLevel, migrateCharacter } from './PhaserGame/SaveDataMigrator'
 
 	export let levelName = null
 	let level
@@ -75,18 +76,8 @@
 	let player
 
 	onMount(() => {
-		character = $project.characters[characterName]
-		level = $project.levels[levelName]
-
-
-		// convert old format
-		if (level.blocks.some(b => b.x != null) === true) {
-			level.blocks = level.blocks.map(b => [b.name, b.x/gridSize, b.y/gridSize])
-		}
-		if (level.enemies.some(e => e.x != null) === true) {
-			level.enemies = level.enemies.map(e => [e.name, e.x/gridSize, e.y/gridSize])
-		}
-
+		character = migrateCharacter($project.characters[characterName])
+		level = migrateLevel($project.levels[levelName])
 
 		blocks = level.blocks
 			.map(([name, x, y]) => ({

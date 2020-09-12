@@ -70,6 +70,7 @@
 	import LevelPreview from './LevelPreview.svelte'
 	import InputSelect from './InputSelect.svelte'
 	import { gridSize } from './PhaserGame/Constants'
+	import { migrateLevel } from './PhaserGame/SaveDataMigrator'
 
 	export let background = null
 
@@ -79,11 +80,10 @@
 	export let enemies = []
 
 	// convert old format
-	$: if (blocks.some(b => b.x != null) === true) {
-		blocks = blocks.map(b => [b.name, b.x/gridSize, b.y/gridSize])
-	}
-	$: if (enemies.some(e => e.x != null) === true) {
-		enemies = enemies.map(e => [e.name, e.x/gridSize, e.y/gridSize])
+	$: if (blocks.some(b => b.x != null) === true || enemies.some(e => e.x != null) === true) {
+		const level = migrateLevel({blocks, enemies})
+		blocks = level.blocks
+		enemies = level.enemies
 	}
 
 	let selectedBlock = null
