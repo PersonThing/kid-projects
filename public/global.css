@@ -18,8 +18,13 @@ body {
 .align-top {
 	align-items: flex-start;
 }
+
 .align-center {
 	align-items: center;
+}
+
+.align-stretch {
+	align-items: stretch;
 }
 
 .flex-grow {

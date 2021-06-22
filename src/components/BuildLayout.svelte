@@ -1,8 +1,8 @@
-<div class="flex align-top">
+<div class="flex align-stretch">
 	<div class="sub-nav nav-container">
 		{#each tabs as t}
-			<a class="sub-nav-item" class:active={tab == t.name} href="{baseUrl}/{t.name}/new">{t.name}</a>
-			{#if t.name == tab}
+			<a class="sub-nav-item" class:active={tab == t.slug} href="{baseUrl}/{t.slug}/new">{t.name}</a>
+			{#if t.slug == tab}
 				<div class="sub-nav">
 					<a href="{baseUrl}/{t.name}/new" class="sub-nav-item" class:new={store[activeName] == null}>+ New</a>
 					{#each Object.keys(store).sort() as name}
@@ -12,7 +12,6 @@
 							{/if}
 							<div class="flex-column">
 								<span>{name}</span>
-
 								<div>
 									{#if tab == 'levels'}
 										<img src={store[name].thumbnail} class="level-thumbnail" alt="" />
@@ -41,12 +40,15 @@
 	$: baseUrl = `#/${$project.name}/build`
 
 	const tabs = [
-		{ name: 'art' },
-		{ name: 'blocks', graphicKey: 'graphic' },
-		{ name: 'characters', graphicKey: 'graphics.still' },
-		{ name: 'enemies', graphicKey: 'graphics.still' },
-		{ name: 'levels', graphicKey: null },
-	]
+		{ name: 'Art' },
+		{ name: 'Blocks', graphicKey: 'graphic' },
+		{ name: 'Characters', graphicKey: 'graphics.still' },
+		{ name: 'Enemies', graphicKey: 'graphics.still' },
+		{ name: 'Levels', graphicKey: null },
+	].map(t => ({
+		...t,
+		slug: t.name.toLowerCase()
+	}))
 
 	function getGraphic(name, key) {
 		let item = store[name]
@@ -61,10 +63,13 @@
 	@import '../css/variables';
 
 	.nav-container {
-		width: 200px;
+		width: 250px;
+		overflow: auto;
+		background: #fff;
 	}
 	.content-container {
 		width: calc(100vw - 200px);
+		overflow: auto;
 	}
 
 	.sub-nav .sub-nav {
@@ -90,7 +95,7 @@
 
 		:global(img) {
 			margin-right: 5px;
-			height: 20px;
+			width: 25px;
 		}
 
 		&:hover {

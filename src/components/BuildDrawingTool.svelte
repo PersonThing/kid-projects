@@ -53,7 +53,6 @@
 		style="background: {background}; height: {height + 18}px;"
 		bind:this={levelContainer}
 		on:mousedown={onMouseDown}
-		on:mouseup={onMouseUp}
 		on:mousemove={onMouseMove}
 		on:contextmenu|preventDefault>
 		<Level {blocks} {gridSize} {enemies} {width} {height} on:draw={onLevelDraw} />
@@ -61,6 +60,8 @@
 
 	<pre>{JSON.stringify(blocks)}</pre>
 </div>
+
+<svelte:window on:mouseup={onMouseUp} />
 
 <script>
 	import Art from './Art.svelte'
@@ -99,8 +100,9 @@
 	}
 
 	// todo let them draw higher, use wasd or arrows to navigate around level rather than scrolling
-	// $: highestYUsed = blocks.length > 0 ? Math.max(...blocks.map(b => b.y + b.height)) : 0
-	$: height = 600 //Math.max(400, highestYUsed + 300)
+	$: highestYUsed = blocks.length > 0 ? Math.max(...blocks.map(b => b[2] + 1)) : 0
+	$: console.log('highest y', highestYUsed, highestYUsed * gridSize)
+	$: height = Math.max(400, highestYUsed * gridSize + 300)
 
 	$: highestXUsed = blocks.length > 0 ? Math.max(...blocks.map(b => b[1] + 1)) : 0
 	$: width = Math.max(800, highestXUsed * gridSize + 500)
@@ -169,12 +171,10 @@
 		eraseItemAt(x, y)
 		if (selectedBlock != null) {
 			const template = $project.blocks[selectedBlock]
-			console.log(template.name, x, y)
 			blocks = stripOutliersAndSort([
 				...blocks,
 				[selectedBlock, x, y]
 			])
-			console.log(blocks.length)
 		} else if (selectedEnemy != null) {
 			const template = $project.enemies[selectedEnemy]
 			enemies = stripOutliersAndSort([

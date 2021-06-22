@@ -12,7 +12,6 @@
 	import LevelBuilder from './LevelBuilder.svelte'
 	import project from '../../stores/active-project-store'
 
-	$: tab = params.tab || 'art'
 	$: prefix = `/${encodeURIComponent($project.name)}/build`
 
 	const routes = {

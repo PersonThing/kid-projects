@@ -33,3 +33,16 @@
 		if (name != null && name.trim().length > 0) push(`/${encodeURIComponent(name)}/`)
 	}
 </script>
+
+<style>
+	.nav {
+		height: 41px;
+	}
+	main {
+		position: absolute;
+		top: 41px;
+		height: calc(100vh - 41px);
+		width: 100vw;
+		background: #e5e5e5;
+	}
+</style>

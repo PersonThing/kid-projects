@@ -1,5 +1,5 @@
 {#if $project != null}
-	<ul class="nav my-1">
+	<ul class="nav">
 		{#if Object.keys($project.levels).length > 0}
 			<li class="nav-item">
 				<a class="nav-link text-success" href="#/{$project.name}/play">
@@ -71,3 +71,9 @@
 		push(`/`)
 	}
 </script>
+
+<style>
+	.nav {
+		background: #f7f7f7;
+	}
+</style>

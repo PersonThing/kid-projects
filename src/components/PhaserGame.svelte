@@ -57,10 +57,6 @@
 	let paused
 
 	let blocks
-	let backgroundBlocks
-	let simpleBlocks
-	let effectBlocks
-	let consumableBlocks
 
 	let config
 	let game
@@ -79,17 +75,21 @@
 		character = migrateCharacter($project.characters[characterName])
 		level = migrateLevel($project.levels[levelName])
 
-		blocks = level.blocks
-			.map(([name, x, y]) => ({
-				...$project.blocks[name],
-				x: x * gridSize,
-				y: y * gridSize
-			}))
+		maxLevelX = Math.max(...level.blocks.map(b => b[1] + 1)) * gridSize
+		maxLevelY = Math.max(...level.blocks.map(b => b[2] + 1)) * gridSize
 
-		effectBlocks = blocks.filter(b => (b.damage > 0 || b.throwOnTouch) && !b.consumable)
-		simpleBlocks = blocks.filter(b => (b.damage == null || b.damage == 0) && !b.throwOnTouch && !b.consumable && b.solid)
-		backgroundBlocks = blocks.filter(b => (b.damage == null || b.damage == 0) && !b.throwOnTouch && !b.consumable && !b.solid)
-		consumableBlocks = blocks.filter(b => b.consumable)
+		blocks = level.blocks
+			.map(([name, x, y]) => {
+				const template = $project.blocks[name]
+				const art = $project.art[template.graphic]
+				return {
+					...$project.blocks[name],
+					x,
+					y,
+					template,
+					art
+				}
+			})
 
 		start()
 	})
@@ -105,8 +105,7 @@
 			score = 0
 			gameWidth = window.innerWidth
 
-			maxLevelX = Math.max(...level.blocks.map(b => b[1] + 1)) * gridSize
-			maxLevelY = Math.max(...level.blocks.map(b => b[2] + 1)) * gridSize
+			console.log(maxLevelY)
 
 			config = {
 				type: Phaser.AUTO,
@@ -222,34 +221,21 @@
 		// add blocks as static objects
 		// TODO: block class to abstract this...
 		this.backgroundBlocksGroup = this.physics.add.staticGroup()
-		backgroundBlocks.forEach(b => {
-			const template = $project.blocks[b.name]
-			const art = $project.art[template.graphic]
-			const block = this.backgroundBlocksGroup.create(translateX(b.x, gridSize), translateY(b.y, gridSize), art.name)
-			if (art.animated) block.anims.play(getAnimationKey(art.name), true)
-		})
 		this.simpleBlocksGroup = this.physics.add.staticGroup()
-		simpleBlocks.forEach(b => {
-			const template = $project.blocks[b.name]
-			const art = $project.art[template.graphic]
-			const block = this.simpleBlocksGroup.create(translateX(b.x, gridSize), translateY(b.y, gridSize), art.name)
-			if (art.animated) block.anims.play(getAnimationKey(art.name), true)
-		})
 		this.effectBlocksGroup = this.physics.add.staticGroup()
-		effectBlocks.forEach(b => {
-			const template = $project.blocks[b.name]
-			const art = $project.art[template.graphic]
-			const block = this.effectBlocksGroup.create(translateX(b.x, gridSize), translateY(b.y, gridSize), art.name)
-			if (art.animated) block.anims.play(getAnimationKey(art.name), true)
-			block.template = b
-		})
 		this.consumableBlocksGroup = this.physics.add.staticGroup()
-		consumableBlocks.forEach(b => {
-			const template = $project.blocks[b.name]
-			const art = $project.art[template.graphic]
-			const block = this.consumableBlocksGroup.create(translateX(b.x, gridSize), translateY(b.y, gridSize), art.name)
-			if (art.animated) block.anims.play(getAnimationKey(art.name), true)
-			block.template = template
+
+		const createBlock = (group, b) => {
+			const block = group.create(translateX(b.x * gridSize, gridSize), translateY(b.y * gridSize, gridSize), b.art.name)
+			if (b.art.animated) block.anims.play(getAnimationKey(b.art.name), true)
+			block.template = b.template
+		}
+		blocks.forEach(b => {
+			console.log(b.name, b.x, b.y, translateX(b.x * gridSize, gridSize), translateY(b.y * gridSize, gridSize))
+			if (b.consumable) createBlock(this.consumableBlocksGroup, b)
+			else if (b.damage > 0 || b.throwOnTouch) createBlock(this.effectBlocksGroup, b)
+			else if (b.solid) createBlock(this.simpleBlocksGroup, b)
+			else createBlock(this.backgroundBlocksGroup, b)
 		})
 
 		// configure input
@@ -264,7 +250,7 @@
 
 		// add player
 		const startingY =
-			translateY(Math.max(...blocks.filter(b => b.x == 0).map(b => b.y)), gridSize) - $project.art[character.graphics.still].height
+			translateY(Math.max(...blocks.filter(b => b.x == 0).map(b => b.y * gridSize)), gridSize) - $project.art[character.graphics.still].height
 		const template = hydrateGraphics(character)
 		player = this.physics.add.existing(
 			new Player(this, translateX(0, template.graphics.still.width), startingY, character.graphics.still.name, template, keys)
@@ -298,8 +284,8 @@
 		this.physics.add.collider(this.enemies, this.effectBlocksGroup, onEffectBlockCollision)
 
 		// camera and player bounds
-		this.physics.world.setBounds(0, -maxLevelY, maxLevelX, maxLevelY + viewportHeight)
-		this.cameras.main.setBounds(0, -maxLevelY, maxLevelX, maxLevelY + viewportHeight)
+		this.physics.world.setBounds(0, -viewportHeight, maxLevelX, maxLevelY + viewportHeight)
+		this.cameras.main.setBounds(0, -viewportHeight, maxLevelX, maxLevelY + viewportHeight)
 		this.cameras.main.startFollow(player)
 
 		// score method
@@ -347,7 +333,8 @@
 	}
 
 	function translateY(y, height) {
-		return Math.max(maxLevelY, viewportHeight) - y - height / 2
+		// convert Y = 100 to Y = height - 100
+		return Math.max(maxLevelY) - y - height / 2
 	}
 
 	function onEffectBlockCollision(sprite, block) {

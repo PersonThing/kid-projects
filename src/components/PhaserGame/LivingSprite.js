@@ -36,7 +36,7 @@ export default class LivingSprite extends Phaser.Physics.Arcade.Sprite {
 	preUpdate(time, delta) {
 		super.preUpdate(time, delta)
 		this.hp.moveTo(this)
-		if (this.body.y > 1000) this.damage(this.template.maxHealth)
+		if (this.body.y > this.scene.physics.world.bounds.height + 1000) this.damage(this.template.maxHealth)
 	}
 
 	setGraphic(art, ignoreIfPlaying = true) {

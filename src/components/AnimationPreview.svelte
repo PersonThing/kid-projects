@@ -21,8 +21,7 @@
 {/if}
 
 <script>
-	import { onMount, onDestroy } from 'svelte'
-	import debounce from '../services/debounce'
+	import { onDestroy } from 'svelte'
 
 	export let png
 	export let width

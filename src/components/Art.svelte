@@ -13,7 +13,6 @@
 {/if}
 
 <script>
-	import { getContext } from 'svelte'
 	import project from '../stores/active-project-store'
 	import AnimationPreview from './AnimationPreview.svelte'
 
