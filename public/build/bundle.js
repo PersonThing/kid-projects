@@ -38633,7 +38633,7 @@ var app = (function () {
     		}
 
     		// if all enemies dead, you win
-    		if (this.enemies.countActive() == 0) {
+    		if (this.enemies.countActive() == 0 && level.enemies.length > 0) {
     			$$invalidate(4, gameWon = true);
     			$$invalidate(3, gameOver = true);
     		}

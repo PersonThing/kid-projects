@@ -316,7 +316,7 @@
 		}
 
 		// if all enemies dead, you win
-		if (this.enemies.countActive() == 0) {
+		if (this.enemies.countActive() == 0 && level.enemies.length > 0) {
 			gameWon = true
 			gameOver = true
 		}
