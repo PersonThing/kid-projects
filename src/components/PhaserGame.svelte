@@ -15,12 +15,10 @@
 {/if}
 
 <script>
-	import { magnet, image } from 'svelte-awesome/icons'
 	import { onMount, onDestroy } from 'svelte'
 	import { rgbaStringToHex } from '../services/rgba-to-hex'
 	import Enemy from './PhaserGame/Enemy'
 	import GameOver from './GameOver.svelte'
-	import HealthBar from './PhaserGame/HealthBar'
 	import Instructions from './Instructions.svelte'
 	import Paused from './Paused.svelte'
 	import Player from './PhaserGame/Player'
@@ -53,6 +51,7 @@
 
 	let gameOver
 	let gameWon
+	let winBlockTouched
 	let score
 	let paused
 
@@ -61,7 +60,6 @@
 	let config
 	let game
 	let preloadedData
-	let cursors
 	let keys = {}
 
 	let gameWidth = 1200
@@ -101,11 +99,10 @@
 
 			gameOver = false
 			gameWon = false
+			winBlockTouched = false
 			paused = false
 			score = 0
 			gameWidth = window.innerWidth
-
-			console.log(maxLevelY)
 
 			config = {
 				type: Phaser.AUTO,
@@ -144,10 +141,21 @@
 	function preload() {
 		return new Promise((resolve, reject) => {
 			const distinctBlocks = [...new Set(level.blocks.map(b => b[0]))].map(n => $project.blocks[n]).filter(b => b != null)
-			const distinctEnemies = [...new Set(level.enemies.map(e => e[0]))].map(n => $project.enemies[n]).filter(e => e != null)
-			const distinctCharacters = [...new Set([characterName, ...character.followers, ...distinctBlocks.flatMap(b => b.followerOnConsume || [])])].map(
-				c => $project.characters[c]
-			)
+
+			const distinctEnemies = [
+				...new Set([
+					...level.enemies.map(e => e[0]),
+					...distinctBlocks.flatMap(b => b.enemyOnConsume || [])
+				])
+			].map(n => $project.enemies[n]).filter(e => e != null)
+
+			const distinctCharacters = [
+				...new Set([
+					characterName,
+					...character.followers,
+					...distinctBlocks.flatMap(b => b.followerOnConsume || [])
+				])
+			].map(c => $project.characters[c])
 			const allArt = [
 				...new Set([
 					// blocks
@@ -224,6 +232,7 @@
 		this.simpleBlocksGroup = this.physics.add.staticGroup()
 		this.effectBlocksGroup = this.physics.add.staticGroup()
 		this.consumableBlocksGroup = this.physics.add.staticGroup()
+		this.winBlocksGroup = this.physics.add.staticGroup()
 
 		const createBlock = (group, b) => {
 			const block = group.create(translateX(b.x * gridSize, gridSize), translateY(b.y * gridSize, gridSize), b.art.name)
@@ -231,8 +240,9 @@
 			block.template = b.template
 		}
 		blocks.forEach(b => {
-			console.log(b.name, b.x, b.y, translateX(b.x * gridSize, gridSize), translateY(b.y * gridSize, gridSize))
+			// console.log(b.name, b.x, b.y, translateX(b.x * gridSize, gridSize), translateY(b.y * gridSize, gridSize))
 			if (b.consumable) createBlock(this.consumableBlocksGroup, b)
+			else if (b.winOnTouch) createBlock(this.winBlocksGroup, b)
 			else if (b.damage > 0 || b.throwOnTouch) createBlock(this.effectBlocksGroup, b)
 			else if (b.solid) createBlock(this.simpleBlocksGroup, b)
 			else createBlock(this.backgroundBlocksGroup, b)
@@ -258,6 +268,7 @@
 		this.player = player
 		this.physics.add.collider(player, this.simpleBlocksGroup)
 		this.physics.add.collider(player, this.effectBlocksGroup, onEffectBlockCollision)
+		this.physics.add.overlap(player, this.winBlocksGroup, onWinBlockOverlap)
 		this.physics.add.overlap(player, this.consumableBlocksGroup, onConsumableBlockOverlap)
 
 		// add player followers
@@ -268,18 +279,13 @@
 
 		// add enemies
 		this.enemies = this.physics.add.group()
-		level.enemies.forEach(([name, x, y]) => {
-			const template = hydrateGraphics($project.enemies[name])
-			const enemy = new Enemy(
-				this,
-				translateX(x * gridSize, template.graphics.still.width),
-				translateY(y * gridSize, template.graphics.still.height),
-				template.graphics.still.name,
-				template,
-				attackRange
-			)
-			this.enemies.add(enemy)
-		})
+		addEnemies(
+			level.enemies.map(([name, x, y]) => ([
+				name,
+				translateX(x*gridSize, template.graphics.still.width),
+				translateY(y*gridSize, template.graphics.still.height)
+			]))
+		)
 		this.physics.add.collider(this.enemies, this.simpleBlocksGroup)
 		this.physics.add.collider(this.enemies, this.effectBlocksGroup, onEffectBlockCollision)
 
@@ -306,16 +312,22 @@
 
 		// if player is dead or fell out bottom of world, you lose
 		if (!player.alive) {
-			this.physics.pause()
 			gameOver = true
 		}
 
 		// if all enemies dead, you win
 		if (this.enemies.countActive() == 0) {
-			this.physics.pause()
 			gameWon = true
 			gameOver = true
 		}
+
+		// if you touched a win block, you win
+		if (winBlockTouched) {
+			gameWon = true
+			gameOver = true
+		}
+
+		if (gameOver) this.physics.pause()
 	}
 
 	function addFollowers(followerNames) {
@@ -325,6 +337,22 @@
 			const y = player.body.y - (template.graphics.still.height - player.graphics.still.height)
 			const follower = new Follower(scene, player.x, y, template.graphics.still.name, template, player, followerLeashRange)
 			scene.followers.add(follower)
+		})
+	}
+
+	function addEnemies(enemies) {
+		console.log('spawning enemies', enemies)
+		enemies.forEach(([name, x, y]) => {
+			const template = hydrateGraphics($project.enemies[name])
+			const enemy = new Enemy(
+				scene,
+				x,
+				y,
+				template.graphics.still.name,
+				template,
+				attackRange
+			)
+			scene.enemies.add(enemy)
 		})
 	}
 
@@ -342,11 +370,21 @@
 		if (block.template.throwOnTouch) sprite.setVelocityY(-1000)
 	}
 
+	function onWinBlockOverlap(sprite, block) {
+		console.log('you should win, you touched the block')
+		winBlockTouched = true
+	}
+
 	function onConsumableBlockOverlap(sprite, block) {
 		if (block.template.healthOnConsume) sprite.heal(block.template.healthOnConsume)
 		if (block.template.scoreOnConsume) sprite.scene.addScore(block.template.scoreOnConsume)
 		if (block.template.throwOnTouch) sprite.setVelocityY(-1000)
 		if (block.template.followerOnConsume != null) addFollowers(block.template.followerOnConsume)
+		// we could allow spawning enemies at specific points rather than right where the block was
+		if (block.template.enemyOnConsume != null) {
+			console.log('should spawn enemies from block', block)
+			addEnemies(block.template.enemyOnConsume.map(name => ([name, block.x, block.y - block.height])))
+		}
 		block.disableBody(true, true)
 		block.destroy()
 	}

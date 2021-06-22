@@ -65,7 +65,6 @@
 	.nav-container {
 		width: 250px;
 		overflow: auto;
-		background: #fff;
 	}
 	.content-container {
 		width: calc(100vw - 200px);

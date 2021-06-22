@@ -50,3 +50,8 @@ svg.fa-icon {
 .card-header .btn {
 	margin-right: 5px;
 }
+
+.field-group {
+	padding: 15px;
+	background: #efefef;
+}

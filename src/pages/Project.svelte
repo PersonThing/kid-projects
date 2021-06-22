@@ -71,9 +71,3 @@
 		push(`/`)
 	}
 </script>
-
-<style>
-	.nav {
-		background: #f7f7f7;
-	}
-</style>

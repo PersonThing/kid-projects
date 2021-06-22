@@ -5,14 +5,18 @@
 		<FieldCheckbox name="solid" bind:checked={input.solid}>Solid? (if not checked, things will just move through it)</FieldCheckbox>
 		<FieldCheckbox name="consumable" bind:checked={input.consumable}>Consumable by player?</FieldCheckbox>
 		{#if input.consumable}
+			<div class="field-group">
 			<FieldNumber name="healthOnConsume" bind:value={input.healthOnConsume}>Health on consume?</FieldNumber>
 			<FieldNumber name="scoreOnConsume" bind:value={input.scoreOnConsume}>Score on consume?</FieldNumber>
 			<FieldCharacterPicker name="followerOnConsume" bind:value={input.followerOnConsume}>Spawn follower on consume?</FieldCharacterPicker>
+			<FieldEnemyPicker name="enemyOnConsume" bind:value={input.enemyOnConsume}>Spawn enemy on consume?</FieldEnemyPicker>
+			</div>
 		{/if}
 		<FieldCheckbox name="throwOnTouch" bind:checked={input.throwOnTouch}>Throw things that touch it?</FieldCheckbox>
 		<FieldNumber name="damage" bind:value={input.damage}>
 			Damage (when players or enemies touch this block, how much damage should they take?)
 		</FieldNumber>
+		<FieldCheckbox name="winOnTouch" bind:checked={input.winOnTouch}>Win level if you touch the block?</FieldCheckbox>
 		<span slot="buttons">
 			{#if !isAdding}
 				<button type="button" class="btn btn-danger" on:click={() => del(input.name)}>Delete</button>
@@ -32,6 +36,7 @@
 	import project from '../../stores/active-project-store'
 	import validator from '../../services/validator'
 	import FieldCharacterPicker from '../../components/FieldCharacterPicker.svelte'
+	import FieldEnemyPicker from '../../components/FieldEnemyPicker.svelte'
 
 	export let params = {}
 	let input
@@ -66,11 +71,13 @@
 			name: '',
 			solid: true,
 			throwOnTouch: false,
+			winOnTouch: false,
 			damage: 0,
 			consumable: false,
 			healthOnConsume: 0,
 			scoreOnConsume: 0,
 			followerOnConsume: [],
+			enemyOnConsume: [],
 		}
 	}
 

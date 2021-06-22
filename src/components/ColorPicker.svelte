@@ -7,6 +7,7 @@
 			<div class="color-group">
 				{#each colorGroup as color}
 					<div
+						title={color}
 						class="color-choice"
 						class:selected={value == color}
 						on:click={() => select(color)}
@@ -61,7 +62,10 @@
 			for (let i = 1; i < colorDarknessSteps; i++) result.push(rainbow.map(r => darken(r, i / (colorDarknessSteps - 1))))
 			for (let i = 1; i < colorDarknessSteps - 1; i++) result.push(rainbow.map(r => lighten(r, i / (colorDarknessSteps - 1))))
 
-			return result.map(group => group.map(c => `rgba(${c.r}, ${c.g}, ${c.b}, ${alpha})`))
+			return [
+				['transparent', 'rgba(255, 255, 255, 255', 'rgba(0, 0, 0, 255)'],
+				...result.map(group => group.map(c => `rgba(${c.r}, ${c.g}, ${c.b}, ${alpha})`))
+			]
 		})()
 
 	function rgb(r, g, b) {
