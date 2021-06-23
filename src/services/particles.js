@@ -1,5 +1,6 @@
 export function buildDefaultParticlesConfig() {
 	return {
+		name: '',
 		enabled: false,
 		graphic: null,
 		speed: 25,
@@ -15,7 +16,8 @@ export function buildDefaultParticlesConfig() {
 }
 
 export function hasParticlesConfigured(c) {
-	return c.particles?.enabled && c.particles.graphic != null
+	// return c.particles?.enabled && c.particles.graphic != null
+	return c.particles != null
 }
 
 export function createParticles(scene, p, spriteToFollow) {
@@ -23,6 +25,7 @@ export function createParticles(scene, p, spriteToFollow) {
 		...buildDefaultParticlesConfig(),
 		...p
 	}
+
 	const particleSettings = {
 		speed: p.speed,
 		scale: {

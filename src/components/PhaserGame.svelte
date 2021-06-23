@@ -162,29 +162,17 @@
 					// blocks
 					...distinctBlocks.map(b => b.graphic),
 
-					// block particles
-					...distinctBlocks.filter(hasParticlesConfigured).flatMap(b => b.particles.graphic),
+					// particles
+					...Object.keys($project.particles).map(k => $project.particles[k].graphic),
 
 					// characters
 					...distinctCharacters.flatMap(c => Object.keys(c.graphics).map(key => c.graphics[key])),
 
-					// character particles
-					...distinctCharacters.filter(hasParticlesConfigured).map(c => c.particles.graphic),
-
 					// character abilities
 					...distinctCharacters.flatMap(c => c.abilities.flatMap(a => Object.keys(a.graphics).map(key => a.graphics[key]))),
 
-					// character abilities particles
-					...distinctCharacters.flatMap(c => c.abilities.filter(hasParticlesConfigured).map(a => a.particles.graphic)),
-
 					// enemies
 					...distinctEnemies.flatMap(e => Object.keys(e.graphics).map(key => e.graphics[key])),
-
-					// enemy particles
-					...distinctEnemies.filter(hasParticlesConfigured).map(e => e.particles.graphic),
-
-					// enemy abilities particles
-					...distinctEnemies.flatMap(e => e.abilities.filter(hasParticlesConfigured).map(a => a.particles.graphic)),
 
 					// enemy abilities
 					...distinctEnemies
@@ -254,7 +242,7 @@
 			const block = group.create(translateX(b.x * gridSize, gridSize), translateY(b.y * gridSize, gridSize), b.art.name)
 			if (b.art.animated) block.anims.play(getAnimationKey(b.art.name), true)
 			if (hasParticlesConfigured(b)) {
-				const { particles, emitter } = createParticles(this, b.particles, block)
+				const { particles, emitter } = createParticles(this, $project.particles[b.particles], block)
 				block.particles = particles
 			}
 			block.template = b.template
@@ -413,8 +401,13 @@
 		if (copy.abilities != null)
 			copy.abilities = copy.abilities.map(a => ({
 				...a,
+				particles: $project.particles[a.particles],
 				graphics: hydrateGraphicsObject(a.graphics),
 			}))
+
+		if (copy.particles != null && copy.particles.graphics == null)
+			copy.particles = $project.particles[copy.particles]
+
 		return copy
 	}
 

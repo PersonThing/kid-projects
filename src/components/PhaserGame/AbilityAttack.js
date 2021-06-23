@@ -65,7 +65,10 @@ export default class AbilityAttack extends Phaser.Physics.Arcade.Sprite {
 	}
 
 	onBlockCollision(projectile, block) {
-		if (this.ability.damageBlocksOnHit) block.destroy()
+		if (this.ability.damageBlocksOnHit) {
+			if (block.particles) block.particles.destroy()
+			block.destroy()
+		}
 		this.destroy()
 	}
 

@@ -42,7 +42,6 @@
 	import validator from '../../services/validator'
 	import FieldAbilities from '../../components/FieldAbilities.svelte'
 	import FieldParticles from '../../components/FieldParticles.svelte'
-	import { buildDefaultParticlesConfig } from '../../services/particles'
 
 	export let params = {}
 	let input
@@ -85,7 +84,7 @@
 			gravityMultiplier: 1,
 			score: 1,
 			abilities: [],
-			particles: buildDefaultParticlesConfig()
+			particles: null
 		}
 	}
 

@@ -39,7 +39,6 @@
 	import validator from '../../services/validator'
 	import FieldCharacterPicker from '../../components/FieldCharacterPicker.svelte'
 	import FieldParticles from '../../components/FieldParticles.svelte'
-	import { buildDefaultParticlesConfig } from '../../services/particles'
 
 	export let params = {}
 	let input = {}
@@ -86,7 +85,7 @@
 			canJumpThroughBlocks: false,
 			abilities: [],
 			followers: [],
-			particles: buildDefaultParticlesConfig()
+			particles: null
 		}
 	}
 

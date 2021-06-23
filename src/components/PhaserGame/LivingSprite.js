@@ -35,6 +35,7 @@ export default class LivingSprite extends Phaser.Physics.Arcade.Sprite {
 		if (hasParticlesConfigured(template)) {
 			const { particles, emitter } = createParticles(scene, template.particles, this)
 			this.particles = particles
+			this.emitter = emitter
 		}
 	}
 
@@ -42,6 +43,8 @@ export default class LivingSprite extends Phaser.Physics.Arcade.Sprite {
 		super.preUpdate(time, delta)
 		this.hp.moveTo(this)
 		if (this.body.y > this.scene.physics.world.bounds.height + 1000) this.damage(this.template.maxHealth)
+
+		// flip emitter if our sprite is flipped
 	}
 
 	setGraphic(art, ignoreIfPlaying = true) {

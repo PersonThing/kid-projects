@@ -41,6 +41,7 @@
 
 	const tabs = [
 		{ name: 'Art' },
+		{ name: 'Particles', graphicKey: 'graphic' },
 		{ name: 'Blocks', graphicKey: 'graphic' },
 		{ name: 'Characters', graphicKey: 'graphics.still' },
 		{ name: 'Enemies', graphicKey: 'graphics.still' },

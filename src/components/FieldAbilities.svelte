@@ -18,10 +18,9 @@
 						<th>Damage blocks on hit</th>
 						<th>Attack rate (MS)</th>
 						<th>Projectile?</th>
-						<th>Projectile Graphic</th>
+						<th>Projectile Graphics</th>
 						<th>Projectile Velocity</th>
 						<th>Projectile pass through blocks?</th>
-						<th>Projectile particles?</th>
 					</tr>
 				</thead>
 
@@ -62,15 +61,13 @@
 							{#if a.projectile}
 								<td>
 									<FieldArtPicker name="ability-graphics-projectile-{i}" bind:value={a.graphics.projectile} placeholder="Projectile graphic" />
+									<ParticlesPicker name="ability-{i}-particles" bind:value={a.particles} />
 								</td>
 								<td>
 									<input type="number" bind:value={a.projectileVelocity} min={0} max={10000} />
 								</td>
 								<td>
 									<input type="checkbox" bind:checked={a.projectilePassThroughBlocks} />
-								</td>
-								<td>
-									<FieldParticles name="ability-{i}-particles" bind:value={a.particles} />
 								</td>
 							{:else}
 								<td colspan="2" />
@@ -92,10 +89,9 @@
 <script>
 	import { plus as plusIcon, remove as removeIcon } from 'svelte-awesome/icons'
 	import FieldArtPicker from './FieldArtPicker.svelte'
-	import FieldParticles from './FieldParticles.svelte'
+	import ParticlesPicker from './ParticlesPicker.svelte'
 	import Icon from 'svelte-awesome'
 	import InputSelect from './InputSelect.svelte'
-	import { buildDefaultParticlesConfig } from '../services/particles'
 
 	export let abilities = []
 	export let requireKeybinds = true // whether to show key bind field
@@ -128,7 +124,7 @@
 				projectile: null,
 			},
 
-			particles: buildDefaultParticlesConfig()
+			particles: null
 		}
 	}
 </script>

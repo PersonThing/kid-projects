@@ -40,7 +40,6 @@
 	import Form from '../../components/Form.svelte'
 	import project from '../../stores/active-project-store'
 	import validator from '../../services/validator'
-	import { buildDefaultParticlesConfig } from '../../services/particles'
 
 	export let params = {}
 	let input
@@ -82,7 +81,7 @@
 			scoreOnConsume: 0,
 			followerOnConsume: [],
 			enemyOnConsume: [],
-			particles: buildDefaultParticlesConfig()
+			particles: null
 		}
 	}
 
