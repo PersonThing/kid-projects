@@ -14,6 +14,10 @@ export function buildDefaultParticlesConfig() {
 	}
 }
 
+export function hasParticlesConfigured(c) {
+	return c.particles?.enabled && c.particles.graphic != null
+}
+
 export function createParticles(scene, p, spriteToFollow) {
 	p = {
 		...buildDefaultParticlesConfig(),

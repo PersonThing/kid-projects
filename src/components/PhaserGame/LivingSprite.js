@@ -1,7 +1,7 @@
 import AbilityAttack from './AbilityAttack'
 import HealthBar from './HealthBar'
 import getAnimationKey from './GetAnimationKey'
-import { gravityPixelsPerSecond } from './Constants'
+import { createParticles, hasParticlesConfigured } from '../../services/particles'
 
 export default class LivingSprite extends Phaser.Physics.Arcade.Sprite {
 	constructor(scene, x, y, texture, template) {
@@ -31,6 +31,11 @@ export default class LivingSprite extends Phaser.Physics.Arcade.Sprite {
 		// set size initially and don't change it regardless of graphic (might change later)
 		this.body.width = template.graphics.still.animated ? template.graphics.still.frameWidth : template.graphics.still.width
 		this.body.height = template.graphics.still.height
+
+		if (hasParticlesConfigured(template)) {
+			const { particles, emitter } = createParticles(scene, template.particles, this)
+			this.particles = particles
+		}
 	}
 
 	preUpdate(time, delta) {
@@ -166,5 +171,10 @@ export default class LivingSprite extends Phaser.Physics.Arcade.Sprite {
 			spriteHit.damage(ability.damage)
 			projectile.destroy()
 		})
+	}
+
+	destroy() {
+		if (this.particles) this.particles.destroy()
+		super.destroy()
 	}
 }

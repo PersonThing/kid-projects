@@ -12,9 +12,9 @@
 <BuildLayout tab="enemies" activeName={input.name} store={$project.enemies}>
 	<Form on:submit={save} {hasChanges}>
 		<FieldText name="name" bind:value={input.name}>Name</FieldText>
-
 		<FieldArtPicker bind:value={input.graphics.still}>Still graphics</FieldArtPicker>
 		<FieldArtPicker bind:value={input.graphics.moving}>Moving graphics</FieldArtPicker>
+		<FieldParticles bind:value={input.particles}>Emit particles?</FieldParticles>
 		<FieldNumber name="maxVelocity" min={0} bind:value={input.maxVelocity}>Max velocity</FieldNumber>
 		<FieldNumber name="jumpVelocity" min={0} bind:value={input.jumpVelocity}>Jump velocity</FieldNumber>
 		<FieldNumber name="gravityMultiplier" min={0} max={2} step={0.01} bind:value={input.gravityMultiplier}>Gravity multiplier</FieldNumber>
@@ -41,6 +41,8 @@
 	import project from '../../stores/active-project-store'
 	import validator from '../../services/validator'
 	import FieldAbilities from '../../components/FieldAbilities.svelte'
+	import FieldParticles from '../../components/FieldParticles.svelte'
+	import { buildDefaultParticlesConfig } from '../../services/particles'
 
 	export let params = {}
 	let input
@@ -83,6 +85,7 @@
 			gravityMultiplier: 1,
 			score: 1,
 			abilities: [],
+			particles: buildDefaultParticlesConfig()
 		}
 	}
 

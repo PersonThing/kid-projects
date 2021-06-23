@@ -1,4 +1,4 @@
-import { createParticles } from '../../services/particles'
+import { createParticles, hasParticlesConfigured } from '../../services/particles'
 import getAnimationKey from './GetAnimationKey'
 
 export default class AbilityAttack extends Phaser.Physics.Arcade.Sprite {
@@ -19,7 +19,7 @@ export default class AbilityAttack extends Phaser.Physics.Arcade.Sprite {
 		if (ability.projectile) {
 			scene.physics.moveToObject(this, target, ability.projectileVelocity)
 
-			if (ability.particles) {
+			if (hasParticlesConfigured(ability)) {
 				const { particles, emitter } = createParticles(scene, ability.particles, this)
 				this.particles = particles
 			}
@@ -60,7 +60,6 @@ export default class AbilityAttack extends Phaser.Physics.Arcade.Sprite {
 			// out of world
 			!Phaser.Geom.Rectangle.Overlaps(this.scene.physics.world.bounds, this.getBounds())
 		) {
-			if (this.particles) this.particles.destroy()
 			this.destroy()
 		}
 	}
@@ -68,5 +67,10 @@ export default class AbilityAttack extends Phaser.Physics.Arcade.Sprite {
 	onBlockCollision(projectile, block) {
 		if (this.ability.damageBlocksOnHit) block.destroy()
 		this.destroy()
+	}
+
+	destroy() {
+		if (this.particles) this.particles.destroy()
+		super.destroy()
 	}
 }

@@ -1,3 +1,4 @@
+import { createParticles, hasParticlesConfigured } from '../../services/particles'
 import LivingSprite from './LivingSprite'
 
 export default class Enemy extends LivingSprite {

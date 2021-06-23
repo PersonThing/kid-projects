@@ -2460,7 +2460,33 @@ var app = (function () {
     						},
     						damageToBlocks: 100,
     						destroyBlocksOnHit: true,
-    						damageBlocksOnHit: true
+    						damageBlocksOnHit: true,
+    						particles: {
+    							enabled: true,
+    							graphic: "ice ball",
+    							speed: 50,
+    							scale: {
+    								start: 1,
+    								end: 0
+    							},
+    							alpha: {
+    								start: 1,
+    								end: 0
+    							},
+    							angle: {
+    								min: -180,
+    								max: 180
+    							},
+    							rotate: {
+    								min: -180,
+    								max: 180
+    							},
+    							frequency: 1,
+    							lifespan: 1500,
+    							blendMode: "SCREEN",
+    							rgbaColor: null,
+    							colorRgba: "transparent"
+    						}
     					},
     					{
     						name: "fireball",
@@ -2476,7 +2502,33 @@ var app = (function () {
     							projectile: "fireball"
     						},
     						projectilePassThroughBlocks: true,
-    						destroyBlocksOnHit: false
+    						destroyBlocksOnHit: false,
+    						particles: {
+    							enabled: true,
+    							graphic: "fireball",
+    							speed: 50,
+    							scale: {
+    								start: 1,
+    								end: 0
+    							},
+    							alpha: {
+    								start: 1,
+    								end: 0
+    							},
+    							angle: {
+    								min: -180,
+    								max: 180
+    							},
+    							rotate: {
+    								min: -180,
+    								max: 180
+    							},
+    							frequency: 1,
+    							lifespan: 1500,
+    							blendMode: "SCREEN",
+    							rgbaColor: null,
+    							colorRgba: "transparent"
+    						}
     					},
     					{
     						name: "punch",
@@ -2505,9 +2557,18 @@ var app = (function () {
     						end: 0.1
     					},
     					alpha: {
-    						start: 0.4,
+    						start: 0.7,
     						end: 0
     					},
+    					angle: {
+    						min: -180,
+    						max: 180
+    					},
+    					rotate: {
+    						min: -180,
+    						max: 180
+    					},
+    					frequency: 25,
     					lifespan: 1500,
     					blendMode: "SCREEN",
     					rgbaColor: "rgba(255,0,0,1)",
@@ -2578,9 +2639,60 @@ var app = (function () {
     						},
     						projectileVelocity: 200,
     						projectilePassThroughBlocks: true,
-    						damageBlocksOnHit: false
+    						damageBlocksOnHit: false,
+    						particles: {
+    							enabled: false,
+    							graphic: null,
+    							speed: 25,
+    							scale: {
+    								start: 1,
+    								end: 0
+    							},
+    							alpha: {
+    								start: 1,
+    								end: 1
+    							},
+    							angle: {
+    								min: -180,
+    								max: 180
+    							},
+    							rotate: {
+    								min: -180,
+    								max: 180
+    							},
+    							frequency: 10,
+    							lifespan: 2000,
+    							blendMode: null,
+    							rgbaColor: null
+    						}
     					}
     				],
+    				particles: {
+    					enabled: true,
+    					graphic: "lava",
+    					speed: 50,
+    					scale: {
+    						start: 1,
+    						end: 0
+    					},
+    					alpha: {
+    						start: 0.1,
+    						end: 0
+    					},
+    					angle: {
+    						min: -180,
+    						max: 0
+    					},
+    					rotate: {
+    						min: -180,
+    						max: 180
+    					},
+    					frequency: 10,
+    					lifespan: 4000,
+    					blendMode: null,
+    					rgbaColor: null,
+    					colorRgba: "transparent"
+    				},
     				canFly: null
     			},
     			smacker: {
@@ -4214,11 +4326,6 @@ var app = (function () {
     						9
     					],
     					[
-    						"Warlock Spawner Block",
-    						4,
-    						3
-    					],
-    					[
     						"grass",
     						4,
     						2
@@ -4249,11 +4356,6 @@ var app = (function () {
     						9
     					],
     					[
-    						"Warlock Spawner Block",
-    						5,
-    						3
-    					],
-    					[
     						"grass",
     						5,
     						2
@@ -4289,11 +4391,6 @@ var app = (function () {
     						7
     					],
     					[
-    						"Warlock Spawner Block",
-    						6,
-    						3
-    					],
-    					[
     						"grass",
     						6,
     						2
@@ -4317,11 +4414,6 @@ var app = (function () {
     						"dirt",
     						7,
     						7
-    					],
-    					[
-    						"Warlock Spawner Block",
-    						7,
-    						3
     					],
     					[
     						"grass",
@@ -4354,11 +4446,6 @@ var app = (function () {
     						6
     					],
     					[
-    						"Warlock Spawner Block",
-    						8,
-    						3
-    					],
-    					[
     						"grass",
     						8,
     						2
@@ -4377,11 +4464,6 @@ var app = (function () {
     						"dirt",
     						9,
     						6
-    					],
-    					[
-    						"Warlock Spawner Block",
-    						9,
-    						3
     					],
     					[
     						"grass",
@@ -4407,11 +4489,6 @@ var app = (function () {
     						"dirt",
     						10,
     						6
-    					],
-    					[
-    						"Warlock Spawner Block",
-    						10,
-    						3
     					],
     					[
     						"grass",
@@ -7546,6 +7623,11 @@ var app = (function () {
     				],
     				enemies: [
     					[
+    						"warlock",
+    						7,
+    						4
+    					],
+    					[
     						"smacker",
     						14,
     						13
@@ -7876,7 +7958,7 @@ var app = (function () {
     						1
     					]
     				],
-    				thumbnail: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAArQAAABwCAYAAADv2ONRAAAgAElEQVR4Xu1df4xV1Z3/PguKUkC0uhOSEkFtVkV9Y2gVEeZNwVS7G7s1QVM11O42q8Zg3TZpA2ny3tBd/Ue0i9sCa5NWsij+qHGbjaEj3Xk4bZqsKK/McxFtK0voZDpTZgnEFQtyN+fOvOd9933vzPfec+65P97nJWTgcH58z+f743znvvO53wLhAwSAABAAAkAACAABIAAEMoxAIcOyQ3QgAASAABAAAkAACAABIEBIaGEEQAAIAAEgAASAABAAAplGAAltptUH4YEAEAACQAAIAAEgAASQ0MIGgAAQAAJAAAgAASAABDKNABLaTKsPwgMBIAAEgAAQAAJAAAggoYUNAAEgAASAABAAAkAACGQaASS0mVYfhAcCQAAIAAEgAASAABBAQgsbAAJAAAgAASAABIAAEMg0AkhoM60+CA8EgAAQAAJAAAgAASCAhBY2AASAABAAAkAACAABIJBpBJDQZlp9EB4IAAEgAASAABAAAkAACS1sAAgAASAABIAAEAACQCDTCCChzbT6IDwQAAJAAAgAASAABIAAElrYABAAAkAACAABIAAEgECmEUBCm2n1QXggAASAABAAAkAACAABJLSwASAABIAAEAACQAAIAIFMI4CENtPqg/BAAAgAASAABIAAEAACSGhhA0AACAABIAAEgAAQAAKZRgAJbabVB+GBABAAAkAACAABIAAEkNDCBoAAEAACQAAIAAEgAAQyjQAS2kyrD8IDASAABIAAEAACQAAIIKGFDQABIAAEgAAQAAJAAAhkGgEktJlWH4QHAkAACAABIAAEgAAQQEILGwACQAAIAAEgAASAABDINAJIaDOtPggPBIAAEAACQAAIAAEggIQWNgAEgAAQAAJAAAgAASCQaQSQ0GZafRAeCAABIAAEgAAQAAJAAAktbAAIAAEgAASAABAAAkAg0wggoc20+iA8EAACQAAIAAEgAASAABJa2AAQAAJAAAgAASAABIBAphFAQptp9UF4IAAEgAAQAAJAAAgAASS0sAEgAASAABAAAkAACACBTCOAhDbT6ktG+OeWvu5cUVjqLr72VHelVqv1JSMJVgUCQAAIAAEgAASAABESWlhBKASKxeIAEVW3z9xXaQy85vUC7CgUiugMBIAAEAACQAAImEQAiYhJNKeZq1gslomodN/aFSXVddv2wd5arVa1KIKxpfqu2+JcfM9/u/Nt2z5YrdVqvcYmx0RAAAgAASAABIAAEAiBABLaEGDpdnX+9Lyzdfsg3b92Bamf27YPZvLrepWY79u9ofmEVuFS+NQdsCVdA8F4IAAEgAAQAAJAIBICbBLy8EoqH1t8L+3du7c5ab1exz3JSBB/PEgltN4pulc/goRWE9O8DocP5lWznbkvzp5XX1An/zmTprZOO/OkOuo0XDrTY7O5azahXbJkibPwgrPoxPETdPrcLjpx4gTV63U8gdPU8de/epvz1KZ7mrNkOKEt7du9Qd2lbX7whFbTOHzDg3yQI+SBpGcWe8xmHgHOntUq/nMmTW1TnXm37aHyz3oo1oc8NtbwalqqI+QC5v0DM5pBgE1SVxQXOSqRPfuDMTp6ehbNn/E+DdbeQ0KrifmWx9c5z3Vvpjv3PUQPfPPJzOKp9rH82c0uGlfverFSuHBNrIFdE/ZMDud88ATNU/etWwh5a0917yGiAZD0MqnmjhGas2e1ef85k6a2oDNPJZp0hip0FlXiSmptrOE3PqmOkAt0jNtmbqNsUrVs2TJHPZVVvz0fHj9DCxYsoP7+/swmYFG1IiVxSfo5Y8+Wlj12bGDWLffTyV1b6XvXjw3sPTizd/369ZnDVV2dGLp1jQuresOBc/SFMpLaqFbGj5vKBzlCHkh6ZvH3+/TWp1/7fKFQWOkldaq23/zmNy3fVJiVIj+zcfaszhj/OZOmtqAzz0ayaWMNv3VJddSJuUB+PDHfO2GTqds+e7H7hHbunDk0fmq2i0AnGrGUxCXtd8N3tjgqoVWfam82X3VVLBbVGxp6Gk8E8R7aeAJEkA9yhDx1dQUkPbN6YHy6b9/uDWUfqbOvVqu1kCPNSpGf2Th7nvW/NfcJrfecSVPbVGeejesANtbwWphUR52YC+THE/O9k8CE9uT8Ig0PD7u7V09qX3ltf+aeJOqqTkrikvZTyWDjNV0qMclqQQKv7N496eKN8R8joA4XzgeR0NqxEsan3YTWu3r36keQ0DLq4MhFi88drfjt+fD4mZZfBm66bAb98renW2a01Tb8h+E2+T5D+yudRFpbsmRJi30r7DlcOjEXsBN1sIouAiCFTYGglMQl7aerrDyMB4FJpsUgUpj6BcJPyOte/UhvXkl6SdkL49N9S69dWPaROjOZ0MaNaRbJRVKZGw94vITppNpskLNAEJfFa/RKBwIghU2hhyaJ682H6IFvBZO4tj6xztlZzD7ZK26TLBaLitQEApMA6CBiJkfIyytJL0l74QiceSB12sA0i+QiqczKddNCZLNBzgJBXBCs0SU1CIAUFqCKFhLXz7fRxs+NVt84OLPkJ3HliexlyypBYJoe6SBSGEPIq5DjlH0kPfXmCaN3Oznio7pLbaPynUl7kezjrIJTeepXJ138/u7Gc11lfXB6Dj1/9NPUIHVuvH6MjQfTazYdPUxi6t9RFslFUpmzQFozaWEgiJtEE3PFjQBIYVMgLCVxSfvFrcwszI8qYzItcQSN0dFRVV64hZBHROq1XbGT9DjioyKixV35zrS9SPfB7K1v1hfuK2ed1KmszzSmfovOIrlIKnNWSGuyKDN9LxDEp8cIPdKDQDhS2CCV6B3qoaGJQ5S+H++LpQ3B1KjOFZrUJiVxSfsFPQyebJ9aPg77RludquRQKRZ9qDXeph56y4zO4z5MDdlM4tNwpDBFUnn7vFsqR44ccZ8eFgqF0qr5Q1V/29DQUC9xtqFhLxzx0f9mhTgKhZi2F+k+mL2pdy1X80LqjPOtGBy5iCN7bX25lpr3V3P+libSWlL4BZFTowZIaTUyrmIcKpRFRb1zxslJYTfXJ1C5aBKcMSJ6gtzxtl8vIlXPqvLlzi/63qVHnS/S+sIrbg7QGGtaZul83n5Tydeyx3+giaTci32jg6fNWUqVwt3U5zxDAzvvor6vEFWdHVSO2kbcupM653QgwYAjNaHKWDuaOiSVOuerjL00/FfiTxzxcem1CytxV77TtRe/TUr3wewtFgKYxGck+gnTRxfTMGtlpS/IT7ymTOOiFddQrTQr7pSYnHJS2JL3iD6cTKrOIaIjRPQCFZJ4AXQItByVzKqkdlX5cpXUNhNwk5VepBgw/Vj52vZ3Dzlt2Csd+PQx+hHRRS9Rr3P3hQOFHUdLdDtV1e8dF71EJefuC6uFHUd76XYakLYVzmtfQ+k8KJmVYJpXAlMImxR11SGpDHK+ythLkC45ATniow2SlI69cH4p3YeNvUnjhshgQnTSwTTEMpnqCvITry7TuGjFNVQrzZRPJSGsnBQ2r39CPvVE8PhkopP+hFZJ3LhyoL6mdb/iMn2QSOcL6NcmX5shrPE8oW1g733iNtk2+gLR6GS7Slqvmvz7dG1XTj669vZTbX8xUQysTec6CS2qjMncXIek0s/5KmMv0oSWIz6OHp/b++SBc5okqbgq3+nYi9/fpPvw7y0uApg0bsgsRt6LIxaaJhHKpUlHT5CfeD2YxkUrrnVgtdJ0eEd2pJCTwub1U9cnumjkoxF3d8Wzi1TbUUv1lYOp1GD6qz7pfNJ+LbKvIacN+z/X2vSxYUdtIv+8Qj2Om/iMHVCPcaO19S75MFDnQUntVLXNUWVMHhh0SCoqoZXYS8N/JVJxxMe4yZAm7MXvb9J9xL23BuaR4oFEYQF9TGCqsXxqh4L8xKvGNC5acQ0JbWr9Jy2CiUlh47P30/yLbqU3Dr/hHpbqj1sCzzD5xDgwHKlJSrDi9vZL6qWDtLKFGMe1Ba3hJ1gFyefpd8NBqvixP/6J/jZ9XPX7fjp7XpEOjExUeFOfS88djdw2es1osM6l+/CRCC/52iUDh246VKU6Vc8fPb9ybMcxxdzHx4cAR8aY8cEI+astcW2cr3L2Eui/jD13fberMrJoxFF233Woa2Dk5ZFC14au8silI+Rtc+OB1Da4fspePCRH1l40/DJwH4tGSBEfW/bmawvcm58oK42JDZy9pM4w8SUizk1Mh2jP+WPnl10f1CAM5sF5TZOf8oCJ2oNpXKSEwaRIcHnRW6fuQ0wKUwCpErjeCilhySe2n0awpKaGpqchWDUNIgX9lry6pA17Th822sQ6l+I8BcmsU51S7VuHPCG1A+O6lOoc/T427RTEFzbWdZhfmiY/BcWuoCpt1s9GIpJUjLOFSyfHeuzdHAJiUpha0l8hJQz5JJH7YkIyFXGEmRS1rXh3UXqq00gJR1L8Akhm5kw8mzPpkCc4X9XyX6ku0Y/SHkvE8nWYX5omP3FRJ6hKWxJnY7FYHFCvods+c1+zAMs1rxfa8gEbuGQzQkPqNCIgJoVxFVLCkE+ScFoSkqlanlBMQbpKqt+yI8tI4a+ekB8eP0MLFixw/51Em1jn3qdwU2HaYQenNAjokCektmFcl1Kdo1/rE9oUxhwpYVBqz2nvZ5r8NNV+/VXaFv5zrSp5Q0wcGE5XMc4mLnHsD3N2FgJiUhhXISUs+cT61ypCMlWNIVilqW3hO8PuE9q5c+bQ+KnZroUmVbFGrHMpppPEws5yu+l3q0OekNqGcV1KdY5+lKb4wsrSYX5pmvwU5OFBhUKsn43CinG2cJk+IqIHEJgegaA7tGXv0Jsum0HDfxiu+AkpcZBPphdZ3uOGW8mRkKk4wkya2lSCIiEDSUlDOv2kOpfi5xKTdD5SQp7OGgmM1SGFSfVrWpdSnaNfF6UdA22/TMBndJY0TX4Km9DqyB51LJtcH7ij10vqvO1XF7ed+6+8tl8vZkcVGOOAwDQIiA1Th6QiJp8YJiLoyKxw85Pg0HbCNSeTuNR1qr8IK6iFqYiVlogB2zVva6ZtN8/zafllWpwohBy2yE9pqtLGyvJPd7RUpOQIyZ1mGyHMKLGuzxxweu66orAnMQFSsrA4odUhqYQhj5nERUdmJYefBIe29131mMRlUKf6i5T0l8F7urBd87Zm2nbzPJ+WX5oM4pbmskV+SlOVtjZZvrGm4q8+yRGSO802LJlg5GUueX7U2XTNDNry5ij916sf0PEfd4vzusiLpnSgeOM6JBUx+cRw4qEjs5RYg356BDWtrzalpD/DdmXDl2G7enYFv9TDT8svbTiI4TVskZ/SVKXNL0vl6Tucyn8831IZkiMkd5ptGDa1WKZ7d+x959pn3qH/+0bnJrMKWHFCq0NSEZNPDBMRdGSWEmvQT4+gphUcpaQ/w3YVS0TyTQrb1bMr+KUeflp+acNBDK9hg/yUpiptrCyX1yr+CoMcIbnTbMOwqcU33d8/W6Z//UpffAukf2ZxQiut8KFNHjOImVRmripJnts4HUmJRKb76RAMpKS/LAZgjqRyePxM852Ryk0UWTPPdoq92dEvFw8+Q/srxxbfS3v37m1G5NUX1ClqW71eT/VBa4sUFrryXdQqclz1Ol9lOVeWGw9VVYU8VTHuL8ePlfwkao6QzNlGmvT78EoqR7VTHRtP09g06cNgSjftVOKEdtqZJjvokFlw2VyKsl4/HR2pldNCCpPuo2FXSbwaJ6qmbJFUosqHcflBQOpHOr4/VWxPwi/9VbJOnz5daauEqUNY5cxDSmJtjLVcRU6nImWazm4b9qzjCzbGpkkfNiOl8YRWh8yCy+Z2VK+jIyVhWkhh0n0ou0qksIeGOm2RVDRExNCcICD1Ix3fD4rtSfglVyXrwVOL2yth6hBWOduQklgTqrinU5EyTWe3DXvW8QUbY9OkD5th0nhCq0NmyeJXwzaVZWotHR2ZJtvo6Fy6D7VGEgenjr5skVR0ZMTYfCAg9SMd3w/y8yT90lsla+vTr9FHH33UUo1RJzaxliElsXqf0FqsIqdTkdI4VhquZcOedXzBxtg06UNDlaGHGk9odcgsnaqE0FrTHKCjI9NkGx2dS/fRWCOJrzajqsoGSSWqbBiXLwSkfqTj+1P5eRJ+yRUV+Kvb/7GlGqNObApKaP2kqzRVjNOpSGkcKw0Xs2HPOr5gY2ya9KGhytBDjSe0UiIWR0RwCUI5rfwUWjMxDuB0lBRRTIcUJq2mJSW4pOkivS2SSoxmhqkzgoA0ZktJejokM1s+yCW0X7jrRzQ8POxqTd2n1YlN7iSDVPJW3brhIFXSXLmSI4BJiahbX66lhvTXaYTawFwqI/HHpJjGE1qpcCzp5eb6xPDpLsMbrigmlTlMPz/poFZLj8Nz+0jqIr3O5XXTMuvIEsY2JH1BCpOghD5pREDHL235YHd3d8+br66vevFTT2hPHD/h3qVVXwtrkUkZApgO6aqRZHvls9FmSx8m7TgodnJnch7arBAaTSooxrkSS2hZ0suS98hfqYS4C/Ipf1E+Rzq45vVCYlhL7Cepi/Q6l9dNy6wjiwTjMH1ACguDFvqmCQEdv7Tlg1s2rXOW79zswnb1rhcrK1d9u+Inu2qRSRkCmA7pSslpkowrnc+WPkzaL2d/J2ieKgs7sH3mvuarD9ee6la/0FQTaONkidxmhdBoUkExzpVYksWSXub1f/yEdqrL8ClPaBv68pIOtm0frNZqtd4Ydak1dVIX6XXu+piWWUcWLfCZwSCFmUYU89lCQMcvbfmgv0rWDx570Nnykz1tpLDIpDWGAKZDurJBJOLWsKUPk7Y5VezkzuSst1khNJpUUIxzJZbQsqSXef0kujSfgcpP3B2twqfuSAzv6WwoqYv0OgHTtMw6skyHb9j/ByksLGLonxYEdPzShg8yVbL6Fs4cLqsnoHPnzKHxU7NdKLXIpEwVQx3SlQ0iEbeGDX2Yttug2Mmdyd2rH6ns272hpWBNFttiJzSaVlJM8yWWYHEXt8dn7yfJpfkpnMyZxCmxfTX0lLWE1gYxhKsypkO8kJLC8kJs0MEqpviBaYFAGwI6sSQWclGDaOypunXJ315SPbT80AANTVTJWvnO2aWT84vGSGFcFUMd0pWUkCftJyUBZzHmBBFq85zQGic0ZjSuJZb4mSYOrCpf7vyi71161PkirS+8otTR3JvOa2GkY/391FOAfbs3DHjtQj2hlc6XUXtqii3Vrw7pwMYaSekBpLCkkMe6WUegJcYKq3NxhK08x6ZOjJ3cmdy9+pFe/zl93c2PlvyEQWkbN5+NtiBCY9Z9Oaz8iSW0MRAHHJXMqqR2VflyldS6e4t8ByrEWG6NLY+vc5Y/+zHpoHDhmj4dWcIqNun+Uv3qkA5srJEUjiCFJYU81s0yAm0xVlidiyNs5Tk2dWLs5M5kts1HGFRnt59EGNjGnPvidSOODSI0ZtmPo8qeWEIbE3GgceVA3Ylx34unk0RKx3L9/KQD5+gL5S/V1xCdoQqdRZWf9UzIl9ePVL86d7RsrJGUfkAKSwp5rJtlBNpisbA6F0fYynNs6sTYyZ3J5DiVoVvXuCav3kSkzmkLbRVynLJv3chtQYTGLPtxVNkTS2htEgd0vuaXjvX240gHtVrNvXgunS+qQtMyTqpfnUPDxhpJ4QlSWFLIY92sI9ASYxlyFlediyNs5Tk2dVrsHB0dVW8Y6mm8omvtqW51HqtXZUVpUw+j1Cu/vGOlbTrrsmMXzhx2XznHERqz7sth5U8soZUSB3Sqzqy+oE7HFt9Le/fubeJiq+3t826pHDlyxE1iC4VCaWhoqNdfOYa+n9+ntFLClg7pwMYaYR3KVH9UCjOFJObpFAQeXkllf7z/5KfroupcHGHLdGziyKmxkOAECpeev7HIx1UDDaoQ+jb10FsTiaf0vORip6oW6T+TV80fquahbdGsPxolNArMJ7VdEktopYhIL6+r+VS5QtuVVKTr1rkqaBmoeCbVk7+fVG95Jl5Mhd10T+rDkMJsVKWzsUZUW8M4IKAQkMYcccyu18Xno98/pqreNJ3v51qbQpJeEwNv1VDheWnaDqT2kqZ+Oudqlu1P7LBJbVJ6eV3Jl0QlFem6g1wVtIwUiIiie6ne8ky8CMJNcjdbSgorFovqq6+WCjimq9JlsfJdFJvFmGwjII054phde090PnL+EVS9SeL72dbCNNILSXo6FUJN24HUXtLUT+dczbL9iRw2yQ1KL68nVUlFum4/VwUtxwmtVG8699RsrBGH7UsOtbCkMBtV6WysIcFbvU+SiEr3rV1RUv23bR9078dJ2mq1mvoFwNjHL8vWp1/7fKFQWOmXxfS6xjaQo4mk8UAcs/v7Q52PXv8Iqt4k8f0cqaR9K0KSXssT2kbVUOF5adoOpPaSpn4652qW7S+UwyaxUenl9aQqqUjXVQltWxW0DFQ8i6pzqd50HM/GGlH3P9246b52DEMKs1HEw8Ya02HW+H/FVt66fZDuX7uC1M9t2wfdaj+StlqtZvTtIowsfft2byj7ZTG9rhSrTuonjQfimB0ioeX8I6h603S+n2udCUl6HHGvJjwvTduB1F7S1E/nXM2y/aU+oZVeXpdWSLHRjyOycVXQrjzZX/GTGOr1utEDNynjtEHYsrFGIH6DVKJ3qIc81YeIqUjUbBvyEBuCCBBqvsl+t/3q4oq/cpEiNnD2YiPZtLGG1FZVEuntG6ZUpenEkpHFTWj98pleV4pVJ/XTOSu4mB2GFMb5B6o3tVsfV0Ht+Cf6dSuEtizEnQvSapE28gPTa+jabp5iROoT2iyCrXMpPexl7qR+259uXSkGYffrtQcba7D2p0NsaEzoJTswbVzlItXNT3xU+AVVpTPpO93d3T3+6jmq8p3JNaRzff2rtzlPbbqn2V0ltEuvXViRtKnEcjrblcqh+jGy9C29dmHZL0uYhNakfGH20sl9w5AwOZw4H9St3mTDDmysESVmB8U6iY0G6ZIjtuahbSoCogSvPPVJ5EDKE4DcXnQupYe5zJ3UfSzJulIMwuzXj7WNNVhb1SE2nENEHxKRSmjV349M/vS1cZWLlCx+4qPCj6tEY9rHuEo5pteQzqf2+1z3ZrrzzYfogW896cawrU+sc3YWN9Od+x6iB74Z3CaxXakcql9TFs+6nHzSOU3LJ1230/tJSZhBOPl9ULd6kw07sLFG1JgdFOskdsrp8gTNU6/+aiHPrj3Vre7TVxvvplVzW2rjZIncFkRAlGCVtz5IaGPQqM6l9DB3X3QCEkeskRJXJOtKMQizX7+qbKzBmocOsaExoUpoG2QHpo2rXMSRDhR+TAWcSuHCNe47kE19uCo7qvyjqfml8zhjz5aWPXZsYNYt99PJn2+jjZ8brY4dn1t68sA55Lbt2kobrx9ra/ve9WMDew/O7P31jesrpqr1OWPP9yx77GjVu+7o8bmlf2nIMinfGwdnltavXy+KtRLfkmKFfnIEwpIw/TP7/eOHmx50fvjjPe43KofHz9CCBQsoTKyzYQc21ogas4NinUSjU+mSI7ZmvS2IgCjBKm99REE2b5uOez86l9LDBD21j6hfGXHEGpNfi0oxCLtfr+5srBGU0LYR/P5cayf9abRxlYs40gFXASeMHiW+MFXlO8l4031u+M4WRyWR6lPtLbgxTNqm4zPcPsKsK8Uhqk9L50e/dgTCkDD9oxn/qJio3mTDDmysESVmc7FOelYE6ZK75xzm/r0innr3kqaxQQTETvN1JLQxaFxKTjBdBS0MoYwj1vgTIa7yjrTS2uJzR9tITTM+GCE/0SkM8cKvqqRIYTrEBikBgqtcxOEXVAHHdIU8tvJdDL7TNiVDvuva0FUeuXSEFCGv672u6sjLI4Wu73ZVRhaNOIpU13WoayCojSXpqTX8FYmEbU1ZvOsy8rlVAk2TCCNUUdJWmS7xcRqcH36TRNUdw8Q6yZ51K/Nd8rVLBg7deKiqqlqdP3Z+eeU7Z7dVb+JIndJ4anq/Ekzi6CM9GznilLRqWZAu85zQgoA4Ya1IaOPwWuGcUlKTmk5SBS0MwYoj1vgTWtPycfsII7MfVql8OmtwqpSuK9VbFvuZxpR1GQvku+a605D0Ut9PWEVJGJr4bhb0EYYMqbUX37dbWqQwBhfpPqS+H5e/2X5Cq6szyfggXXLEve7Vj/Tu271hwDvvdTc/WvITYKVt3Hw22nQJiBJcs9AHCW2CWpKSmpSIkipoYQhWHInGD4Vp+bh9hJE5qnw6a3DmYQMXqc6T6mcaU9YNLZDv2IpEQuJeqsYKXzqvFe4s6CMMGVJnL/77o1qkMAYX6T6k/huHvyVxh1ZHZ9KxQbrkyLNs26Z1zvKdm93lrt71ouIj9HGkWLbt8XXO8md9Y2Nu0yUgSnHNQj8ktAlqSUpqklYgkd4xaiHW7NpKDcKMn7hiWj6di/6cmqTySXGRmoJ0XanestjPNKYs9hbIdy1PXqcg6aW+n42E1oI+wpAhpf7K9fMnc1qkMAYX6T6kvh+Hv+U1oQ3SJUdsJcepDN26xjURVTLcOfpC2UJbhRyn7Fs3ctsPHnvQ2fKT6AREHT9K21gktAlqREpqklYgCRP0ODKLHwrT8ulc9GcPpc9e7Kgn13PnzKHxU7PdLqbX0FlXqrcs9gtja5FdTKeqkAYhj61SlPb5hFWUIutCDbSgDykZ0oT9eb9u1yGFcbhI9yH1fRP7DUrsf9ZD1t9WomWH0wzmdMmRZ4kmit00Xtu19lS3In1J2hRe6pVf3rHSNuka4n4mCIhx6sPm3EhobaLtW0vngrzOpXklhrpP1HhNl7oszzHjpaQrjqwkbbNGCuNIPhF1b1pvpivH2JhPStAIBbGPOHXDQarMv+hWeuPwG+4bJNQfKamu0/q5CY+QyNYkqHmr13GktQT0wZEhuSpP2vbnq9bHVeaTxiaOJCrdh9RXtfcbyhGz3Zk7t4LIs4ir90gAAAmHSURBVH6y66r5Q9WstS2a9cc2AqLUdrOt6XbpOyKhzePFdxuGaIP8pEN2kMpXv7k+AZeX+GODRGNDSXlZwwKxRkElIVdmsR9r4w3bMER4M010kuKsEyNY9xDaWtC6/upSXKUmbm/G9xHS9zvlHJSeC1L7y2K/pG0tpGka6577hDav94SMWcAUE9kgP+mQHaTyDS55r706l407hzaUlJc1LBBrFFQScmUW+7E2bpjcZproJMVZJ0aw7iG0NW7dYrGoGPEt1aW4Sk3c3ozvI4Tvd9I5KD0XpPaXxX5J2loIszTeFQmtcUjDTahTsYtbiZtP3fUhotJ9a1eU1Jht2wd7JVXBbJCfdO6GSeXrn9c/AZW3OhcS2nCGGndvC8QaKQEni/1YG/c+oTVAeDNNdJLirBMjWLMV2tpU63qrS3GVmkwTYHXdr5MSWum5ILW/LPYz7jO6BmhpfCwJ7f7POk5D/rWnuqlWqxWSalNy+L9q4WSxhHfbMroVu/wTcvOpCidbtw/S/WtXkPq5bftgRVJNKjeksHn97VW8bJBokjKqLK7LEI5ME2ukBJws9lMJbVqq15nGz/jhLLS1oHW5F/T7KzXZIKeGdfNOuXJg49wybeOm5zPuM2GNLaH+EwmtQTJBsVrcM/LFkZ4vj99XuezQVQO/nf1W769/9++9bNtfj5S+/Kf7ypf+z1XV3533Vsntx7VNztfST9C25ad9bUQJr3yN+dx+CX0kFbvCiMbNx5Xsk1QFk1b7khLAkqoUNj57P/nJRYEkmjBgo68xBGwQa6QEnLT34yoMcjZumhgnrV6nEw9iIYD5rFRqa0HEGi6hvbq0sVkW9abLZpAuaVfLsRpkPj/pL2I1PLbKnenKdz6SHn2f+kLlJZ69cQQ/zq7S7udS+bh40LmkMAvVX5rOaYicYHy+BAlCkopdYYIbN9/SaxdWntp0T3MaVYM6iapgSgA/KUfn8rrO5f+wRDHu6YbpNk7PnfJURapLHXsJ40dp7ivFivO3tLfZ0K8UvyBZuIpThU/dkdhDkRZbxXlOHHlR6dJP5lNnYB7aOFKiDT9KY4wskIXqL6mqqMMRJRK8T6kqlTzXvZnu3PcQPfDNJ7WDYnO+Nx+iB741MV9aqoIpWfykHJ3L6zqX/8MQxbj7Z6bbgpJZOkMVOosqeXtXpH+/Ul3q2EsaA3AUmaRYcf6W9jYb+pXiFyQLV10qih5jGYPznDjy4gmap94vO9B456zCfu2pbvUu2RaCn6U2TpbIbRwp0YYfxWK/mpMW1Euh3Tm8hJnGpJ3SllBC66/YtfH6seobB2eW/BW7pDpume/n22jj50arY8fnlp48cA7NuuV+OrlrKwWtkdRFep27PjoyhyGKmU5epQQNaT+pfaS5n1SXOvaS5v2HkU2KFcgsPKpS/IJsjas4pcqjhtFhbH1xnhNHXmzo0kvm27Z9sFqr1Xqz3saREjs1TroJbdxkgtRX3kmQICSp2BUm+HHzSdZI6iK9juPpyMySaKawA9PXC6RXCaT9wthIGvtKdaljL2ncdxSZpFiZJprYmM+GfqX4cbKo6wb+6lISgm0UPUcag/OcODKp0iV391ldv+M4Jllr85MSbfhRJPuMeVCBuyBvmkyQ9vmaBKF3qIfqVCWHSs1L6f427vK6hpIkFbvCTM/N528rza3RscX30t69e5tT2yCAJUUK49YNJIqFARt9ZQgISKcckcO0vciETX8v05XqOFKJDrFLZ6wNMou0AuJUpLBGEuuNrYlYju88QnW9Lrf8+cn5RRoeHnZVongbSpd5Tmi/cNeP2vabiD0mvGhBekG+YRgnjp9w70Gqr7Py0qZVZSdBQpnCP8oTvDTpXOfyuul96MiSsB+nd3khSUVahQo6Mq9q036kcy7Y0K90vzZkCavNlngvrHimo4+8jFW65Mh83asf6d23e4MqltH8XHfzo6U3X12v7teGbuPms9GmntB6c7M02m5YW4/SvyC9IK8mR5UdSlXFqah3LNOkc53L66b3oSNLFOfriDFCkoq0ChV0ZN5qTPuRzllhQ7/S/dqQJYw22+K9sOKZjj7yMlbpkiPzsW2b1jnLd252VXP1rhcr6n70Fmnb4+uc5c/6xsbctnLVtysmydZhbDJtfQvSC/JZJBhIZdaqspMQoazxdDYKCz5NOte562N6HzqypM2xUyOPkKQirUIFHZnXrGk/ksbdpKppSfebNltrS2iFFc909JGXsUqXHJmPHKcydOsa16mueb1QcI6+ULbQViHHKfvWjdz2g8cedLb8ZI97teLw+BlasGABpc12zUctfsaC9IK8DUJAUmtoVdlJkFDWSGrDvtIpTTrXcTzT+9CRxZbDZm4dIUlFWhUMOjJvAab9SCeO29CvdL82ZAmrzZYrB8KKZzr6yMvY0dHRXj+Zj4jUq7J6Gq/yWnuqWxXHkLSpN1qoKwnesdI26RrifgtnDrtPaOfOmUPjp2a7JpVG2w1r61H6uwmt/wK1zqX+LI7VqbJz5cn+ip9gtfqCehvpKk1tSRHATJN8TNuuSwIJqrIThjDoJRZyJMKgqjhqDdvVfaaq+OOVJaLMUpKKtAqVDdJQlECa5TGm/UjnDLChX+l+P0P7Ux3bP/npesVfAVHqRzo6yuJYpcu3z7ulcuTIEbeiW6FQKK2aP1TNQ9uiWX8scSS4LMekqLKDFJYjcpsyAn8lrrS3Da2vVwp3U5/zDA3svIv6vkJUdXZQWdImJXdIMdAiBzY8MK3V8BKST0r2EuuoXtcuPhI1WOZ1nGk/kuqS69eMBzvoP3feTRtb4gHXloK4obNfjM0PuTxNugQp7IMxOnp6Fs2f8b4bt/NKAMPe0qXfny5+jy56iXqduy8cKOw4WqLbqTqm6ny8RCXn7gurAW29dDsNrPz9IqN2ylYP4yrLoY2k1f+kZC+pX6aNqJOHJFdKkpLqSKefLx64fj4ZDxoxgmvzxo1pY4npuKGzX4xN13mUF310apwEKWzBAvcVZOqP91I12uzg8m/9/TQ6mRWog+uqyb9P13YlEf3NsmVG9aZFDvQ+AT0++TYMtLFVe3R8q1PvhsWZOEtJUjp6k47l4oEqZalig/o0YoS0TY3xx5IvGY4b0r2hn50zBTiDFNZyoTgvF8GxD3JfMu2/MJ6mtq/397sH1UVXqMeek4fWgQ9FbU98cp7RvWmRA/9co46vuMdgICV7SW0SCa351FZKkpLqSKefTjwYSyhu6OwXY9N/RmVRR50aJ/8fLuHqAsTW4K4AAAAASUVORK5CYII="
+    				thumbnail: "data:image/png;base64,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"
     			},
     			"level 2": {
     				name: "level 2",
@@ -27109,7 +27191,7 @@ var app = (function () {
 
     const artScale = 1;
 
-    function createDefaultInput$1() {
+    function createDefaultInput() {
     	return {
     		name: "",
     		width: 40,
@@ -27166,7 +27248,7 @@ var app = (function () {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots("ArtMaker", slots, []);
     	let { params = {} } = $$props;
-    	let input = createDefaultInput$1();
+    	let input = createDefaultInput();
     	let mode = "paint";
     	let undos = [];
     	let redos = [];
@@ -27197,7 +27279,7 @@ var app = (function () {
     	onMount(() => redraw());
 
     	function create() {
-    		$$invalidate(0, input = createDefaultInput$1());
+    		$$invalidate(0, input = createDefaultInput());
     		redraw();
     	}
 
@@ -27207,7 +27289,7 @@ var app = (function () {
     		$$invalidate(6, redos = []);
 
     		$$invalidate(0, input = {
-    			...createDefaultInput$1(),
+    			...createDefaultInput(),
     			...JSON.parse(JSON.stringify($project.art[name]))
     		});
 
@@ -27745,7 +27827,7 @@ var app = (function () {
     		changeSize,
     		debouncedRedraw,
     		create,
-    		createDefaultInput: createDefaultInput$1,
+    		createDefaultInput,
     		edit,
     		loadAutoSave,
     		save,
@@ -29328,6 +29410,10 @@ var app = (function () {
     		blendMode: null,
     		rgbaColor: null
     	}
+    }
+
+    function hasParticlesConfigured(c) {
+    	return c.particles?.enabled && c.particles.graphic != null
     }
 
     function createParticles(scene, p, spriteToFollow) {
@@ -31035,7 +31121,7 @@ var app = (function () {
     const file$f = "src\\pages\\Build\\BlockBuilder.svelte";
 
     // (3:2) <FieldText name="name" bind:value={input.name}>
-    function create_default_slot_12$1(ctx) {
+    function create_default_slot_12$2(ctx) {
     	let t;
 
     	const block = {
@@ -31052,7 +31138,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_12$1.name,
+    		id: create_default_slot_12$2.name,
     		type: "slot",
     		source: "(3:2) <FieldText name=\\\"name\\\" bind:value={input.name}>",
     		ctx
@@ -31578,7 +31664,7 @@ var app = (function () {
 
     	let fieldtext_props = {
     		name: "name",
-    		$$slots: { default: [create_default_slot_12$1] },
+    		$$slots: { default: [create_default_slot_12$2] },
     		$$scope: { ctx }
     	};
 
@@ -33696,7 +33782,7 @@ var app = (function () {
     }
 
     // (11:2) <FieldArtPicker bind:value={input.graphics.moving}>
-    function create_default_slot_12(ctx) {
+    function create_default_slot_12$1(ctx) {
     	let t;
 
     	const block = {
@@ -33713,7 +33799,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_12.name,
+    		id: create_default_slot_12$1.name,
     		type: "slot",
     		source: "(11:2) <FieldArtPicker bind:value={input.graphics.moving}>",
     		ctx
@@ -34076,7 +34162,7 @@ var app = (function () {
     	}
 
     	let fieldartpicker1_props = {
-    		$$slots: { default: [create_default_slot_12] },
+    		$$slots: { default: [create_default_slot_12$1] },
     		$$scope: { ctx }
     	};
 
@@ -35093,7 +35179,7 @@ var app = (function () {
     const file$c = "src\\pages\\Build\\EnemyBuilder.svelte";
 
     // (14:2) <FieldText name="name" bind:value={input.name}>
-    function create_default_slot_11(ctx) {
+    function create_default_slot_12(ctx) {
     	let t;
 
     	const block = {
@@ -35110,7 +35196,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_11.name,
+    		id: create_default_slot_12.name,
     		type: "slot",
     		source: "(14:2) <FieldText name=\\\"name\\\" bind:value={input.name}>",
     		ctx
@@ -35119,8 +35205,8 @@ var app = (function () {
     	return block;
     }
 
-    // (16:2) <FieldArtPicker bind:value={input.graphics.still}>
-    function create_default_slot_10(ctx) {
+    // (15:2) <FieldArtPicker bind:value={input.graphics.still}>
+    function create_default_slot_11(ctx) {
     	let t;
 
     	const block = {
@@ -35137,17 +35223,17 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_10.name,
+    		id: create_default_slot_11.name,
     		type: "slot",
-    		source: "(16:2) <FieldArtPicker bind:value={input.graphics.still}>",
+    		source: "(15:2) <FieldArtPicker bind:value={input.graphics.still}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (17:2) <FieldArtPicker bind:value={input.graphics.moving}>
-    function create_default_slot_9(ctx) {
+    // (16:2) <FieldArtPicker bind:value={input.graphics.moving}>
+    function create_default_slot_10(ctx) {
     	let t;
 
     	const block = {
@@ -35164,9 +35250,36 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
+    		id: create_default_slot_10.name,
+    		type: "slot",
+    		source: "(16:2) <FieldArtPicker bind:value={input.graphics.moving}>",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (17:2) <FieldParticles bind:value={input.particles}>
+    function create_default_slot_9(ctx) {
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			t = text("Emit particles?");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, t, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(t);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
     		id: create_default_slot_9.name,
     		type: "slot",
-    		source: "(17:2) <FieldArtPicker bind:value={input.graphics.moving}>",
+    		source: "(17:2) <FieldParticles bind:value={input.particles}>",
     		ctx
     	});
 
@@ -35373,24 +35486,27 @@ var app = (function () {
     	let fieldartpicker1;
     	let updating_value_2;
     	let t2;
-    	let fieldnumber0;
+    	let fieldparticles;
     	let updating_value_3;
     	let t3;
-    	let fieldnumber1;
+    	let fieldnumber0;
     	let updating_value_4;
     	let t4;
-    	let fieldnumber2;
+    	let fieldnumber1;
     	let updating_value_5;
     	let t5;
-    	let fieldnumber3;
+    	let fieldnumber2;
     	let updating_value_6;
     	let t6;
-    	let fieldnumber4;
+    	let fieldnumber3;
     	let updating_value_7;
     	let t7;
+    	let fieldnumber4;
+    	let updating_value_8;
+    	let t8;
     	let fieldcheckbox;
     	let updating_checked;
-    	let t8;
+    	let t9;
     	let fieldabilities;
     	let updating_abilities;
     	let current;
@@ -35401,7 +35517,7 @@ var app = (function () {
 
     	let fieldtext_props = {
     		name: "name",
-    		$$slots: { default: [create_default_slot_11] },
+    		$$slots: { default: [create_default_slot_12] },
     		$$scope: { ctx }
     	};
 
@@ -35417,7 +35533,7 @@ var app = (function () {
     	}
 
     	let fieldartpicker0_props = {
-    		$$slots: { default: [create_default_slot_10] },
+    		$$slots: { default: [create_default_slot_11] },
     		$$scope: { ctx }
     	};
 
@@ -35437,7 +35553,7 @@ var app = (function () {
     	}
 
     	let fieldartpicker1_props = {
-    		$$slots: { default: [create_default_slot_9] },
+    		$$slots: { default: [create_default_slot_10] },
     		$$scope: { ctx }
     	};
 
@@ -35452,8 +35568,28 @@ var app = (function () {
 
     	binding_callbacks.push(() => bind(fieldartpicker1, "value", fieldartpicker1_value_binding));
 
+    	function fieldparticles_value_binding(value) {
+    		/*fieldparticles_value_binding*/ ctx[12](value);
+    	}
+
+    	let fieldparticles_props = {
+    		$$slots: { default: [create_default_slot_9] },
+    		$$scope: { ctx }
+    	};
+
+    	if (/*input*/ ctx[0].particles !== void 0) {
+    		fieldparticles_props.value = /*input*/ ctx[0].particles;
+    	}
+
+    	fieldparticles = new FieldParticles({
+    			props: fieldparticles_props,
+    			$$inline: true
+    		});
+
+    	binding_callbacks.push(() => bind(fieldparticles, "value", fieldparticles_value_binding));
+
     	function fieldnumber0_value_binding(value) {
-    		/*fieldnumber0_value_binding*/ ctx[12](value);
+    		/*fieldnumber0_value_binding*/ ctx[13](value);
     	}
 
     	let fieldnumber0_props = {
@@ -35475,7 +35611,7 @@ var app = (function () {
     	binding_callbacks.push(() => bind(fieldnumber0, "value", fieldnumber0_value_binding));
 
     	function fieldnumber1_value_binding(value) {
-    		/*fieldnumber1_value_binding*/ ctx[13](value);
+    		/*fieldnumber1_value_binding*/ ctx[14](value);
     	}
 
     	let fieldnumber1_props = {
@@ -35497,7 +35633,7 @@ var app = (function () {
     	binding_callbacks.push(() => bind(fieldnumber1, "value", fieldnumber1_value_binding));
 
     	function fieldnumber2_value_binding(value) {
-    		/*fieldnumber2_value_binding*/ ctx[14](value);
+    		/*fieldnumber2_value_binding*/ ctx[15](value);
     	}
 
     	let fieldnumber2_props = {
@@ -35521,7 +35657,7 @@ var app = (function () {
     	binding_callbacks.push(() => bind(fieldnumber2, "value", fieldnumber2_value_binding));
 
     	function fieldnumber3_value_binding(value) {
-    		/*fieldnumber3_value_binding*/ ctx[15](value);
+    		/*fieldnumber3_value_binding*/ ctx[16](value);
     	}
 
     	let fieldnumber3_props = {
@@ -35542,7 +35678,7 @@ var app = (function () {
     	binding_callbacks.push(() => bind(fieldnumber3, "value", fieldnumber3_value_binding));
 
     	function fieldnumber4_value_binding(value) {
-    		/*fieldnumber4_value_binding*/ ctx[16](value);
+    		/*fieldnumber4_value_binding*/ ctx[17](value);
     	}
 
     	let fieldnumber4_props = {
@@ -35563,7 +35699,7 @@ var app = (function () {
     	binding_callbacks.push(() => bind(fieldnumber4, "value", fieldnumber4_value_binding));
 
     	function fieldcheckbox_checked_binding(value) {
-    		/*fieldcheckbox_checked_binding*/ ctx[17](value);
+    		/*fieldcheckbox_checked_binding*/ ctx[18](value);
     	}
 
     	let fieldcheckbox_props = {
@@ -35584,7 +35720,7 @@ var app = (function () {
     	binding_callbacks.push(() => bind(fieldcheckbox, "checked", fieldcheckbox_checked_binding));
 
     	function fieldabilities_abilities_binding(value) {
-    		/*fieldabilities_abilities_binding*/ ctx[18](value);
+    		/*fieldabilities_abilities_binding*/ ctx[19](value);
     	}
 
     	let fieldabilities_props = {
@@ -35613,18 +35749,20 @@ var app = (function () {
     			t1 = space();
     			create_component(fieldartpicker1.$$.fragment);
     			t2 = space();
-    			create_component(fieldnumber0.$$.fragment);
+    			create_component(fieldparticles.$$.fragment);
     			t3 = space();
-    			create_component(fieldnumber1.$$.fragment);
+    			create_component(fieldnumber0.$$.fragment);
     			t4 = space();
-    			create_component(fieldnumber2.$$.fragment);
+    			create_component(fieldnumber1.$$.fragment);
     			t5 = space();
-    			create_component(fieldnumber3.$$.fragment);
+    			create_component(fieldnumber2.$$.fragment);
     			t6 = space();
-    			create_component(fieldnumber4.$$.fragment);
+    			create_component(fieldnumber3.$$.fragment);
     			t7 = space();
-    			create_component(fieldcheckbox.$$.fragment);
+    			create_component(fieldnumber4.$$.fragment);
     			t8 = space();
+    			create_component(fieldcheckbox.$$.fragment);
+    			t9 = space();
     			create_component(fieldabilities.$$.fragment);
     		},
     		m: function mount(target, anchor) {
@@ -35634,25 +35772,27 @@ var app = (function () {
     			insert_dev(target, t1, anchor);
     			mount_component(fieldartpicker1, target, anchor);
     			insert_dev(target, t2, anchor);
-    			mount_component(fieldnumber0, target, anchor);
+    			mount_component(fieldparticles, target, anchor);
     			insert_dev(target, t3, anchor);
-    			mount_component(fieldnumber1, target, anchor);
+    			mount_component(fieldnumber0, target, anchor);
     			insert_dev(target, t4, anchor);
-    			mount_component(fieldnumber2, target, anchor);
+    			mount_component(fieldnumber1, target, anchor);
     			insert_dev(target, t5, anchor);
-    			mount_component(fieldnumber3, target, anchor);
+    			mount_component(fieldnumber2, target, anchor);
     			insert_dev(target, t6, anchor);
-    			mount_component(fieldnumber4, target, anchor);
+    			mount_component(fieldnumber3, target, anchor);
     			insert_dev(target, t7, anchor);
-    			mount_component(fieldcheckbox, target, anchor);
+    			mount_component(fieldnumber4, target, anchor);
     			insert_dev(target, t8, anchor);
+    			mount_component(fieldcheckbox, target, anchor);
+    			insert_dev(target, t9, anchor);
     			mount_component(fieldabilities, target, anchor);
     			current = true;
     		},
     		p: function update(ctx, dirty) {
     			const fieldtext_changes = {};
 
-    			if (dirty & /*$$scope*/ 2097152) {
+    			if (dirty & /*$$scope*/ 8388608) {
     				fieldtext_changes.$$scope = { dirty, ctx };
     			}
 
@@ -35665,7 +35805,7 @@ var app = (function () {
     			fieldtext.$set(fieldtext_changes);
     			const fieldartpicker0_changes = {};
 
-    			if (dirty & /*$$scope*/ 2097152) {
+    			if (dirty & /*$$scope*/ 8388608) {
     				fieldartpicker0_changes.$$scope = { dirty, ctx };
     			}
 
@@ -35678,7 +35818,7 @@ var app = (function () {
     			fieldartpicker0.$set(fieldartpicker0_changes);
     			const fieldartpicker1_changes = {};
 
-    			if (dirty & /*$$scope*/ 2097152) {
+    			if (dirty & /*$$scope*/ 8388608) {
     				fieldartpicker1_changes.$$scope = { dirty, ctx };
     			}
 
@@ -35689,74 +35829,87 @@ var app = (function () {
     			}
 
     			fieldartpicker1.$set(fieldartpicker1_changes);
-    			const fieldnumber0_changes = {};
+    			const fieldparticles_changes = {};
 
-    			if (dirty & /*$$scope*/ 2097152) {
-    				fieldnumber0_changes.$$scope = { dirty, ctx };
+    			if (dirty & /*$$scope*/ 8388608) {
+    				fieldparticles_changes.$$scope = { dirty, ctx };
     			}
 
     			if (!updating_value_3 && dirty & /*input*/ 1) {
     				updating_value_3 = true;
-    				fieldnumber0_changes.value = /*input*/ ctx[0].maxVelocity;
+    				fieldparticles_changes.value = /*input*/ ctx[0].particles;
     				add_flush_callback(() => updating_value_3 = false);
+    			}
+
+    			fieldparticles.$set(fieldparticles_changes);
+    			const fieldnumber0_changes = {};
+
+    			if (dirty & /*$$scope*/ 8388608) {
+    				fieldnumber0_changes.$$scope = { dirty, ctx };
+    			}
+
+    			if (!updating_value_4 && dirty & /*input*/ 1) {
+    				updating_value_4 = true;
+    				fieldnumber0_changes.value = /*input*/ ctx[0].maxVelocity;
+    				add_flush_callback(() => updating_value_4 = false);
     			}
 
     			fieldnumber0.$set(fieldnumber0_changes);
     			const fieldnumber1_changes = {};
 
-    			if (dirty & /*$$scope*/ 2097152) {
+    			if (dirty & /*$$scope*/ 8388608) {
     				fieldnumber1_changes.$$scope = { dirty, ctx };
     			}
 
-    			if (!updating_value_4 && dirty & /*input*/ 1) {
-    				updating_value_4 = true;
+    			if (!updating_value_5 && dirty & /*input*/ 1) {
+    				updating_value_5 = true;
     				fieldnumber1_changes.value = /*input*/ ctx[0].jumpVelocity;
-    				add_flush_callback(() => updating_value_4 = false);
+    				add_flush_callback(() => updating_value_5 = false);
     			}
 
     			fieldnumber1.$set(fieldnumber1_changes);
     			const fieldnumber2_changes = {};
 
-    			if (dirty & /*$$scope*/ 2097152) {
+    			if (dirty & /*$$scope*/ 8388608) {
     				fieldnumber2_changes.$$scope = { dirty, ctx };
     			}
 
-    			if (!updating_value_5 && dirty & /*input*/ 1) {
-    				updating_value_5 = true;
+    			if (!updating_value_6 && dirty & /*input*/ 1) {
+    				updating_value_6 = true;
     				fieldnumber2_changes.value = /*input*/ ctx[0].gravityMultiplier;
-    				add_flush_callback(() => updating_value_5 = false);
+    				add_flush_callback(() => updating_value_6 = false);
     			}
 
     			fieldnumber2.$set(fieldnumber2_changes);
     			const fieldnumber3_changes = {};
 
-    			if (dirty & /*$$scope*/ 2097152) {
+    			if (dirty & /*$$scope*/ 8388608) {
     				fieldnumber3_changes.$$scope = { dirty, ctx };
     			}
 
-    			if (!updating_value_6 && dirty & /*input*/ 1) {
-    				updating_value_6 = true;
+    			if (!updating_value_7 && dirty & /*input*/ 1) {
+    				updating_value_7 = true;
     				fieldnumber3_changes.value = /*input*/ ctx[0].maxHealth;
-    				add_flush_callback(() => updating_value_6 = false);
+    				add_flush_callback(() => updating_value_7 = false);
     			}
 
     			fieldnumber3.$set(fieldnumber3_changes);
     			const fieldnumber4_changes = {};
 
-    			if (dirty & /*$$scope*/ 2097152) {
+    			if (dirty & /*$$scope*/ 8388608) {
     				fieldnumber4_changes.$$scope = { dirty, ctx };
     			}
 
-    			if (!updating_value_7 && dirty & /*input*/ 1) {
-    				updating_value_7 = true;
+    			if (!updating_value_8 && dirty & /*input*/ 1) {
+    				updating_value_8 = true;
     				fieldnumber4_changes.value = /*input*/ ctx[0].score;
-    				add_flush_callback(() => updating_value_7 = false);
+    				add_flush_callback(() => updating_value_8 = false);
     			}
 
     			fieldnumber4.$set(fieldnumber4_changes);
     			const fieldcheckbox_changes = {};
 
-    			if (dirty & /*$$scope*/ 2097152) {
+    			if (dirty & /*$$scope*/ 8388608) {
     				fieldcheckbox_changes.$$scope = { dirty, ctx };
     			}
 
@@ -35769,7 +35922,7 @@ var app = (function () {
     			fieldcheckbox.$set(fieldcheckbox_changes);
     			const fieldabilities_changes = {};
 
-    			if (dirty & /*$$scope*/ 2097152) {
+    			if (dirty & /*$$scope*/ 8388608) {
     				fieldabilities_changes.$$scope = { dirty, ctx };
     			}
 
@@ -35786,6 +35939,7 @@ var app = (function () {
     			transition_in(fieldtext.$$.fragment, local);
     			transition_in(fieldartpicker0.$$.fragment, local);
     			transition_in(fieldartpicker1.$$.fragment, local);
+    			transition_in(fieldparticles.$$.fragment, local);
     			transition_in(fieldnumber0.$$.fragment, local);
     			transition_in(fieldnumber1.$$.fragment, local);
     			transition_in(fieldnumber2.$$.fragment, local);
@@ -35799,6 +35953,7 @@ var app = (function () {
     			transition_out(fieldtext.$$.fragment, local);
     			transition_out(fieldartpicker0.$$.fragment, local);
     			transition_out(fieldartpicker1.$$.fragment, local);
+    			transition_out(fieldparticles.$$.fragment, local);
     			transition_out(fieldnumber0.$$.fragment, local);
     			transition_out(fieldnumber1.$$.fragment, local);
     			transition_out(fieldnumber2.$$.fragment, local);
@@ -35815,18 +35970,20 @@ var app = (function () {
     			if (detaching) detach_dev(t1);
     			destroy_component(fieldartpicker1, detaching);
     			if (detaching) detach_dev(t2);
-    			destroy_component(fieldnumber0, detaching);
+    			destroy_component(fieldparticles, detaching);
     			if (detaching) detach_dev(t3);
-    			destroy_component(fieldnumber1, detaching);
+    			destroy_component(fieldnumber0, detaching);
     			if (detaching) detach_dev(t4);
-    			destroy_component(fieldnumber2, detaching);
+    			destroy_component(fieldnumber1, detaching);
     			if (detaching) detach_dev(t5);
-    			destroy_component(fieldnumber3, detaching);
+    			destroy_component(fieldnumber2, detaching);
     			if (detaching) detach_dev(t6);
-    			destroy_component(fieldnumber4, detaching);
+    			destroy_component(fieldnumber3, detaching);
     			if (detaching) detach_dev(t7);
-    			destroy_component(fieldcheckbox, detaching);
+    			destroy_component(fieldnumber4, detaching);
     			if (detaching) detach_dev(t8);
+    			destroy_component(fieldcheckbox, detaching);
+    			if (detaching) detach_dev(t9);
     			destroy_component(fieldabilities, detaching);
     		}
     	};
@@ -35854,7 +36011,7 @@ var app = (function () {
     			button.textContent = "Delete";
     			attr_dev(button, "type", "button");
     			attr_dev(button, "class", "btn btn-danger");
-    			add_location(button, file$c, 26, 4, 1373);
+    			add_location(button, file$c, 26, 4, 1452);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
@@ -35893,7 +36050,7 @@ var app = (function () {
     			span = element("span");
     			if (if_block) if_block.c();
     			attr_dev(span, "slot", "buttons");
-    			add_location(span, file$c, 24, 2, 1326);
+    			add_location(span, file$c, 24, 2, 1405);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -35961,7 +36118,7 @@ var app = (function () {
     			const form_changes = {};
     			if (dirty & /*hasChanges*/ 8) form_changes.hasChanges = /*hasChanges*/ ctx[3];
 
-    			if (dirty & /*$$scope, input, isAdding*/ 2097157) {
+    			if (dirty & /*$$scope, input, isAdding*/ 8388613) {
     				form_changes.$$scope = { dirty, ctx };
     			}
 
@@ -36023,7 +36180,7 @@ var app = (function () {
     			if (dirty & /*input*/ 1) buildlayout_changes.activeName = /*input*/ ctx[0].name;
     			if (dirty & /*$project*/ 2) buildlayout_changes.store = /*$project*/ ctx[1].enemies;
 
-    			if (dirty & /*$$scope, hasChanges, input, isAdding*/ 2097165) {
+    			if (dirty & /*$$scope, hasChanges, input, isAdding*/ 8388621) {
     				buildlayout_changes.$$scope = { dirty, ctx };
     			}
 
@@ -36052,19 +36209,6 @@ var app = (function () {
     	});
 
     	return block;
-    }
-
-    function createDefaultInput() {
-    	return {
-    		graphics: { still: null, moving: null },
-    		name: "",
-    		maxHealth: 100,
-    		maxVelocity: 200,
-    		jumpVelocity: 500,
-    		gravityMultiplier: 1,
-    		score: 1,
-    		abilities: []
-    	};
     }
 
     function instance$d($$self, $$props, $$invalidate) {
@@ -36102,6 +36246,20 @@ var app = (function () {
     		$$invalidate(0, input = createDefaultInput());
     	}
 
+    	function createDefaultInput() {
+    		return {
+    			graphics: { still: null, moving: null },
+    			name: "",
+    			maxHealth: 100,
+    			maxVelocity: 200,
+    			jumpVelocity: 500,
+    			gravityMultiplier: 1,
+    			score: 1,
+    			abilities: [],
+    			particles: buildDefaultParticlesConfig()
+    		};
+    	}
+
     	function del(name) {
     		if (confirm(`Are you sure you want to delete "${name}"?`)) {
     			delete $project.enemies[name];
@@ -36135,6 +36293,13 @@ var app = (function () {
     	function fieldartpicker1_value_binding(value) {
     		if ($$self.$$.not_equal(input.graphics.moving, value)) {
     			input.graphics.moving = value;
+    			$$invalidate(0, input);
+    		}
+    	}
+
+    	function fieldparticles_value_binding(value) {
+    		if ($$self.$$.not_equal(input.particles, value)) {
+    			input.particles = value;
     			$$invalidate(0, input);
     		}
     	}
@@ -36203,6 +36368,8 @@ var app = (function () {
     		project,
     		validator,
     		FieldAbilities,
+    		FieldParticles,
+    		buildDefaultParticlesConfig,
     		params,
     		input,
     		save,
@@ -36259,6 +36426,7 @@ var app = (function () {
     		fieldtext_value_binding,
     		fieldartpicker0_value_binding,
     		fieldartpicker1_value_binding,
+    		fieldparticles_value_binding,
     		fieldnumber0_value_binding,
     		fieldnumber1_value_binding,
     		fieldnumber2_value_binding,
@@ -38812,7 +38980,7 @@ var app = (function () {
     		if (ability.projectile) {
     			scene.physics.moveToObject(this, target, ability.projectileVelocity);
 
-    			if (ability.particles) {
+    			if (hasParticlesConfigured(ability)) {
     				const { particles, emitter } = createParticles(scene, ability.particles, this);
     				this.particles = particles;
     			}
@@ -38853,7 +39021,6 @@ var app = (function () {
     			// out of world
     			!Phaser.Geom.Rectangle.Overlaps(this.scene.physics.world.bounds, this.getBounds())
     		) {
-    			if (this.particles) this.particles.destroy();
     			this.destroy();
     		}
     	}
@@ -38861,6 +39028,11 @@ var app = (function () {
     	onBlockCollision(projectile, block) {
     		if (this.ability.damageBlocksOnHit) block.destroy();
     		this.destroy();
+    	}
+
+    	destroy() {
+    		if (this.particles) this.particles.destroy();
+    		super.destroy();
     	}
     }
 
@@ -38949,6 +39121,11 @@ var app = (function () {
     		// set size initially and don't change it regardless of graphic (might change later)
     		this.body.width = template.graphics.still.animated ? template.graphics.still.frameWidth : template.graphics.still.width;
     		this.body.height = template.graphics.still.height;
+
+    		if (hasParticlesConfigured(template)) {
+    			const { particles, emitter } = createParticles(scene, template.particles, this);
+    			this.particles = particles;
+    		}
     	}
 
     	preUpdate(time, delta) {
@@ -39084,6 +39261,11 @@ var app = (function () {
     			spriteHit.damage(ability.damage);
     			projectile.destroy();
     		});
+    	}
+
+    	destroy() {
+    		if (this.particles) this.particles.destroy();
+    		super.destroy();
     	}
     }
 
@@ -40866,17 +41048,21 @@ var app = (function () {
     							// blocks
     							...distinctBlocks.map(b => b.graphic),
     							// block particles
-    							...distinctBlocks.filter(b => b.particles?.enabled && b.particles.graphic != null).flatMap(b => b.particles.graphic),
+    							...distinctBlocks.filter(hasParticlesConfigured).flatMap(b => b.particles.graphic),
     							// characters
     							...distinctCharacters.flatMap(c => Object.keys(c.graphics).map(key => c.graphics[key])),
     							// character particles
-    							...distinctCharacters.filter(c => c.particles?.enabled && c.particles.graphic != null).flatMap(c => c.particles.graphic),
+    							...distinctCharacters.filter(hasParticlesConfigured).map(c => c.particles.graphic),
     							// character abilities
     							...distinctCharacters.flatMap(c => c.abilities.flatMap(a => Object.keys(a.graphics).map(key => a.graphics[key]))),
     							// character abilities particles
-    							...distinctCharacters.flatMap(c => c.abilities.filter(a => a.particles?.enabled && a.particles.graphic != null).map(a => a.particles.graphic)),
+    							...distinctCharacters.flatMap(c => c.abilities.filter(hasParticlesConfigured).map(a => a.particles.graphic)),
     							// enemies
     							...distinctEnemies.flatMap(e => Object.keys(e.graphics).map(key => e.graphics[key])),
+    							// enemy particles
+    							...distinctEnemies.filter(hasParticlesConfigured).map(e => e.particles.graphic),
+    							// enemy abilities particles
+    							...distinctEnemies.flatMap(e => e.abilities.filter(hasParticlesConfigured).map(a => a.particles.graphic)),
     							// enemy abilities
     							...distinctEnemies.filter(e => e.abilities != null).flatMap(e => e.abilities.flatMap(a => Object.keys(a.graphics).map(key => a.graphics[key])))
     						])
@@ -40947,7 +41133,7 @@ var app = (function () {
     			const block = group.create(translateX(b.x * gridSize, gridSize), translateY(b.y * gridSize, gridSize), b.art.name);
     			if (b.art.animated) block.anims.play(getAnimationKey(b.art.name), true);
 
-    			if (b.particles?.enabled) {
+    			if (hasParticlesConfigured(b)) {
     				const { particles, emitter } = createParticles(this, b.particles, block);
     				block.particles = particles;
     			}
@@ -40978,11 +41164,6 @@ var app = (function () {
 
     		const template = hydrateGraphics(character);
     		$$invalidate(7, player = this.physics.add.existing(new Player(this, translateX(0, template.graphics.still.width), startingY, character.graphics.still.name, template, keys)));
-
-    		if (template.particles?.enabled) {
-    			createParticles(this, template.particles, player);
-    		}
-
     		this.player = player;
     		this.physics.add.collider(player, this.simpleBlocksGroup);
     		this.physics.add.collider(player, this.effectBlocksGroup, onEffectBlockCollision);
@@ -41061,7 +41242,6 @@ var app = (function () {
     			const y = player.body.y - (template.graphics.still.height - player.graphics.still.height);
     			const follower = new Follower(scene, player.x, y, template.graphics.still.name, template, player, followerLeashRange);
     			scene.followers.add(follower);
-    			if (template.particles?.enabled) createParticles(this, template.particles, follower);
     		});
     	}
 
@@ -41160,6 +41340,7 @@ var app = (function () {
     		SkillKeys,
     		TemporaryAbilityBar,
     		createParticles,
+    		hasParticlesConfigured,
     		levelName,
     		level,
     		characterName,
