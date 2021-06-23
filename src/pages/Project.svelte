@@ -49,7 +49,7 @@
 	$: prefix = `/${encodeURIComponent($project.name)}`
 	const routes = {
 		'/build/:tab?/:name?': Build,
-		'/play': Play,
+		'/play/:levelName?/:characterName?': Play,
 	}
 
 	function createProject(name) {

@@ -8,16 +8,18 @@
 	<PhaserGame {levelName} {characterName} />
 {:else}
 	<div class="list-group">
-		{#each sortedLevelNames as levelName}
+		{#each Object.keys($project.levels).sort() as levelName}
 			<div class="list-group-item">
 				<h4 class="mb-0">{levelName}</h4>
-				<img src={$project.levels[levelName].thumbnail} style="background: {$project.levels[levelName].background}" alt="level preview" />
-				<div class="flex-row">
+				<div style="height: 50px; overflow: hidden;">
+					<img src={$project.levels[levelName].thumbnail} style="background: {$project.levels[levelName].background}" alt="level preview" />
+				</div>
+				<div class="flex">
 					{#each $project.levels[levelName].playableCharacters as characterName}
-						<button class="btn btn-light m-1" on:click={() => selectLevel(levelName, characterName)}>
+						<a class="btn btn-light m-1" href="#/{$project.name}/play/{levelName}/{characterName}">
+							Play as {characterName}
 							<Art name={$project.characters[characterName].graphics.moving} />
-							{characterName}
-						</button>
+						</a>
 					{/each}
 				</div>
 			</div>
@@ -28,16 +30,11 @@
 <script>
 	import Art from '../../components/Art.svelte'
 	import PhaserGame from '../../components/PhaserGame.svelte'
-	import LevelPreview from '../../components/LevelPreview.svelte'
 	import project from '../../stores/active-project-store'
 
-	let levelName //= 'level 1'
-	let characterName //= 'sonic'
 
-	$: sortedLevelNames = Object.keys($project.levels).sort()
+	export let params
 
-	function selectLevel(l, c) {
-		levelName = l
-		characterName = c
-	}
+	$: levelName = params?.levelName != null ? decodeURIComponent(params.levelName) : null
+	$: characterName = params?.characterName != null ? decodeURIComponent(params.characterName) : null
 </script>

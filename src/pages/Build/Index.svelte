@@ -3,7 +3,6 @@
 {/if}
 
 <script>
-	export let params = {}
 	import Router from 'svelte-spa-router'
 	import ArtMaker from './ArtMaker.svelte'
 	import BlockBuilder from './BlockBuilder.svelte'

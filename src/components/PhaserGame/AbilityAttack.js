@@ -1,3 +1,4 @@
+import { createParticles } from '../../services/particles'
 import getAnimationKey from './GetAnimationKey'
 
 export default class AbilityAttack extends Phaser.Physics.Arcade.Sprite {
@@ -17,6 +18,11 @@ export default class AbilityAttack extends Phaser.Physics.Arcade.Sprite {
 		// move toward target if projectile
 		if (ability.projectile) {
 			scene.physics.moveToObject(this, target, ability.projectileVelocity)
+
+			if (ability.particles) {
+				const { particles, emitter } = createParticles(scene, ability.particles, this)
+				this.particles = particles
+			}
 		} else {
 			// non-projectiles just spawn at target, or as close to it as possible given their range
 			const distance = Phaser.Math.Distance.Between(x, y, target.x, target.y)
@@ -54,6 +60,7 @@ export default class AbilityAttack extends Phaser.Physics.Arcade.Sprite {
 			// out of world
 			!Phaser.Geom.Rectangle.Overlaps(this.scene.physics.world.bounds, this.getBounds())
 		) {
+			if (this.particles) this.particles.destroy()
 			this.destroy()
 		}
 	}

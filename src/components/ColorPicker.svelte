@@ -1,6 +1,6 @@
 <QuickDropdown btnClass="color-picker-toggle" noCaret bind:isOpen>
 	<span slot="label">
-		<div class="color-choice" style="background: {getBackground(value)}" title="Change color" />
+		<div class="color-choice" style="background: {getBackground(value)}" title="Change color ({value})" />
 	</span>
 	<div class="color-picker-choices">
 		{#each colors as colorGroup}

@@ -21,6 +21,7 @@
 						<th>Projectile Graphic</th>
 						<th>Projectile Velocity</th>
 						<th>Projectile pass through blocks?</th>
+						<th>Projectile particles?</th>
 					</tr>
 				</thead>
 
@@ -68,6 +69,9 @@
 								<td>
 									<input type="checkbox" bind:checked={a.projectilePassThroughBlocks} />
 								</td>
+								<td>
+									<FieldParticles name="ability-{i}-particles" bind:value={a.particles} />
+								</td>
 							{:else}
 								<td colspan="2" />
 							{/if}
@@ -88,9 +92,7 @@
 <script>
 	import { plus as plusIcon, remove as removeIcon } from 'svelte-awesome/icons'
 	import FieldArtPicker from './FieldArtPicker.svelte'
-	import FieldCheckbox from './FieldCheckbox.svelte'
-	import FieldNumber from './FieldNumber.svelte'
-	import FieldText from './FieldText.svelte'
+	import FieldParticles from './FieldParticles.svelte'
 	import Icon from 'svelte-awesome'
 	import InputSelect from './InputSelect.svelte'
 

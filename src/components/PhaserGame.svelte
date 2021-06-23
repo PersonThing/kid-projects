@@ -15,20 +15,21 @@
 {/if}
 
 <script>
+	import { gridSize, gravityPixelsPerSecond } from './PhaserGame/Constants'
+	import { migrateLevel, migrateCharacter } from './PhaserGame/SaveDataMigrator'
 	import { onMount, onDestroy } from 'svelte'
 	import { rgbaStringToHex } from '../services/rgba-to-hex'
 	import Enemy from './PhaserGame/Enemy'
+	import Follower from './PhaserGame/Follower'
 	import GameOver from './GameOver.svelte'
+	import getAnimationKey from './PhaserGame/GetAnimationKey'
 	import Instructions from './Instructions.svelte'
 	import Paused from './Paused.svelte'
 	import Player from './PhaserGame/Player'
 	import project from '../stores/active-project-store'
-	import getAnimationKey from './PhaserGame/GetAnimationKey'
-	import Follower from './PhaserGame/Follower'
 	import SkillKeys from './PhaserGame/SkillKeys'
 	import TemporaryAbilityBar from './PhaserGame/TemporaryAbilityBar.svelte'
-	import { gridSize, gravityPixelsPerSecond } from './PhaserGame/Constants'
-	import { migrateLevel, migrateCharacter } from './PhaserGame/SaveDataMigrator'
+	import { createParticles } from '../services/particles'
 
 	export let levelName = null
 	let level
@@ -161,11 +162,20 @@
 					// blocks
 					...distinctBlocks.map(b => b.graphic),
 
+					// block particles
+					...distinctBlocks.filter(b => b.particles?.enabled && b.particles.graphic != null).flatMap(b => b.particles.graphic),
+
 					// characters
 					...distinctCharacters.flatMap(c => Object.keys(c.graphics).map(key => c.graphics[key])),
 
+					// character particles
+					...distinctCharacters.filter(c => c.particles?.enabled && c.particles.graphic != null).flatMap(c => c.particles.graphic),
+
 					// character abilities
 					...distinctCharacters.flatMap(c => c.abilities.flatMap(a => Object.keys(a.graphics).map(key => a.graphics[key]))),
+
+					// character abilities particles
+					...distinctCharacters.flatMap(c => c.abilities.filter(a => a.particles?.enabled && a.particles.graphic != null).map(a => a.particles.graphic)),
 
 					// enemies
 					...distinctEnemies.flatMap(e => Object.keys(e.graphics).map(key => e.graphics[key])),
@@ -237,6 +247,10 @@
 		const createBlock = (group, b) => {
 			const block = group.create(translateX(b.x * gridSize, gridSize), translateY(b.y * gridSize, gridSize), b.art.name)
 			if (b.art.animated) block.anims.play(getAnimationKey(b.art.name), true)
+			if (b.particles?.enabled) {
+				const { particles, emitter } = createParticles(this, b.particles, block)
+				block.particles = particles
+			}
 			block.template = b.template
 		}
 		blocks.forEach(b => {
@@ -265,6 +279,9 @@
 		player = this.physics.add.existing(
 			new Player(this, translateX(0, template.graphics.still.width), startingY, character.graphics.still.name, template, keys)
 		)
+		if (template.particles?.enabled) {
+			createParticles(this, template.particles, player)
+		}
 		this.player = player
 		this.physics.add.collider(player, this.simpleBlocksGroup)
 		this.physics.add.collider(player, this.effectBlocksGroup, onEffectBlockCollision)
@@ -337,11 +354,11 @@
 			const y = player.body.y - (template.graphics.still.height - player.graphics.still.height)
 			const follower = new Follower(scene, player.x, y, template.graphics.still.name, template, player, followerLeashRange)
 			scene.followers.add(follower)
+			if (template.particles?.enabled) createParticles(this, template.particles, follower)
 		})
 	}
 
 	function addEnemies(enemies) {
-		console.log('spawning enemies', enemies)
 		enemies.forEach(([name, x, y]) => {
 			const template = hydrateGraphics($project.enemies[name])
 			const enemy = new Enemy(
@@ -371,7 +388,6 @@
 	}
 
 	function onWinBlockOverlap(sprite, block) {
-		console.log('you should win, you touched the block')
 		winBlockTouched = true
 	}
 
@@ -382,10 +398,10 @@
 		if (block.template.followerOnConsume != null) addFollowers(block.template.followerOnConsume)
 		// we could allow spawning enemies at specific points rather than right where the block was
 		if (block.template.enemyOnConsume != null) {
-			console.log('should spawn enemies from block', block)
 			addEnemies(block.template.enemyOnConsume.map(name => ([name, block.x, block.y - block.height])))
 		}
 		block.disableBody(true, true)
+		if (block.particles) block.particles.destroy()
 		block.destroy()
 	}
 
