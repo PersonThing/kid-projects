@@ -95,6 +95,7 @@
 	import FieldParticles from './FieldParticles.svelte'
 	import Icon from 'svelte-awesome'
 	import InputSelect from './InputSelect.svelte'
+	import { buildDefaultParticlesConfig } from '../services/particles'
 
 	export let abilities = []
 	export let requireKeybinds = true // whether to show key bind field
@@ -127,7 +128,7 @@
 				projectile: null,
 			},
 
-			// TODO: settings for emitters or other cool stuff Phaser can do?
+			particles: buildDefaultParticlesConfig()
 		}
 	}
 </script>

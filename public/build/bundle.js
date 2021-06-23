@@ -32513,9 +32513,9 @@ var app = (function () {
 
     function get_each_context$4(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[20] = list[i];
-    	child_ctx[21] = list;
-    	child_ctx[22] = i;
+    	child_ctx[21] = list[i];
+    	child_ctx[22] = list;
+    	child_ctx[23] = i;
     	return child_ctx;
     }
 
@@ -32557,25 +32557,25 @@ var app = (function () {
     	let current;
 
     	function inputselect_value_binding(value) {
-    		/*inputselect_value_binding*/ ctx[7](value, /*a*/ ctx[20]);
+    		/*inputselect_value_binding*/ ctx[7](value, /*a*/ ctx[21]);
     	}
 
     	let inputselect_props = {
-    		name: "ability-key-" + /*i*/ ctx[22],
+    		name: "ability-key-" + /*i*/ ctx[23],
     		inline: true,
     		options: /*availableKeys*/ ctx[2],
     		$$slots: {
     			default: [
     				create_default_slot$4,
-    				({ option }) => ({ 23: option }),
-    				({ option }) => option ? 8388608 : 0
+    				({ option }) => ({ 24: option }),
+    				({ option }) => option ? 16777216 : 0
     			]
     		},
     		$$scope: { ctx }
     	};
 
-    	if (/*a*/ ctx[20].key !== void 0) {
-    		inputselect_props.value = /*a*/ ctx[20].key;
+    	if (/*a*/ ctx[21].key !== void 0) {
+    		inputselect_props.value = /*a*/ ctx[21].key;
     	}
 
     	inputselect = new InputSelect({ props: inputselect_props, $$inline: true });
@@ -32596,13 +32596,13 @@ var app = (function () {
     			ctx = new_ctx;
     			const inputselect_changes = {};
 
-    			if (dirty & /*$$scope, option*/ 8912896) {
+    			if (dirty & /*$$scope, option*/ 17301504) {
     				inputselect_changes.$$scope = { dirty, ctx };
     			}
 
     			if (!updating_value && dirty & /*abilities*/ 1) {
     				updating_value = true;
-    				inputselect_changes.value = /*a*/ ctx[20].key;
+    				inputselect_changes.value = /*a*/ ctx[21].key;
     				add_flush_callback(() => updating_value = false);
     			}
 
@@ -32636,7 +32636,7 @@ var app = (function () {
 
     // (38:9) <InputSelect name="ability-key-{i}" inline options={availableKeys} let:option bind:value={a.key}>
     function create_default_slot$4(ctx) {
-    	let t_value = /*option*/ ctx[23].value + "";
+    	let t_value = /*option*/ ctx[24].value + "";
     	let t;
 
     	const block = {
@@ -32647,7 +32647,7 @@ var app = (function () {
     			insert_dev(target, t, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*option*/ 8388608 && t_value !== (t_value = /*option*/ ctx[23].value + "")) set_data_dev(t, t_value);
+    			if (dirty & /*option*/ 16777216 && t_value !== (t_value = /*option*/ ctx[24].value + "")) set_data_dev(t, t_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(t);
@@ -32717,16 +32717,16 @@ var app = (function () {
     	let dispose;
 
     	function fieldartpicker_value_binding_1(value) {
-    		/*fieldartpicker_value_binding_1*/ ctx[15](value, /*a*/ ctx[20]);
+    		/*fieldartpicker_value_binding_1*/ ctx[15](value, /*a*/ ctx[21]);
     	}
 
     	let fieldartpicker_props = {
-    		name: "ability-graphics-projectile-" + /*i*/ ctx[22],
+    		name: "ability-graphics-projectile-" + /*i*/ ctx[23],
     		placeholder: "Projectile graphic"
     	};
 
-    	if (/*a*/ ctx[20].graphics.projectile !== void 0) {
-    		fieldartpicker_props.value = /*a*/ ctx[20].graphics.projectile;
+    	if (/*a*/ ctx[21].graphics.projectile !== void 0) {
+    		fieldartpicker_props.value = /*a*/ ctx[21].graphics.projectile;
     	}
 
     	fieldartpicker = new FieldArtPicker({
@@ -32737,23 +32737,23 @@ var app = (function () {
     	binding_callbacks.push(() => bind(fieldartpicker, "value", fieldartpicker_value_binding_1));
 
     	function input0_input_handler_1() {
-    		/*input0_input_handler_1*/ ctx[16].call(input0, /*each_value*/ ctx[21], /*i*/ ctx[22]);
+    		/*input0_input_handler_1*/ ctx[16].call(input0, /*each_value*/ ctx[22], /*i*/ ctx[23]);
     	}
 
     	function input1_change_handler() {
-    		/*input1_change_handler*/ ctx[17].call(input1, /*each_value*/ ctx[21], /*i*/ ctx[22]);
+    		/*input1_change_handler*/ ctx[17].call(input1, /*each_value*/ ctx[22], /*i*/ ctx[23]);
     	}
 
     	function fieldparticles_value_binding(value) {
-    		/*fieldparticles_value_binding*/ ctx[18](value, /*a*/ ctx[20]);
+    		/*fieldparticles_value_binding*/ ctx[18](value, /*a*/ ctx[21]);
     	}
 
     	let fieldparticles_props = {
-    		name: "ability-" + /*i*/ ctx[22] + "-particles"
+    		name: "ability-" + /*i*/ ctx[23] + "-particles"
     	};
 
-    	if (/*a*/ ctx[20].particles !== void 0) {
-    		fieldparticles_props.value = /*a*/ ctx[20].particles;
+    	if (/*a*/ ctx[21].particles !== void 0) {
+    		fieldparticles_props.value = /*a*/ ctx[21].particles;
     	}
 
     	fieldparticles = new FieldParticles({
@@ -32793,11 +32793,11 @@ var app = (function () {
     			insert_dev(target, t0, anchor);
     			insert_dev(target, td1, anchor);
     			append_dev(td1, input0);
-    			set_input_value(input0, /*a*/ ctx[20].projectileVelocity);
+    			set_input_value(input0, /*a*/ ctx[21].projectileVelocity);
     			insert_dev(target, t1, anchor);
     			insert_dev(target, td2, anchor);
     			append_dev(td2, input1);
-    			input1.checked = /*a*/ ctx[20].projectilePassThroughBlocks;
+    			input1.checked = /*a*/ ctx[21].projectilePassThroughBlocks;
     			insert_dev(target, t2, anchor);
     			insert_dev(target, td3, anchor);
     			mount_component(fieldparticles, td3, null);
@@ -32818,25 +32818,25 @@ var app = (function () {
 
     			if (!updating_value && dirty & /*abilities*/ 1) {
     				updating_value = true;
-    				fieldartpicker_changes.value = /*a*/ ctx[20].graphics.projectile;
+    				fieldartpicker_changes.value = /*a*/ ctx[21].graphics.projectile;
     				add_flush_callback(() => updating_value = false);
     			}
 
     			fieldartpicker.$set(fieldartpicker_changes);
 
-    			if (dirty & /*abilities*/ 1 && to_number(input0.value) !== /*a*/ ctx[20].projectileVelocity) {
-    				set_input_value(input0, /*a*/ ctx[20].projectileVelocity);
+    			if (dirty & /*abilities*/ 1 && to_number(input0.value) !== /*a*/ ctx[21].projectileVelocity) {
+    				set_input_value(input0, /*a*/ ctx[21].projectileVelocity);
     			}
 
     			if (dirty & /*abilities*/ 1) {
-    				input1.checked = /*a*/ ctx[20].projectilePassThroughBlocks;
+    				input1.checked = /*a*/ ctx[21].projectilePassThroughBlocks;
     			}
 
     			const fieldparticles_changes = {};
 
     			if (!updating_value_1 && dirty & /*abilities*/ 1) {
     				updating_value_1 = true;
-    				fieldparticles_changes.value = /*a*/ ctx[20].particles;
+    				fieldparticles_changes.value = /*a*/ ctx[21].particles;
     				add_flush_callback(() => updating_value_1 = false);
     			}
 
@@ -32922,30 +32922,30 @@ var app = (function () {
     		});
 
     	function click_handler() {
-    		return /*click_handler*/ ctx[6](/*i*/ ctx[22]);
+    		return /*click_handler*/ ctx[6](/*i*/ ctx[23]);
     	}
 
     	let if_block0 = /*requireKeybinds*/ ctx[1] && create_if_block_1$5(ctx);
 
     	function input0_input_handler() {
-    		/*input0_input_handler*/ ctx[8].call(input0, /*each_value*/ ctx[21], /*i*/ ctx[22]);
+    		/*input0_input_handler*/ ctx[8].call(input0, /*each_value*/ ctx[22], /*i*/ ctx[23]);
     	}
 
     	function input1_input_handler() {
-    		/*input1_input_handler*/ ctx[9].call(input1, /*each_value*/ ctx[21], /*i*/ ctx[22]);
+    		/*input1_input_handler*/ ctx[9].call(input1, /*each_value*/ ctx[22], /*i*/ ctx[23]);
     	}
 
     	function fieldartpicker_value_binding(value) {
-    		/*fieldartpicker_value_binding*/ ctx[10](value, /*a*/ ctx[20]);
+    		/*fieldartpicker_value_binding*/ ctx[10](value, /*a*/ ctx[21]);
     	}
 
     	let fieldartpicker_props = {
-    		name: "ability-graphics-character-" + /*i*/ ctx[22],
+    		name: "ability-graphics-character-" + /*i*/ ctx[23],
     		placeholder: "Character graphic"
     	};
 
-    	if (/*a*/ ctx[20].graphics.character !== void 0) {
-    		fieldartpicker_props.value = /*a*/ ctx[20].graphics.character;
+    	if (/*a*/ ctx[21].graphics.character !== void 0) {
+    		fieldartpicker_props.value = /*a*/ ctx[21].graphics.character;
     	}
 
     	fieldartpicker = new FieldArtPicker({
@@ -32956,26 +32956,26 @@ var app = (function () {
     	binding_callbacks.push(() => bind(fieldartpicker, "value", fieldartpicker_value_binding));
 
     	function input2_input_handler() {
-    		/*input2_input_handler*/ ctx[11].call(input2, /*each_value*/ ctx[21], /*i*/ ctx[22]);
+    		/*input2_input_handler*/ ctx[11].call(input2, /*each_value*/ ctx[22], /*i*/ ctx[23]);
     	}
 
     	function input3_change_handler() {
-    		/*input3_change_handler*/ ctx[12].call(input3, /*each_value*/ ctx[21], /*i*/ ctx[22]);
+    		/*input3_change_handler*/ ctx[12].call(input3, /*each_value*/ ctx[22], /*i*/ ctx[23]);
     	}
 
     	function input4_input_handler() {
-    		/*input4_input_handler*/ ctx[13].call(input4, /*each_value*/ ctx[21], /*i*/ ctx[22]);
+    		/*input4_input_handler*/ ctx[13].call(input4, /*each_value*/ ctx[22], /*i*/ ctx[23]);
     	}
 
     	function input5_change_handler() {
-    		/*input5_change_handler*/ ctx[14].call(input5, /*each_value*/ ctx[21], /*i*/ ctx[22]);
+    		/*input5_change_handler*/ ctx[14].call(input5, /*each_value*/ ctx[22], /*i*/ ctx[23]);
     	}
 
     	const if_block_creators = [create_if_block$b, create_else_block$2];
     	const if_blocks = [];
 
     	function select_block_type(ctx, dirty) {
-    		if (/*a*/ ctx[20].projectile) return 0;
+    		if (/*a*/ ctx[21].projectile) return 0;
     		return 1;
     	}
 
@@ -33053,30 +33053,30 @@ var app = (function () {
     			append_dev(tr, t1);
     			append_dev(tr, td1);
     			append_dev(td1, input0);
-    			set_input_value(input0, /*a*/ ctx[20].range);
+    			set_input_value(input0, /*a*/ ctx[21].range);
     			append_dev(tr, t2);
     			append_dev(tr, td2);
     			append_dev(td2, input1);
-    			set_input_value(input1, /*a*/ ctx[20].name);
+    			set_input_value(input1, /*a*/ ctx[21].name);
     			append_dev(tr, t3);
     			append_dev(tr, td3);
     			mount_component(fieldartpicker, td3, null);
     			append_dev(tr, t4);
     			append_dev(tr, td4);
     			append_dev(td4, input2);
-    			set_input_value(input2, /*a*/ ctx[20].damage);
+    			set_input_value(input2, /*a*/ ctx[21].damage);
     			append_dev(tr, t5);
     			append_dev(tr, td5);
     			append_dev(td5, input3);
-    			input3.checked = /*a*/ ctx[20].damageBlocksOnHit;
+    			input3.checked = /*a*/ ctx[21].damageBlocksOnHit;
     			append_dev(tr, t6);
     			append_dev(tr, td6);
     			append_dev(td6, input4);
-    			set_input_value(input4, /*a*/ ctx[20].attackRateMs);
+    			set_input_value(input4, /*a*/ ctx[21].attackRateMs);
     			append_dev(tr, t7);
     			append_dev(tr, td7);
     			append_dev(td7, input5);
-    			input5.checked = /*a*/ ctx[20].projectile;
+    			input5.checked = /*a*/ ctx[21].projectile;
     			append_dev(tr, t8);
     			if_blocks[current_block_type_index].m(tr, null);
     			append_dev(tr, t9);
@@ -33122,38 +33122,38 @@ var app = (function () {
     				check_outros();
     			}
 
-    			if (dirty & /*abilities*/ 1 && to_number(input0.value) !== /*a*/ ctx[20].range) {
-    				set_input_value(input0, /*a*/ ctx[20].range);
+    			if (dirty & /*abilities*/ 1 && to_number(input0.value) !== /*a*/ ctx[21].range) {
+    				set_input_value(input0, /*a*/ ctx[21].range);
     			}
 
-    			if (dirty & /*abilities*/ 1 && input1.value !== /*a*/ ctx[20].name) {
-    				set_input_value(input1, /*a*/ ctx[20].name);
+    			if (dirty & /*abilities*/ 1 && input1.value !== /*a*/ ctx[21].name) {
+    				set_input_value(input1, /*a*/ ctx[21].name);
     			}
 
     			const fieldartpicker_changes = {};
 
     			if (!updating_value && dirty & /*abilities*/ 1) {
     				updating_value = true;
-    				fieldartpicker_changes.value = /*a*/ ctx[20].graphics.character;
+    				fieldartpicker_changes.value = /*a*/ ctx[21].graphics.character;
     				add_flush_callback(() => updating_value = false);
     			}
 
     			fieldartpicker.$set(fieldartpicker_changes);
 
-    			if (dirty & /*abilities*/ 1 && to_number(input2.value) !== /*a*/ ctx[20].damage) {
-    				set_input_value(input2, /*a*/ ctx[20].damage);
+    			if (dirty & /*abilities*/ 1 && to_number(input2.value) !== /*a*/ ctx[21].damage) {
+    				set_input_value(input2, /*a*/ ctx[21].damage);
     			}
 
     			if (dirty & /*abilities*/ 1) {
-    				input3.checked = /*a*/ ctx[20].damageBlocksOnHit;
+    				input3.checked = /*a*/ ctx[21].damageBlocksOnHit;
     			}
 
-    			if (dirty & /*abilities*/ 1 && to_number(input4.value) !== /*a*/ ctx[20].attackRateMs) {
-    				set_input_value(input4, /*a*/ ctx[20].attackRateMs);
+    			if (dirty & /*abilities*/ 1 && to_number(input4.value) !== /*a*/ ctx[21].attackRateMs) {
+    				set_input_value(input4, /*a*/ ctx[21].attackRateMs);
     			}
 
     			if (dirty & /*abilities*/ 1) {
-    				input5.checked = /*a*/ ctx[20].projectile;
+    				input5.checked = /*a*/ ctx[21].projectile;
     			}
 
     			let previous_block_index = current_block_type_index;
@@ -33461,7 +33461,7 @@ var app = (function () {
     				if_block = null;
     			}
 
-    			if (dirty & /*abilities, availableKeys, option, requireKeybinds, removeAbility, removeIcon*/ 8388631) {
+    			if (dirty & /*abilities, availableKeys, option, requireKeybinds, removeAbility, removeIcon*/ 16777239) {
     				each_value = /*abilities*/ ctx[0];
     				validate_each_argument(each_value);
     				let i;
@@ -33533,21 +33533,6 @@ var app = (function () {
     	return block;
     }
 
-    function createDefaultAbility() {
-    	return {
-    		name: "",
-    		key: "R",
-    		range: 400,
-    		damage: 50,
-    		attackRateMs: 500,
-    		projectile: false,
-    		projectileVelocity: 500,
-    		projectilePassThroughBlocks: false,
-    		damageBlocksOnHit: false,
-    		graphics: { character: null, projectile: null }
-    	}; // TODO: settings for emitters or other cool stuff Phaser can do?
-    }
-
     function instance$f($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots("FieldAbilities", slots, ['default']);
@@ -33562,6 +33547,22 @@ var app = (function () {
     	function removeAbility(i) {
     		abilities.splice(i, 1);
     		$$invalidate(0, abilities);
+    	}
+
+    	function createDefaultAbility() {
+    		return {
+    			name: "",
+    			key: "R",
+    			range: 400,
+    			damage: 50,
+    			attackRateMs: 500,
+    			projectile: false,
+    			projectileVelocity: 500,
+    			projectilePassThroughBlocks: false,
+    			damageBlocksOnHit: false,
+    			graphics: { character: null, projectile: null },
+    			particles: buildDefaultParticlesConfig()
+    		};
     	}
 
     	const writable_props = ["abilities", "requireKeybinds"];
@@ -33653,6 +33654,7 @@ var app = (function () {
     		FieldParticles,
     		Icon,
     		InputSelect,
+    		buildDefaultParticlesConfig,
     		abilities,
     		requireKeybinds,
     		availableKeys,
