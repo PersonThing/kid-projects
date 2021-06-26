@@ -6,7 +6,7 @@
 			<Paused />
 		{/if}
 		{#if player}
-			<TemporaryAbilityBar abilities={character.abilities} activeKey={player.abilityBar.activeKey} />
+			<TemporaryAbilityBar abilities={character.abilities} {activeKeyStore} />
 		{/if}
 		<div bind:this={container} />
 	{/if}
@@ -32,6 +32,9 @@
 	import SkillKeys from './PhaserGame/SkillKeys'
 	import TemporaryAbilityBar from './PhaserGame/TemporaryAbilityBar.svelte'
 	import { createParticles, hasParticlesConfigured } from '../services/particles'
+	import { writable } from 'svelte/store'
+
+	const activeKeyStore = writable(null)
 
 	export let levelId = null
 	let level
@@ -271,7 +274,7 @@
 			translateY(Math.max(...blocks.filter(b => b.x == 0).map(b => b.y * gridSize)), gridSize) - $project.art[character.graphics.still].height
 		const template = hydrateGraphics(character)
 		player = this.physics.add.existing(
-			new Player(this, translateX(0, template.graphics.still.width), startingY, character.graphics.still.id, template, keys)
+			new Player(this, translateX(0, template.graphics.still.width), startingY, character.graphics.still.id, template, keys, activeKeyStore)
 		)
 		this.player = player
 		this.physics.add.collider(player, this.simpleBlocksGroup)

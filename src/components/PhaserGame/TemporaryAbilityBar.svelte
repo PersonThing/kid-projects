@@ -3,7 +3,7 @@
 <div class="ability-bar">
 	{#if abilities != null}
 		{#each abilities as ability}
-			<div class="ability-button" class:active={activeKey == ability.key}>
+			<div class="ability-button" class:active={$activeKeyStore == ability.key}>
 				<div class="ability-key">{ability.key}</div>
 				<Art id={ability.graphics.projectile || ability.graphics.character} />
 				<div class="ability-name">{ability.name}</div>
@@ -16,7 +16,9 @@
 	import Art from '../Art.svelte'
 
 	export let abilities
-	export let activeKey
+	export let activeKeyStore
+
+	$: console.log('active key change', $activeKeyStore)
 </script>
 
 <style lang="scss">
@@ -27,6 +29,7 @@
 		z-index: 1000;
 		display: flex;
 		flex-direction: row;
+		user-select: none;
 
 		.ability-button {
 			background: rgba(0, 0, 0, 0.5);

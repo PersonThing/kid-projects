@@ -3,7 +3,7 @@ import AbilityBar from './AbilityBar'
 import LivingSprite from './LivingSprite'
 
 export default class Player extends LivingSprite {
-	constructor(scene, x, y, texture, template, keys) {
+	constructor(scene, x, y, texture, template, keys, activeKeyStore) {
 		super(scene, x, y, texture, template)
 
 		this.keys = keys
@@ -15,7 +15,8 @@ export default class Player extends LivingSprite {
 		this.depth = 3
 
 		// manage user input for abilities & show a little widget
-		this.abilityBar = new AbilityBar(scene, this.abilities, keys, template.abilities.length ? template.abilities[0].key : null)
+		const initialActiveKey = template.abilities.length ? template.abilities[0].key : null
+		this.abilityBar = new AbilityBar(scene, this.abilities, keys, activeKeyStore, initialActiveKey)
 
 		this.pointerIsDown = false
 		this.scene.input.on('pointerdown', pointer => this.setPointerDown(pointer))

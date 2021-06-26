@@ -51,6 +51,7 @@
 <style>
 	.instructions {
 		padding: 10px;
+		user-select: none;
 	}
 
 	table td {
