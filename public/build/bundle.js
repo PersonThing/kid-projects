@@ -42449,12 +42449,12 @@ var app = (function () {
     			button.textContent = "Reset cleared levels / clear high scores";
     			attr_dev(h4, "class", h4_class_value = "mb-0 text-" + (/*lockedLevels*/ ctx[3].length ? "muted" : "success"));
     			add_location(h4, file$2, 39, 3, 1756);
+    			attr_dev(button, "class", "btn btn-light btn-sm mt-1");
+    			add_location(button, file$2, 48, 3, 2077);
     			attr_dev(div0, "class", "list-group-item");
     			add_location(div0, file$2, 38, 2, 1722);
     			attr_dev(div1, "class", "list-group");
     			add_location(div1, file$2, 9, 1, 522);
-    			attr_dev(button, "class", "btn btn-info btn-sm");
-    			add_location(button, file$2, 50, 1, 2094);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div1, anchor);
@@ -42467,8 +42467,8 @@ var app = (function () {
     			append_dev(div1, div0);
     			append_dev(div0, h4);
     			if_block.m(h4, null);
-    			insert_dev(target, t1, anchor);
-    			insert_dev(target, button, anchor);
+    			append_dev(div0, t1);
+    			append_dev(div0, button);
     			current = true;
 
     			if (!mounted) {
@@ -42543,8 +42543,6 @@ var app = (function () {
     			if (detaching) detach_dev(div1);
     			destroy_each(each_blocks, detaching);
     			if_block.d();
-    			if (detaching) detach_dev(t1);
-    			if (detaching) detach_dev(button);
     			mounted = false;
     			dispose();
     		}

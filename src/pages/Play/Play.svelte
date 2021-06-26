@@ -46,9 +46,9 @@
 				You beat the whole game!
 				{/if}
 			</h4>
+			<button on:click={resetPlayerData} class="btn btn-light btn-sm mt-1">Reset cleared levels / clear high scores</button>
 		</div>
 	</div>
-	<button on:click={resetPlayerData} class="btn btn-info btn-sm">Reset cleared levels / clear high scores</button>
 {/if}
 
 <script>
