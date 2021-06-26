@@ -6,23 +6,26 @@
 				name="selected-block"
 				inline
 				placeholder="Place a block"
-				options={Object.keys($project.blocks).map(name => $project.blocks[name])}
+				options={Object.values($project.blocks)}
 				let:option
-				valueProp="name"
+				valueProp="id"
 				bind:value={selectedBlock}
 				on:change={() => (selectedEnemy = null)}>
 				<div class="flex">
-					<Art name={$project.blocks[option.name].graphic} simple />
+					<Art id={option.graphic} simple />
 					<div class="ml-1">
 						<strong>{option.name}</strong>
-						{option.solid ? 'solid' : 'non-physical'}
-						{#if option.damage != null}, {option.damage} damage{/if}
-						{#if option.throwOnTouch}, throws on touch{/if}
-						{#if option.consumable}
-							, consumable for
-							{#if option.healthOnConsume > 0}{option.healthOnConsume} health{/if}
-							{#if option.scoreOnConsume > 0}{option.scoreOnConsume} score{/if}
-						{/if}
+						<div class="small">
+							{option.solid ? 'solid' : 'non-physical'}
+							{#if option.damage != null}, {option.damage} damage{/if}
+							{#if option.throwOnTouch}, throws on touch{/if}
+							{#if option.consumable}
+								{#if option.healthOnConsume > 0}, {option.healthOnConsume} health on consume{/if}
+								{#if option.scoreOnConsume > 0}, {option.scoreOnConsume} score on consume{/if}
+								{#if option.followerOnConsume?.length}, spawns <strong>{option.followerOnConsume.map(f => $project.characters[f].name).join(', ')}</strong> followers on consume{/if}
+								{#if option.enemyOnConsume?.length}, spawns <strong>{option.enemyOnConsume.map(e => $project.enemies[e].name).join(', ')}</strong> enemies on consume{/if}
+							{/if}
+						</div>
 					</div>
 				</div>
 			</InputSelect>
@@ -32,13 +35,13 @@
 				name="selected-block"
 				inline
 				placeholder="Place an enemy"
-				options={Object.keys($project.enemies).map(name => $project.enemies[name])}
+				options={Object.values($project.enemies)}
 				let:option
-				valueProp="name"
+				valueProp="id"
 				bind:value={selectedEnemy}
 				on:change={() => (selectedBlock = null)}>
 				<div class="flex">
-					<Art name={$project.enemies[option.name].graphics.still} simple />
+					<Art id={option.graphics.still} simple />
 					<div class="ml-1">
 						<strong>{option.name}</strong>
 						{option.maxHealth} health, {option.maxVelocity} speed, {option.score} score, {option.abilities.length} abilit{option.abilities.length != 1 ? 'ies' : 'y'}
@@ -59,6 +62,7 @@
 	</div>
 
 	<pre>{JSON.stringify(blocks)}</pre>
+	<pre>{JSON.stringify(enemies)}</pre>
 </div>
 
 <svelte:window on:mouseup={onMouseUp} />
@@ -71,51 +75,28 @@
 	import LevelPreview from './LevelPreview.svelte'
 	import InputSelect from './InputSelect.svelte'
 	import { gridSize } from './PhaserGame/Constants'
-	import { migrateLevel } from './PhaserGame/SaveDataMigrator'
 
 	export let background = null
-
-	// each block passed to <Level> needs x, y, width, height, png
 	export let thumbnail
 	export let blocks = []
 	export let enemies = []
 
-	// convert old format
-	$: if (blocks.some(b => b.x != null) === true || enemies.some(e => e.x != null) === true) {
-		const level = migrateLevel({blocks, enemies})
-		blocks = level.blocks
-		enemies = level.enemies
-	}
-
 	let selectedBlock = null
 	let selectedEnemy = null
 	let mouseDown = false
-
 	let levelContainer
-	let canvas
 	const thumbnailScale = 8
+
 	function onLevelDraw(e) {
 		const canvas = e.detail
 		thumbnail = makeThumbnail(canvas, width / thumbnailScale, height / thumbnailScale)
 	}
 
-	// todo let them draw higher, use wasd or arrows to navigate around level rather than scrolling
 	$: highestYUsed = blocks.length > 0 ? Math.max(...blocks.map(b => b[2] + 1)) : 0
-	$: console.log('highest y', highestYUsed, highestYUsed * gridSize)
 	$: height = Math.max(400, highestYUsed * gridSize + 300)
 
 	$: highestXUsed = blocks.length > 0 ? Math.max(...blocks.map(b => b[1] + 1)) : 0
 	$: width = Math.max(800, highestXUsed * gridSize + 500)
-
-	function selectBlock(name) {
-		selectedBlock = name
-		selectedEnemy = null
-	}
-
-	function selectEnemy(name) {
-		selectedBlock = null
-		selectedEnemy = name
-	}
 
 	function onPreviewPan(e) {
 		const centerTargetX = e.detail * thumbnailScale
@@ -129,6 +110,7 @@
 		if (e.altKey || e.button !== 0) {
 			selectedBlock = findBlockAtPosition(e)
 			selectedEnemy = findEnemyAtPosition(e)
+			console.log('mouse down', selectedBlock, selectedEnemy)
 		}
 
 		mouseDown = e.button === 0

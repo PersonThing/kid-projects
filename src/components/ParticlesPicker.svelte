@@ -1,13 +1,13 @@
 <div>
 	<InputSelect inline {name} bind:value let:option {options} filterable={options.length > 3} {placeholder}>
 		{#if option.graphic}
-			<Art name={option.graphic} />
+			<Art id={option.graphic} />
 		{/if}
-		{option.label}
+		{option.name}
 	</InputSelect>
 </div>
 {#if value != null}
-	<a href="#/{$project.name}/build/particles/{value}" class="ml-1">Edit {value} particles</a>
+	<a href="#/{$project.name}/build/particles/{value}" class="ml-1">Edit {$project.particles[value].name} particles</a>
 {/if}
 
 <script>
@@ -19,11 +19,10 @@
 	export let placeholder = 'Select particles'
 
 	$: options = [
-		{ value: null, label: 'No particles' },
-		...Object.keys($project.particles).sort().map(p => ({
-			value: p,
-			label: p,
-			...$project.particles[p]
+		{ value: null, name: 'No particles' },
+		...Object.values($project.particles).sort().map(p => ({
+			...p,
+			value: p.id
 		}))
 	]
 </script>

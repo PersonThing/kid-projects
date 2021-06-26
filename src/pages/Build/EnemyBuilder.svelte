@@ -11,7 +11,7 @@
 
 <BuildLayout tab="enemies" activeName={input.name} store={$project.enemies}>
 	<Form on:submit={save} {hasChanges}>
-		<FieldText name="name" bind:value={input.name}>Name</FieldText>
+		<FieldText name="name" bind:value={input.name} placeholder="Type a name...">Name</FieldText>
 		<FieldArtPicker bind:value={input.graphics.still}>Still graphics</FieldArtPicker>
 		<FieldArtPicker bind:value={input.graphics.moving}>Moving graphics</FieldArtPicker>
 		<FieldParticles bind:value={input.particles}>Emit particles?</FieldParticles>
@@ -24,7 +24,7 @@
 		<FieldAbilities name="abilities" bind:abilities={input.abilities} requireKeybinds={false}>Abilities</FieldAbilities>
 		<span slot="buttons">
 			{#if !isAdding}
-				<button type="button" class="btn btn-danger" on:click={() => del(input.name)}>Delete</button>
+				<button type="button" class="btn btn-danger" on:click={del}>Delete</button>
 			{/if}
 		</span>
 	</Form>
@@ -42,21 +42,23 @@
 	import validator from '../../services/validator'
 	import FieldAbilities from '../../components/FieldAbilities.svelte'
 	import FieldParticles from '../../components/FieldParticles.svelte'
+	import { getNextId } from '../../stores/project-store'
 
 	export let params = {}
-	let input
-	$: paramName = decodeURIComponent(params.name) || 'new'
-	$: paramName == 'new' ? create() : edit(paramName)
-	$: isAdding = paramName == 'new'
-	$: hasChanges = input != null && !validator.equals(input, $project.enemies[input.name])
+	let input = createDefaultInput()
+	$: paramId = decodeURIComponent(params.id) || 'new'
+	$: paramId == 'new' ? create() : edit(paramId)
+	$: isAdding = input.id == null
+	$: hasChanges = input != null && !validator.equals(input, $project.enemies[input.id])
 
 	function save() {
 		if (validator.empty(input.name)) {
 			document.getElementById('name').focus()
 			return
 		}
-		$project.enemies[input.name] = JSON.parse(JSON.stringify(input))
-		push(`/${$project.name}/build/enemies/${encodeURIComponent(input.name)}`)
+		if (isAdding) input.id = getNextId($project.enemies)
+		$project.enemies[input.id] = JSON.parse(JSON.stringify(input))
+		push(`/${$project.name}/build/enemies/${encodeURIComponent(input.id)}`)
 	}
 
 	function edit(name) {
@@ -88,9 +90,9 @@
 		}
 	}
 
-	function del(name) {
-		if (confirm(`Are you sure you want to delete "${name}"?`)) {
-			delete $project.enemies[name]
+	function del() {
+		if (confirm(`Are you sure you want to delete "${input.name}"?`)) {
+			delete $project.enemies[input.id]
 			$project.enemies = $project.enemies
 			push(`/${$project.name}/build/enemies/new`)
 		}

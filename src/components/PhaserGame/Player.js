@@ -15,7 +15,7 @@ export default class Player extends LivingSprite {
 		this.depth = 3
 
 		// manage user input for abilities & show a little widget
-		this.abilityBar = new AbilityBar(scene, this.abilities, keys)
+		this.abilityBar = new AbilityBar(scene, this.abilities, keys, template.abilities.length ? template.abilities[0].key : null)
 
 		this.pointerIsDown = false
 		this.scene.input.on('pointerdown', pointer => this.setPointerDown(pointer))

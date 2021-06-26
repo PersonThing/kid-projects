@@ -2,7 +2,7 @@
 	<Form on:submit={save} {hasChanges}>
 		<div class="flex align-top g1">
 			<div class="flex-grow">
-				<FieldText name="name" bind:value={input.name}>Name</FieldText>
+				<FieldText name="name" bind:value={input.name} placeholder="Type a name...">Name</FieldText>
 				<FieldArtPicker bind:value={input.graphic}>Graphic</FieldArtPicker>
 				<FieldRange name="alpha-start" bind:value={input.alpha.start} min=0 max=1 step=0.1>Alpha start</FieldRange>
 				<FieldRange name="alpha-end" bind:value={input.alpha.end} min=0 max=1 step=0.1>Alpha end</FieldRange>
@@ -33,7 +33,7 @@
 
 		<span slot="buttons">
 			{#if !isAdding}
-				<button type="button" class="btn btn-danger" on:click={() => del(input.name)}>Delete</button>
+				<button type="button" class="btn btn-danger" on:click={del}>Delete</button>
 			{/if}
 		</span>
 	</Form>
@@ -53,17 +53,18 @@
 	import ParticlesPreview from '../../components/ParticlesPreview.svelte'
 	import project from '../../stores/active-project-store'
 	import validator from '../../services/validator'
+	import { getNextId } from '../../stores/project-store'
 
 	export let params = {}
 
-	let input
+	let input = createDefaultInput()
 	let previewBackgroundColor = 'rgba(43, 43, 43, 255)'
 	let canRender = false
 
-	$: paramName = decodeURIComponent(params.name) || 'new'
-	$: paramName == 'new' ? create() : edit(paramName)
-	$: isAdding = paramName == 'new'
-	$: hasChanges = input != null && !validator.equals(input, $project.particles[input.name])
+	$: paramId = decodeURIComponent(params.id) || 'new'
+	$: paramId == 'new' ? create() : edit(paramId)
+	$: isAdding = input.id == null
+	$: hasChanges = input != null && !validator.equals(input, $project.particles[input.id])
 
 	// re-render preview whenever anything in input or preview background color changes
 	$: if (input && previewBackgroundColor) {
@@ -78,8 +79,9 @@
 			document.getElementById('name').focus()
 			return
 		}
-		$project.particles[input.name] = JSON.parse(JSON.stringify(input))
-		push(`/${$project.name}/build/particles/${encodeURIComponent(input.name)}`)
+		if (isAdding) input.id = getNextId($project.particles)
+		$project.particles[input.id] = JSON.parse(JSON.stringify(input))
+		push(`/${$project.name}/build/particles/${encodeURIComponent(input.id)}`)
 	}
 
 	function edit(name) {
@@ -91,12 +93,16 @@
 	}
 
 	function create() {
-		input = buildDefaultParticlesConfig()
+		input = createDefaultInput()
 	}
 
-	function del(name) {
-		if (confirm(`Are you sure you want to delete "${name}"?`)) {
-			delete $project.particles[name]
+	function createDefaultInput() {
+		return buildDefaultParticlesConfig()
+	}
+
+	function del() {
+		if (confirm(`Are you sure you want to delete "${input.name}"?`)) {
+			delete $project.particles[input.id]
 			$project.particles = $project.particles
 			push(`/${$project.name}/build/particles/new`)
 		}

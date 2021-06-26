@@ -5,7 +5,7 @@ const buttonSpacing = 5
 const buttonFontSize = 12
 
 export default class AbilityBar {
-	constructor(scene, abilities, keys) {
+	constructor(scene, abilities, keys, initialActiveKey) {
 		this.abilities = abilities
 		this.activeKey = abilities.length > 0 ? abilities[0].key : null
 		this.bar = new Phaser.GameObjects.Graphics(scene)
@@ -20,6 +20,8 @@ export default class AbilityBar {
 			const key = keys[k]
 			key.on('down', event => this.setActiveKey(k))
 		})
+
+		this.activeKey = initialActiveKey
 	}
 
 	draw() {
@@ -39,7 +41,6 @@ export default class AbilityBar {
 	}
 
 	setActiveKey(key) {
-		console.log('setting active key', key)
 		this.activeKey = key
 		this.draw()
 	}

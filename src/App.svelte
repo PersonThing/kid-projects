@@ -4,6 +4,7 @@
 			<a class="nav-link" use:active={`/${encodeURIComponent(p.name)}/*`} href="#/{encodeURIComponent(p.name)}/">{p.name}</a>
 		</li>
 	{/each}
+
 	<li class="nav-item">
 		<a class="nav-link" href="#/new" on:click|preventDefault={startNewProject}>
 			<Icon data={addIcon} />

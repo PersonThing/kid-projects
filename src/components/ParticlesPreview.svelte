@@ -97,13 +97,13 @@
 		preloadedData.forEach(art => {
 			if (art.animated) {
 				// animated spritesheet
-				this.textures.addSpriteSheet(art.name, art.image, {
+				this.textures.addSpriteSheet(art.id, art.image, {
 					frameWidth: art.frameWidth,
 					frameHeight: art.height,
 				})
 				this.anims.create({
-					key: getAnimationKey(art.name),
-					frames: this.anims.generateFrameNumbers(art.name, {
+					key: getAnimationKey(art.id),
+					frames: this.anims.generateFrameNumbers(art.id, {
 						start: 0,
 						end: Math.ceil(art.width / art.frameWidth),
 					}),
@@ -113,7 +113,7 @@
 				})
 			} else {
 				// simple static image
-				this.textures.addImage(art.name, art.image)
+				this.textures.addImage(art.id, art.image)
 			}
 		})
 

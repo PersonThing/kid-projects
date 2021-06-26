@@ -14,18 +14,12 @@
 			{#each selectedOptions as option, index (option)}
 				{#if multiple}
 					{#if index > 0},{inline && index == selectedOptions.length - 1 ? ' and' : ''}{/if}
-					<span class="select-input-text">
-						<slot {option}>
-							{@html option.label}
-						</slot>
-					</span>
-				{:else}
-					<span class="select-input-text">
-						<slot {option}>
-							{@html option.label}
-						</slot>
-					</span>
 				{/if}
+				<span class="select-input-text">
+					<slot {option}>
+						{@html option.label}
+					</slot>
+				</span>
 			{/each}
 			{#if selectedOptions == null || selectedOptions.length === 0}
 				<span class="select-input-text">{placeholder != null ? placeholder : ''}</span>
@@ -280,6 +274,13 @@
 		position: relative;
 		cursor: pointer;
 
+		.item,
+		.select-input-text {
+			display: flex;
+			align-items: center;
+			gap: 3px;
+		}
+
 		&.inline {
 			display: inline-block;
 			vertical-align: top;
@@ -298,10 +299,6 @@
 
 			.dropdown-icon {
 				margin-left: 0.6rem;
-			}
-
-			.select-input-text {
-				display: inline-block;
 			}
 
 			.input-select-content {
@@ -331,6 +328,8 @@
 		z-index: 1055;
 		top: 100%;
 		left: 0;
+		max-height: 35vh;
+		overflow-y: auto;
 		-webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
 		box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
 		background-color: #fff;

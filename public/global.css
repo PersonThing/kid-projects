@@ -63,3 +63,19 @@ svg.fa-icon {
 	padding: 15px;
 	background: #efefef;
 }
+
+.nav {
+	height: 42px;
+}
+
+.page-container .art-preview {
+	width: 40px;
+	height: 40px;
+	overflow: hidden;
+	background: #eee;
+	border: 1px solid #ccc;
+	display: inline-flex;
+	align-items: center;
+	text-align: center;
+	border-radius: 5px;
+}

@@ -4,12 +4,12 @@
 	</strong>
 	<div>
 		<InputSelect inline {name} bind:value let:option {options} filterable={options.length > 3} {placeholder}>
-			<Art name={option.value} {spin} />
-			{option.value}
+			<Art id={option.id} {spin} />
+			{option.name}
 		</InputSelect>
 	</div>
 	{#if value != null}
-		<a href="#/{$project.name}/build/art/{value}" class="ml-1">Edit {value} art</a>
+		<a href="#/{$project.name}/build/art/{value}" class="ml-1">Edit {$project.art[value].name} art</a>
 	{/if}
 </div>
 
@@ -22,5 +22,8 @@
 	export let name = 'graphic-picker'
 	export let placeholder = 'Select art'
 
-	$: options = Object.keys($project.art).sort()
+	$: options = Object.values($project.art).sort().map(a => ({
+		...a,
+		value: a.id
+	}))
 </script>

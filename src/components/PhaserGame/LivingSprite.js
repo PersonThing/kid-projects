@@ -1,7 +1,7 @@
 import AbilityAttack from './AbilityAttack'
 import HealthBar from './HealthBar'
 import getAnimationKey from './GetAnimationKey'
-import { createParticles, hasParticlesConfigured } from '../../services/particles'
+import { createParticles, destroyParticles, hasParticlesConfigured } from '../../services/particles'
 
 export default class LivingSprite extends Phaser.Physics.Arcade.Sprite {
 	constructor(scene, x, y, texture, template) {
@@ -50,13 +50,13 @@ export default class LivingSprite extends Phaser.Physics.Arcade.Sprite {
 	setGraphic(art, ignoreIfPlaying = true) {
 		if (art == null) art = this.graphics.still
 
-		if (ignoreIfPlaying && this.activeGraphic != null && this.activeGraphic.name == art.name) return
+		if (ignoreIfPlaying && this.activeGraphic != null && this.activeGraphic.id == art.id) return
 		else this.anims.stop()
 
 		if (art.animated) {
-			this.anims.play(getAnimationKey(art.name), ignoreIfPlaying, 0)
+			this.anims.play(getAnimationKey(art.id), ignoreIfPlaying, 0)
 		} else {
-			this.setTexture(art.name)
+			this.setTexture(art.id)
 		}
 		this.activeGraphic = art
 	}
@@ -177,7 +177,7 @@ export default class LivingSprite extends Phaser.Physics.Arcade.Sprite {
 	}
 
 	destroy() {
-		if (this.particles) this.particles.destroy()
+		if (this.particles) destroyParticles(this.particles, this.emitter, this.template.particles.lifespan)
 		super.destroy()
 	}
 }

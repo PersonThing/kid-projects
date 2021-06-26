@@ -16,7 +16,6 @@
 
 <script>
 	import { gridSize, gravityPixelsPerSecond } from './PhaserGame/Constants'
-	import { migrateLevel, migrateCharacter } from './PhaserGame/SaveDataMigrator'
 	import { onMount, onDestroy } from 'svelte'
 	import { rgbaStringToHex } from '../services/rgba-to-hex'
 	import Enemy from './PhaserGame/Enemy'
@@ -31,20 +30,14 @@
 	import TemporaryAbilityBar from './PhaserGame/TemporaryAbilityBar.svelte'
 	import { createParticles, hasParticlesConfigured } from '../services/particles'
 
-	export let levelName = null
+	export let levelId = null
 	let level
 
-	export let characterName = null
+	export let characterId = null
 	let character
 
 	let scene
 
-	// TODO: status text
-	//   level: {}
-	//   score: {}
-	//   enemies left: {}
-
-	// TODO: make editable in level or on individual enemies
 	const attackRange = 400
 	const followerLeashRange = 600
 
@@ -71,8 +64,8 @@
 	let player
 
 	onMount(() => {
-		character = migrateCharacter($project.characters[characterName])
-		level = migrateLevel($project.levels[levelName])
+		character = $project.characters[characterId]
+		level = $project.levels[levelId]
 
 		maxLevelX = Math.max(...level.blocks.map(b => b[1] + 1)) * gridSize
 		maxLevelY = Math.max(...level.blocks.map(b => b[2] + 1)) * gridSize
@@ -152,43 +145,44 @@
 
 			const distinctCharacters = [
 				...new Set([
-					characterName,
+					character.id,
 					...character.followers,
 					...distinctBlocks.flatMap(b => b.followerOnConsume || [])
 				])
-			].map(c => $project.characters[c])
+			].map(id => $project.characters[id])
 			const allArt = [
 				...new Set([
 					// blocks
 					...distinctBlocks.map(b => b.graphic),
 
 					// particles
-					...Object.keys($project.particles).map(k => $project.particles[k].graphic),
+					...Object.values($project.particles).map(p => p.graphic),
 
 					// characters
-					...distinctCharacters.flatMap(c => Object.keys(c.graphics).map(key => c.graphics[key])),
+					...distinctCharacters.flatMap(c => Object.values(c.graphics)),
 
 					// character abilities
-					...distinctCharacters.flatMap(c => c.abilities.flatMap(a => Object.keys(a.graphics).map(key => a.graphics[key]))),
+					...distinctCharacters.flatMap(c => c.abilities.flatMap(a => Object.values(a.graphics))),
 
 					// enemies
-					...distinctEnemies.flatMap(e => Object.keys(e.graphics).map(key => e.graphics[key])),
+					...distinctEnemies.flatMap(e => Object.values(e.graphics)),
 
 					// enemy abilities
 					...distinctEnemies
 						.filter(e => e.abilities != null)
-						.flatMap(e => e.abilities.flatMap(a => Object.keys(a.graphics).map(key => a.graphics[key]))),
+						.flatMap(e => e.abilities.flatMap(a => Object.values(a.graphics))),
 				]),
-			].filter(name => name != null)
-			Promise.all(allArt.map(name => preloadArt(name))).then(data => {
+			].filter(id => id != null)
+			// console.log(distinctCharacters.flatMap(c => Object.values(c.graphics)).map(id => $project.art[id].name))
+			Promise.all(allArt.map(id => preloadArt(id))).then(data => {
 				preloadedData = data
 				resolve()
 			})
 		})
 	}
 
-	function preloadArt(name) {
-		const art = $project.art[name]
+	function preloadArt(id) {
+		const art = $project.art[id]
 		return new Promise((res, rej) => {
 			const image = new Image()
 			image.onload = () => {
@@ -210,13 +204,13 @@
 		preloadedData.forEach(art => {
 			if (art.animated) {
 				// animated spritesheet
-				this.textures.addSpriteSheet(art.name, art.image, {
+				this.textures.addSpriteSheet(art.id, art.image, {
 					frameWidth: art.frameWidth,
 					frameHeight: art.height,
 				})
 				this.anims.create({
-					key: getAnimationKey(art.name),
-					frames: this.anims.generateFrameNumbers(art.name, {
+					key: getAnimationKey(art.id),
+					frames: this.anims.generateFrameNumbers(art.id, {
 						start: 0,
 						end: Math.ceil(art.width / art.frameWidth),
 					}),
@@ -226,7 +220,7 @@
 				})
 			} else {
 				// simple static image
-				this.textures.addImage(art.name, art.image)
+				this.textures.addImage(art.id, art.image)
 			}
 		})
 
@@ -239,8 +233,8 @@
 		this.winBlocksGroup = this.physics.add.staticGroup()
 
 		const createBlock = (group, b) => {
-			const block = group.create(translateX(b.x * gridSize, gridSize), translateY(b.y * gridSize, gridSize), b.art.name)
-			if (b.art.animated) block.anims.play(getAnimationKey(b.art.name), true)
+			const block = group.create(translateX(b.x * gridSize, gridSize), translateY(b.y * gridSize, gridSize), b.art.id)
+			if (b.art.animated) block.anims.play(getAnimationKey(b.art.id), true)
 			if (hasParticlesConfigured(b)) {
 				const { particles, emitter } = createParticles(this, $project.particles[b.particles], block)
 				block.particles = particles
@@ -248,7 +242,6 @@
 			block.template = b.template
 		}
 		blocks.forEach(b => {
-			// console.log(b.name, b.x, b.y, translateX(b.x * gridSize, gridSize), translateY(b.y * gridSize, gridSize))
 			if (b.consumable) createBlock(this.consumableBlocksGroup, b)
 			else if (b.winOnTouch) createBlock(this.winBlocksGroup, b)
 			else if (b.damage > 0 || b.throwOnTouch) createBlock(this.effectBlocksGroup, b)
@@ -271,7 +264,7 @@
 			translateY(Math.max(...blocks.filter(b => b.x == 0).map(b => b.y * gridSize)), gridSize) - $project.art[character.graphics.still].height
 		const template = hydrateGraphics(character)
 		player = this.physics.add.existing(
-			new Player(this, translateX(0, template.graphics.still.width), startingY, character.graphics.still.name, template, keys)
+			new Player(this, translateX(0, template.graphics.still.width), startingY, character.graphics.still.id, template, keys)
 		)
 		this.player = player
 		this.physics.add.collider(player, this.simpleBlocksGroup)
@@ -288,8 +281,8 @@
 		// add enemies
 		this.enemies = this.physics.add.group()
 		addEnemies(
-			level.enemies.map(([name, x, y]) => ([
-				name,
+			level.enemies.map(([id, x, y]) => ([
+				id,
 				translateX(x*gridSize, template.graphics.still.width),
 				translateY(y*gridSize, template.graphics.still.height)
 			]))
@@ -338,24 +331,24 @@
 		if (gameOver) this.physics.pause()
 	}
 
-	function addFollowers(followerNames) {
-		if (followerNames == null || followerNames.length == 0) return
-		followerNames.forEach(f => {
-			const template = hydrateGraphics($project.characters[f])
+	function addFollowers(followerIds) {
+		if (followerIds == null || followerIds.length == 0) return
+		followerIds.forEach(id => {
+			const template = hydrateGraphics($project.characters[id])
 			const y = player.body.y - (template.graphics.still.height - player.graphics.still.height)
-			const follower = new Follower(scene, player.x, y, template.graphics.still.name, template, player, followerLeashRange)
+			const follower = new Follower(scene, player.x, y, template.graphics.still.id, template, player, followerLeashRange)
 			scene.followers.add(follower)
 		})
 	}
 
 	function addEnemies(enemies) {
-		enemies.forEach(([name, x, y]) => {
-			const template = hydrateGraphics($project.enemies[name])
+		enemies.forEach(([id, x, y]) => {
+			const template = hydrateGraphics($project.enemies[id])
 			const enemy = new Enemy(
 				scene,
 				x,
 				y,
-				template.graphics.still.name,
+				template.graphics.still.id,
 				template,
 				attackRange
 			)
@@ -388,7 +381,7 @@
 		if (block.template.followerOnConsume != null) addFollowers(block.template.followerOnConsume)
 		// we could allow spawning enemies at specific points rather than right where the block was
 		if (block.template.enemyOnConsume != null) {
-			addEnemies(block.template.enemyOnConsume.map(name => ([name, block.x, block.y - block.height])))
+			addEnemies(block.template.enemyOnConsume.map(id => ([id, block.x, block.y - block.height])))
 		}
 		block.disableBody(true, true)
 		if (block.particles) block.particles.destroy()
@@ -412,10 +405,11 @@
 	}
 
 	function hydrateGraphicsObject(graphics) {
-		Object.keys(graphics).forEach(name => {
-			graphics[name] = $project.art[graphics[name]] != null ? JSON.parse(JSON.stringify($project.art[graphics[name]])) : null
-			if (graphics[name] != null && graphics[name].animated) graphics[name].width = graphics[name].frameWidth
-			return graphics[name]
+		Object.keys(graphics).forEach(key => {
+			const artId = graphics[key]
+			graphics[key] = $project.art[artId] != null ? JSON.parse(JSON.stringify($project.art[artId])) : null
+			if (graphics[key] != null && graphics[key].animated) graphics[key].width = graphics[key].frameWidth
+			return graphics[key]
 		})
 		return graphics
 	}

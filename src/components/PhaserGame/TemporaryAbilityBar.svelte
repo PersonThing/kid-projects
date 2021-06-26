@@ -5,7 +5,7 @@
 		{#each abilities as ability}
 			<div class="ability-button" class:active={activeKey == ability.key}>
 				<div class="ability-key">{ability.key}</div>
-				<Art name={ability.graphics.projectile || ability.graphics.character} />
+				<Art id={ability.graphics.projectile || ability.graphics.character} />
 				<div class="ability-name">{ability.name}</div>
 			</div>
 		{/each}

@@ -1,10 +1,15 @@
 {#if input != null}
 	<BuildLayout tab="levels" activeName={input.name} store={$project.levels}>
 		<Form on:submit={save} {hasChanges}>
-			<FieldText name="name" bind:value={input.name}>Name</FieldText>
+			<FieldText name="name" bind:value={input.name} placeholder="Type a name...">Name</FieldText>
 			<FieldCharacterPicker name="playableCharacters" bind:value={input.playableCharacters}>
 				Which characters can play this level?
 			</FieldCharacterPicker>
+			<div>
+				{#each input.playableCharacters as characterId}
+					<a href="#/{encodeURIComponent($project.name)}/play/{encodeURIComponent(input.id)}/{encodeURIComponent(characterId)}">Play as {$project.characters[characterId].name}</a>
+				{/each}
+			</div>
 			<div class="form-group">
 				<label for="color">Background color</label>
 				<ColorPicker name="color" bind:value={input.background} />
@@ -30,34 +35,40 @@
 	import BuildLayout from '../../components/BuildLayout.svelte'
 	import validator from '../../services/validator'
 	import ColorPicker from '../../components/ColorPicker.svelte'
+	import { getNextId } from '../../stores/project-store'
 
 	export let params = {}
-	let input
-	$: paramName = decodeURIComponent(params.name) || 'new'
-	$: paramName == 'new' ? create() : edit(paramName)
-	$: isAdding = paramName == 'new'
-	$: hasChanges = input != null && !validator.equals(input, $project.levels[input.name])
+	let input = createDefaultInput()
+	$: paramId = decodeURIComponent(params.id) || 'new'
+	$: paramId == 'new' ? create() : edit(paramId)
+	$: isAdding = input?.id == null
+	$: hasChanges = input != null && !validator.equals(input, $project.levels[input.id])
 
 	function save() {
 		if (validator.empty(input.name)) {
 			document.getElementById('name').focus()
 			return
 		}
-		$project.levels[input.name] = JSON.parse(JSON.stringify(input))
-		push(`/${$project.name}/build/levels/${encodeURIComponent(input.name)}`)
+		if (isAdding) input.id = getNextId($project.levels)
+		$project.levels[input.id] = JSON.parse(JSON.stringify(input))
+		push(`/${$project.name}/build/levels/${encodeURIComponent(input.id)}`)
 	}
 
-	async function edit(name) {
-		if (!$project.levels.hasOwnProperty(name)) return
+	async function edit(id) {
+		if (!$project.levels.hasOwnProperty(id)) return
 		input = null
 		await tick()
-		input = JSON.parse(JSON.stringify($project.levels[name]))
+		input = JSON.parse(JSON.stringify($project.levels[id]))
 	}
 
 	async function create() {
 		input = null
 		await tick()
-		input = {
+		input = createDefaultInput()
+	}
+
+	function createDefaultInput() {
+		return {
 			name: '',
 			playableCharacters: [],
 			background: 'rgba(198, 244, 255, 255)',

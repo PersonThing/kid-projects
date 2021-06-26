@@ -11,7 +11,7 @@ export function buildDefaultParticlesConfig() {
 		frequency: 10,
 		lifespan: 2000,
 		blendMode: null,
-		rgbaColor: null
+		rgbaColor: null,
 	}
 }
 
@@ -23,18 +23,18 @@ export function hasParticlesConfigured(c) {
 export function createParticles(scene, p, spriteToFollow) {
 	p = {
 		...buildDefaultParticlesConfig(),
-		...p
+		...p,
 	}
 
 	const particleSettings = {
 		speed: p.speed,
 		scale: {
 			start: p.scale.start,
-			end: p.scale.end
+			end: p.scale.end,
 		},
 		alpha: {
 			start: p.alpha.start,
-			end: p.alpha.end
+			end: p.alpha.end,
 		},
 		lifespan: p.lifespan,
 		frequency: p.frequency,
@@ -42,20 +42,23 @@ export function createParticles(scene, p, spriteToFollow) {
 		rotate: { min: p.rotate.min, max: p.rotate.max },
 	}
 
-	if (spriteToFollow != null)
-		particleSettings.follow = spriteToFollow
+	if (spriteToFollow != null) particleSettings.follow = spriteToFollow
 	else {
 		particleSettings.x = 100
 		particleSettings.y = 200
 	}
 
-	if (p.blendMode != null)
-		particleSettings.blendMode = p.blendMode
+	if (p.blendMode != null) particleSettings.blendMode = p.blendMode
 
-	if (p.colorRgba != null && p.colorRgba != 'transparent')
-		particleSettings.tint = Phaser.Display.Color.ValueToColor(p.colorRgba)._color
+	if (p.colorRgba != null && p.colorRgba != 'transparent') particleSettings.tint = Phaser.Display.Color.ValueToColor(p.colorRgba)._color
 
 	const particles = scene.add.particles(p.graphic)
 	const emitter = particles.createEmitter(particleSettings)
 	return { particles, emitter }
+}
+
+// stop emitting now, but wait until last particle expires to destroy them completely
+export function destroyParticles(particles, emitter, lifespan) {
+	emitter.stop()
+	setTimeout(() => particles.destroy(), lifespan)
 }

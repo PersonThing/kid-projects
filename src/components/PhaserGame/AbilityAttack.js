@@ -1,10 +1,10 @@
-import { createParticles, hasParticlesConfigured } from '../../services/particles'
+import { createParticles, destroyParticles, hasParticlesConfigured } from '../../services/particles'
 import getAnimationKey from './GetAnimationKey'
 
 export default class AbilityAttack extends Phaser.Physics.Arcade.Sprite {
 	constructor(scene, x, y, ability, target) {
 		const art = ability.projectile ? ability.graphics.projectile : null
-		super(scene, x, y, art?.name)
+		super(scene, x, y, art?.id)
 
 		this.ability = ability
 		scene.add.existing(this)
@@ -22,6 +22,7 @@ export default class AbilityAttack extends Phaser.Physics.Arcade.Sprite {
 			if (hasParticlesConfigured(ability)) {
 				const { particles, emitter } = createParticles(scene, ability.particles, this)
 				this.particles = particles
+				this.emitter = emitter
 			}
 		} else {
 			// non-projectiles just spawn at target, or as close to it as possible given their range
@@ -39,7 +40,7 @@ export default class AbilityAttack extends Phaser.Physics.Arcade.Sprite {
 
 		// use animation
 		if (ability.projectile && art?.animated) {
-			this.anims.play(getAnimationKey(art.name), true)
+			this.anims.play(getAnimationKey(art.id), true)
 		}
 
 		this.range = ability.range
@@ -73,7 +74,7 @@ export default class AbilityAttack extends Phaser.Physics.Arcade.Sprite {
 	}
 
 	destroy() {
-		if (this.particles) this.particles.destroy()
+		if (this.particles) destroyParticles(this.particles, this.emitter, this.ability.particles.lifespan)
 		super.destroy()
 	}
 }

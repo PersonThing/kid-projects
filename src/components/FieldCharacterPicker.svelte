@@ -4,8 +4,8 @@
 	</label>
 	<div>
 		<InputSelect multiple {options} bind:value let:option inline filterable={options.length > 2}>
-			<Art name={$project.characters[option.value].graphics.moving} />
-			{option.value}
+			<Art id={option.graphics.moving} />
+			{option.name}
 		</InputSelect>
 	</div>
 </div>
@@ -16,5 +16,8 @@
 	import InputSelect from './InputSelect.svelte'
 	export let value = []
 
-	$: options = Object.keys($project.characters)
+	$: options = Object.values($project.characters).map(c => ({
+		...c,
+		value: c.id
+	}))
 </script>

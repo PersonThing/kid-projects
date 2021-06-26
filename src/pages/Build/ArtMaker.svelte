@@ -1,16 +1,14 @@
 <svelte:window on:keyup={onKeyUp} on:paste={onPaste} on:mouseup={onDrawMouseUp} />
 
 <BuildLayout tab="art" activeName={input.name} store={$project.art}>
-	<form on:submit|preventDefault={save}>
-		<div class="flex mb-2">
-			<SaveBtn disabled={!hasChanges} />
-			<input type="text" class="form-control width-auto" id="name" name="name" bind:value={input.name} />
-
+	<Form on:submit={save} {hasChanges}>
+		<div slot="buttons">
+			<input type="text" class="form-control width-auto" id="name" name="name" bind:value={input.name} placeholder="Type a name..." />
 			{#if !isAdding}
-				<button type="button" class="btn btn-danger" on:click={() => del(input.name)}>Delete</button>
+				<button type="button" class="btn btn-danger" on:click={del}>Delete</button>
 			{/if}
 		</div>
-	</form>
+	</Form>
 
 	<div class="toolbar flex align-center">
 		<ColorPicker bind:value={selectedColor} on:change={() => (mode = mode == 'erase' ? 'paint' : mode)} />
@@ -205,7 +203,6 @@
 		arrowUp as arrowUpIcon,
 		arrowDown as arrowDownIcon,
 		undo as undoIcon,
-		paintBrush as paintBrushIcon,
 		eraser as eraseIcon,
 		remove as deleteIcon,
 		copy as copyIcon,
@@ -221,16 +218,13 @@
 	import BuildLayout from '../../components/BuildLayout.svelte'
 	import ColorPicker from '../../components/ColorPicker.svelte'
 	import debounce from '../../services/debounce'
-	import FieldNumber from '../../components/FieldNumber.svelte'
-	import FieldText from '../../components/FieldText.svelte'
 	import Form from '../../components/Form.svelte'
 	import Icon from 'svelte-awesome'
 	import InputSelect from '../../components/InputSelect.svelte'
-	import makeThumbnail from '../../services/make-thumbnail'
 	import project from '../../stores/active-project-store'
 	import QuickDropdown from '../../components/QuickDropdown.svelte'
-	import SaveBtn from '../../components/SaveBtn.svelte'
 	import validator from '../../services/validator'
+	import { getNextId } from '../../stores/project-store'
 
 	export let params = {}
 	let input = createDefaultInput()
@@ -264,12 +258,12 @@
 	}
 
 	const debouncedRedraw = debounce(() => redraw(), 200)
-	$: paramName = decodeURIComponent(params.name) || 'new'
-	$: paramName == 'new' ? create() : edit(paramName)
-	$: isAdding = paramName == 'new'
+	$: paramId = decodeURIComponent(params.id) || 'new'
+	$: paramId == 'new' ? create() : edit(paramId)
+	$: isAdding = input.id == null
 	$: inputWidth = input.width
 	$: inputHeight = input.height
-	$: hasChanges = !validator.equals(input, $project.art[input.name])
+	$: hasChanges = !validator.equals(input, $project.art[input.id])
 	$: numFrames = input.width != null && input.frameWidth != null ? Math.ceil(input.width / input.frameWidth) : 0
 	$: if (inputWidth != 0 && inputHeight != 0 && showGrid != null && zoom != null) debouncedRedraw()
 	$: isBlockSize = input.height == 40 && (input.width == 40 || (input.animated && input.frameWidth == 40))
@@ -320,13 +314,14 @@
 			return
 		}
 
-		$project.art[input.name] = JSON.parse(JSON.stringify(input))
-		push(`/${$project.name}/build/art/${encodeURIComponent(input.name)}`)
+		if (isAdding) input.id = getNextId($project.art)
+		$project.art[input.id] = JSON.parse(JSON.stringify(input))
+		push(`/${$project.name}/build/art/${encodeURIComponent(input.id)}`)
 	}
 
-	function del(name) {
-		if (confirm(`Are you sure you want to delete "${name}"?`)) {
-			delete $project.art[name]
+	function del() {
+		if (confirm(`Are you sure you want to delete "${input.name}"?`)) {
+			delete $project.art[input.id]
 			$project.art = $project.art
 			push(`/${$project.name}/build/art/new`)
 		}

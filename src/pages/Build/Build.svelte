@@ -15,11 +15,11 @@
 	$: prefix = `/${encodeURIComponent($project.name)}/build`
 
 	const routes = {
-		'/art/:name?': ArtMaker,
-		'/particles/:name?': ParticlesBuilder,
-		'/blocks/:name?': BlockBuilder,
-		'/characters/:name?': CharacterBuilder,
-		'/enemies/:name?': EnemyBuilder,
-		'/levels/:name?': LevelBuilder,
+		'/art/:id?': ArtMaker,
+		'/particles/:id?': ParticlesBuilder,
+		'/blocks/:id?': BlockBuilder,
+		'/characters/:id?': CharacterBuilder,
+		'/enemies/:id?': EnemyBuilder,
+		'/levels/:id?': LevelBuilder,
 	}
 </script>
