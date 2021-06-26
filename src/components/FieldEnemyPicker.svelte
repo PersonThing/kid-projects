@@ -11,13 +11,16 @@
 </div>
 
 <script>
+	import { sortByName } from '../services/object-utils';
 	import project from '../stores/active-project-store'
 	import Art from './Art.svelte'
 	import InputSelect from './InputSelect.svelte'
 	export let value = []
 
-	$: options = Object.values($project.enemies).map(e => ({
-		...e,
-		value: e.id
-	}))
+	$: options = Object.values($project.enemies)
+		.map(e => ({
+			...e,
+			value: e.id
+		}))
+		.sort(sortByName)
 </script>

@@ -1,15 +1,4 @@
-<!-- All same fields as character builder, plus:
-<ul>
-	<li>
-		Behavior:
-		<ul>
-			<li>pace back and forth</li>
-			<li>follow player [ leash range, attack from range ]</li>
-		</ul>
-	</li>
-</ul> -->
-
-<BuildLayout tab="enemies" activeName={input.name} store={$project.enemies}>
+<BuildLayout tab="enemies" activeId={input.id} store={$project.enemies}>
 	<Form on:submit={save} {hasChanges}>
 		<FieldText name="name" bind:value={input.name} placeholder="Type a name...">Name</FieldText>
 		<FieldArtPicker bind:value={input.graphics.still}>Still graphics</FieldArtPicker>

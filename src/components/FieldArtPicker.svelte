@@ -14,16 +14,20 @@
 </div>
 
 <script>
+	import { sortByName } from '../services/object-utils'
 	import Art from './Art.svelte'
 	import project from '../stores/active-project-store'
 	import InputSelect from './InputSelect.svelte'
+
 	export let value = null
 	export let spin = 0
 	export let name = 'graphic-picker'
 	export let placeholder = 'Select art'
 
-	$: options = Object.values($project.art).sort().map(a => ({
-		...a,
-		value: a.id
-	}))
+	$: options = Object.values($project.art)
+		.map(a => ({
+			...a,
+			value: a.id
+		}))
+		.sort(sortByName)
 </script>

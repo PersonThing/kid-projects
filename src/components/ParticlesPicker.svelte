@@ -11,6 +11,7 @@
 {/if}
 
 <script>
+	import { sortByName } from '../services/object-utils'
 	import Art from './Art.svelte'
 	import project from '../stores/active-project-store'
 	import InputSelect from './InputSelect.svelte'
@@ -20,9 +21,11 @@
 
 	$: options = [
 		{ value: null, name: 'No particles' },
-		...Object.values($project.particles).sort().map(p => ({
-			...p,
-			value: p.id
-		}))
+		...Object.values($project.particles)
+			.map(p => ({
+				...p,
+				value: p.id
+			}))
+			.sort(sortByName)
 	]
 </script>

@@ -8,32 +8,69 @@
 	<PhaserGame {levelId} {characterId} />
 {:else}
 	<div class="list-group">
-		{#each Object.values($project.levels).sort() as level}
+		{#each playableLevels as level}
 			<div class="list-group-item">
-				<h4 class="mb-0">{level.name}</h4>
-				<div style="height: 50px; overflow: hidden;">
-					<img src={level.thumbnail} style="background: {level.background}" alt="level preview" />
-				</div>
-				<div class="flex">
-					{#each level.playableCharacters as characterId}
-						<a class="btn btn-light m-1" href="#/{$project.name}/play/{level.id}/{characterId}">
-							Play as {$project.characters[characterId].name}
-							<Art id={$project.characters[characterId].graphics.moving} />
-						</a>
-					{/each}
+				<h3 class="mb-0">{level.name}</h3>
+				<div class="flex g1 align-top">
+					<div style="height: 100px; width: 100px; border-radius: 5px; overflow: hidden; background: url({level.thumbnail}) no-repeat left top; background-color: {level.background};"></div>
+					<div>
+						<div class="flex g1 align-top">
+							{#each level.playableCharacters as characterId}
+							<a class="btn btn-success btn-sm flex g1" href="#/{$project.name}/play/{level.id}/{characterId}">
+								<Art id={$project.characters[characterId].graphics.moving} />
+								Play as {$project.characters[characterId].name}
+							</a>
+							{/each}
+						</div>
+						{#if playerData.hasBeatenLevel(level.id)}
+							<div class="flex g1">
+								<div>
+									<div><strong>High scores</strong></div>
+									{#each playerData.getHighScores(level.id) as highScore, i}
+										<div>{i+1}. <strong>{highScore.score}</strong> as <strong>{$project.characters[highScore.characterId].name}</strong></div>
+									{/each}
+								</div>
+							</div>
+						{/if}
+					</div>
 				</div>
 			</div>
 		{/each}
+		<div class="list-group-item">
+			<h4 class="mb-0 text-{lockedLevels.length ? 'muted' : 'success'}">
+				{#if lockedLevels.length}
+				{lockedLevels.length} more level{lockedLevels.length > 1 ? 's' : ''} can be unlocked
+				{:else if !beatWholeGame}
+				You have unlocked all levels
+				{:else}
+				You beat the whole game!
+				{/if}
+			</h4>
+		</div>
 	</div>
 {/if}
 
 <script>
+	import { sortByName } from '../../services/object-utils'
 	import Art from '../../components/Art.svelte'
 	import PhaserGame from '../../components/PhaserGame.svelte'
 	import project from '../../stores/active-project-store'
+	import playerData from '../../stores/player-data'
 
 	export let params
 
 	$: levelId = params?.levelId != null ? decodeURIComponent(params.levelId) : null
 	$: characterId = params?.characterId != null ? decodeURIComponent(params.characterId) : null
+
+	$: levels = Object.values($project.levels)
+		.map(l => ({
+			...l,
+			playable: playerData.hasBeatenAllLevels(l.requiredLevels),
+			beaten: playerData.hasBeatenLevel(l.id)
+		}))
+		.sort(sortByName)
+
+	$: playableLevels = levels.filter(l => l.playable)
+	$: lockedLevels = levels.filter(l => !l.playable)
+	$: beatWholeGame = levels.every(l => l.beaten)
 </script>

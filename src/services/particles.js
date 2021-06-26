@@ -54,6 +54,7 @@ export function createParticles(scene, p, spriteToFollow) {
 
 	const particles = scene.add.particles(p.graphic)
 	const emitter = particles.createEmitter(particleSettings)
+	particles.setDepth(p.bringToFront ? 1 : -1)
 	return { particles, emitter }
 }
 

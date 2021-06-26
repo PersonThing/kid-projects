@@ -10,19 +10,14 @@
 	<div class="nav-container">
 		{#each tabs as t (t.name)}
 			{#if t.slug == tab}
-				<a href="{baseUrl}/{t.slug}/new" class="sub-nav-item" class:new={store[activeName] == null}>+ New {t.singular}</a>
-				{#each Object.values(store).sort() as item}
-					<a class="sub-nav-item" class:active={activeName == item.name} href="{baseUrl}/{t.slug}/{item.id}">
+				<a href="{baseUrl}/{t.slug}/new" class="sub-nav-item" class:new={store[activeId] == null}>+ New {t.singular}</a>
+				{#each sortedItems as item}
+					<a class="sub-nav-item" class:active={activeId == item.id} href="{baseUrl}/{t.slug}/{item.id}">
 						{#if tab != 'levels'}
 							<Art id={tab == 'art' ? item.id : getGraphic(item, t.graphicKey)} scale={1} />
-						{:else}
-							<div class="art-preview">
-								<img src={item.thumbnail} />
-							</div>
 						{/if}
-						<div class="flex-column">
-							<span>{item.name}</span>
-						</div>
+						<span>{item.name}</span>
+						<img src={item.thumbnail} height="40" />
 					</a>
 				{/each}
 			{/if}
@@ -37,9 +32,10 @@
 <script>
 	import Art from './Art.svelte'
 	import project from '../stores/active-project-store'
+	import { sortByName } from '../services/object-utils'
 
 	export let tab
-	export let activeName
+	export let activeId
 	export let store
 
 	$: baseUrl = `#/${$project.name}/build`
@@ -55,6 +51,8 @@
 		...t,
 		slug: t.name.toLowerCase()
 	}))
+
+	$: sortedItems = Object.values(store).sort(sortByName)
 
 	function getGraphic(item, key) {
 		key.split('.').forEach(p => {
@@ -94,13 +92,9 @@
 		align-items: center;
 		gap: 5px;
 
-		font-size: 13px;
+		font-size: 15px;
 		color: #666;
-
-		:global(img) {
-			margin-right: 5px;
-			width: 25px;
-		}
+		white-space: nowrap;
 
 		&:hover {
 			color: $success;

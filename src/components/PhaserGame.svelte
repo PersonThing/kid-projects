@@ -5,7 +5,9 @@
 		{:else if paused}
 			<Paused />
 		{/if}
-		<TemporaryAbilityBar abilities={character.abilities} />
+		{#if player}
+			<TemporaryAbilityBar abilities={character.abilities} activeKey={player.abilityBar.activeKey} />
+		{/if}
 		<div bind:this={container} />
 	{/if}
 </div>
@@ -26,6 +28,7 @@
 	import Paused from './Paused.svelte'
 	import Player from './PhaserGame/Player'
 	import project from '../stores/active-project-store'
+	import playerData from '../stores/player-data'
 	import SkillKeys from './PhaserGame/SkillKeys'
 	import TemporaryAbilityBar from './PhaserGame/TemporaryAbilityBar.svelte'
 	import { createParticles, hasParticlesConfigured } from '../services/particles'
@@ -38,7 +41,7 @@
 
 	let scene
 
-	const attackRange = 400
+	const attackRange = 600
 	const followerLeashRange = 600
 
 	let container
@@ -85,6 +88,10 @@
 
 		start()
 	})
+
+	function backToLevelSelect() {
+		document.location.href = `/#/${encodeURIComponent($project.name)}/play`
+	}
 
 	function start() {
 		destroyGame()
@@ -253,7 +260,7 @@
 		keys = {
 			cursors: this.input.keyboard.createCursorKeys(),
 		}
-		const keysWeCareAbout = ['SPACE', 'ENTER', 'A', 'D', ...SkillKeys]
+		const keysWeCareAbout = ['SPACE', 'ENTER', 'ESC', 'A', 'D', ...SkillKeys]
 		keysWeCareAbout.forEach(k => {
 			keys[k] = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes[k])
 		})
@@ -281,11 +288,16 @@
 		// add enemies
 		this.enemies = this.physics.add.group()
 		addEnemies(
-			level.enemies.map(([id, x, y]) => ([
-				id,
-				translateX(x*gridSize, template.graphics.still.width),
-				translateY(y*gridSize, template.graphics.still.height)
-			]))
+			level.enemies.map(([id, x, y]) => {
+				const template = hydrateGraphics($project.enemies[id])
+				const x1 = translateX(x * gridSize, template.graphics.still.width)
+				const y1 = translateY(y * gridSize, template.graphics.still.height)
+				return [
+					id,
+					x1,
+					y1
+				]
+			})
 		)
 		this.physics.add.collider(this.enemies, this.simpleBlocksGroup)
 		this.physics.add.collider(this.enemies, this.effectBlocksGroup, onEffectBlockCollision)
@@ -309,6 +321,7 @@
 
 	function onUpdate() {
 		if (Phaser.Input.Keyboard.JustDown(keys.ENTER)) start()
+		if (Phaser.Input.Keyboard.JustDown(keys.ESC)) backToLevelSelect()
 		if (gameOver) return
 
 		// if player is dead or fell out bottom of world, you lose
@@ -316,16 +329,11 @@
 			gameOver = true
 		}
 
-		// if all enemies dead, you win
-		if (this.enemies.countActive() == 0 && level.enemies.length > 0) {
+		// you win if all enemies are dead or you touched a win block
+		if (winBlockTouched || (this.enemies.countActive() == 0 && level.enemies.length > 0)) {
 			gameWon = true
 			gameOver = true
-		}
-
-		// if you touched a win block, you win
-		if (winBlockTouched) {
-			gameWon = true
-			gameOver = true
+			playerData.addLevelWin(level.id, score, character.id)
 		}
 
 		if (gameOver) this.physics.pause()

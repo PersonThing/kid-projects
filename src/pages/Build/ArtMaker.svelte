@@ -1,8 +1,8 @@
 <svelte:window on:keyup={onKeyUp} on:paste={onPaste} on:mouseup={onDrawMouseUp} />
 
-<BuildLayout tab="art" activeName={input.name} store={$project.art}>
+<BuildLayout tab="art" activeId={input.id} store={$project.art}>
 	<Form on:submit={save} {hasChanges}>
-		<div slot="buttons">
+		<div slot="buttons" class="flex">
 			<input type="text" class="form-control width-auto" id="name" name="name" bind:value={input.name} placeholder="Type a name..." />
 			{#if !isAdding}
 				<button type="button" class="btn btn-danger" on:click={del}>Delete</button>
@@ -112,6 +112,7 @@
 		</InputSelect>
 
 	</div>
+
 	<div class="my-1">
 		<div class="flex">
 			<div>

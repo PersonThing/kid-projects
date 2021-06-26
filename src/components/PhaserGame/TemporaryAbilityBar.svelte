@@ -12,26 +12,11 @@
 	{/if}
 </div>
 
-<svelte:window on:keydown={onKeyDown} />
-
 <script>
-	import { onMount } from 'svelte'
-
 	import Art from '../Art.svelte'
 
-	import SkillKeys from './SkillKeys'
-
 	export let abilities
-	let activeKey = null
-
-	function onKeyDown(e) {
-		const keyName = e.code.replace(/^Key/, '')
-		if (SkillKeys.indexOf(keyName) > -1) activeKey = keyName
-	}
-
-	onMount(() => {
-		if (activeKey == null) activeKey = abilities.length > 0 ? abilities[0].key : null
-	})
+	export let activeKey
 </script>
 
 <style lang="scss">

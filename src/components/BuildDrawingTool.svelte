@@ -6,7 +6,7 @@
 				name="selected-block"
 				inline
 				placeholder="Place a block"
-				options={Object.values($project.blocks)}
+				options={Object.values($project.blocks).sort(sortByName)}
 				let:option
 				valueProp="id"
 				bind:value={selectedBlock}
@@ -35,7 +35,7 @@
 				name="selected-block"
 				inline
 				placeholder="Place an enemy"
-				options={Object.values($project.enemies)}
+				options={Object.values($project.enemies).sort(sortByName)}
 				let:option
 				valueProp="id"
 				bind:value={selectedEnemy}
@@ -44,7 +44,12 @@
 					<Art id={option.graphics.still} simple />
 					<div class="ml-1">
 						<strong>{option.name}</strong>
-						{option.maxHealth} health, {option.maxVelocity} speed, {option.score} score, {option.abilities.length} abilit{option.abilities.length != 1 ? 'ies' : 'y'}
+						<div class="small">
+							{option.maxHealth} health,
+							{option.maxVelocity} speed,
+							{option.score} score,
+							{option.abilities.length} abilit{option.abilities.length != 1 ? 'ies' : 'y'}
+						</div>
 					</div>
 				</div>
 			</InputSelect>
@@ -60,9 +65,6 @@
 		on:contextmenu|preventDefault>
 		<Level {blocks} {gridSize} {enemies} {width} {height} on:draw={onLevelDraw} />
 	</div>
-
-	<pre>{JSON.stringify(blocks)}</pre>
-	<pre>{JSON.stringify(enemies)}</pre>
 </div>
 
 <svelte:window on:mouseup={onMouseUp} />
@@ -75,6 +77,7 @@
 	import LevelPreview from './LevelPreview.svelte'
 	import InputSelect from './InputSelect.svelte'
 	import { gridSize } from './PhaserGame/Constants'
+import { sortByName } from '../services/object-utils';
 
 	export let background = null
 	export let thumbnail
@@ -110,7 +113,6 @@
 		if (e.altKey || e.button !== 0) {
 			selectedBlock = findBlockAtPosition(e)
 			selectedEnemy = findEnemyAtPosition(e)
-			console.log('mouse down', selectedBlock, selectedEnemy)
 		}
 
 		mouseDown = e.button === 0
@@ -152,26 +154,22 @@
 
 		eraseItemAt(x, y)
 		if (selectedBlock != null) {
-			const template = $project.blocks[selectedBlock]
 			blocks = stripOutliersAndSort([
 				...blocks,
 				[selectedBlock, x, y]
 			])
 		} else if (selectedEnemy != null) {
-			const template = $project.enemies[selectedEnemy]
 			enemies = stripOutliersAndSort([
 				...enemies,
 				[selectedEnemy, x, y]
 			])
 		}
-
-		// strip out anything below 0 y, and sort by x
 	}
 
 	function stripOutliersAndSort(a) {
 		return a
 			.filter(e => e[2] >= 0)
-			.sort(([n1, x1, y1], [n2, x2, y2]) => {
+			.sort(([id1, x1, y1], [id2, x2, y2]) => {
 				if (x1 > x2) return 1
 				else if (x2 > x1) return -1
 

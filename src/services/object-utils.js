@@ -67,6 +67,12 @@ export function selectMany(array, funcSelector) {
 		.reduce((a, b) => a.concat(b), [])
 }
 
+export function sortByName(a, b) {
+	const a1 = a.name.toLowerCase()
+	const b1 = b.name.toLowerCase()
+	return a1 == b1 ? 0 : a1 > b1 ? 1 : -1
+}
+
 function log() {
 	// eslint-disable-next-line no-console
 	if (window.logDiffs) console.log.apply(console, arguments)

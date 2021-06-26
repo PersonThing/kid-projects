@@ -1,9 +1,10 @@
-<BuildLayout tab="particles" activeName={input.name} store={$project.particles}>
+<BuildLayout tab="particles" activeId={input.id} store={$project.particles}>
 	<Form on:submit={save} {hasChanges}>
 		<div class="flex align-top g1">
 			<div class="flex-grow">
 				<FieldText name="name" bind:value={input.name} placeholder="Type a name...">Name</FieldText>
 				<FieldArtPicker bind:value={input.graphic}>Graphic</FieldArtPicker>
+				<FieldCheckbox name="bring-to-front" bind:checked={input.bringToFront}>Render in front of graphic?</FieldCheckbox>
 				<FieldRange name="alpha-start" bind:value={input.alpha.start} min=0 max=1 step=0.1>Alpha start</FieldRange>
 				<FieldRange name="alpha-end" bind:value={input.alpha.end} min=0 max=1 step=0.1>Alpha end</FieldRange>
 				<FieldNumber name="scale-start" bind:value={input.scale.start} min=0 max=10 step=0.01>Scale start</FieldNumber>
@@ -54,6 +55,7 @@
 	import project from '../../stores/active-project-store'
 	import validator from '../../services/validator'
 	import { getNextId } from '../../stores/project-store'
+import FieldCheckbox from '../../components/FieldCheckbox.svelte';
 
 	export let params = {}
 

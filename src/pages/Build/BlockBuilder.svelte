@@ -1,4 +1,4 @@
-<BuildLayout tab="blocks" activeName={input.name} store={$project.blocks}>
+<BuildLayout tab="blocks" activeId={input.id} store={$project.blocks}>
 	<Form on:submit={save} {hasChanges}>
 		<FieldText name="name" bind:value={input.name} placeholder="Type a name...">Name</FieldText>
 		<FieldArtPicker bind:value={input.graphic}>Graphic</FieldArtPicker>

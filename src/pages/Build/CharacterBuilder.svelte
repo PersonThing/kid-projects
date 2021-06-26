@@ -1,4 +1,4 @@
-<BuildLayout tab="characters" activeName={input.name} store={$project.characters}>
+<BuildLayout tab="characters" activeId={input.id} store={$project.characters}>
 	<Form on:submit={save} {hasChanges}>
 		<span slot="buttons">
 			{#if !isAdding}

@@ -59,6 +59,7 @@ export default function migrate2(project) {
 		playableCharacters: l.playableCharacters.map(c => nameToId(characters, c)),
 		blocks: l.blocks.map(b => [nameToId(blocks, b[0]), b[1], b[2]]),
 		enemies: l.enemies.map(e => [nameToId(enemies, e[0]), e[1], e[2]]),
+		requiredLevels: [],
 	}))
 
 	characters.forEach(c => {

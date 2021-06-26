@@ -6,7 +6,8 @@
 			<h1>Game over.</h1>
 		{/if}
 		<h2>Final score: {score}</h2>
-		<p>Press enter to restart.</p>
+		<p>Press esc to go back to level selection.</p>
+		<p>Press enter to restart level.</p>
 	</div>
 {/if}
 
@@ -46,5 +47,6 @@
 
 	p {
 		color: #eee;
+		margin: 30px;
 	}
 </style>
