@@ -11,7 +11,7 @@
 		{#each tabs as t (t.name)}
 			{#if t.slug == tab}
 				<a href="{baseUrl}/{t.slug}/new" class="sub-nav-item" class:new={store[activeId] == null}>+ New {t.singular}</a>
-				{#each sortedItems as item}
+				{#each sortedItems as item (item.id)}
 					<a class="sub-nav-item" class:active={activeId == item.id} href="{baseUrl}/{t.slug}/{item.id}">
 						{#if tab != 'levels'}
 							<Art id={tab == 'art' ? item.id : getGraphic(item, t.graphicKey)} scale={1} />

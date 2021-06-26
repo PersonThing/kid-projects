@@ -15,6 +15,7 @@ export default function migrate1(project) {
 				particles[c.name] = copy(c.particles)
 				c.particles = c.name
 			}
+			if (c.abilities == null) c.abilities = []
 			c.abilities.filter(hasParticlesConfigured).forEach(a => {
 				particles[a.name] = copy(a.particles)
 				a.particles = a.name
@@ -27,6 +28,7 @@ export default function migrate1(project) {
 				particles[e.name] = copy(e.particles)
 				e.particles = e.name
 			}
+			if (e.abilities == null) e.abilities = []
 			e.abilities.filter(hasParticlesConfigured).forEach(a => {
 				particles[a.name] = copy(a.particles)
 				a.particles = a.name

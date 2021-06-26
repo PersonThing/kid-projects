@@ -17,8 +17,6 @@
 
 	export let abilities
 	export let activeKeyStore
-
-	$: console.log('active key change', $activeKeyStore)
 </script>
 
 <style lang="scss">

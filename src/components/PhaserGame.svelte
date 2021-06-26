@@ -6,7 +6,7 @@
 			<Paused />
 		{/if}
 		{#if player}
-			<TemporaryAbilityBar abilities={character.abilities} {activeKeyStore} />
+r			<TemporaryAbilityBar abilities={character.abilities} {activeKeyStore} />
 		{/if}
 		<div bind:this={container} />
 	{/if}
@@ -218,12 +218,13 @@
 					frameWidth: art.frameWidth,
 					frameHeight: art.height,
 				})
+				const frames = this.anims.generateFrameNumbers(art.id, {
+					start: 0,
+					end: Math.ceil(art.width / art.frameWidth),
+				})
 				this.anims.create({
 					key: getAnimationKey(art.id),
-					frames: this.anims.generateFrameNumbers(art.id, {
-						start: 0,
-						end: Math.ceil(art.width / art.frameWidth),
-					}),
+					frames,
 					frameRate: art.frameRate,
 					repeat: -1,
 					yoyo: art.yoyo,

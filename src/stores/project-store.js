@@ -2,8 +2,9 @@ import LocalStorageStore from './local-storage-store'
 import sampleProjects from './sample-projects.json'
 import migrate1 from './project-migrations/migrate1'
 import migrate2 from './project-migrations/migrate2'
+import migrate3 from './project-migrations/migrate3'
 
-export const PROJECT_VERSION = 2
+export const PROJECT_VERSION = 3
 
 const defaultValue = [...sampleProjects]
 
@@ -18,16 +19,21 @@ function migrateProject(project) {
 	// future migrations should add more lines like this one... or i should do something polymorphic with project migration functions in separate files
 	if (project.version < 1) project = migrate1(project)
 	if (project.version < 2) project = migrate2(project)
+	if (project.version < 3) project = migrate3(project)
 
 	// remove invalid stuff
 	project = cleanup(project)
+
+	console.log(
+		project.name,
+		Object.keys(project.blocks).map(k => `${k}: ${project.blocks[k].id}`)
+	)
 
 	return project
 }
 
 export function cleanup(project) {
-	Object.values(project.blocks).forEach((b, id) => {
-		b.id = id
+	Object.values(project.blocks).forEach(b => {
 		b.graphic = nullIfInvalid(project.art, b.graphic)
 	})
 
@@ -84,7 +90,7 @@ function nullIfInvalid(collection, key) {
 	return key != null && collection[key] != null ? key : null
 }
 
-const { subscribe, set } = LocalStorageStore('projects', defaultValue)
+const { subscribe, set } = LocalStorageStore('projects', projectsValue)
 export default {
 	subscribe,
 

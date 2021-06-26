@@ -45,7 +45,6 @@ export default class AbilityBar {
 	setActiveKey(key) {
 		this.activeKey = key
 		this.activeKeyStore.set(key)
-		console.log('setting key', key)
 		this.draw()
 	}
 

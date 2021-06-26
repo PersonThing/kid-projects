@@ -2599,7 +2599,7 @@
 				"id": 5
 			}
 		},
-		"version": 3,
+		"version": 2,
 		"particles": {
 			"0": {
 				"name": "mr squiggles",
@@ -3338,7 +3338,7 @@
 				"requiredLevels": []
 			}
 		},
-		"version": 3,
+		"version": 2,
 		"particles": {}
 	},
 	{
@@ -3958,7 +3958,7 @@
 				"requiredLevels": []
 			}
 		},
-		"version": 3,
+		"version": 2,
 		"particles": {
 			"0": {
 				"name": "rings",
