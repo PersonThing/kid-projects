@@ -17125,11 +17125,6 @@ var app = (function () {
     	// remove invalid stuff
     	project = cleanup(project);
 
-    	console.log(
-    		project.name,
-    		Object.keys(project.blocks).map(k => `${k}: ${project.blocks[k].id}`)
-    	);
-
     	return project
     }
 
@@ -41903,7 +41898,7 @@ var app = (function () {
     	});
 
     	function backToLevelSelect() {
-    		document.location.href = `/#/${encodeURIComponent($project.name)}/play`;
+    		push(`/${encodeURIComponent($project.name)}/play`);
     	}
 
     	function start() {
@@ -42240,6 +42235,7 @@ var app = (function () {
     	};
 
     	$$self.$capture_state = () => ({
+    		push,
     		gridSize,
     		gravityPixelsPerSecond,
     		onMount,

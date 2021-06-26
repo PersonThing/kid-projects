@@ -24,11 +24,6 @@ function migrateProject(project) {
 	// remove invalid stuff
 	project = cleanup(project)
 
-	console.log(
-		project.name,
-		Object.keys(project.blocks).map(k => `${k}: ${project.blocks[k].id}`)
-	)
-
 	return project
 }
 

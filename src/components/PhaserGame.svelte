@@ -17,6 +17,7 @@ r			<TemporaryAbilityBar abilities={character.abilities} {activeKeyStore} />
 {/if}
 
 <script>
+	import { push } from 'svelte-spa-router'
 	import { gridSize, gravityPixelsPerSecond } from './PhaserGame/Constants'
 	import { onMount, onDestroy } from 'svelte'
 	import { rgbaStringToHex } from '../services/rgba-to-hex'
@@ -93,7 +94,7 @@ r			<TemporaryAbilityBar abilities={character.abilities} {activeKeyStore} />
 	})
 
 	function backToLevelSelect() {
-		document.location.href = `/#/${encodeURIComponent($project.name)}/play`
+		push(`/${encodeURIComponent($project.name)}/play`)
 	}
 
 	function start() {
