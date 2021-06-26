@@ -48,6 +48,7 @@
 			</h4>
 		</div>
 	</div>
+	<button on:click={resetPlayerData} class="btn btn-info btn-sm">Reset cleared levels / clear high scores</button>
 {/if}
 
 <script>
@@ -65,6 +66,7 @@
 	$: levels = Object.values($project.levels)
 		.map(l => ({
 			...l,
+			levelData: $playerData[l.id], // just to force update when player data changes..
 			playable: playerData.hasBeatenAllLevels(l.requiredLevels),
 			beaten: playerData.hasBeatenLevel(l.id)
 		}))
@@ -73,4 +75,8 @@
 	$: playableLevels = levels.filter(l => l.playable)
 	$: lockedLevels = levels.filter(l => !l.playable)
 	$: beatWholeGame = levels.every(l => l.beaten)
+
+	function resetPlayerData() {
+		playerData.reset()
+	}
 </script>

@@ -29,4 +29,7 @@ export default {
 	getHighScores(levelId) {
 		return ($storeValue.levelWins[levelId] ?? []).sort((a, b) => b.score - a.score).slice(0, 3)
 	},
+	reset() {
+		set({})
+	},
 }
