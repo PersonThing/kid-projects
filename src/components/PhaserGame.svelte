@@ -6,7 +6,7 @@
       <Paused />
     {/if}
     {#if player}
-      r <TemporaryAbilityBar abilities={character.abilities} {activeKeyStore} />
+      <TemporaryAbilityBar abilities={character.abilities} {activeKeyStore} />
     {/if}
     <div bind:this={container} />
   {/if}

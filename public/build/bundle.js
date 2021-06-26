@@ -41515,7 +41515,7 @@ var app = (function () {
     			if (if_block1) if_block1.c();
     			t1 = space();
     			div = element("div");
-    			add_location(div, file$3, 10, 4, 317);
+    			add_location(div, file$3, 10, 4, 315);
     		},
     		m: function mount(target, anchor) {
     			if (~current_block_type_index) {
@@ -41721,7 +41721,6 @@ var app = (function () {
 
     // (8:4) {#if player}
     function create_if_block_2$2(ctx) {
-    	let t;
     	let temporaryabilitybar;
     	let current;
 
@@ -41735,11 +41734,9 @@ var app = (function () {
 
     	const block = {
     		c: function create() {
-    			t = text("r ");
     			create_component(temporaryabilitybar.$$.fragment);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, t, anchor);
     			mount_component(temporaryabilitybar, target, anchor);
     			current = true;
     		},
@@ -41758,7 +41755,6 @@ var app = (function () {
     			current = false;
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(t);
     			destroy_component(temporaryabilitybar, detaching);
     		}
     	};
