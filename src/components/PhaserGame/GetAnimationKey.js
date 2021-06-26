@@ -1,3 +1,3 @@
 export default function getAnimationKey(key) {
-	return `${key}.animation`
+  return `${key}.animation`
 }
