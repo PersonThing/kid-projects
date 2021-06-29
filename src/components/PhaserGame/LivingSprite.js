@@ -2,6 +2,7 @@ import AbilityAttack from './AbilityAttack'
 import HealthBar from './HealthBar'
 import getAnimationKey from './GetAnimationKey'
 import { createParticles, destroyParticles, hasParticlesConfigured } from '../../services/particles'
+import { gravityPixelsPerSecond } from '../../components/PhaserGame/Constants'
 
 export default class LivingSprite extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y, texture, template) {
@@ -14,11 +15,12 @@ export default class LivingSprite extends Phaser.Physics.Arcade.Sprite {
 
     // gravity affects everything differently
     // todo figure out why this doesn't work for enemies...
-    // this.setGravityY(-gravityPixelsPerSecond + gravityPixelsPerSecond * template.gravityMultiplier)
+    // this.body.setGravity(0, gravityPixelsPerSecond * template.gravityMultiplier)
 
     this.name = template.name
     this.hp = new HealthBar(scene, 0, 0, template.maxHealth, template.maxHealth)
     this.alive = true
+    this.gravityFlipped = false
 
     // sort abilities by range
     this.abilities = JSON.parse(JSON.stringify(template.abilities)).sort((a, b) => a.range - b.range)
@@ -45,6 +47,9 @@ export default class LivingSprite extends Phaser.Physics.Arcade.Sprite {
     if (this.body.y > this.scene.physics.world.bounds.height + 1000) this.damage(this.template.maxHealth)
 
     // flip emitter if our sprite is flipped
+
+    // flip graphic if gravity is flipped
+    this.flipY = this.gravityFlipped
   }
 
   setGraphic(art, ignoreIfPlaying = true) {
@@ -63,6 +68,10 @@ export default class LivingSprite extends Phaser.Physics.Arcade.Sprite {
 
   damage(amount) {
     this.alive = this.hp.adjust(amount)
+  }
+
+  isTouchingDown() {
+    return (!this.gravityFlipped && this.body.touching.down) || (this.gravityFlipped && this.body.touching.up)
   }
 
   heal(amount) {
@@ -89,6 +98,7 @@ export default class LivingSprite extends Phaser.Physics.Arcade.Sprite {
 
   moveTowardSprite(sprite, desiredDistance = 5) {
     const distanceFromTarget = this.getDistanceFrom(sprite)
+
     if (distanceFromTarget <= desiredDistance) {
       this.setVelocityX(0)
     } else if (sprite.x < this.x) {
@@ -99,9 +109,20 @@ export default class LivingSprite extends Phaser.Physics.Arcade.Sprite {
       this.flipX = false
     }
 
-    if ((this.body.touching.down || this.template.canFly) && sprite.y < this.y - this.height) {
-      this.setVelocityY(-this.template.jumpVelocity)
+    const isTouchingDown = this.isTouchingDown()
+    if (this.template.canFly || isTouchingDown) {
+      if (!this.gravityFlipped && sprite.y < this.y - this.height) {
+        // console.log('gravity not flipped, target is above us')
+        this.jump()
+      } else if (this.gravityFlipped && sprite.y - this.height > this.y) {
+        // console.log('gravity flipped, target is below us')
+        this.jump()
+      }
     }
+  }
+
+  jump() {
+    this.setVelocityY(this.template.jumpVelocity * (this.gravityFlipped ? 1 : -1))
   }
 
   attackTarget(target, range) {

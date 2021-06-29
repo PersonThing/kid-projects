@@ -14,26 +14,30 @@
 
 {#if character != null}
   <Instructions abilities={character.abilities} canDoubleJump={character.canDoubleJump} />
+  <div class="p-1">
+    <FieldCheckbox bind:checked={debug}>Debug?</FieldCheckbox>
+  </div>
 {/if}
 
 <script>
-  import { push } from 'svelte-spa-router'
+  import { createParticles, hasParticlesConfigured } from '../services/particles'
   import { gridSize, gravityPixelsPerSecond } from './PhaserGame/Constants'
   import { onMount, onDestroy } from 'svelte'
+  import { push } from 'svelte-spa-router'
   import { rgbaStringToHex } from '../services/rgba-to-hex'
+  import { writable } from 'svelte/store'
   import Enemy from './PhaserGame/Enemy'
+  import FieldCheckbox from './FieldCheckbox.svelte'
   import Follower from './PhaserGame/Follower'
   import GameOver from './GameOver.svelte'
   import getAnimationKey from './PhaserGame/GetAnimationKey'
   import Instructions from './Instructions.svelte'
   import Paused from './Paused.svelte'
   import Player from './PhaserGame/Player'
-  import project from '../stores/active-project-store'
   import playerData from '../stores/player-data'
+  import project from '../stores/active-project-store'
   import SkillKeys from './PhaserGame/SkillKeys'
   import TemporaryAbilityBar from './PhaserGame/TemporaryAbilityBar.svelte'
-  import { createParticles, hasParticlesConfigured } from '../services/particles'
-  import { writable } from 'svelte/store'
 
   const activeKeyStore = writable(null)
 
@@ -44,6 +48,10 @@
   let character
 
   let scene
+
+  let debug = false
+
+  $: debug, setTimeout(() => start(), 10)
 
   const attackRange = 600
   const followerLeashRange = 600
@@ -118,8 +126,8 @@
         physics: {
           default: 'arcade',
           arcade: {
-            gravity: { y: gravityPixelsPerSecond },
-            // debug: true,
+            gravity: { y: 0 },
+            debug,
           },
         },
         width: gameWidth,
@@ -247,7 +255,7 @@
     blocks.forEach(b => {
       if (b.consumable) createBlock(this.consumableBlocksGroup, b)
       else if (b.winOnTouch) createBlock(this.winBlocksGroup, b)
-      else if (b.damage > 0 || b.throwOnTouch) createBlock(this.effectBlocksGroup, b)
+      else if (b.damage > 0 || b.throwOnTouch || b.flipGravityOnTouch) createBlock(this.effectBlocksGroup, b)
       else if (b.teleportOnTouch) createBlock(this.teleportBlocksGroup, b)
       else if (b.solid) createBlock(this.simpleBlocksGroup, b)
       else createBlock(this.backgroundBlocksGroup, b)
@@ -271,6 +279,7 @@
       new Player(this, translateX(0, template.graphics.still.width), startingY, character.graphics.still.id, template, keys, activeKeyStore)
     )
     this.player = player
+    setGravity(player, template.gravityMultiplier)
     this.physics.add.collider(player, this.simpleBlocksGroup)
     this.physics.add.collider(player, this.effectBlocksGroup, onEffectBlockCollision)
     this.physics.add.overlap(player, this.winBlocksGroup, onWinBlockOverlap)
@@ -282,6 +291,7 @@
     addFollowers(character.followers)
     this.physics.add.collider(this.followers, this.simpleBlocksGroup)
     this.physics.add.collider(this.followers, this.effectBlocksGroup, onEffectBlockCollision)
+    this.physics.add.collider(this.followers, this.followers)
 
     // add enemies
     this.enemies = this.physics.add.group()
@@ -313,6 +323,10 @@
     this.addScore(0)
   }
 
+  function setGravity(sprite, gravityMultiplier, isFlipped) {
+    sprite.setGravity(0, gravityPixelsPerSecond * gravityMultiplier * (isFlipped ? -1 : 1))
+  }
+
   function onUpdate() {
     if (Phaser.Input.Keyboard.JustDown(keys.ENTER)) start()
     if (Phaser.Input.Keyboard.JustDown(keys.ESC)) backToLevelSelect()
@@ -340,6 +354,7 @@
       const y = player.body.y - (template.graphics.still.height - player.graphics.still.height)
       const follower = new Follower(scene, player.x, y, template.graphics.still.id, template, player, followerLeashRange)
       scene.followers.add(follower)
+      setGravity(follower, template.gravityMultiplier)
     })
   }
 
@@ -347,7 +362,9 @@
     enemies.forEach(([id, x, y]) => {
       const template = hydrateGraphics($project.enemies[id])
       const enemy = new Enemy(scene, x, y, template.graphics.still.id, template, attackRange)
+      // const enemy = new LivingSprite(scene, x, y, template.graphics.still.id, template)
       scene.enemies.add(enemy)
+      setGravity(enemy, template.gravityMultiplier)
     })
   }
 
@@ -363,6 +380,13 @@
   function onEffectBlockCollision(sprite, block) {
     sprite.damage(block.template.damage)
     if (block.template.throwOnTouch) sprite.setVelocityY(-1000)
+
+    const time = scene.time.now
+    if (block.template.flipGravityOnTouch && !(block.disabledUntil > time)) {
+      block.disabledUntil = time + 1000
+      sprite.gravityFlipped = !sprite.gravityFlipped
+      setGravity(sprite, sprite.template.gravityMultiplier, sprite.gravityFlipped)
+    }
   }
 
   function onWinBlockOverlap(sprite, block) {
@@ -373,7 +397,6 @@
     const time = scene.time.now
     if (block.disabledUntil > time) return false
 
-    console.log(sprite.template.name, ' should teleport from ', block.template.name)
     const targets = scene.teleportBlocksGroup
       .getChildren()
       // get teleporters that are of the same template

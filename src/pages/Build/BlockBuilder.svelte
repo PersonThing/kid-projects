@@ -15,6 +15,7 @@
     {/if}
     <FieldCheckbox name="throwOnTouch" bind:checked={input.throwOnTouch}>Throw things that touch it?</FieldCheckbox>
     <FieldCheckbox name="teleportOnTouch" bind:checked={input.teleportOnTouch}>Teleport on touch?</FieldCheckbox>
+    <FieldCheckbox name="flipGravityOnTouch" bind:checked={input.flipGravityOnTouch}>Flip gravity on touch?</FieldCheckbox>
     <FieldNumber name="damage" bind:value={input.damage}>
       Damage (when players or enemies touch this block, how much damage should they take?)
     </FieldNumber>
@@ -78,6 +79,7 @@
       solid: true,
       throwOnTouch: false,
       teleportOnTouch: false,
+      flipGravityOnTouch: false,
       winOnTouch: false,
       damage: 0,
       consumable: false,

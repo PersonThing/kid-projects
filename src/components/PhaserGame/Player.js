@@ -26,10 +26,12 @@ export default class Player extends LivingSprite {
   preUpdate(time, delta) {
     super.preUpdate(time, delta)
 
+    const isTouchingDown = this.isTouchingDown()
+
     // jumping
     if (Phaser.Input.Keyboard.JustDown(this.keys.SPACE)) {
       // initial jump, or flying
-      if (this.body.touching.down || this.template.canFly) {
+      if (this.template.canFly || isTouchingDown) {
         // maybe do a triple jump or something in the future (like "it lurks below" unique pants bonus)
         this.remainingJumpsAvailable = this.template.canDoubleJump ? 1 : 0
         this.jump()
@@ -42,12 +44,12 @@ export default class Player extends LivingSprite {
     }
 
     // moving left or right
-    const ax = this.body.touching.down || this.canFly ? this.template.maxVelocity / 10 : this.template.maxVelocity / 30
+    const ax = isTouchingDown || this.canFly ? this.template.maxVelocity / 10 : this.template.maxVelocity / 30
     if (this.keys.cursors.left.isDown || this.keys.A.isDown) {
       this.accelerate(-ax)
     } else if (this.keys.cursors.right.isDown || this.keys.D.isDown) {
       this.accelerate(ax)
-    } else if (this.body.touching.down) {
+    } else if (isTouchingDown) {
       // stop if touching ground
       this.setVelocityX(0)
     }
@@ -67,10 +69,6 @@ export default class Player extends LivingSprite {
           a.nextFire = this.scene.time.now + a.attackRateMs
         })
     }
-  }
-
-  jump() {
-    this.setVelocityY(-this.template.jumpVelocity)
   }
 
   setPointerDown(pointer) {
