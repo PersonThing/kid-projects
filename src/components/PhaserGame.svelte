@@ -61,6 +61,7 @@
   let gameOver
   let gameWon
   let winBlockTouched
+  let hasWinBlock = false
   let score
   let paused
 
@@ -254,8 +255,10 @@
     }
     blocks.forEach(b => {
       if (b.consumable) createBlock(this.consumableBlocksGroup, b)
-      else if (b.winOnTouch) createBlock(this.winBlocksGroup, b)
-      else if (b.damage > 0 || b.throwOnTouch || b.flipGravityOnTouch) createBlock(this.effectBlocksGroup, b)
+      else if (b.winOnTouch) {
+        hasWinBlock = true
+        createBlock(this.winBlocksGroup, b)
+      } else if (b.damage > 0 || b.throwOnTouch || b.flipGravityOnTouch) createBlock(this.effectBlocksGroup, b)
       else if (b.teleportOnTouch) createBlock(this.teleportBlocksGroup, b)
       else if (b.solid) createBlock(this.simpleBlocksGroup, b)
       else createBlock(this.backgroundBlocksGroup, b)
@@ -338,7 +341,7 @@
     }
 
     // you win if all enemies are dead or you touched a win block
-    if (winBlockTouched || (this.enemies.countActive() == 0 && level.enemies.length > 0)) {
+    if ((hasWinBlock && winBlockTouched) || (!hasWinBlock && this.enemies.countActive() == 0 && level.enemies.length > 0)) {
       gameWon = true
       gameOver = true
       playerData.addLevelWin(level.id, score, character.id)
@@ -415,6 +418,8 @@
 
     const target = targets.shift()
     target.targetBlock.disabledUntil = time + 2000
+    sprite.setVelocityY(0)
+    sprite.setVelocityX(0)
     sprite.x = target.targetBlock.x
     sprite.y = target.targetBlock.y - target.targetBlock.height / 2
   }
