@@ -62,6 +62,7 @@
       characters: {},
       enemies: {},
       levels: {},
+      particles: {},
     }
   }
 

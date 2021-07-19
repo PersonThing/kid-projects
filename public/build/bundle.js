@@ -46726,7 +46726,8 @@ var app = (function () {
     			blocks: {},
     			characters: {},
     			enemies: {},
-    			levels: {}
+    			levels: {},
+    			particles: {}
     		};
     	}
 
