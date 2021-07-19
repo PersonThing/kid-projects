@@ -19699,6 +19699,14 @@ var app = (function () {
     }
 
     function cleanup(project) {
+      if (project.blocks == null) project.blocks = {};
+      if (project.particles == null) project.particles = {};
+      if (project.art == null) project.art = {};
+      if (project.enemies == null) project.enemies = {};
+      if (project.characters == null) project.characters = {};
+      if (project.blocks == null) project.blocks = {};
+      if (project.levels == null) project.levels = {};
+
       Object.values(project.blocks).forEach(b => {
         b.graphic = nullIfInvalid(project.art, b.graphic);
       });
